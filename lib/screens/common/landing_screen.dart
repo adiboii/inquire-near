@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/components/buttons.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class LandingScreen extends StatelessWidget {
+  const LandingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
             Center(
               child: Image(
                 width: 250,
-                image: AssetImage("assets/images/homepage.jpg"),
+                image: AssetImage("assets/images/LandingScreen.jpg"),
               ),
             ),
             SizedBox(height: 30),

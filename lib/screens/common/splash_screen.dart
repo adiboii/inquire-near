@@ -4,14 +4,14 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 //TODO: apply shared preferences
 //import 'package:shared_preferences/shared_preferences.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<SplashScreen> createState() => _SplashState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();

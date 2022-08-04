@@ -3,8 +3,8 @@ import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/labels.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class Profile extends StatelessWidget {
                 ),
                 SizedBox(height: 10.0),
                 ButtonFill(
-                  label: "Edit Profile",
+                  label: "Edit ProfileScreen",
                   width: 210,
                   onTap: () {
                     Navigator.pushNamed(context, '/edit_profile');

@@ -4,14 +4,14 @@ import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/list.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class UserWallet extends StatefulWidget {
-  const UserWallet({Key? key}) : super(key: key);
+class UserWalletScreen extends StatefulWidget {
+  const UserWalletScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserWallet> createState() => _UserWalletState();
+  State<UserWalletScreen> createState() => _UserWalletState();
 }
 
-class _UserWalletState extends State<UserWallet> {
+class _UserWalletState extends State<UserWalletScreen> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

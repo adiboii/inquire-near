@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:inquire_near/screens/authenticate/login.dart';
-import 'package:inquire_near/screens/authenticate/sign_up.dart';
-import 'package:inquire_near/screens/homepage.dart';
-import 'package:inquire_near/screens/onboarding.dart';
-import 'package:inquire_near/screens/splash.dart';
+import 'package:inquire_near/screens/authenticate/login_screen.dart';
+import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
+import 'package:inquire_near/screens/common/landing_screen.dart';
+import 'package:inquire_near/screens/common/onboarding_screen.dart';
+import 'package:inquire_near/screens/common/splash_screen.dart';
 
 class Routes {
   final Map<String, Function> _pages = {
-    '/splash': (_) => Splash(),
-    '/homepage': (_) => HomePage(),
-    '/login': (_) => Login(),
-    '/sign_up': (_) => SignUp(),
-    '/onboarding': (_) => Onboarding(),
+    '/splash': (_) => SplashScreen(),
+    '/homepage': (_) => LandingScreen(),
+    '/login': (_) => LoginScreen(),
+    '/sign_up': (_) => SignUpScreen(),
+    '/onboarding': (_) => OnboardingScreen(),
   };
 
   Map<String, Function> getPages() => _pages;

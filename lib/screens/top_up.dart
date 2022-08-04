@@ -3,8 +3,8 @@ import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class TopUp extends StatelessWidget {
-  final TextEditingController _topUpValue = TextEditingController();
+class TopUpScreen extends StatelessWidget {
+  final TextEditingController _TopUpScreenValue = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class TopUp extends StatelessWidget {
                   ),
                   InTextField(
                     icon: Icons.php_outlined,
-                    controller: _topUpValue,
+                    controller: _TopUpScreenValue,
                     hint: "0.00",
                     type: TextInputType.number,
                   ),
