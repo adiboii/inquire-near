@@ -25,7 +25,7 @@ class LandingScreen extends StatelessWidget {
             Center(
               child: Image(
                 width: 250,
-                image: AssetImage("assets/images/LandingScreen.jpg"),
+                image: AssetImage("assets/images/illustrations/landing.png"),
               ),
             ),
             SizedBox(height: 30),

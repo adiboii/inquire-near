@@ -107,15 +107,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Image(
                           width: 50,
-                          image: AssetImage("assets/images/Google.png")),
+                          image: AssetImage("assets/images/logos/Google.png")),
                       SizedBox(width: 40),
                       Image(
                           width: 45,
-                          image: AssetImage("assets/images/Facebook.png")),
+                          image:
+                              AssetImage("assets/images/logos/Facebook.png")),
                       SizedBox(width: 40),
                       Image(
                           width: 45,
-                          image: AssetImage("assets/images/Apple.png")),
+                          image: AssetImage("assets/images/logos/Apple.png")),
                     ],
                   ),
                 ],

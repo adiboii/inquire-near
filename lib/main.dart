@@ -23,7 +23,7 @@ class InquireNear extends StatelessWidget {
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashScreen(),
-        '/homepage': (context) => LandingScreen(),
+        '/landing': (context) => LandingScreen(),
         '/login': (context) => LoginScreen(),
         '/sign_up': (context) => SignUpScreen(),
         '/onboarding': (context) => OnboardingScreen(),

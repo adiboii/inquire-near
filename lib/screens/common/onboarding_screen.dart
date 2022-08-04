@@ -36,19 +36,19 @@ class _OnboardingState extends State<OnboardingScreen> {
           },
           children: [
             OnboardingPage(
-              imageURL: "assets/images/ChooseAPlace.png",
+              imageURL: "assets/images/illustrations/ChooseAPlace.png",
               title: "Choose a place",
               subtitle:
                   "Easy access to far or popular locations you want to know.",
             ),
             OnboardingPage(
-              imageURL: "assets/images/AskQuestions.png",
+              imageURL: "assets/images/illustrations/AskQuestions.png",
               title: "Ask questions",
               subtitle:
                   "Connect and ask all the questions you need to know without going to the place. ",
             ),
             OnboardingPage(
-              imageURL: "assets/images/EnjoyAsking.png",
+              imageURL: "assets/images/illustrations/EnjoyAsking.png",
               title: "Enjoy asking",
               subtitle:
                   "Know everything without leaving the comforts of your home.  ",
@@ -107,7 +107,7 @@ class _OnboardingState extends State<OnboardingScreen> {
                   if (isLastPage) {
                     final prefs = await SharedPreferences.getInstance();
                     prefs.setBool('showHome', true);
-                    Navigator.pushReplacementNamed(context, '/homepage');
+                    Navigator.pushReplacementNamed(context, '/landing');
                   } else {
                     controller.nextPage(
                         duration: Duration(milliseconds: 500),

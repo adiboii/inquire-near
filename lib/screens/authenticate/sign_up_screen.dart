@@ -46,11 +46,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconContainer(source: "assets/images/Google.png"),
+                      IconContainer(source: "assets/images/logos/Google.png"),
                       SizedBox(width: 10),
-                      IconContainer(source: "assets/images/Facebook.png"),
+                      IconContainer(source: "assets/images/logos/Facebook.png"),
                       SizedBox(width: 10),
-                      IconContainer(source: "assets/images/Apple.png"),
+                      IconContainer(source: "assets/images/logos/Apple.png"),
                     ],
                   ),
                   SizedBox(height: 10),
