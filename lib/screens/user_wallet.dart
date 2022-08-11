@@ -28,7 +28,7 @@ class _UserWalletState extends State<UserWalletScreen> {
         elevation: 0,
         title: Text(
           "Your Card",
-          style: theme.header2,
+          style: theme.title2,
         ),
         centerTitle: true,
       ),
@@ -36,7 +36,7 @@ class _UserWalletState extends State<UserWalletScreen> {
         padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
         child: Column(
           children: [
-            Wallet(height: height, width: width),
+            Wallet(screenHeight: height, screenWidth: width),
             SizedBox(height: 10),
             Row(
               children: [

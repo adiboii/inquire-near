@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class Wallet extends StatelessWidget {
-  double width;
-  double height;
+  double screenWidth;
+  double screenHeight;
 
-  Wallet({required this.height, required this.width});
+  Wallet({required this.screenHeight, required this.screenWidth});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width * 0.90,
-      height: height * 0.27,
+      width: screenWidth * 0.80,
+      height: screenHeight * 0.25,
       padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
       decoration: BoxDecoration(
         color: theme.primary,
@@ -28,11 +28,11 @@ class Wallet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Cymmer Maranga",
-                      style: theme.header3
+                      style: theme.title3
                           .copyWith(color: Colors.white, fontSize: 12)),
                   Text(
                     "•••• •••• •••• 2457",
-                    style: theme.header3.copyWith(
+                    style: theme.title3.copyWith(
                       color: Colors.white,
                       fontSize: 12,
                     ),
@@ -43,7 +43,7 @@ class Wallet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Total Balance",
-                      style: theme.header3.copyWith(
+                      style: theme.title3.copyWith(
                         color: Colors.white,
                         fontSize: 12,
                       )),
