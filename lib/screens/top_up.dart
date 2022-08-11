@@ -20,7 +20,7 @@ class TopUpScreen extends StatelessWidget {
         elevation: 0,
         title: Text(
           "Top-Up",
-          style: theme.header2,
+          style: theme.title2,
         ),
         centerTitle: true,
       ),
@@ -40,8 +40,8 @@ class TopUpScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Current Balance", style: theme.header4),
-                      Text("₱455.20", style: theme.header2),
+                      Text("Current Balance", style: theme.subhead),
+                      Text("₱455.20", style: theme.title2),
                     ],
                   )
                 ],
@@ -52,7 +52,7 @@ class TopUpScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Enter amount you wish\nto add to your wallet",
-                    style: theme.header3,
+                    style: theme.title3,
                   ),
                   InTextField(
                     icon: Icons.php_outlined,

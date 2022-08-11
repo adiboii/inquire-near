@@ -35,12 +35,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Create a new account",
-                      style: theme.header1.copyWith(fontSize: 32)),
+                  Text(
+                    "Create a new account",
+                    style: theme.title1,
+                  ),
                   SizedBox(height: 30),
                   Text(
                     "Use your socials",
-                    style: theme.header4,
+                    style: theme.subhead,
                   ),
                   SizedBox(height: 20),
                   Row(

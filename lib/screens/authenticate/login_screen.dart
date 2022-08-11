@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text(
                       "Sign in to your account",
-                      style: theme.header1,
+                      style: theme.title1,
                     ),
                     SizedBox(height: 30),
                     TextFormField(

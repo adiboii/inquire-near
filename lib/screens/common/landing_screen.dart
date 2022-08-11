@@ -19,7 +19,7 @@ class LandingScreen extends StatelessWidget {
               child: Text(
                 "Find the things\nyou need",
                 textAlign: TextAlign.right,
-                style: theme.header3,
+                style: theme.title3,
               ),
             ),
             Center(
@@ -38,7 +38,7 @@ class LandingScreen extends StatelessWidget {
                   SizedBox(height: 5),
                   Text(
                     "InquireNear",
-                    style: theme.header1,
+                    style: theme.title1,
                   ),
                 ],
               ),

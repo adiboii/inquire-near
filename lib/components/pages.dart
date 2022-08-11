@@ -27,12 +27,12 @@ class OnboardingPage extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: theme.header1,
+                style: theme.title1,
               ),
               SizedBox(height: 20),
               Text(
                 subtitle,
-                style: theme.header4,
+                style: theme.subhead,
               ),
             ],
           ),
