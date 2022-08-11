@@ -14,7 +14,7 @@ class ClientDashboardScreen extends StatelessWidget {
     final TextEditingController _search = TextEditingController();
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
+        padding: EdgeInsets.fromLTRB(20, 40, 20, 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -24,10 +24,15 @@ class ClientDashboardScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      radius: _width * 0.05,
-                      backgroundImage: AssetImage(
-                        'assets/images/illustrations/profile.png',
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/profile_screen');
+                      },
+                      child: CircleAvatar(
+                        radius: _width * 0.05,
+                        backgroundImage: AssetImage(
+                          'assets/images/illustrations/profile.png',
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -126,7 +131,7 @@ class ClientDashboardScreen extends StatelessWidget {
                 SizedBox(height: 16),
                 //TODO: convert to widget
                 SizedBox(
-                  height: _height * 0.25,
+                  height: _height * 0.22,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
