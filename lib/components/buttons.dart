@@ -6,27 +6,34 @@ class ButtonOutline extends StatelessWidget {
   double height;
   String label;
   VoidCallback? onTap;
+  Color color;
+  Color textColor;
   ButtonOutline(
-      {this.height = 300, this.width = 55, required this.label, this.onTap});
+      {this.width = 300,
+      this.height = 55,
+      required this.label,
+      this.onTap,
+      this.color = theme.primary,
+      this.textColor = theme.primary});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 300,
-        height: 55,
+        width: width,
+        height: height,
         child: OutlinedButton(
           onPressed: onTap,
           style: OutlinedButton.styleFrom(
             backgroundColor: Colors.white,
-            side: BorderSide(color: theme.primary),
+            side: BorderSide(color: color),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))),
           ),
           child: Text(
             label,
             style: TextStyle(
-              color: theme.primary,
+              color: textColor,
               fontWeight: FontWeight.w800,
             ),
           ),
