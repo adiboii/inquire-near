@@ -33,7 +33,7 @@ class _UserWalletState extends State<UserWalletScreen> {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: Column(
           children: [
             Wallet(screenHeight: height, screenWidth: width),

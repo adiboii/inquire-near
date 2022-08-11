@@ -25,7 +25,7 @@ class TopUpScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-          padding: EdgeInsets.fromLTRB(35, 40, 35, 0),
+          padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
           child: Column(
             children: [
               Row(
