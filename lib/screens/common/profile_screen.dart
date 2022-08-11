@@ -19,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
         elevation: 0,
         title: Text(
           "Profile",
-          style: Theme.of(context).textTheme.headline2,
+          style: theme.title2,
         ),
         centerTitle: true,
       ),
@@ -41,21 +41,22 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Text(
                   'Cymmer John Maranga',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: theme.title3,
                 ),
                 SizedBox(height: 10.0),
                 ButtonFill(
-                  label: "Edit ProfileScreen",
+                  label: "Edit Profile",
                   width: 210,
                   onTap: () {
                     Navigator.pushNamed(context, '/edit_profile');
                   },
                 ),
                 SizedBox(height: 5.0),
-                ButtonFill(
+                ButtonOutline(
                   label: "Deactivate Account",
                   width: 210,
                   color: theme.red,
+                  textColor: theme.red,
                 ),
               ],
             ),

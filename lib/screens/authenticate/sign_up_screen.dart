@@ -32,32 +32,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Create a new account",
-                    style: theme.title1,
+                    style: theme.title2,
                   ),
-                  SizedBox(height: 30),
-                  Text(
-                    "Use your socials",
-                    style: theme.subhead,
+                  SizedBox(height: 32),
+                  Center(
+                    child: Text(
+                      "Use your socials",
+                      style: theme.subhead,
+                    ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconContainer(source: "assets/images/logos/Google.png"),
-                      SizedBox(width: 10),
+                      SizedBox(width: 12),
                       IconContainer(source: "assets/images/logos/Facebook.png"),
-                      SizedBox(width: 10),
+                      SizedBox(width: 12),
                       IconContainer(source: "assets/images/logos/Apple.png"),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 12),
                   Center(child: Text("or")),
-                  SizedBox(height: 10),
+                  SizedBox(height: 12),
                 ],
               ),
               Form(
@@ -159,7 +161,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ButtonFill(
                 label: "Create Account",
                 onTap: () {
-                  Navigator.pushNamed(context, '/user_wallet');
+                  Navigator.pushNamed(context, '/client_dashboard');
                 },
               ),
             ],

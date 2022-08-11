@@ -74,10 +74,7 @@ class _OnboardingState extends State<OnboardingScreen> {
                 ),
                 child: Text(
                   "SKIP",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: theme.caption2.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -104,6 +101,7 @@ class _OnboardingState extends State<OnboardingScreen> {
               ),
               child: IconButton(
                 onPressed: () async {
+                  //TODO: implement shared prefereces
                   if (isLastPage) {
                     final prefs = await SharedPreferences.getInstance();
                     prefs.setBool('showHome', true);

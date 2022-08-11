@@ -9,9 +9,9 @@ class LandingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.fromLTRB(40, 150, 40, 0),
+        padding: EdgeInsets.fromLTRB(40, 20, 40, 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Align(
@@ -19,7 +19,7 @@ class LandingScreen extends StatelessWidget {
               child: Text(
                 "Find the things\nyou need",
                 textAlign: TextAlign.right,
-                style: theme.title3,
+                style: theme.headline,
               ),
             ),
             Center(
@@ -34,7 +34,10 @@ class LandingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Welcome to"),
+                  Text(
+                    "Welcome to",
+                    style: theme.caption1,
+                  ),
                   SizedBox(height: 5),
                   Text(
                     "InquireNear",

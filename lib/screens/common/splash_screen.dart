@@ -41,7 +41,7 @@ class _SplashState extends State<SplashScreen> {
               padding: EdgeInsets.only(left: 20),
               child: Text(
                 "For everyone,\nby everyone",
-                style: theme.header1,
+                style: theme.title1,
               ),
             ),
           ],

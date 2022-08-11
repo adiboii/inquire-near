@@ -32,7 +32,7 @@ class OnboardingPage extends StatelessWidget {
               SizedBox(height: 20),
               Text(
                 subtitle,
-                style: theme.subhead,
+                style: theme.body,
               ),
             ],
           ),

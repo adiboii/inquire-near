@@ -29,10 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
               Form(
                 key: _formKey,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Sign in to your account",
-                      style: theme.title1,
+                      style: theme.title2.copyWith(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 30),
                     TextFormField(
@@ -88,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ButtonFill(
                 label: "Sign In",
                 onTap: () {
-                  Navigator.pushNamed(context, '/user_wallet');
+                  Navigator.pushNamed(context, '/client_dashboard');
                 },
               ),
               SizedBox(height: 60),
@@ -98,7 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   Center(
                     child: Text(
                       "Sign In With",
-                      style: TextStyle(fontWeight: FontWeight.w600),
+                      style:
+                          theme.subhead.copyWith(fontWeight: FontWeight.bold),
                     ),
                   ),
                   SizedBox(height: 30),
