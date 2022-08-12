@@ -7,6 +7,7 @@ const Color primary = Color(0xff007AFF);
 const Color gray = Color(0xFFECECEC);
 const Color secondary = Color(0xFF3B4B84);
 const Color red = Color(0xFFFF5151);
+const Color lightBlue = Color(0xFFF0F7FF);
 
 //Text Themes
 //TODO: remove header textstyles
