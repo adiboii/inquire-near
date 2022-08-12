@@ -26,7 +26,7 @@ class ClientDashboardScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/profile_screen');
+                        Navigator.pushNamed(context, '/profile');
                       },
                       child: CircleAvatar(
                         radius: _width * 0.05,
@@ -88,7 +88,11 @@ class ClientDashboardScreen extends StatelessWidget {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Text("Popular"),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/inquiry_list');
+                          },
+                          child: Text("Popular")),
                       SizedBox(width: 12),
                       Text("Government"),
                       SizedBox(width: 12),
