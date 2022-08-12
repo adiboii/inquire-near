@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/components/cards.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListScreen extends StatefulWidget {
@@ -50,41 +51,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
               style: theme.headline.copyWith(fontSize: 16),
             ),
             SizedBox(height: 12),
-            SizedBox(
-              height: _height * 0.25,
-              width: _width * 0.90,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: theme.lightBlue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                              "assets/images/svgs/add_inquiry.svg"),
-                          SizedBox(width: 10),
-                          Text(
-                            "Start by adding an inquiry",
-                            style: theme.headline,
-                          ),
-                        ],
-                      ),
-                      Text(
-                        "Make sure to be specific and only ask questions that can be answered",
-                        style: theme.caption1,
-                      ),
-                      ButtonFill(label: "Add an inquiry"),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            AddInquiryCard(height: _height, width: _width),
           ],
         ),
       ),
