@@ -5,16 +5,20 @@ class ButtonOutline extends StatelessWidget {
   double width;
   double height;
   String label;
-  VoidCallback? onTap;
   Color color;
   Color textColor;
+  double fontSize;
+  double borderRadius;
+  VoidCallback? onTap;
   ButtonOutline(
       {this.width = 300,
       this.height = 55,
       required this.label,
       this.onTap,
       this.color = theme.primary,
-      this.textColor = theme.primary});
+      this.textColor = theme.primary,
+      this.fontSize = 14,
+      this.borderRadius = 10});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class ButtonOutline extends StatelessWidget {
             backgroundColor: Colors.white,
             side: BorderSide(color: color),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10))),
+                borderRadius: BorderRadius.all(Radius.circular(borderRadius))),
           ),
           child: Text(
             label,
@@ -49,6 +53,8 @@ class ButtonFill extends StatelessWidget {
   String label;
   Color color;
   Color textColor;
+  double fontSize;
+  double borderRadius;
   VoidCallback? onTap;
   ButtonFill(
       {this.height = 55,
@@ -56,7 +62,9 @@ class ButtonFill extends StatelessWidget {
       required this.label,
       this.onTap,
       this.color = theme.primary,
-      this.textColor = Colors.white});
+      this.textColor = Colors.white,
+      this.fontSize = 14,
+      this.borderRadius = 10});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +77,7 @@ class ButtonFill extends StatelessWidget {
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
             ),
             backgroundColor: MaterialStateProperty.all<Color>(color),
@@ -78,6 +86,7 @@ class ButtonFill extends StatelessWidget {
             label,
             style: TextStyle(
               color: textColor,
+              fontSize: fontSize,
               fontWeight: FontWeight.w800,
             ),
           ),
