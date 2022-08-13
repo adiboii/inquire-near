@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:inquire_near/screens/routes.dart';
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
+import 'package:inquire_near/screens/client/add_inquiry_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/client/inquiry_list_screen.dart';
 import 'package:inquire_near/screens/common/landing_screen.dart';
@@ -35,6 +36,7 @@ class InquireNear extends StatelessWidget {
         '/client_dashboard': (context) => ClientDashboardScreen(),
         '/profile': (context) => ProfileScreen(),
         '/inquiry_list': (context) => InquiryListScreen(),
+        '/add_inquiry': (context) => AddInquiryScreen(),
       },
     );
   }

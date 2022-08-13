@@ -51,7 +51,13 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
               style: theme.headline.copyWith(fontSize: 16),
             ),
             SizedBox(height: 12),
-            AddInquiryCard(height: _height, width: _width),
+            AddInquiryCard(
+              screenHeight: _height,
+              screenWidth: _width,
+              onTap: () {
+                Navigator.pushNamed(context, '/add_inquiry');
+              },
+            ),
           ],
         ),
       ),
