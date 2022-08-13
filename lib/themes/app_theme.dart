@@ -88,3 +88,45 @@ const TextStyle caption2 = TextStyle(
   fontWeight: FontWeight.normal,
   color: textColor,
 );
+
+const TextStyle body_bold = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 17,
+  fontWeight: FontWeight.w700,
+  color: textColor,
+);
+
+const TextStyle callout_bold = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 16,
+  fontWeight: FontWeight.w700,
+  color: textColor,
+);
+
+const TextStyle subhead_bold = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 15,
+  fontWeight: FontWeight.w700,
+  color: textColor,
+);
+
+const TextStyle footnote_bold = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 13,
+  fontWeight: FontWeight.w700,
+  color: textColor,
+);
+
+const TextStyle caption1_bold = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 12,
+  fontWeight: FontWeight.w700,
+  color: textColor,
+);
+
+const TextStyle caption2_bold = TextStyle(
+  fontFamily: 'Inter',
+  fontSize: 12,
+  fontWeight: FontWeight.w700,
+  color: textColor,
+);
