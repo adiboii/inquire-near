@@ -5,22 +5,21 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'buttons.dart';
 
 class AddInquiryCard extends StatelessWidget {
-  const AddInquiryCard({
-    Key? key,
-    required double height,
-    required double width,
-  })  : _height = height,
-        _width = width,
-        super(key: key);
+  final double screenHeight;
+  final double screenWidth;
+  VoidCallback? onTap;
 
-  final double _height;
-  final double _width;
+  AddInquiryCard({
+    required this.screenHeight,
+    required this.screenWidth,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: _height * 0.25,
-      width: _width * 0.90,
+      height: screenHeight * 0.25,
+      width: screenWidth * 0.90,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: theme.lightBlue,
@@ -46,7 +45,10 @@ class AddInquiryCard extends StatelessWidget {
                 "Make sure to be specific and only ask questions that can be answered",
                 style: theme.caption1,
               ),
-              ButtonFill(label: "Add an inquiry"),
+              ButtonFill(
+                label: "Add an inquiry",
+                onTap: onTap,
+              ),
             ],
           ),
         ),
