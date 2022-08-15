@@ -24,41 +24,44 @@ class _OnboardingState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(bottom: 80),
-        child: PageView(
-          controller: controller,
-          onPageChanged: (index) {
-            setState(() {
-              isLastPage = (index == 2);
-            });
-          },
-          children: [
-            OnboardingPage(
-              imageURL: "assets/images/illustrations/ChooseAPlace.png",
-              title: "Choose a place",
-              subtitle:
-                  "Easy access to far or popular locations you want to know.",
-            ),
-            OnboardingPage(
-              imageURL: "assets/images/illustrations/AskQuestions.png",
-              title: "Ask questions",
-              subtitle:
-                  "Connect and ask all the questions you need to know without going to the place. ",
-            ),
-            OnboardingPage(
-              imageURL: "assets/images/illustrations/EnjoyAsking.png",
-              title: "Enjoy asking",
-              subtitle:
-                  "Know everything without leaving the comforts of your home.  ",
-            ),
-          ],
+      body: SafeArea(
+        child: Padding(
+          padding: theme.kScreenPadding,
+          child: PageView(
+            controller: controller,
+            onPageChanged: (index) {
+              setState(() {
+                isLastPage = (index == 2);
+              });
+            },
+            children: [
+              OnboardingPage(
+                imageURL: "assets/images/illustrations/ChooseAPlace.png",
+                title: "Choose a place",
+                subtitle:
+                    "Easy access to far or popular locations you want to know.",
+              ),
+              OnboardingPage(
+                imageURL: "assets/images/illustrations/AskQuestions.png",
+                title: "Ask questions",
+                subtitle:
+                    "Connect and ask all the questions you need to know without going to the place. ",
+              ),
+              OnboardingPage(
+                imageURL: "assets/images/illustrations/EnjoyAsking.png",
+                title: "Enjoy asking",
+                subtitle:
+                    "Know everything without leaving the comforts of your home.  ",
+              ),
+            ],
+          ),
         ),
       ),
       bottomSheet: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         height: 80,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,10 +75,7 @@ class _OnboardingState extends State<OnboardingScreen> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.transparent),
                 ),
-                child: Text(
-                  "SKIP",
-                  style: theme.caption2.copyWith(fontWeight: FontWeight.bold),
-                ),
+                child: Text("SKIP", style: theme.caption2_bold),
               ),
             ),
             Center(
@@ -83,6 +83,8 @@ class _OnboardingState extends State<OnboardingScreen> {
                 controller: controller,
                 count: 3,
                 effect: ExpandingDotsEffect(
+                  dotWidth: width * 0.03,
+                  dotHeight: height * 0.015,
                   spacing: 16,
                   dotColor: Colors.black26,
                   activeDotColor: theme.primary,
@@ -93,8 +95,8 @@ class _OnboardingState extends State<OnboardingScreen> {
               ),
             ),
             Container(
-              height: 60,
-              width: 60,
+              height: 40,
+              width: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(100)),
                 color: theme.primary,
@@ -112,7 +114,10 @@ class _OnboardingState extends State<OnboardingScreen> {
                         curve: Curves.easeInOut);
                   }
                 },
-                icon: FaIcon(FontAwesomeIcons.angleRight),
+                icon: FaIcon(
+                  FontAwesomeIcons.angleRight,
+                  size: 20,
+                ),
                 color: Colors.white,
               ),
             )

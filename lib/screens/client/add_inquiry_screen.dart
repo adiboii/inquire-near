@@ -13,8 +13,8 @@ class AddInquiryScreen extends StatefulWidget {
 class _AddInquiryScreenState extends State<AddInquiryScreen> {
   @override
   Widget build(BuildContext context) {
-    final double _width = MediaQuery.of(context).size.width;
-    final double _height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -45,8 +45,8 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
 
                       ButtonFill(
                         label: "Add inquiry",
-                        width: _width * 0.25,
-                        height: _height * 0.05,
+                        width: width * 0.25,
+                        height: height * 0.05,
                         fontSize: 12,
                       ),
                     ],
@@ -58,7 +58,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                     children: [
                       SizedBox(
                         child: CircleAvatar(
-                          radius: _width * 0.05,
+                          radius: width * 0.05,
                           backgroundImage: AssetImage(
                             'assets/images/illustrations/profile.png',
                           ),
@@ -66,7 +66,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                       ),
                       SizedBox(width: 24),
                       SizedBox(
-                        width: _width * 0.7,
+                        width: width * 0.7,
                         child: TextField(
                           decoration: InputDecoration.collapsed(
                               hintText: "What's happening?"),

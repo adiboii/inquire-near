@@ -23,28 +23,30 @@ class _SplashState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Image(
-                image: AssetImage("assets/images/logos/logo.png"),
-                width: 200,
-                height: 200,
+      body: SafeArea(
+        child: Padding(
+          padding: theme.kScreenPadding,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Image(
+                  image: AssetImage("assets/images/logos/logo.png"),
+                  width: 200,
+                  height: 200,
+                ),
               ),
-            ),
-            SizedBox(height: 100),
-            Container(
-              padding: EdgeInsets.only(left: 20),
-              child: Text(
-                "For everyone,\nby everyone",
-                style: theme.title1,
+              SizedBox(height: 100),
+              Container(
+                padding: EdgeInsets.only(left: 20),
+                child: Text(
+                  "For everyone,\nby everyone",
+                  style: theme.title1,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

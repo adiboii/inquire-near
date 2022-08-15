@@ -8,63 +8,73 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.fromLTRB(40, 20, 40, 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: Text(
-                "Find the things\nyou need",
-                textAlign: TextAlign.right,
-                style: theme.headline,
+      body: SafeArea(
+        child: Padding(
+          padding: theme.kScreenPadding,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        "Find the things\nyou need",
+                        textAlign: TextAlign.right,
+                        style: theme.headline,
+                      ),
+                    ),
+                    Center(
+                      child: Image(
+                        width: 250,
+                        image: AssetImage(
+                            "assets/images/illustrations/landing.png"),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Welcome to",
+                            style: theme.body,
+                          ),
+                          Text(
+                            "InquireNear",
+                            style: theme.largeTitle,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Center(
-              child: Image(
-                width: 250,
-                image: AssetImage("assets/images/illustrations/landing.png"),
-              ),
-            ),
-            SizedBox(height: 30),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              SizedBox(height: 20),
+              Column(
                 children: [
-                  Text(
-                    "Welcome to",
-                    style: theme.caption1,
+                  ButtonFill(
+                    label: "Create an account",
+                    style: theme.headline,
+                    onTap: () {
+                      Navigator.pushNamed(context, '/sign_up');
+                    },
                   ),
-                  SizedBox(height: 5),
-                  Text(
-                    "InquireNear",
-                    style: theme.title1,
+                  SizedBox(height: 10),
+                  ButtonOutline(
+                    label: "Sign in",
+                    onTap: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
                   ),
                 ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Column(
-              children: [
-                ButtonFill(
-                  label: "Sign In",
-                  onTap: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                ),
-                SizedBox(height: 10),
-                ButtonOutline(
-                  label: "Create Account",
-                  onTap: () {
-                    Navigator.pushNamed(context, '/sign_up');
-                  },
-                ),
-              ],
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

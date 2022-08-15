@@ -12,7 +12,7 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(50),
+      padding: EdgeInsets.fromLTRB(50, 0, 50, 70),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -29,7 +29,7 @@ class OnboardingPage extends StatelessWidget {
                 title,
                 style: theme.title1,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 8),
               Text(
                 subtitle,
                 style: theme.body,
