@@ -15,14 +15,14 @@ const Color lightBlue = Color(0xFFF0F7FF);
 const TextStyle largeTitle = TextStyle(
   fontFamily: 'Poppins',
   fontSize: 34,
-  fontWeight: FontWeight.w800,
+  fontWeight: FontWeight.w600,
   color: textColor,
 );
 
 const TextStyle title1 = TextStyle(
   fontFamily: 'Poppins',
   fontSize: 28,
-  fontWeight: FontWeight.w800,
+  fontWeight: FontWeight.w600,
   color: textColor,
 );
 
@@ -130,3 +130,5 @@ const TextStyle caption2_bold = TextStyle(
   fontWeight: FontWeight.w700,
   color: textColor,
 );
+
+const kScreenPadding = EdgeInsets.fromLTRB(20, 40, 20, 10);
