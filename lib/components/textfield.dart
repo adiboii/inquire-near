@@ -45,3 +45,52 @@ class InTextField extends StatelessWidget {
     );
   }
 }
+
+class InTextFormField extends StatefulWidget {
+  String label;
+  Icon? icon;
+  String? value;
+  bool isObscure;
+  InTextFormField(
+      {this.label = '', this.icon, this.value, this.isObscure = false});
+
+  @override
+  State<InTextFormField> createState() => _InTextFormFieldState();
+}
+
+class _InTextFormFieldState extends State<InTextFormField> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.label,
+          style: theme.caption2,
+        ),
+        SizedBox(height: 4),
+        TextFormField(
+          // TODO: transfer to components
+          style: theme.callout,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 10,
+            ),
+            prefixIcon: widget.icon,
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade300, width: 1)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: theme.primary, width: 1)),
+          ),
+          obscureText: widget.isObscure,
+          validator: (val) =>
+              val!.isEmpty ? "Please enter your username" : null,
+          onChanged: (val) {
+            setState(() => widget.value = val);
+          },
+        ),
+      ],
+    );
+  }
+}

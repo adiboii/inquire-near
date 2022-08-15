@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/container.dart';
+import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class SignUpScreen extends StatefulWidget {
@@ -23,148 +24,87 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          width: size.width,
-          height: size.height,
-          padding: EdgeInsets.fromLTRB(30, 50, 30, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Create a new account",
-                    style: theme.title2,
-                  ),
-                  SizedBox(height: 32),
-                  Center(
-                    child: Text(
-                      "Use your socials",
-                      style: theme.subhead,
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconContainer(source: "assets/images/logos/Google.png"),
-                      SizedBox(width: 12),
-                      IconContainer(source: "assets/images/logos/Facebook.png"),
-                      SizedBox(width: 12),
-                      IconContainer(source: "assets/images/logos/Apple.png"),
-                    ],
-                  ),
-                  SizedBox(height: 12),
-                  Center(child: Text("or")),
-                  SizedBox(height: 12),
-                ],
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: theme.kScreenPadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          hintText: "Full Name",
-                          fillColor: Colors.white,
-                          filled: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey.shade300, width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: theme.primary, width: 1),
-                          )),
-                      validator: (val) => val!.isEmpty ? "Enter a name" : null,
-                      onChanged: (val) {
-                        setState(() => name = val);
-                      },
+                    Text(
+                      "Create a new account",
+                      style: theme.title2,
                     ),
-                    SizedBox(height: 15),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          hintText: "Email",
-                          fillColor: Colors.white,
-                          filled: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey.shade300, width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: theme.primary, width: 1),
-                          )),
-                      validator: (val) =>
-                          val!.isEmpty ? "Enter an Email" : null,
-                      onChanged: (val) {
-                        setState(() => email = val);
-                      },
+                    SizedBox(height: 32),
+                    Center(
+                      child: Text(
+                        "Use your socials",
+                        style: theme.subhead,
+                      ),
                     ),
-                    SizedBox(height: 15),
-                    TextFormField(
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            hintText: "Password",
-                            fillColor: Colors.white,
-                            filled: true,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.grey.shade300, width: 1),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: theme.primary, width: 1),
-                            )),
-                        obscureText: true,
-                        validator: (val) => val!.length <= 6
-                            ? "Enter a password with more than 6 characters"
-                            : null,
-                        onChanged: (val) {
-                          setState(() => password = val);
-                        }),
-                    SizedBox(height: 15),
-                    TextFormField(
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            hintText: "Confirm Password",
-                            fillColor: Colors.white,
-                            filled: true,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.grey.shade300, width: 1),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: theme.primary, width: 1),
-                            )),
-                        obscureText: true,
-                        validator: (val) =>
-                            val != password ? "Passwords do not match" : null,
-                        onChanged: (val) {
-                          setState(() => confirmPassword = val);
-                        }),
-                    SizedBox(height: 15),
+                    SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconContainer(source: "assets/images/logos/Google.png"),
+                        SizedBox(width: 12),
+                        IconContainer(
+                            source: "assets/images/logos/Facebook.png"),
+                        SizedBox(width: 12),
+                        IconContainer(source: "assets/images/logos/Apple.png"),
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                    Center(child: Text("or")),
+                    SizedBox(height: 12),
                   ],
                 ),
-              ),
-              SizedBox(height: 20),
-              ButtonFill(
-                label: "Create Account",
-                onTap: () {
-                  Navigator.pushNamed(context, '/client_dashboard');
-                },
-              ),
-            ],
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      InTextFormField(
+                        icon: Icon(Icons.person),
+                        label: "Full Name",
+                        value: name,
+                      ),
+                      SizedBox(height: 12),
+                      InTextFormField(
+                        icon: Icon(Icons.email),
+                        label: "Email",
+                        value: email,
+                      ),
+                      SizedBox(height: 12),
+                      InTextFormField(
+                        icon: Icon(Icons.lock_open_sharp),
+                        label: "Password",
+                        value: password,
+                        isObscure: true,
+                      ),
+                      SizedBox(height: 12),
+                      InTextFormField(
+                        icon: Icon(Icons.lock_open_sharp),
+                        label: "Confrim Password",
+                        value: confirmPassword,
+                        isObscure: true,
+                      ),
+                      SizedBox(height: 12),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 16),
+                ButtonFill(
+                  label: "Create Account",
+                  onTap: () {
+                    Navigator.pushNamed(context, '/client_dashboard');
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
