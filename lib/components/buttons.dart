@@ -10,15 +10,17 @@ class ButtonOutline extends StatelessWidget {
   double fontSize;
   double borderRadius;
   VoidCallback? onTap;
+  TextStyle style;
   ButtonOutline(
-      {this.width = 300,
+      {this.width = double.infinity,
       this.height = 55,
       required this.label,
       this.onTap,
       this.color = theme.primary,
       this.textColor = theme.primary,
       this.fontSize = 14,
-      this.borderRadius = 10});
+      this.borderRadius = 10,
+      this.style = theme.headline});
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +38,7 @@ class ButtonOutline extends StatelessWidget {
           ),
           child: Text(
             label,
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w800,
-            ),
+            style: style.copyWith(color: textColor),
           ),
         ),
       ),
@@ -56,15 +55,17 @@ class ButtonFill extends StatelessWidget {
   double fontSize;
   double borderRadius;
   VoidCallback? onTap;
+  TextStyle style;
   ButtonFill(
       {this.height = 55,
-      this.width = 300,
+      this.width = double.infinity,
       required this.label,
       this.onTap,
       this.color = theme.primary,
       this.textColor = Colors.white,
       this.fontSize = 14,
-      this.borderRadius = 10});
+      this.borderRadius = 10,
+      this.style = theme.headline});
 
   @override
   Widget build(BuildContext context) {
@@ -82,14 +83,7 @@ class ButtonFill extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all<Color>(color),
           ),
-          child: Text(
-            label,
-            style: TextStyle(
-              color: textColor,
-              fontSize: fontSize,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
+          child: Text(label, style: style.copyWith(color: textColor)),
         ),
       ),
     );
