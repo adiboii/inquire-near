@@ -4,6 +4,8 @@ import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/add_inquiry_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
+import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
+import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
 import 'package:inquire_near/screens/client/inquiry_list_screen.dart';
 import 'package:inquire_near/screens/common/landing_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
@@ -24,7 +26,7 @@ class InquireNear extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Inquire Near',
-      initialRoute: '/client_dashboard',
+      initialRoute: '/finding_inquirer',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/landing': (context) => LandingScreen(),
@@ -37,6 +39,8 @@ class InquireNear extends StatelessWidget {
         '/profile': (context) => ProfileScreen(),
         '/inquiry_list': (context) => InquiryListScreen(),
         '/add_inquiry': (context) => AddInquiryScreen(),
+        '/finding_inquirer': (context) => FindingInquirerScreen(),
+        '/eta_screen': (context) => ETAScreen(),
       },
     );
   }
