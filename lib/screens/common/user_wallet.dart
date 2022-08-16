@@ -32,84 +32,86 @@ class _UserWalletState extends State<UserWalletScreen> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: Column(
-          children: [
-            Wallet(screenHeight: height, screenWidth: width),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                ButtonFill(
-                  label: "Top-Up",
-                  width: 170,
-                  onTap: () {
-                    Navigator.pushNamed(context, '/top_up');
-                  },
-                ),
-                SizedBox(width: 10),
-                ButtonFill(
-                  label: "Block Card",
-                  width: 170,
-                  color: theme.gray,
-                  textColor: Colors.black,
-                )
-              ],
-            ),
-            SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Recent Transactions",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(fontSize: 15),
-                ),
-                SizedBox(height: 10),
-                Center(
-                  child: Container(
-                    height: height * 0.45,
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        InListItem(
-                            color: Colors.red,
-                            type: "Payment",
-                            amount: "- ₱25.00"),
-                        SizedBox(height: 10),
-                        InListItem(
-                            color: Colors.green,
-                            type: "Top-up",
-                            amount: "+ ₱150.00"),
-                        SizedBox(height: 10),
-                        InListItem(
-                            color: Colors.red,
-                            type: "Payment",
-                            amount: "- ₱25.00"),
-                        SizedBox(height: 10),
-                        InListItem(
-                            color: Colors.green,
-                            type: "Top-up",
-                            amount: "+ ₱150.00"),
-                        SizedBox(height: 10),
-                        InListItem(
-                            color: Colors.red,
-                            type: "Payment",
-                            amount: "- ₱25.00"),
-                        SizedBox(height: 10),
-                        InListItem(
-                            color: Colors.green,
-                            type: "Top-up",
-                            amount: "+ ₱150.00"),
-                      ],
-                    ),
+      body: SafeArea(
+        child: Padding(
+          padding: theme.kScreenPadding,
+          child: Column(
+            children: [
+              Wallet(screenHeight: height, screenWidth: width),
+              SizedBox(height: 12),
+              Row(
+                children: [
+                  ButtonFill(
+                    label: "Top-Up",
+                    width: 170,
+                    onTap: () {
+                      Navigator.pushNamed(context, '/top_up');
+                    },
                   ),
-                )
-              ],
-            ),
-          ],
+                  SizedBox(width: 12),
+                  ButtonFill(
+                    label: "Block Card",
+                    width: 170,
+                    color: theme.gray,
+                    textColor: Colors.black,
+                  )
+                ],
+              ),
+              SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Recent Transactions",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.copyWith(fontSize: 15),
+                  ),
+                  SizedBox(height: 12),
+                  Center(
+                    child: Container(
+                      height: height * 0.45,
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          InListItem(
+                              color: Colors.red,
+                              type: "Payment",
+                              amount: "- ₱25.00"),
+                          SizedBox(height: 12),
+                          InListItem(
+                              color: Colors.green,
+                              type: "Top-up",
+                              amount: "+ ₱150.00"),
+                          SizedBox(height: 12),
+                          InListItem(
+                              color: Colors.red,
+                              type: "Payment",
+                              amount: "- ₱25.00"),
+                          SizedBox(height: 12),
+                          InListItem(
+                              color: Colors.green,
+                              type: "Top-up",
+                              amount: "+ ₱150.00"),
+                          SizedBox(height: 12),
+                          InListItem(
+                              color: Colors.red,
+                              type: "Payment",
+                              amount: "- ₱25.00"),
+                          SizedBox(height: 10),
+                          InListItem(
+                              color: Colors.green,
+                              type: "Top-up",
+                              amount: "+ ₱150.00"),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

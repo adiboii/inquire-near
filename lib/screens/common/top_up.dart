@@ -24,52 +24,54 @@ class TopUpScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
-          padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    height: 50,
-                    width: 10,
-                    child: ColoredBox(color: theme.primary),
-                  ),
-                  SizedBox(width: 10),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Current Balance", style: theme.subhead),
-                      Text("₱455.20", style: theme.title2),
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(height: 50),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Enter amount you wish\nto add to your wallet",
-                    style: theme.title3,
-                  ),
-                  InTextField(
-                    icon: Icons.php_outlined,
-                    controller: _TopUpScreenValue,
-                    hint: "0.00",
-                    type: TextInputType.number,
-                  ),
-                  SizedBox(height: 30),
-                  ButtonFill(
-                    label: "Confirm",
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ],
-          ) //end,
-          ),
+      body: SafeArea(
+        child: Padding(
+            padding: theme.kScreenPadding,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      height: 50,
+                      width: 10,
+                      child: ColoredBox(color: theme.primary),
+                    ),
+                    SizedBox(width: 12),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Current Balance", style: theme.subhead),
+                        Text("₱455.20", style: theme.title2),
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(height: 48),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Enter amount you wish\nto add to your wallet",
+                      style: theme.title3,
+                    ),
+                    InTextField(
+                      icon: Icons.php_outlined,
+                      controller: _TopUpScreenValue,
+                      hint: "0.00",
+                      type: TextInputType.number,
+                    ),
+                    SizedBox(height: 28),
+                    ButtonFill(
+                      label: "Confirm",
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ],
+            ) //end,
+            ),
+      ),
     );
   }
 }

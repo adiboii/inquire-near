@@ -41,24 +41,26 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "What do you need from here?",
-              style: theme.headline.copyWith(fontSize: 16),
-            ),
-            SizedBox(height: 12),
-            AddInquiryCard(
-              screenHeight: _height,
-              screenWidth: _width,
-              onTap: () {
-                Navigator.pushNamed(context, '/add_inquiry');
-              },
-            ),
-          ],
+      body: SafeArea(
+        child: Padding(
+          padding: theme.kScreenPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "What do you need from here?",
+                style: theme.headline.copyWith(fontSize: 16),
+              ),
+              SizedBox(height: 12),
+              AddInquiryCard(
+                screenHeight: _height,
+                screenWidth: _width,
+                onTap: () {
+                  Navigator.pushNamed(context, '/add_inquiry');
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
