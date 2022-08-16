@@ -81,6 +81,10 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                 height: height * 0.05,
                                 style: theme.caption1_bold,
                                 borderRadius: 5,
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, '/finding_inquirer');
+                                },
                               ),
                             ],
                           ),
