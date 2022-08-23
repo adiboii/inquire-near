@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InListItem extends StatelessWidget {
@@ -35,6 +36,61 @@ class InListItem extends StatelessWidget {
           Text(amount),
         ],
       ),
+    );
+  }
+}
+
+class AvailableInquirer extends StatelessWidget {
+  final String name;
+  final String rating;
+  final String location;
+  const AvailableInquirer({
+    required this.name,
+    required this.rating,
+    required this.location,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        CircleAvatar(
+          backgroundColor: Colors.blue[800],
+          radius: 30,
+        ),
+        SizedBox(width: 24),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              name,
+              style: theme.subhead_bold,
+            ),
+            SizedBox(height: 4),
+            Row(
+              children: [
+                SvgPicture.asset("assets/images/svgs/star.svg"),
+                Text(
+                  rating,
+                  style: theme.caption2,
+                ),
+              ],
+            ),
+            SizedBox(height: 4),
+            Row(
+              children: [
+                SvgPicture.asset("assets/images/svgs/location.svg"),
+                Text(
+                  location,
+                  style: theme.caption2,
+                ),
+              ],
+            ),
+          ],
+        )
+      ],
     );
   }
 }

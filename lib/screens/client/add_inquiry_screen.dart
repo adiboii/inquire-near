@@ -83,7 +83,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                 borderRadius: 5,
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, '/finding_inquirer');
+                                      context, '/available_inquirers');
                                 },
                               ),
                             ],
