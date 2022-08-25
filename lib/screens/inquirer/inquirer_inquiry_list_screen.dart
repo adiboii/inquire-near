@@ -25,15 +25,23 @@ class InquirerInquiryListScreen extends StatelessWidget {
                   style: theme.headline,
                 ),
                 SizedBox(
-                  height: screenHeight * 0.05,
+                  height: screenHeight * 0.04,
                 ),
                 Expanded(
                   child: InquiryList(),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.04,
                 ),
                 ButtonFill(
                   label: 'Finish',
                   style: theme.caption1_bold,
                   height: screenHeight * 0.07,
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed(
+                      '/payment_received',
+                    );
+                  },
                 ),
               ],
             ),
