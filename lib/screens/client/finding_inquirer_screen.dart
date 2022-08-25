@@ -16,7 +16,7 @@ class _FindingInquirerScreenState extends State<FindingInquirerScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 200), () {
+    Timer(Duration(seconds: 5), () {
       Navigator.pushReplacementNamed(context, '/eta_screen');
     });
   }
