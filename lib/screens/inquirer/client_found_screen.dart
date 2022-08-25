@@ -19,187 +19,193 @@ class ClientFoundScreen extends StatelessWidget {
           padding: theme.kScreenPadding,
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                AutoSizeText(
-                  'You\'re Hired',
-                  style: theme.headline,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
-                BorderedProfilePicture(),
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
-                AutoSizeText(
-                  'Mel Jefferson Gabutan',
-                  style: theme.subhead_bold,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
-                    Icon(
-                      Icons.star,
-                      color: theme.primaryYellow,
-                      size: theme.caption2Icon,
+                    AutoSizeText(
+                      'You\'re Hired',
+                      style: theme.headline,
                     ),
                     SizedBox(
-                      width: screenWidth * 0.01,
+                      height: screenHeight * 0.02,
                     ),
-                    AutoSizeText(
-                      '4.5 (12 reviews)',
-                      style: theme.caption2,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      color: theme.primary,
-                      size: theme.subheadIcon,
-                    ),
+                    BorderedProfilePicture(),
                     SizedBox(
-                      width: screenWidth * 0.02,
+                      height: screenHeight * 0.02,
                     ),
                     AutoSizeText(
-                      'Location',
+                      'Mel Jefferson Gabutan',
                       style: theme.subhead_bold,
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.015,
-                ),
-                Row(
-                  children: [
                     SizedBox(
-                      width: screenWidth * 0.071,
+                      height: screenHeight * 0.02,
                     ),
-                    Image.asset(
-                      'assets/images/logos/BIR.png',
-                      width: screenWidth * 0.1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: theme.primaryYellow,
+                          size: theme.caption2Icon,
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.01,
+                        ),
+                        AutoSizeText(
+                          '4.5 (12 reviews)',
+                          style: theme.caption2,
+                        ),
+                      ],
                     ),
                     SizedBox(
-                      width: screenWidth * 0.03,
+                      height: screenHeight * 0.05,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: theme.primary,
+                          size: theme.subheadIcon,
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.02,
+                        ),
+                        AutoSizeText(
+                          'Location',
+                          style: theme.subhead_bold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.015,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: screenWidth * 0.071,
+                        ),
+                        Image.asset(
+                          'assets/images/logos/BIR.png',
+                          width: screenWidth * 0.1,
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.03,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            AutoSizeText(
+                              'Bureau of Internal Revenue (BIR)',
+                              style: theme.caption1,
+                            ),
+                            AutoSizeText(
+                              'Cebu South Branch',
+                              style: theme.caption1,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.receipt,
+                          color: theme.primary,
+                          size: theme.subheadIcon,
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.02,
+                        ),
+                        AutoSizeText(
+                          'Order',
+                          style: theme.subhead_bold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.015,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                         AutoSizeText(
-                          'Bureau of Internal Revenue (BIR)',
+                          'Inquiries',
                           style: theme.caption1,
                         ),
                         AutoSizeText(
-                          'Cebu South Branch',
+                          '4 x PHP 25.00',
                           style: theme.caption1,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        AutoSizeText(
+                          'Require Proof',
+                          style: theme.caption1,
+                        ),
+                        AutoSizeText(
+                          '4 x PHP 5.00',
+                          style: theme.caption1,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
+                    Divider(
+                      thickness: 0.9,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        AutoSizeText(
+                          'Total Amount',
+                          style: theme.caption1,
+                        ),
+                        AutoSizeText(
+                          'PHP 100.00',
+                          style: theme.headline,
                         ),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
-                Row(
+                Column(
                   children: [
-                    Icon(
-                      Icons.receipt,
-                      color: theme.primary,
-                      size: theme.subheadIcon,
+                    ButtonFill(
+                      label: 'Accept Request',
+                      style: theme.caption1_bold,
+                      height: screenHeight * 0.07,
+                      onTap: () {
+                        Navigator.of(context).pushReplacementNamed(
+                          '/reminders',
+                        );
+                      },
                     ),
                     SizedBox(
-                      width: screenWidth * 0.02,
+                      height: screenHeight * 0.02,
                     ),
-                    AutoSizeText(
-                      'Order',
-                      style: theme.subhead_bold,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.015,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    AutoSizeText(
-                      'Inquiries',
-                      style: theme.caption1,
-                    ),
-                    AutoSizeText(
-                      '4 x PHP 25.00',
-                      style: theme.caption1,
+                    ButtonOutline(
+                      label: 'Reject Request',
+                      style: theme.caption1_bold,
+                      height: screenHeight * 0.07,
+                      color: theme.red,
+                      textColor: theme.red,
                     ),
                   ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.01,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    AutoSizeText(
-                      'Require Proof',
-                      style: theme.caption1,
-                    ),
-                    AutoSizeText(
-                      '4 x PHP 5.00',
-                      style: theme.caption1,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.01,
-                ),
-                Divider(
-                  thickness: 0.9,
-                  color: Colors.black,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.01,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    AutoSizeText(
-                      'Total Amount',
-                      style: theme.caption1,
-                    ),
-                    AutoSizeText(
-                      'PHP 100.00',
-                      style: theme.headline,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ),
-                ButtonFill(
-                  label: 'Accept Request',
-                  style: theme.caption1_bold,
-                  height: screenHeight * 0.07,
-                  onTap: () {
-                    Navigator.of(context).pushReplacementNamed(
-                      '/reminders',
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: screenHeight * 0.02,
-                ),
-                ButtonOutline(
-                  label: 'Reject Request',
-                  style: theme.caption1_bold,
-                  height: screenHeight * 0.07,
-                  color: theme.red,
-                  textColor: theme.red,
                 ),
               ],
             ),
