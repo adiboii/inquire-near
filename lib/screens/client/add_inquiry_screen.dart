@@ -31,16 +31,16 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
           SingleChildScrollView(
             child: SizedBox(
-              height: height,
-              width: width,
+              height: screenHeight,
+              width: screenWidth,
               child: SafeArea(
                 top: false,
                 child: Padding(
@@ -64,10 +64,10 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                     child: SvgPicture.asset(
                                         "assets/images/svgs/cancel.svg"),
                                   ),
-                                  SizedBox(width: 12),
+                                  SizedBox(width: screenWidth * 0.04),
                                   SvgPicture.asset(
                                       "assets/images/svgs/add_inquiry.svg"),
-                                  SizedBox(width: 12),
+                                  SizedBox(width: screenWidth * 0.04),
                                   Text(
                                     "Add an inquiry",
                                     style: theme.headline,
@@ -77,8 +77,8 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
 
                               ButtonFill(
                                 label: "Add inquiry",
-                                width: width * 0.25,
-                                height: height * 0.05,
+                                width: screenWidth * 0.25,
+                                height: screenHeight * 0.05,
                                 style: theme.caption1_bold,
                                 borderRadius: 5,
                                 onTap: () {
@@ -88,22 +88,22 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 24),
+                          SizedBox(height: screenHeight * 0.04),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
                                 child: CircleAvatar(
-                                  radius: width * 0.05,
+                                  radius: screenWidth * 0.05,
                                   backgroundImage: AssetImage(
                                     'assets/images/illustrations/profile.png',
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 24),
+                              SizedBox(width: screenWidth * 0.04),
                               SizedBox(
-                                width: width * 0.7,
+                                width: screenWidth * 0.7,
                                 child: TextField(
                                   decoration: InputDecoration.collapsed(
                                       hintText: "What do you need?"),

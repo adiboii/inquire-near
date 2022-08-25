@@ -13,7 +13,8 @@ class ETAScreen extends StatefulWidget {
 class _ETAScreenState extends State<ETAScreen> {
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -27,16 +28,16 @@ class _ETAScreenState extends State<ETAScreen> {
                     "Estimated Delivery Time",
                     style: theme.headline,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: screenHeight * 0.02),
                   Text(
                     "Sit back and relax while our\ninquirer handles things for you,",
                     style: theme.subhead,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: screenHeight * 0.03),
                   Lottie.asset("assets/images/lottie/eta.json",
-                      height: height * 0.30),
-                  SizedBox(height: 16),
+                      height: screenHeight * 0.30),
+                  SizedBox(height: screenHeight * 0.02),
                   Text(
                     "25 min",
                     style: theme.headline,

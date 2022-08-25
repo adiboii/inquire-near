@@ -8,6 +8,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -24,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
+        padding: theme.kScreenPadding.copyWith(top: 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -36,17 +38,17 @@ class ProfileScreen extends StatelessWidget {
                     'assets/images/illustrations/profile.png',
                   ),
                 ),
-                SizedBox(
-                  height: 25.0,
-                ),
+                SizedBox(height: 25.0),
                 Text(
                   'Cymmer John Maranga',
-                  style: theme.title3,
+                  style: theme.headline,
                 ),
                 SizedBox(height: 10.0),
                 ButtonFill(
                   label: "Edit Profile",
-                  width: 210,
+                  width: screenWidth * 0.40,
+                  height: screenHeight * 0.05,
+                  style: theme.caption1,
                   onTap: () {
                     Navigator.pushNamed(context, '/edit_profile');
                   },
@@ -54,7 +56,9 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(height: 5.0),
                 ButtonOutline(
                   label: "Deactivate Account",
-                  width: 210,
+                  width: screenWidth * 0.40,
+                  height: screenHeight * 0.05,
+                  style: theme.caption1,
                   color: theme.red,
                   textColor: theme.red,
                 ),

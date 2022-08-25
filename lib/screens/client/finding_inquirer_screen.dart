@@ -16,12 +16,13 @@ class _FindingInquirerScreenState extends State<FindingInquirerScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 200), () {
       Navigator.pushReplacementNamed(context, '/eta_screen');
     });
   }
 
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -36,9 +37,10 @@ class _FindingInquirerScreenState extends State<FindingInquirerScreen> {
                     style: theme.title3,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 24),
-                  Lottie.asset("assets/images/lottie/finding_inquirer.json"),
-                  SizedBox(height: 24),
+                  SizedBox(height: screenHeight * 0.01),
+                  Lottie.asset("assets/images/lottie/finding_inquirer.json",
+                      height: screenHeight * 0.4),
+                  SizedBox(height: screenHeight * 0.01),
                   Text(
                     "Hold on...",
                     style: theme.headline,

@@ -7,6 +7,8 @@ class LandingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -34,7 +36,7 @@ class LandingScreen extends StatelessWidget {
                             "assets/images/illustrations/landing.png"),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: screenHeight * 0.05),
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Column(
@@ -54,7 +56,7 @@ class LandingScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: screenHeight * 0.03),
               Column(
                 children: [
                   ButtonFill(
@@ -64,7 +66,7 @@ class LandingScreen extends StatelessWidget {
                       Navigator.pushNamed(context, '/sign_up');
                     },
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.015),
                   ButtonOutline(
                     label: "Sign in",
                     onTap: () {

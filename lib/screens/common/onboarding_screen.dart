@@ -24,8 +24,8 @@ class _OnboardingState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -83,8 +83,8 @@ class _OnboardingState extends State<OnboardingScreen> {
                 controller: controller,
                 count: 3,
                 effect: ExpandingDotsEffect(
-                  dotWidth: width * 0.03,
-                  dotHeight: height * 0.015,
+                  dotWidth: screenWidth * 0.03,
+                  dotHeight: screenHeight * 0.015,
                   spacing: 16,
                   dotColor: Colors.black26,
                   activeDotColor: theme.primary,

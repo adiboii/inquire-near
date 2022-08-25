@@ -9,8 +9,8 @@ class ClientDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _width = MediaQuery.of(context).size.width;
-    final double _height = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     final TextEditingController _search = TextEditingController();
     return Scaffold(
       body: SafeArea(
@@ -31,15 +31,13 @@ class ClientDashboardScreen extends StatelessWidget {
                           Navigator.pushNamed(context, '/profile');
                         },
                         child: CircleAvatar(
-                          radius: _width * 0.05,
+                          radius: screenWidth * 0.05,
                           backgroundImage: AssetImage(
                             'assets/images/illustrations/profile.png',
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 16,
-                      ),
+                      SizedBox(width: screenWidth * 0.03),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,11 +55,8 @@ class ClientDashboardScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    width: 40,
-                  ),
-                  SizedBox(
-                    height: _height * 0.05,
-                    width: _height * 0.05,
+                    height: screenHeight * 0.05,
+                    width: screenHeight * 0.05,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         color: theme.primary,
@@ -78,15 +73,15 @@ class ClientDashboardScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.025),
                   Text(
                     "Categories",
                     style: theme.title3,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: screenHeight * 0.02),
                   //TODO: convert to widget
                   SizedBox(
-                    height: _height * 0.02,
+                    height: screenHeight * 0.02,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -95,15 +90,15 @@ class ClientDashboardScreen extends StatelessWidget {
                               Navigator.pushNamed(context, '/inquiry_list');
                             },
                             child: Text("Popular")),
-                        SizedBox(width: 12),
+                        SizedBox(width: screenWidth * 0.05),
                         Text("Government"),
-                        SizedBox(width: 12),
+                        SizedBox(width: screenWidth * 0.05),
                         Text("Malls"),
-                        SizedBox(width: 12),
+                        SizedBox(width: screenWidth * 0.05),
                         Text("Grocery"),
-                        SizedBox(width: 12),
+                        SizedBox(width: screenWidth * 0.05),
                         Text("Lorem Ipsum"),
-                        SizedBox(width: 12),
+                        SizedBox(width: screenWidth * 0.05),
                         Text("Lorem Ipsum"),
                       ],
                     ),
@@ -114,14 +109,15 @@ class ClientDashboardScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.025),
                   Text(
                     "Your Card",
                     style: theme.title3,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: screenHeight * 0.025),
                   Center(
-                    child: Wallet(screenHeight: _height, screenWidth: _width),
+                    child: Wallet(
+                        screenHeight: screenHeight, screenWidth: screenWidth),
                   )
                 ],
               ),
@@ -129,15 +125,15 @@ class ClientDashboardScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.025),
                   Text(
                     "Recent Places",
                     style: theme.title3,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: screenHeight * 0.025),
                   //TODO: convert to widget
                   SizedBox(
-                    height: _height * 0.22,
+                    height: screenHeight * 0.22,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -148,7 +144,7 @@ class ClientDashboardScreen extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
                         ),
-                        SizedBox(width: 5),
+                        SizedBox(width: screenWidth * 0.03),
                         Container(
                           width: 175,
                           decoration: BoxDecoration(
@@ -156,7 +152,7 @@ class ClientDashboardScreen extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
                         ),
-                        SizedBox(width: 5),
+                        SizedBox(width: screenWidth * 0.03),
                         Container(
                           width: 175,
                           decoration: BoxDecoration(
@@ -164,7 +160,7 @@ class ClientDashboardScreen extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
                         ),
-                        SizedBox(width: 5),
+                        SizedBox(width: screenWidth * 0.03),
                         Container(
                           width: 175,
                           decoration: BoxDecoration(
@@ -172,7 +168,7 @@ class ClientDashboardScreen extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
                         ),
-                        SizedBox(width: 5),
+                        SizedBox(width: screenWidth * 0.03),
                       ],
                     ),
                   ),
