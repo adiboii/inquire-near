@@ -24,28 +24,32 @@ class _InquiryContainerState extends State<InquiryContainer> {
   Widget build(BuildContext context) {
     // Screen Dimensions
     double screenHeight = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        Column(
-          children: [
-            AutoSizeText(
-              widget.question,
-              style: theme.subhead,
-            ),
-            AutoSizeText(
-              'Attached photos: ${widget.nAttachedPhotos}',
-              style: theme.caption2,
-            ),
-            AutoSizeText(
-              'Require proof: ${widget.requiresProof}',
-              style: theme.caption2,
-            ),
-            ButtonOutline(
-              label: 'Add Reply',
-            ),
-          ],
-        ),
-      ],
+    return SizedBox(
+      height: screenHeight * 0.3,
+      width: double.infinity,
+      child: Column(
+        children: [
+          Column(
+            children: [
+              AutoSizeText(
+                widget.question,
+                style: theme.subhead,
+              ),
+              AutoSizeText(
+                'Attached photos: ${widget.nAttachedPhotos}',
+                style: theme.caption2,
+              ),
+              AutoSizeText(
+                'Require proof: ${widget.requiresProof}',
+                style: theme.caption2,
+              ),
+              ButtonOutline(
+                label: 'Add Reply',
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
