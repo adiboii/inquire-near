@@ -8,6 +8,7 @@ const Color gray = Color(0xFFECECEC);
 const Color secondary = Color(0xFF3B4B84);
 const Color red = Color(0xFFFF5151);
 const Color lightBlue = Color(0xFFF0F7FF);
+const Color primaryYellow = Color(0xFFFBBC05);
 
 //Text Themes
 //TODO: remove header textstyles
@@ -132,3 +133,7 @@ const TextStyle caption2_bold = TextStyle(
 );
 
 const kScreenPadding = EdgeInsets.fromLTRB(20, 40, 20, 10);
+
+// Icon Sizes
+const subheadIcon = 19.0;
+const caption2Icon = 16.0;
