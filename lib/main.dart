@@ -8,6 +8,9 @@ import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
 import 'package:inquire_near/screens/client/inquiry_list_screen.dart';
+import 'package:inquire_near/screens/client/payment_success_screen.dart';
+import 'package:inquire_near/screens/client/payment_summary_screen.dart';
+import 'package:inquire_near/screens/client/release_payment_screen.dart';
 import 'package:inquire_near/screens/common/landing_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
 import 'package:inquire_near/screens/common/profile_details.dart';
@@ -31,7 +34,7 @@ class InquireNear extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Inquire Near',
-      initialRoute: '/client_found',
+      initialRoute: '/payment_success',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/landing': (context) => LandingScreen(),
@@ -48,6 +51,9 @@ class InquireNear extends StatelessWidget {
         '/eta_screen': (context) => ETAScreen(),
         '/available_inquirers': (context) => AvailableInquirersScreen(),
         '/profile_details': (context) => ProfileDetailsScreen(),
+        '/payment_summary': (context) => PaymentSummaryScreen(),
+        '/release_payment': (context) => ReleasePaymentScreen(),
+        '/payment_success': (context) => PaymentSuccessScreen(),
         // Inquirer Screens
         '/client_found': (context) => ClientFoundScreen(),
         '/reminders': (context) => RemindersScreen(),
