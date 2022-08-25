@@ -15,7 +15,8 @@ class AvailableInquirersScreen extends StatefulWidget {
 class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -30,21 +31,21 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                     "Available Inquirers",
                     style: theme.headline,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: screenHeight * 0.02),
                   Text(
                     "Once you hire an inquirer, the order cannot be cancelled.\nMake sure to finalize your inquiries before hiring.",
                     style: theme.caption1,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: screenHeight * 0.02),
                   Container(
-                    height: height * 0.65,
+                    height: screenHeight * 0.65,
                     child: ListView(
                       scrollDirection: Axis.vertical,
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/profile_detailss');
+                            Navigator.pushNamed(context, '/profile_details');
                           },
                           child: AvailableInquirer(
                             name: "Mel Jefferson Gabutan",
@@ -52,43 +53,43 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                             location: "Currently 0.9km away from location",
                           ),
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: screenHeight * 0.02),
                         AvailableInquirer(
                           name: "Fleurdelisse Rabanes",
                           rating: "4.5 (234 reviews)",
                           location: "Currently 0.9km away from location",
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: screenHeight * 0.02),
                         AvailableInquirer(
                           name: "Cymmer John Maranga",
                           rating: "4.5 (234 reviews)",
                           location: "Currently 0.9km away from location",
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: screenHeight * 0.02),
                         AvailableInquirer(
                           name: "Ada Pauline Villacarlos",
                           rating: "4.5 (234 reviews)",
                           location: "Currently 0.9km away from location",
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: screenHeight * 0.02),
                         AvailableInquirer(
                           name: "Adrian Paul Reyes",
                           rating: "4.5 (234 reviews)",
                           location: "Currently 0.9km away from location",
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: screenHeight * 0.02),
                         AvailableInquirer(
                           name: "William Shakespeare",
                           rating: "4.5 (234 reviews)",
                           location: "Currently 0.9km away from location",
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: screenHeight * 0.02),
                         AvailableInquirer(
                           name: "William Shakespeare",
                           rating: "4.5 (234 reviews)",
                           location: "Currently 0.9km away from location",
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: screenHeight * 0.02),
                         AvailableInquirer(
                           name: "William Shakespeare",
                           rating: "4.5 (234 reviews)",

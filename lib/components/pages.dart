@@ -11,8 +11,10 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.fromLTRB(50, 0, 50, 70),
+      padding: EdgeInsets.fromLTRB(30, 0, 30, 70),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -20,7 +22,7 @@ class OnboardingPage extends StatelessWidget {
             image: AssetImage(imageURL),
             width: 250,
           ),
-          SizedBox(height: 60),
+          SizedBox(height: screenHeight * 0.1),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +31,7 @@ class OnboardingPage extends StatelessWidget {
                 title,
                 style: theme.title1,
               ),
-              SizedBox(height: 8),
+              SizedBox(height: screenHeight * 0.01),
               Text(
                 subtitle,
                 style: theme.body,

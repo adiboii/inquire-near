@@ -22,7 +22,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -39,14 +40,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       "Create a new account",
                       style: theme.title2,
                     ),
-                    SizedBox(height: 32),
+                    SizedBox(height: screenHeight * 0.03),
                     Center(
                       child: Text(
                         "Use your socials",
                         style: theme.subhead,
                       ),
                     ),
-                    SizedBox(height: 24),
+                    SizedBox(height: screenHeight * 0.04),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -58,9 +59,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         IconContainer(source: "assets/images/logos/Apple.png"),
                       ],
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: screenHeight * 0.02),
                     Center(child: Text("or")),
-                    SizedBox(height: 12),
+                    SizedBox(height: screenHeight * 0.02),
                   ],
                 ),
                 Form(
@@ -72,31 +73,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         label: "Full Name",
                         value: name,
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: screenHeight * 0.02),
                       InTextFormField(
                         icon: Icon(Icons.email),
                         label: "Email",
                         value: email,
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: screenHeight * 0.02),
                       InTextFormField(
                         icon: Icon(Icons.lock_open_sharp),
                         label: "Password",
                         value: password,
                         isObscure: true,
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: screenHeight * 0.02),
                       InTextFormField(
                         icon: Icon(Icons.lock_open_sharp),
                         label: "Confrim Password",
                         value: confirmPassword,
                         isObscure: true,
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: screenHeight * 0.02),
                     ],
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: screenHeight * 0.025),
                 ButtonFill(
                   label: "Create Account",
                   onTap: () {

@@ -18,8 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 30),
+                      SizedBox(height: screenHeight * 0.03),
                       InTextFormField(
                         icon: Icon(Icons.email),
                         label: "Email",
@@ -53,17 +53,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: screenHeight * 0.07),
                 ButtonFill(
                   label: "Sign In",
                   onTap: () {
                     Navigator.pushNamed(context, '/client_dashboard');
                   },
                 ),
-                SizedBox(height: 60),
+                SizedBox(height: screenHeight * 0.075),
                 Column(
                   children: [
-                    SizedBox(height: 10),
+                    SizedBox(height: screenHeight * 0.01),
                     Center(
                       child: Text(
                         "Sign In With",
@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             theme.subhead.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: screenHeight * 0.05),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -79,12 +79,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 50,
                             image:
                                 AssetImage("assets/images/logos/Google.png")),
-                        SizedBox(width: 40),
+                        SizedBox(width: screenWidth * 0.10),
                         Image(
                             width: 45,
                             image:
                                 AssetImage("assets/images/logos/Facebook.png")),
-                        SizedBox(width: 40),
+                        SizedBox(width: screenWidth * 0.10),
                         Image(
                             width: 45,
                             image: AssetImage("assets/images/logos/Apple.png")),

@@ -22,6 +22,8 @@ class _SplashState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -37,7 +39,7 @@ class _SplashState extends State<SplashScreen> {
                   height: 200,
                 ),
               ),
-              SizedBox(height: 100),
+              SizedBox(height: screenHeight * 0.1),
               Container(
                 padding: EdgeInsets.only(left: 20),
                 child: Text(

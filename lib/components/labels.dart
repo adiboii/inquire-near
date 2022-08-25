@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class inLabel extends StatelessWidget {
   IconData icon;
@@ -15,10 +16,7 @@ class inLabel extends StatelessWidget {
           children: [
             Icon(icon),
             SizedBox(width: 15),
-            Text(label,
-                style: Theme.of(context).textTheme.headline5?.copyWith(
-                      fontSize: 16,
-                    )),
+            Text(label, style: theme.footnote),
           ],
         ),
       ),

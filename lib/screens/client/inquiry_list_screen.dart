@@ -14,8 +14,8 @@ class InquiryListScreen extends StatefulWidget {
 class _InquiryListScreenState extends State<InquiryListScreen> {
   @override
   Widget build(BuildContext context) {
-    final double _width = MediaQuery.of(context).size.width;
-    final double _height = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -26,13 +26,13 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
         ),
         elevation: 0,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image(
               image: AssetImage('assets/images/logos/BIR.png'),
               width: 45,
               height: 45,
             ),
-            SizedBox(width: 12),
             Text(
               "Bureau of Internal Revenue\nCebu South Branch",
               style: theme.headline,
@@ -43,7 +43,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: theme.kScreenPadding,
+          padding: theme.kScreenPadding.copyWith(top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -51,10 +51,10 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                 "What do you need from here?",
                 style: theme.headline.copyWith(fontSize: 16),
               ),
-              SizedBox(height: 12),
+              SizedBox(height: screenHeight * 0.02),
               AddInquiryCard(
-                screenHeight: _height,
-                screenWidth: _width,
+                screenHeight: screenHeight,
+                screenWidth: screenWidth,
                 onTap: () {
                   Navigator.pushNamed(context, '/add_inquiry');
                 },

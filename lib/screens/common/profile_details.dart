@@ -7,8 +7,8 @@ class ProfileDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -35,9 +35,9 @@ class ProfileDetailsScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.white,
-                    radius: 45,
+                    radius: screenWidth * 0.12,
                     child: CircleAvatar(
-                      radius: 43,
+                      radius: screenWidth * 0.11,
                       backgroundImage:
                           AssetImage("assets/images/illustrations/profile.png"),
                     ),
@@ -59,7 +59,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(width: width * 0.20),
+                      SizedBox(width: screenWidth * 0.20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -70,7 +70,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                 size: 12,
                                 color: Colors.amber,
                               ),
-                              SizedBox(width: 4),
+                              SizedBox(width: screenWidth * 0.01),
                               Text(
                                 "4.5 (12 reviews)",
                                 style: theme.caption2,
@@ -80,7 +80,8 @@ class ProfileDetailsScreen extends StatelessWidget {
                           Row(
                             children: [
                               SvgPicture.asset("assets/images/svgs/task.svg"),
-                              SizedBox(width: 4),
+                              SizedBox(width: screenWidth * 0.01),
+                              SizedBox(width: screenWidth * 0.01),
                               Text(
                                 "Has made 12 inquiries",
                                 style: theme.caption2,
@@ -104,16 +105,16 @@ class ProfileDetailsScreen extends StatelessWidget {
                     "Recent Reviews",
                     style: theme.callout_bold,
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.04),
                   Container(
-                    height: height * 0.55,
+                    height: screenHeight * 0.55,
                     child: ListView(
                       children: [
-                        RecentReviewItem(width: width),
-                        RecentReviewItem(width: width),
-                        RecentReviewItem(width: width),
-                        RecentReviewItem(width: width),
-                        RecentReviewItem(width: width),
+                        RecentReviewItem(width: screenWidth),
+                        RecentReviewItem(width: screenWidth),
+                        RecentReviewItem(width: screenWidth),
+                        RecentReviewItem(width: screenWidth),
+                        RecentReviewItem(width: screenWidth),
                       ],
                     ),
                   )
@@ -197,7 +198,9 @@ class RecentReviewItem extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12),
-          Divider(),
+          Divider(
+            height: 0.9,
+          ),
         ],
       ),
     );
