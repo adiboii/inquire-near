@@ -20,7 +20,9 @@ import 'package:inquire_near/screens/common/top_up.dart';
 import 'package:inquire_near/screens/common/user_wallet.dart';
 import 'package:inquire_near/screens/inquirer/client_found_screen.dart';
 import 'package:inquire_near/screens/inquirer/inquirer_inquiry_list_screen.dart';
+import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
+import 'package:inquire_near/screens/inquirer/view_selected_inquiry_screen.dart';
 
 void main() {
   runApp(const InquireNear());
@@ -34,7 +36,7 @@ class InquireNear extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Inquire Near',
-      initialRoute: '/payment_success',
+      initialRoute: '/client_found',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/landing': (context) => LandingScreen(),
@@ -58,6 +60,8 @@ class InquireNear extends StatelessWidget {
         '/client_found': (context) => ClientFoundScreen(),
         '/reminders': (context) => RemindersScreen(),
         '/inquirer_inquiry_list': (context) => InquirerInquiryListScreen(),
+        '/view_selected_inquiry': (context) => ViewSelectedInquiryScreen(),
+        '/payment_received': (context) => PaymentReceivedScreen(),
       },
     );
   }
