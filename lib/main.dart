@@ -36,7 +36,7 @@ class InquireNear extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Inquire Near',
-      initialRoute: '/client_found',
+      initialRoute: '/inquiry_list',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/landing': (context) => LandingScreen(),
