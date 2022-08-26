@@ -8,14 +8,11 @@ import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
 import 'package:inquire_near/screens/client/inquiry_list_screen.dart';
-<<<<<<< HEAD
 import 'package:inquire_near/screens/client/responses_screen.dart';
 import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
-=======
 import 'package:inquire_near/screens/client/payment_success_screen.dart';
 import 'package:inquire_near/screens/client/payment_summary_screen.dart';
 import 'package:inquire_near/screens/client/release_payment_screen.dart';
->>>>>>> 3bfb30ce67013b0925c8b0712ac03fa295138bcf
 import 'package:inquire_near/screens/common/landing_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
 import 'package:inquire_near/screens/common/profile_details.dart';
@@ -42,11 +39,7 @@ class InquireNear extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Inquire Near',
-<<<<<<< HEAD
       initialRoute: '/client_found',
-=======
-      initialRoute: '/inquiry_list',
->>>>>>> 3bfb30ce67013b0925c8b0712ac03fa295138bcf
       routes: {
         '/splash': (context) => SplashScreen(),
         '/landing': (context) => LandingScreen(),
@@ -63,14 +56,11 @@ class InquireNear extends StatelessWidget {
         '/eta_screen': (context) => ETAScreen(),
         '/available_inquirers': (context) => AvailableInquirersScreen(),
         '/profile_details': (context) => ProfileDetailsScreen(),
-<<<<<<< HEAD
         '/view_selected_inquiry': (context) => ViewSelectedInquiryScreen(),
         '/responses': (context) => ResponsesScreen(),
-=======
         '/payment_summary': (context) => PaymentSummaryScreen(),
         '/release_payment': (context) => ReleasePaymentScreen(),
         '/payment_success': (context) => PaymentSuccessScreen(),
->>>>>>> 3bfb30ce67013b0925c8b0712ac03fa295138bcf
         // Inquirer Screens
         '/client_found': (context) => ClientFoundScreen(),
         '/reminders': (context) => RemindersScreen(),
