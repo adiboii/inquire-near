@@ -1,10 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:inquire_near/components/InquiryImage.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class ViewSelectedInquiryScreen extends StatelessWidget {
-  const ViewSelectedInquiryScreen({Key? key}) : super(key: key);
+class InquirerViewSelectedInquiryScreen extends StatelessWidget {
+  const InquirerViewSelectedInquiryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,23 +11,25 @@ class ViewSelectedInquiryScreen extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey[50],
+        elevation: 0,
+        leading: BackButton(
+          color: Colors.black,
+        ),
+        title: AutoSizeText(
+          'Inquiry 1',
+          style: theme.headline,
+        ),
+      ),
       body: SafeArea(
         child: Padding(
-          padding: theme.kScreenPadding,
+          padding: theme.kScreenPaddingWithAppBar,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
-                  Row(
-                    children: const [
-                      BackButton(),
-                      AutoSizeText(
-                        'Inquiry 1',
-                        style: theme.headline,
-                      ),
-                    ],
-                  ),
                   Row(
                     children: [
                       CircleAvatar(
@@ -60,9 +61,14 @@ class ViewSelectedInquiryScreen extends StatelessWidget {
                       SizedBox(
                         width: screenWidth * 0.02,
                       ),
-                      AutoSizeText(
-                        'Yes',
-                        style: theme.subhead,
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Input Answer',
+                            hintStyle: theme.subhead,
+                            border: InputBorder.none,
+                          ),
+                        ),
                       ),
                     ],
                   ),

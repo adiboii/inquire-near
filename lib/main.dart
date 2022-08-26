@@ -8,6 +8,8 @@ import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
 import 'package:inquire_near/screens/client/inquiry_list_screen.dart';
+import 'package:inquire_near/screens/client/responses_screen.dart';
+import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/common/landing_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
 import 'package:inquire_near/screens/common/profile_details.dart';
@@ -19,7 +21,8 @@ import 'package:inquire_near/screens/inquirer/client_found_screen.dart';
 import 'package:inquire_near/screens/inquirer/inquirer_inquiry_list_screen.dart';
 import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
-import 'package:inquire_near/screens/inquirer/view_selected_inquiry_screen.dart';
+import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
+import 'package:inquire_near/screens/inquirer/inquirer_view_selected_inquiry_screen.dart';
 
 void main() {
   runApp(const InquireNear());
@@ -33,7 +36,7 @@ class InquireNear extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Inquire Near',
-      initialRoute: '/profile_details',
+      initialRoute: '/client_found',
       routes: {
         '/splash': (context) => SplashScreen(),
         '/landing': (context) => LandingScreen(),
@@ -50,12 +53,16 @@ class InquireNear extends StatelessWidget {
         '/eta_screen': (context) => ETAScreen(),
         '/available_inquirers': (context) => AvailableInquirersScreen(),
         '/profile_details': (context) => ProfileDetailsScreen(),
+        '/view_selected_inquiry': (context) => ViewSelectedInquiryScreen(),
+        '/responses': (context) => ResponsesScreen(),
         // Inquirer Screens
         '/client_found': (context) => ClientFoundScreen(),
         '/reminders': (context) => RemindersScreen(),
         '/inquirer_inquiry_list': (context) => InquirerInquiryListScreen(),
-        '/view_selected_inquiry': (context) => ViewSelectedInquiryScreen(),
+        '/inquirer_view_selected_inquiry': (context) =>
+            InquirerViewSelectedInquiryScreen(),
         '/payment_received': (context) => PaymentReceivedScreen(),
+        '/review_client': (context) => ReviewClientScreen(),
       },
     );
   }

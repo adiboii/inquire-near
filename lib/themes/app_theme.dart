@@ -133,6 +133,10 @@ const TextStyle caption2_bold = TextStyle(
 );
 
 const kScreenPadding = EdgeInsets.fromLTRB(20, 40, 20, 10);
+const kScreenPaddingWithAppBar = EdgeInsets.symmetric(
+  vertical: 10.0,
+  horizontal: 20.0,
+);
 
 // Icon Sizes
 const subheadIcon = 19.0;

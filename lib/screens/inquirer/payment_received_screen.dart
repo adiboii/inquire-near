@@ -17,9 +17,16 @@ class PaymentReceivedScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/images/illustrations/payment_received.png',
-                  height: screenHeight * 0.25,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed(
+                      '/review_client',
+                    );
+                  },
+                  child: Image.asset(
+                    'assets/images/illustrations/payment_received.png',
+                    height: screenHeight * 0.25,
+                  ),
                 ),
                 SizedBox(
                   height: screenHeight * 0.05,

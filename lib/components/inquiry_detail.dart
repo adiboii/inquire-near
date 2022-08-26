@@ -1,10 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class InquiryContainer extends StatefulWidget {
-  const InquiryContainer({
+import 'buttons.dart';
+
+class InquiryDetail extends StatefulWidget {
+  const InquiryDetail({
     Key? key,
     required this.question,
     this.nAttachedPhotos = 0,
@@ -16,10 +17,10 @@ class InquiryContainer extends StatefulWidget {
   final bool requiresProof;
 
   @override
-  State<InquiryContainer> createState() => _InquiryContainerState();
+  State<InquiryDetail> createState() => _InquiryDetailState();
 }
 
-class _InquiryContainerState extends State<InquiryContainer> {
+class _InquiryDetailState extends State<InquiryDetail> {
   @override
   Widget build(BuildContext context) {
     // Screen Dimensions
@@ -65,15 +66,6 @@ class _InquiryContainerState extends State<InquiryContainer> {
                   ),
                   SizedBox(
                     height: screenHeight * 0.02,
-                  ),
-                  ButtonOutline(
-                    label: 'Add Reply',
-                    height: screenHeight * 0.06,
-                    style: theme.caption1_bold,
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed('/inquirer_view_selected_inquiry');
-                    },
                   ),
                 ],
               ),
