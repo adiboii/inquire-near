@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/components/wallet.dart';
@@ -54,12 +55,22 @@ class ClientDashboardScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: screenHeight * 0.05,
-                    width: screenHeight * 0.05,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: theme.primary,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/client_found');
+                    },
+                    child: SizedBox(
+                      height: screenHeight * 0.05,
+                      width: screenHeight * 0.05,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: theme.primary,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: SvgPicture.asset(
+                          "assets/images/svgs/change_user_type.svg",
+                          fit: BoxFit.scaleDown,
+                        ),
                       ),
                     ),
                   ),
