@@ -45,6 +45,7 @@ class _InquirerViewSelectedInquiryScreenState
           'Inquiry 1',
           style: theme.headline,
         ),
+        centerTitle: true,
       ),
       body: Stack(
         children: [
@@ -56,15 +57,6 @@ class _InquirerViewSelectedInquiryScreenState
                 children: [
                   Column(
                     children: [
-                      Row(
-                        children: const [
-                          BackButton(),
-                          AutoSizeText(
-                            'Inquiry 1',
-                            style: theme.headline,
-                          ),
-                        ],
-                      ),
                       Row(
                         children: [
                           CircleAvatar(
