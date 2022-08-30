@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 class InquiryImage extends StatelessWidget {
   final File? image;
   final VoidCallback onCrossIconPressed;
-  const InquiryImage({this.image, required this.onCrossIconPressed});
+  const InquiryImage({super.key, this.image, required this.onCrossIconPressed});
 
   @override
   Widget build(BuildContext context) {
-    if (image != null) assert(onCrossIconPressed != null);
     return Container(
       child: image == null
           ? Container()

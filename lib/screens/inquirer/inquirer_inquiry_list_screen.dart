@@ -20,14 +20,14 @@ class InquirerInquiryListScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AutoSizeText(
+                const AutoSizeText(
                   'Client\'s Inquiries',
                   style: theme.headline,
                 ),
                 SizedBox(
                   height: screenHeight * 0.04,
                 ),
-                Expanded(
+                const Expanded(
                   child: InquiryList(),
                 ),
                 SizedBox(
@@ -35,7 +35,7 @@ class InquirerInquiryListScreen extends StatelessWidget {
                 ),
                 ButtonFill(
                   label: 'Finish',
-                  style: theme.caption1_bold,
+                  style: theme.caption1Bold,
                   height: screenHeight * 0.07,
                   onTap: () {
                     Navigator.of(context).pushReplacementNamed(

@@ -23,14 +23,14 @@ class ReviewClientScreen extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      AutoSizeText(
+                      const AutoSizeText(
                         'Tell us about your experience',
                         style: theme.headline,
                       ),
                       SizedBox(
                         height: screenHeight * 0.02,
                       ),
-                      AutoSizeText(
+                      const AutoSizeText(
                         'Your feedback will help us\nimprove your inquiring needs',
                         textAlign: TextAlign.center,
                         style: theme.footnote,
@@ -38,28 +38,28 @@ class ReviewClientScreen extends StatelessWidget {
                       SizedBox(
                         height: screenHeight * 0.04,
                       ),
-                      BorderedProfilePicture(),
+                      const BorderedProfilePicture(),
                       SizedBox(
                         height: screenHeight * 0.02,
                       ),
-                      AutoSizeText(
+                      const AutoSizeText(
                         'Mel Jefferson Gabutan',
-                        style: theme.subhead_bold,
+                        style: theme.subheadBold,
                       ),
                       SizedBox(
                         height: screenHeight * 0.02,
                       ),
                       RatingBar(
                         ratingWidget: RatingWidget(
-                          full: Icon(
+                          full: const Icon(
                             Icons.star,
                             color: theme.primaryYellow,
                           ),
-                          half: Icon(
+                          half: const Icon(
                             Icons.star,
                             color: Colors.grey,
                           ),
-                          empty: Icon(
+                          empty: const Icon(
                             Icons.star,
                             color: Colors.grey,
                           ),
@@ -71,7 +71,7 @@ class ReviewClientScreen extends StatelessWidget {
                         height: screenHeight * 0.02,
                       ),
                       Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           left: 15.0,
                           right: 15.0,
                         ),
@@ -85,7 +85,7 @@ class ReviewClientScreen extends StatelessWidget {
                         ),
                         width: double.infinity,
                         height: screenHeight * 0.38,
-                        child: TextField(
+                        child: const TextField(
                           decoration: InputDecoration(
                             hintText: 'Leave a Review',
                             hintStyle: theme.caption1,
@@ -101,7 +101,7 @@ class ReviewClientScreen extends StatelessWidget {
                   ButtonOutline(
                     label: 'Finish',
                     height: screenHeight * 0.07,
-                    style: theme.caption1_bold,
+                    style: theme.caption1Bold,
                     onTap: () {
                       Navigator.pushReplacementNamed(
                           context, '/client_dashboard');

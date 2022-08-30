@@ -8,7 +8,6 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -18,10 +17,10 @@ class LandingScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   children: [
-                    Align(
+                    const Align(
                       alignment: Alignment.topRight,
                       child: Text(
                         "Find the things\nyou need",
@@ -29,7 +28,7 @@ class LandingScreen extends StatelessWidget {
                         style: theme.headline,
                       ),
                     ),
-                    Center(
+                    const Center(
                       child: Image(
                         width: 250,
                         image: AssetImage(
@@ -41,7 +40,7 @@ class LandingScreen extends StatelessWidget {
                       alignment: Alignment.bottomLeft,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Text(
                             "Welcome to",
                             style: theme.body,

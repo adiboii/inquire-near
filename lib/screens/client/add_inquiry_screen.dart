@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:inquire_near/components/InquiryImage.dart';
+import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/components/buttons.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:inquire_near/components/BottomBar.dart';
+import 'package:inquire_near/components/bottom_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class AddInquiryScreen extends StatefulWidget {
-  AddInquiryScreen({Key? key}) : super(key: key);
+  const AddInquiryScreen({Key? key}) : super(key: key);
 
   @override
   State<AddInquiryScreen> createState() => _AddInquiryScreenState();
@@ -68,7 +67,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                   SvgPicture.asset(
                                       "assets/images/svgs/add_inquiry.svg"),
                                   SizedBox(width: screenWidth * 0.04),
-                                  Text(
+                                  const Text(
                                     "Add an inquiry",
                                     style: theme.headline,
                                   ),
@@ -79,7 +78,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                 label: "Add inquiry",
                                 width: screenWidth * 0.25,
                                 height: screenHeight * 0.05,
-                                style: theme.caption1_bold,
+                                style: theme.caption1Bold,
                                 borderRadius: 5,
                                 onTap: () {
                                   Navigator.pushNamed(
@@ -96,7 +95,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                               SizedBox(
                                 child: CircleAvatar(
                                   radius: screenWidth * 0.05,
-                                  backgroundImage: AssetImage(
+                                  backgroundImage: const AssetImage(
                                     'assets/images/illustrations/profile.png',
                                   ),
                                 ),
@@ -104,7 +103,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                               SizedBox(width: screenWidth * 0.04),
                               SizedBox(
                                 width: screenWidth * 0.7,
-                                child: TextField(
+                                child: const TextField(
                                   decoration: InputDecoration.collapsed(
                                       hintText: "What do you need?"),
                                   style: theme.subhead,

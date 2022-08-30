@@ -22,11 +22,11 @@ class _UserWalletState extends State<UserWalletScreen> {
         foregroundColor: Colors.black,
         //TODO:  use fontawesome
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         elevation: 0,
-        title: Text(
+        title: const Text(
           "Your Card",
           style: theme.title2,
         ),
@@ -38,7 +38,7 @@ class _UserWalletState extends State<UserWalletScreen> {
           child: Column(
             children: [
               Wallet(screenHeight: height, screenWidth: width),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Row(
                 children: [
                   ButtonFill(
@@ -48,8 +48,8 @@ class _UserWalletState extends State<UserWalletScreen> {
                       Navigator.pushNamed(context, '/top_up');
                     },
                   ),
-                  SizedBox(width: 12),
-                  ButtonFill(
+                  const SizedBox(width: 12),
+                  const ButtonFill(
                     label: "Block Card",
                     width: 170,
                     color: theme.gray,
@@ -57,7 +57,7 @@ class _UserWalletState extends State<UserWalletScreen> {
                   )
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,13 +68,13 @@ class _UserWalletState extends State<UserWalletScreen> {
                         .headline3
                         ?.copyWith(fontSize: 15),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Center(
-                    child: Container(
+                    child: SizedBox(
                       height: height * 0.45,
                       child: ListView(
                         scrollDirection: Axis.vertical,
-                        children: [
+                        children: const [
                           InListItem(
                               color: Colors.red,
                               type: "Payment",

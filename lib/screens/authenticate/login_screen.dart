@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Sign in to your account",
                   style: theme.title3,
                 ),
@@ -39,13 +39,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       SizedBox(height: screenHeight * 0.03),
                       InTextFormField(
-                        icon: Icon(Icons.email),
+                        icon: const Icon(Icons.email),
                         label: "Email",
                         value: email,
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: screenHeight * 0.04),
                       InTextFormField(
-                        icon: Icon(Icons.lock_open_sharp),
+                        icon: const Icon(Icons.lock_open_sharp),
                         label: "Password",
                         value: password,
                         isObscure: true,
@@ -75,17 +75,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image(
+                        const Image(
                             width: 50,
                             image:
                                 AssetImage("assets/images/logos/Google.png")),
                         SizedBox(width: screenWidth * 0.10),
-                        Image(
+                        const Image(
                             width: 45,
                             image:
                                 AssetImage("assets/images/logos/Facebook.png")),
                         SizedBox(width: screenWidth * 0.10),
-                        Image(
+                        const Image(
                             width: 45,
                             image: AssetImage("assets/images/logos/Apple.png")),
                       ],

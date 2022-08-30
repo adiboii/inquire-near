@@ -24,20 +24,20 @@ class ClientFoundScreen extends StatelessWidget {
               children: <Widget>[
                 Column(
                   children: [
-                    AutoSizeText(
+                    const AutoSizeText(
                       'You\'re Hired',
                       style: theme.headline,
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    BorderedProfilePicture(),
+                    const BorderedProfilePicture(),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    AutoSizeText(
+                    const AutoSizeText(
                       'Mel Jefferson Gabutan',
-                      style: theme.subhead_bold,
+                      style: theme.subheadBold,
                     ),
                     SizedBox(
                       height: screenHeight * 0.02,
@@ -45,7 +45,7 @@ class ClientFoundScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: theme.primaryYellow,
                           size: theme.caption2Icon,
@@ -53,7 +53,7 @@ class ClientFoundScreen extends StatelessWidget {
                         SizedBox(
                           width: screenWidth * 0.01,
                         ),
-                        AutoSizeText(
+                        const AutoSizeText(
                           '4.5 (12 reviews)',
                           style: theme.caption2,
                         ),
@@ -62,14 +62,14 @@ class ClientFoundScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.05,
                     ),
-                    LocationAndOrderDetails(),
+                    const LocationAndOrderDetails(),
                   ],
                 ),
                 Column(
                   children: [
                     ButtonFill(
                       label: 'Accept Request',
-                      style: theme.caption1_bold,
+                      style: theme.caption1Bold,
                       height: screenHeight * 0.07,
                       onTap: () {
                         Navigator.of(context).pushReplacementNamed(
@@ -82,7 +82,7 @@ class ClientFoundScreen extends StatelessWidget {
                     ),
                     ButtonOutline(
                       label: 'Reject Request',
-                      style: theme.caption1_bold,
+                      style: theme.caption1Bold,
                       height: screenHeight * 0.07,
                       color: theme.red,
                       textColor: theme.red,

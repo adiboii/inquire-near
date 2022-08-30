@@ -1,12 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inquire_near/components/buttons.dart';
-import 'package:inquire_near/components/cards.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListScreen extends StatefulWidget {
-  InquiryListScreen({Key? key}) : super(key: key);
+  const InquiryListScreen({Key? key}) : super(key: key);
 
   @override
   State<InquiryListScreen> createState() => _InquiryListScreenState();
@@ -27,7 +25,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+                    icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Row(
@@ -35,13 +33,13 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image(
-                        image: AssetImage('assets/images/logos/BIR.png'),
+                        image: const AssetImage('assets/images/logos/BIR.png'),
                         width: screenWidth * 0.12,
                       ),
                       SizedBox(width: screenWidth * 0.05),
-                      Text(
+                      const Text(
                         "Bureau of Internal Revenue\nCebu South Branch",
-                        style: theme.subhead_bold,
+                        style: theme.subheadBold,
                       ),
                     ],
                   ),
@@ -62,7 +60,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
               // ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: InquiryList(
                     screenHeight: screenHeight,
                     screenWidth: screenWidth,
@@ -76,13 +74,13 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                 children: [
                   ButtonOutline(
                     label: "Add an inquiry",
-                    style: theme.caption1_bold,
+                    style: theme.caption1Bold,
                     width: screenWidth * 0.40,
                     height: screenHeight * 0.06,
                   ),
                   ButtonFill(
                       label: "Finish",
-                      style: theme.caption1_bold,
+                      style: theme.caption1Bold,
                       width: screenWidth * 0.40,
                       height: screenHeight * 0.06),
                 ],
@@ -175,7 +173,7 @@ class InquiryItem extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: screenWidth * 0.05,
-              backgroundImage: AssetImage(
+              backgroundImage: const AssetImage(
                 'assets/images/illustrations/profile.png',
               ),
             ),
@@ -202,7 +200,7 @@ class InquiryItem extends StatelessWidget {
             ),
           ],
         ),
-        Divider(height: 20),
+        const Divider(height: 20),
       ],
     );
   }

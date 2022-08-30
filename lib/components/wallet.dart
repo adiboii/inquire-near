@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class Wallet extends StatelessWidget {
-  double screenWidth;
-  double screenHeight;
+  final double screenWidth;
+  final double screenHeight;
 
-  Wallet({required this.screenHeight, required this.screenWidth});
+  const Wallet(
+      {super.key, required this.screenHeight, required this.screenWidth});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: screenWidth * 0.80,
       height: screenHeight * 0.25,
-      padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+      decoration: const BoxDecoration(
         color: theme.primary,
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),

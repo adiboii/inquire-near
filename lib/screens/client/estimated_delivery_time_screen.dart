@@ -4,7 +4,7 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:lottie/lottie.dart';
 
 class ETAScreen extends StatefulWidget {
-  ETAScreen({Key? key}) : super(key: key);
+  const ETAScreen({Key? key}) : super(key: key);
 
   @override
   State<ETAScreen> createState() => _ETAScreenState();
@@ -24,12 +24,12 @@ class _ETAScreenState extends State<ETAScreen> {
             children: [
               Column(
                 children: [
-                  Text(
+                  const Text(
                     "Estimated Delivery Time",
                     style: theme.headline,
                   ),
                   SizedBox(height: screenHeight * 0.02),
-                  Text(
+                  const Text(
                     "Sit back and relax while our\ninquirer handles things for you,",
                     style: theme.subhead,
                     textAlign: TextAlign.center,
@@ -38,13 +38,13 @@ class _ETAScreenState extends State<ETAScreen> {
                   Lottie.asset("assets/images/lottie/eta.json",
                       height: screenHeight * 0.30),
                   SizedBox(height: screenHeight * 0.02),
-                  Text(
+                  const Text(
                     "25 min",
                     style: theme.headline,
                   ),
                 ],
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(bottom: 20),
                 child: ButtonOutline(
                   label: "View Inquiries",

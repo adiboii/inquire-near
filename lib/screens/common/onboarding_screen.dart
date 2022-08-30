@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:inquire_near/components/pages.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _OnboardingState extends State<OnboardingScreen> {
                 isLastPage = (index == 2);
               });
             },
-            children: [
+            children: const [
               OnboardingPage(
                 imageURL: "assets/images/illustrations/ChooseAPlace.png",
                 title: "Choose a place",
@@ -61,7 +61,7 @@ class _OnboardingState extends State<OnboardingScreen> {
         ),
       ),
       bottomSheet: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         height: 80,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,13 +69,13 @@ class _OnboardingState extends State<OnboardingScreen> {
             SizedBox(
               child: TextButton(
                 onPressed: () => controller.animateToPage(2,
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut),
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.transparent),
                 ),
-                child: Text("SKIP", style: theme.caption2_bold),
+                child: const Text("SKIP", style: theme.caption2Bold),
               ),
             ),
             Center(
@@ -90,31 +90,31 @@ class _OnboardingState extends State<OnboardingScreen> {
                   activeDotColor: theme.primary,
                 ),
                 onDotClicked: (index) => controller.animateToPage(index,
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut),
               ),
             ),
             Container(
               height: 40,
               width: 40,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(100)),
                 color: theme.primary,
               ),
               child: IconButton(
-                onPressed: () async {
+                onPressed: () {
                   //TODO: implement shared prefereces
                   if (isLastPage) {
-                    final prefs = await SharedPreferences.getInstance();
-                    prefs.setBool('showHome', true);
+                    // final prefs = await SharedPreferences.getInstance();
+                    // prefs.setBool('showHome', true);
                     Navigator.pushReplacementNamed(context, '/landing');
                   } else {
                     controller.nextPage(
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         curve: Curves.easeInOut);
                   }
                 },
-                icon: FaIcon(
+                icon: const FaIcon(
                   FontAwesomeIcons.angleRight,
                   size: 20,
                 ),

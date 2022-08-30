@@ -3,11 +3,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InListItem extends StatelessWidget {
-  Color color;
-  String type;
-  String amount;
+  final Color color;
+  final String type;
+  final String amount;
 
-  InListItem({required this.color, required this.type, required this.amount});
+  const InListItem(
+      {super.key,
+      required this.color,
+      required this.type,
+      required this.amount});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,9 +21,9 @@ class InListItem extends StatelessWidget {
         border: Border.all(
           color: theme.gray,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -29,7 +33,7 @@ class InListItem extends StatelessWidget {
                 backgroundColor: color,
                 radius: 5,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Text(type),
             ],
           ),
@@ -59,16 +63,16 @@ class AvailableInquirer extends StatelessWidget {
           backgroundColor: Colors.blue[800],
           radius: 30,
         ),
-        SizedBox(width: 24),
+        const SizedBox(width: 24),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               name,
-              style: theme.subhead_bold,
+              style: theme.subheadBold,
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Row(
               children: [
                 SvgPicture.asset("assets/images/svgs/star.svg"),
@@ -78,7 +82,7 @@ class AvailableInquirer extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Row(
               children: [
                 SvgPicture.asset("assets/images/svgs/location.svg"),

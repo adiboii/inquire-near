@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class ButtonOutline extends StatelessWidget {
-  double width;
-  double height;
-  String label;
-  Color color;
-  Color textColor;
-  double fontSize;
-  double borderRadius;
-  VoidCallback? onTap;
-  TextStyle style;
-  ButtonOutline(
-      {this.width = double.infinity,
+class ButtonOutline extends StatefulWidget {
+  final double width;
+  final double height;
+  final String label;
+  final Color color;
+  final Color textColor;
+  final double fontSize;
+  final double borderRadius;
+  final VoidCallback? onTap;
+  final TextStyle style;
+  const ButtonOutline(
+      {super.key,
+      this.width = double.infinity,
       this.height = 55,
       required this.label,
       this.onTap,
@@ -23,22 +24,28 @@ class ButtonOutline extends StatelessWidget {
       this.style = theme.headline});
 
   @override
+  State<ButtonOutline> createState() => _ButtonOutlineState();
+}
+
+class _ButtonOutlineState extends State<ButtonOutline> {
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: width,
-        height: height,
+        width: widget.width,
+        height: widget.height,
         child: OutlinedButton(
-          onPressed: onTap,
+          onPressed: widget.onTap,
           style: OutlinedButton.styleFrom(
             backgroundColor: Colors.white,
-            side: BorderSide(color: color),
+            side: BorderSide(color: widget.color),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(borderRadius))),
+                borderRadius:
+                    BorderRadius.all(Radius.circular(widget.borderRadius))),
           ),
           child: Text(
-            label,
-            style: style.copyWith(color: textColor),
+            widget.label,
+            style: widget.style.copyWith(color: widget.textColor),
           ),
         ),
       ),
@@ -46,18 +53,19 @@ class ButtonOutline extends StatelessWidget {
   }
 }
 
-class ButtonFill extends StatelessWidget {
-  double width;
-  double height;
-  String label;
-  Color color;
-  Color textColor;
-  double fontSize;
-  double borderRadius;
-  VoidCallback? onTap;
-  TextStyle style;
-  ButtonFill(
-      {this.height = 55,
+class ButtonFill extends StatefulWidget {
+  final double width;
+  final double height;
+  final String label;
+  final Color color;
+  final Color textColor;
+  final double fontSize;
+  final double borderRadius;
+  final VoidCallback? onTap;
+  final TextStyle style;
+  const ButtonFill(
+      {super.key,
+      this.height = 55,
       this.width = double.infinity,
       required this.label,
       this.onTap,
@@ -68,22 +76,28 @@ class ButtonFill extends StatelessWidget {
       this.style = theme.headline});
 
   @override
+  State<ButtonFill> createState() => _ButtonFillState();
+}
+
+class _ButtonFillState extends State<ButtonFill> {
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: width,
-        height: height,
+        width: widget.width,
+        height: widget.height,
         child: TextButton(
-          onPressed: onTap,
+          onPressed: widget.onTap,
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
               ),
             ),
-            backgroundColor: MaterialStateProperty.all<Color>(color),
+            backgroundColor: MaterialStateProperty.all<Color>(widget.color),
           ),
-          child: Text(label, style: style.copyWith(color: textColor)),
+          child: Text(widget.label,
+              style: widget.style.copyWith(color: widget.textColor)),
         ),
       ),
     );

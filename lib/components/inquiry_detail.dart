@@ -2,8 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-import 'buttons.dart';
-
 class InquiryDetail extends StatefulWidget {
   const InquiryDetail({
     Key? key,
@@ -33,7 +31,7 @@ class _InquiryDetailState extends State<InquiryDetail> {
             SizedBox(
               height: screenHeight * 0.04,
               child: Checkbox(
-                shape: CircleBorder(
+                shape: const CircleBorder(
                   side: BorderSide(
                     color: theme.primary,
                   ),

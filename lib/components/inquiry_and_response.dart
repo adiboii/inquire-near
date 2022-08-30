@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inquire_near/components/inquiry_container.dart';
 import 'package:inquire_near/components/inquiry_detail.dart';
 import 'package:inquire_near/components/response.dart';
-import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryAndResponse extends StatelessWidget {
   const InquiryAndResponse({Key? key}) : super(key: key);
@@ -12,7 +10,7 @@ class InquiryAndResponse extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return ListView(
       children: [
-        InquiryDetail(
+        const InquiryDetail(
           question: 'Is it open right now?',
           nAttachedPhotos: 1,
           requiresProof: true,
@@ -20,7 +18,7 @@ class InquiryAndResponse extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.05,
         ),
-        Response(
+        const Response(
           answer: 'Yes',
           nAttachedPhotos: 1,
         ),
@@ -34,7 +32,7 @@ class InquiryAndResponse extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.02,
         ),
-        InquiryDetail(
+        const InquiryDetail(
           question: 'Are there a lot of people right now?',
           nAttachedPhotos: 1,
           requiresProof: true,
@@ -42,7 +40,7 @@ class InquiryAndResponse extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.05,
         ),
-        Response(
+        const Response(
           answer: 'Yessir',
           nAttachedPhotos: 1,
         ),
@@ -59,7 +57,7 @@ class InquiryAndResponse extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.02,
         ),
-        InquiryDetail(
+        const InquiryDetail(
           question: 'What is the current priority number?',
           nAttachedPhotos: 1,
           requiresProof: true,
@@ -67,7 +65,7 @@ class InquiryAndResponse extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.05,
         ),
-        Response(
+        const Response(
           answer: '21',
           nAttachedPhotos: 1,
         ),

@@ -21,9 +21,9 @@ class PaymentSuccessScreen extends StatelessWidget {
                 child: Lottie.asset("assets/images/lottie/payment_success.json",
                     height: screenHeight * 0.50),
               ),
-              Text(
+              const Text(
                 "Payment Success!",
-                style: theme.subhead_bold,
+                style: theme.subheadBold,
               )
             ],
           ),

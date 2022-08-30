@@ -32,7 +32,7 @@ class _InquiryContainerState extends State<InquiryContainer> {
             SizedBox(
               height: screenHeight * 0.04,
               child: Checkbox(
-                shape: CircleBorder(
+                shape: const CircleBorder(
                   side: BorderSide(
                     color: theme.primary,
                   ),
@@ -69,7 +69,7 @@ class _InquiryContainerState extends State<InquiryContainer> {
                   ButtonOutline(
                     label: 'Add Reply',
                     height: screenHeight * 0.06,
-                    style: theme.caption1_bold,
+                    style: theme.caption1Bold,
                     onTap: () {
                       Navigator.of(context)
                           .pushNamed('/inquirer_view_selected_inquiry');

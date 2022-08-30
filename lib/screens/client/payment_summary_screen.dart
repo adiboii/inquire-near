@@ -15,14 +15,14 @@ class PaymentSummaryScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         leading: Padding(
-          padding: EdgeInsets.only(top: 25),
+          padding: const EdgeInsets.only(top: 25),
           child: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
         elevation: 0,
-        title: Padding(
+        title: const Padding(
           padding: EdgeInsets.only(top: 25),
           child: Text(
             "Payment Summary",
@@ -38,13 +38,13 @@ class PaymentSummaryScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Pay with",
                           style: theme.headline,
                         ),
@@ -56,7 +56,7 @@ class PaymentSummaryScreen extends StatelessWidget {
                                 SvgPicture.asset(
                                     "assets/images/logos/paypal.svg"),
                                 SizedBox(width: screenWidth * 0.02),
-                                Text(
+                                const Text(
                                   "Paypal",
                                   style: theme.subhead,
                                 ),
@@ -70,7 +70,7 @@ class PaymentSummaryScreen extends StatelessWidget {
                                   style: theme.caption2
                                       .copyWith(color: theme.primary),
                                 ),
-                                Text(
+                                const Text(
                                   "PHP 455.20",
                                 )
                               ],
@@ -86,9 +86,9 @@ class PaymentSummaryScreen extends StatelessWidget {
                           children: [
                             SvgPicture.asset("assets/images/svgs/location.svg"),
                             SizedBox(width: screenWidth * 0.02),
-                            Text(
+                            const Text(
                               'Location',
-                              style: theme.subhead_bold,
+                              style: theme.subheadBold,
                             ),
                           ],
                         ),
@@ -133,9 +133,9 @@ class PaymentSummaryScreen extends StatelessWidget {
                             SizedBox(
                               width: screenWidth * 0.02,
                             ),
-                            Text(
+                            const Text(
                               'Order',
-                              style: theme.subhead_bold,
+                              style: theme.subheadBold,
                             ),
                           ],
                         ),
@@ -174,7 +174,7 @@ class PaymentSummaryScreen extends StatelessWidget {
                         SizedBox(
                           height: screenHeight * 0.01,
                         ),
-                        Divider(
+                        const Divider(
                           thickness: 0.9,
                           color: Colors.black,
                         ),
@@ -199,9 +199,9 @@ class PaymentSummaryScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              ButtonFill(
+              const ButtonFill(
                 label: "Continue",
-                style: theme.caption1_bold,
+                style: theme.caption1Bold,
               ),
             ],
           ),

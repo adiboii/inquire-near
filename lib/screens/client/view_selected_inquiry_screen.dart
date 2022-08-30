@@ -16,10 +16,10 @@ class ViewSelectedInquiryScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.grey[50],
         elevation: 0,
-        leading: BackButton(
+        leading: const BackButton(
           color: Colors.black,
         ),
-        title: AutoSizeText(
+        title: const AutoSizeText(
           'Inquiry 1',
           style: theme.headline,
         ),
@@ -36,14 +36,14 @@ class ViewSelectedInquiryScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: screenHeight * 0.02,
-                        backgroundImage: AssetImage(
+                        backgroundImage: const AssetImage(
                           'assets/images/illustrations/profile.png',
                         ),
                       ),
                       SizedBox(
                         width: screenWidth * 0.02,
                       ),
-                      AutoSizeText(
+                      const AutoSizeText(
                         'Is it open right now?',
                         style: theme.subhead,
                       ),
@@ -55,7 +55,7 @@ class ViewSelectedInquiryScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      AutoSizeText(
+                      const AutoSizeText(
                         'Yes',
                         style: theme.subhead,
                       ),
@@ -64,7 +64,7 @@ class ViewSelectedInquiryScreen extends StatelessWidget {
                       ),
                       CircleAvatar(
                         radius: screenHeight * 0.02,
-                        backgroundImage: AssetImage(
+                        backgroundImage: const AssetImage(
                           'assets/images/illustrations/profile.png',
                         ),
                       ),
@@ -75,7 +75,7 @@ class ViewSelectedInquiryScreen extends StatelessWidget {
               ButtonFill(
                 label: 'Next Inquiry',
                 height: screenHeight * 0.07,
-                style: theme.caption1_bold,
+                style: theme.caption1Bold,
               ),
             ],
           ),

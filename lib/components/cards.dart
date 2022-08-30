@@ -7,9 +7,10 @@ import 'buttons.dart';
 class AddInquiryCard extends StatelessWidget {
   final double screenHeight;
   final double screenWidth;
-  VoidCallback? onTap;
+  final VoidCallback? onTap;
 
-  AddInquiryCard({
+  const AddInquiryCard({
+    super.key,
     required this.screenHeight,
     required this.screenWidth,
     this.onTap,
@@ -26,7 +27,7 @@ class AddInquiryCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+          padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -34,14 +35,14 @@ class AddInquiryCard extends StatelessWidget {
               Row(
                 children: [
                   SvgPicture.asset("assets/images/svgs/add_inquiry.svg"),
-                  SizedBox(width: 10),
-                  Text(
+                  const SizedBox(width: 10),
+                  const Text(
                     "Start by adding an inquiry",
                     style: theme.headline,
                   ),
                 ],
               ),
-              Text(
+              const Text(
                 "Make sure to be specific and only ask questions that can be answered",
                 style: theme.caption1,
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/components/wallet.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -12,7 +12,7 @@ class ClientDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    final TextEditingController _search = TextEditingController();
+    final TextEditingController search = TextEditingController();
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -33,7 +33,7 @@ class ClientDashboardScreen extends StatelessWidget {
                         },
                         child: CircleAvatar(
                           radius: screenWidth * 0.05,
-                          backgroundImage: AssetImage(
+                          backgroundImage: const AssetImage(
                             'assets/images/illustrations/profile.png',
                           ),
                         ),
@@ -42,7 +42,7 @@ class ClientDashboardScreen extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Text(
                             "Welcome back,",
                             style: theme.subhead,
@@ -78,14 +78,14 @@ class ClientDashboardScreen extends StatelessWidget {
               ),
               InTextField(
                   icon: Icons.search,
-                  controller: _search,
+                  controller: search,
                   hint: "Search for places"),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: screenHeight * 0.025),
-                  Text(
+                  const Text(
                     "Categories",
                     style: theme.title3,
                   ),
@@ -94,23 +94,24 @@ class ClientDashboardScreen extends StatelessWidget {
                   SizedBox(
                     height: screenHeight * 0.02,
                     child: ListView(
+                      //TODO: convert to listview.builder
                       scrollDirection: Axis.horizontal,
                       children: [
                         GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(context, '/inquiry_list');
                             },
-                            child: Text("Popular")),
+                            child: const Text("Popular")),
                         SizedBox(width: screenWidth * 0.05),
-                        Text("Government"),
+                        const Text("Government"),
                         SizedBox(width: screenWidth * 0.05),
-                        Text("Malls"),
+                        const Text("Malls"),
                         SizedBox(width: screenWidth * 0.05),
-                        Text("Grocery"),
+                        const Text("Grocery"),
                         SizedBox(width: screenWidth * 0.05),
-                        Text("Lorem Ipsum"),
+                        const Text("Lorem Ipsum"),
                         SizedBox(width: screenWidth * 0.05),
-                        Text("Lorem Ipsum"),
+                        const Text("Lorem Ipsum"),
                       ],
                     ),
                   ),
@@ -121,7 +122,7 @@ class ClientDashboardScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: screenHeight * 0.025),
-                  Text(
+                  const Text(
                     "Your Card",
                     style: theme.title3,
                   ),
@@ -137,7 +138,7 @@ class ClientDashboardScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: screenHeight * 0.025),
-                  Text(
+                  const Text(
                     "Recent Places",
                     style: theme.title3,
                   ),
@@ -150,7 +151,7 @@ class ClientDashboardScreen extends StatelessWidget {
                       children: [
                         Container(
                           width: 175,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: theme.gray,
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
@@ -158,7 +159,7 @@ class ClientDashboardScreen extends StatelessWidget {
                         SizedBox(width: screenWidth * 0.03),
                         Container(
                           width: 175,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: theme.gray,
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
@@ -166,7 +167,7 @@ class ClientDashboardScreen extends StatelessWidget {
                         SizedBox(width: screenWidth * 0.03),
                         Container(
                           width: 175,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: theme.gray,
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
@@ -174,7 +175,7 @@ class ClientDashboardScreen extends StatelessWidget {
                         SizedBox(width: screenWidth * 0.03),
                         Container(
                           width: 175,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: theme.gray,
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),

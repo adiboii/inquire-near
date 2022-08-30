@@ -6,15 +6,17 @@ class OnboardingPage extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  OnboardingPage(
-      {required this.imageURL, required this.title, required this.subtitle});
+  const OnboardingPage(
+      {super.key,
+      required this.imageURL,
+      required this.title,
+      required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.fromLTRB(30, 0, 30, 70),
+      padding: const EdgeInsets.fromLTRB(30, 0, 30, 70),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

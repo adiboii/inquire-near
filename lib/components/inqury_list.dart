@@ -10,7 +10,7 @@ class InquiryList extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return ListView(
       children: [
-        InquiryContainer(
+        const InquiryContainer(
           question: 'Is it open right now?',
           nAttachedPhotos: 1,
           requiresProof: true,
@@ -25,7 +25,7 @@ class InquiryList extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.02,
         ),
-        InquiryContainer(
+        const InquiryContainer(
           question: 'Are there a lot of people right now?',
           nAttachedPhotos: 1,
           requiresProof: true,
@@ -40,7 +40,7 @@ class InquiryList extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.02,
         ),
-        InquiryContainer(
+        const InquiryContainer(
           question: 'What is the current priority number?',
           nAttachedPhotos: 1,
           requiresProof: true,
@@ -55,7 +55,7 @@ class InquiryList extends StatelessWidget {
         SizedBox(
           height: screenHeight * 0.02,
         ),
-        InquiryContainer(
+        const InquiryContainer(
           question: 'What time does it close?',
           nAttachedPhotos: 1,
           requiresProof: true,

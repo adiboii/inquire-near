@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 
 class BottomBar extends StatefulWidget {
   final Function(File) onIconSelected;
-  BottomBar({Key? key, required this.onIconSelected}) : super(key: key);
+  const BottomBar({Key? key, required this.onIconSelected}) : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -27,7 +27,7 @@ class _BottomBarState extends State<BottomBar> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 50,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           border: Border(top: BorderSide(color: Colors.grey)),
           color: Colors.white),
       child: Row(
@@ -36,13 +36,13 @@ class _BottomBarState extends State<BottomBar> {
             onPressed: () {
               setImage(ImageSource.gallery);
             },
-            icon: Icon(Icons.image),
+            icon: const Icon(Icons.image),
           ),
           IconButton(
             onPressed: () {
               setImage(ImageSource.camera);
             },
-            icon: Icon(Icons.camera_alt_sharp),
+            icon: const Icon(Icons.camera_alt_sharp),
           ),
         ],
       ),

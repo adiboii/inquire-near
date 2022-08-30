@@ -23,7 +23,7 @@ class RemindersScreen extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    AutoSizeText(
+                    const AutoSizeText(
                       'Awesome!',
                       style: theme.headline,
                     ),
@@ -37,9 +37,9 @@ class RemindersScreen extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.05,
                     ),
-                    AutoSizeText(
+                    const AutoSizeText(
                       'Reminders:',
-                      style: theme.subhead_bold,
+                      style: theme.subheadBold,
                     ),
                     SizedBox(
                       height: screenHeight * 0.05,
@@ -50,14 +50,14 @@ class RemindersScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              AutoSizeText(
+                              const AutoSizeText(
                                 '•',
                                 style: theme.caption1,
                               ),
                               SizedBox(
                                 width: screenWidth * 0.01,
                               ),
-                              AutoSizeText(
+                              const AutoSizeText(
                                 'Be thorough in answering each question',
                                 style: theme.caption1,
                               ),
@@ -69,14 +69,14 @@ class RemindersScreen extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AutoSizeText(
+                              const AutoSizeText(
                                 '•',
                                 style: theme.caption1,
                               ),
                               SizedBox(
                                 width: screenWidth * 0.01,
                               ),
-                              AutoSizeText(
+                              const AutoSizeText(
                                 'Finish the work within 30 minutes or \npayment will be deducted.',
                                 style: theme.caption1,
                               ),
@@ -89,7 +89,7 @@ class RemindersScreen extends StatelessWidget {
                 ),
                 ButtonFill(
                   label: 'I understand',
-                  style: theme.caption1_bold,
+                  style: theme.caption1Bold,
                   height: screenHeight * 0.07,
                   onTap: () {
                     Navigator.of(context).pushReplacementNamed(

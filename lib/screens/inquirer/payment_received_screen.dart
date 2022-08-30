@@ -31,9 +31,9 @@ class PaymentReceivedScreen extends StatelessWidget {
                 SizedBox(
                   height: screenHeight * 0.05,
                 ),
-                AutoSizeText(
+                const AutoSizeText(
                   'Payment Received',
-                  style: theme.subhead_bold,
+                  style: theme.subheadBold,
                 ),
               ],
             ),

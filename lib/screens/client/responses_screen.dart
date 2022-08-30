@@ -19,14 +19,14 @@ class ResponsesScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AutoSizeText(
+                const AutoSizeText(
                   'Your Inquries',
                   style: theme.headline,
                 ),
                 SizedBox(
                   height: screenHeight * 0.05,
                 ),
-                Expanded(
+                const Expanded(
                   child: InquiryAndResponse(),
                 ),
                 SizedBox(
@@ -35,7 +35,7 @@ class ResponsesScreen extends StatelessWidget {
                 ButtonOutline(
                   label: 'Finish',
                   height: screenHeight * 0.07,
-                  style: theme.caption1_bold,
+                  style: theme.caption1Bold,
                 ),
               ],
             ),

@@ -15,11 +15,11 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         elevation: 0,
-        title: Text(
+        title: const Text(
           "Profile",
           style: theme.title2,
         ),
@@ -32,18 +32,18 @@ class ProfileScreen extends StatelessWidget {
           children: [
             Column(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 60.0,
                   backgroundImage: AssetImage(
                     'assets/images/illustrations/profile.png',
                   ),
                 ),
-                SizedBox(height: 25.0),
-                Text(
+                const SizedBox(height: 25.0),
+                const Text(
                   'Cymmer John Maranga',
                   style: theme.headline,
                 ),
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
                 ButtonFill(
                   label: "Edit Profile",
                   width: screenWidth * 0.40,
@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/edit_profile');
                   },
                 ),
-                SizedBox(height: 5.0),
+                const SizedBox(height: 5.0),
                 ButtonOutline(
                   label: "Deactivate Account",
                   width: screenWidth * 0.40,
@@ -64,21 +64,21 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 30.0),
+            const SizedBox(height: 30.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                inLabel(icon: Icons.help, label: "Help Center"),
-                SizedBox(height: 20),
-                inLabel(icon: Icons.question_answer, label: "FAQ"),
-                SizedBox(height: 20),
-                inLabel(icon: Icons.lock, label: "Privacy Policy"),
-                SizedBox(height: 20),
-                inLabel(icon: Icons.notes, label: "Terms of Service"),
-                SizedBox(height: 20),
-                inLabel(icon: Icons.info_sharp, label: "About Busify"),
-                SizedBox(height: 20),
-                inLabel(
+                const InLabel(icon: Icons.help, label: "Help Center"),
+                SizedBox(height: screenHeight * 0.04),
+                const InLabel(icon: Icons.question_answer, label: "FAQ"),
+                SizedBox(height: screenHeight * 0.04),
+                const InLabel(icon: Icons.lock, label: "Privacy Policy"),
+                SizedBox(height: screenHeight * 0.04),
+                const InLabel(icon: Icons.notes, label: "Terms of Service"),
+                SizedBox(height: screenHeight * 0.04),
+                const InLabel(icon: Icons.info_sharp, label: "About Busify"),
+                SizedBox(height: screenHeight * 0.04),
+                InLabel(
                   icon: Icons.exit_to_app,
                   label: "Sign Out",
                   onTap: () {},

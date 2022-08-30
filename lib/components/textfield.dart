@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InTextField extends StatelessWidget {
-  String label;
-  String hint;
-  bool isObscure;
-  IconData icon;
-  TextEditingController controller;
-  TextInputType type;
-  InTextField(
-      {this.label = '',
+  final String label;
+  final String hint;
+  final bool isObscure;
+  final IconData icon;
+  final TextEditingController controller;
+  final TextInputType type;
+  const InTextField(
+      {super.key,
+      this.label = '',
       this.isObscure = false,
       this.hint = '',
       this.type = TextInputType.text,
@@ -22,11 +22,11 @@ class InTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               border: Border.all(
                 color: theme.secondary,
               )),
@@ -47,18 +47,28 @@ class InTextField extends StatelessWidget {
 }
 
 class InTextFormField extends StatefulWidget {
-  String label;
-  Icon? icon;
-  String? value;
-  bool isObscure;
+  final String label;
+  final Icon? icon;
+  String value;
+  final bool isObscure;
   InTextFormField(
-      {this.label = '', this.icon, this.value, this.isObscure = false});
+      {super.key,
+      this.label = '',
+      this.icon,
+      required this.value,
+      this.isObscure = false});
 
   @override
   State<InTextFormField> createState() => _InTextFormFieldState();
 }
 
 class _InTextFormFieldState extends State<InTextFormField> {
+  String? formValue;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -68,19 +78,19 @@ class _InTextFormFieldState extends State<InTextFormField> {
           widget.label,
           style: theme.caption2,
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         TextFormField(
           // TODO: transfer to components
           style: theme.callout,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 10,
             ),
             prefixIcon: widget.icon,
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.shade300, width: 1)),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: theme.primary, width: 1)),
           ),
           obscureText: widget.isObscure,

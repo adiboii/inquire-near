@@ -1,9 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:inquire_near/components/BottomBar.dart';
-import 'package:inquire_near/components/InquiryImage.dart';
+import 'package:inquire_near/components/bottom_bar.dart';
+import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquirerViewSelectedInquiryScreen extends StatefulWidget {
@@ -18,16 +17,16 @@ class _InquirerViewSelectedInquiryScreenState
     extends State<InquirerViewSelectedInquiryScreen> {
   @override
   Widget build(BuildContext context) {
-    File? _image;
-    void _onIconSelected(File file) {
+    File? image;
+    void onIconSelected(File file) {
       setState(() {
-        _image = file;
+        image = file;
       });
     }
 
-    void _onCrossIconPressed() {
+    void onCrossIconPressed() {
       setState(() {
-        _image = null;
+        image = null;
       });
     }
 
@@ -38,10 +37,10 @@ class _InquirerViewSelectedInquiryScreenState
       appBar: AppBar(
         backgroundColor: Colors.grey[50],
         elevation: 0,
-        leading: BackButton(
+        leading: const BackButton(
           color: Colors.black,
         ),
-        title: AutoSizeText(
+        title: const AutoSizeText(
           'Inquiry 1',
           style: theme.headline,
         ),
@@ -61,14 +60,14 @@ class _InquirerViewSelectedInquiryScreenState
                         children: [
                           CircleAvatar(
                             radius: screenHeight * 0.02,
-                            backgroundImage: AssetImage(
+                            backgroundImage: const AssetImage(
                               'assets/images/illustrations/profile.png',
                             ),
                           ),
                           SizedBox(
                             width: screenWidth * 0.02,
                           ),
-                          AutoSizeText(
+                          const AutoSizeText(
                             'Is it open right now?',
                             style: theme.subhead,
                           ),
@@ -81,14 +80,14 @@ class _InquirerViewSelectedInquiryScreenState
                         children: [
                           CircleAvatar(
                             radius: screenHeight * 0.02,
-                            backgroundImage: AssetImage(
+                            backgroundImage: const AssetImage(
                               'assets/images/illustrations/profile.png',
                             ),
                           ),
                           SizedBox(
                             width: screenWidth * 0.02,
                           ),
-                          AutoSizeText(
+                          const AutoSizeText(
                             'Yes',
                             style: theme.subhead,
                           ),
@@ -97,8 +96,8 @@ class _InquirerViewSelectedInquiryScreenState
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 24, 0, 10),
                         child: InquiryImage(
-                          image: _image,
-                          onCrossIconPressed: _onCrossIconPressed,
+                          image: image,
+                          onCrossIconPressed: onCrossIconPressed,
                         ),
                       ),
                     ],
@@ -110,7 +109,7 @@ class _InquirerViewSelectedInquiryScreenState
           Align(
             alignment: Alignment.bottomCenter,
             child: BottomBar(
-              onIconSelected: _onIconSelected,
+              onIconSelected: onIconSelected,
             ),
           ),
         ],

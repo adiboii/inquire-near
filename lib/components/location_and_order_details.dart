@@ -11,7 +11,7 @@ class LocationAndOrderDetails extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 20.0,
         right: 20.0,
       ),
@@ -19,7 +19,7 @@ class LocationAndOrderDetails extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.location_on,
                 color: theme.primary,
                 size: theme.subheadIcon,
@@ -27,9 +27,9 @@ class LocationAndOrderDetails extends StatelessWidget {
               SizedBox(
                 width: screenWidth * 0.02,
               ),
-              AutoSizeText(
+              const AutoSizeText(
                 'Location',
-                style: theme.subhead_bold,
+                style: theme.subheadBold,
               ),
             ],
           ),
@@ -68,7 +68,7 @@ class LocationAndOrderDetails extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.receipt,
                 color: theme.primary,
                 size: theme.subheadIcon,
@@ -76,9 +76,9 @@ class LocationAndOrderDetails extends StatelessWidget {
               SizedBox(
                 width: screenWidth * 0.02,
               ),
-              AutoSizeText(
+              const AutoSizeText(
                 'Order',
-                style: theme.subhead_bold,
+                style: theme.subheadBold,
               ),
             ],
           ),
@@ -117,7 +117,7 @@ class LocationAndOrderDetails extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.01,
           ),
-          Divider(
+          const Divider(
             thickness: 0.9,
             color: Colors.black,
           ),

@@ -37,7 +37,7 @@ class Response extends StatelessWidget {
         ),
         CircleAvatar(
           radius: screenHeight * 0.02,
-          backgroundImage: AssetImage(
+          backgroundImage: const AssetImage(
             'assets/images/illustrations/profile.png',
           ),
         ),

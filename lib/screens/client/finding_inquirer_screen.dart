@@ -6,7 +6,7 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:lottie/lottie.dart';
 
 class FindingInquirerScreen extends StatefulWidget {
-  FindingInquirerScreen({Key? key}) : super(key: key);
+  const FindingInquirerScreen({Key? key}) : super(key: key);
 
   @override
   State<FindingInquirerScreen> createState() => _FindingInquirerScreenState();
@@ -16,11 +16,12 @@ class _FindingInquirerScreenState extends State<FindingInquirerScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 5), () {
       Navigator.pushReplacementNamed(context, '/eta_screen');
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -32,7 +33,7 @@ class _FindingInquirerScreenState extends State<FindingInquirerScreen> {
             children: [
               Column(
                 children: [
-                  Text(
+                  const Text(
                     "Finding an inquirer\nnear the area",
                     style: theme.title3,
                     textAlign: TextAlign.center,
@@ -41,14 +42,14 @@ class _FindingInquirerScreenState extends State<FindingInquirerScreen> {
                   Lottie.asset("assets/images/lottie/finding_inquirer.json",
                       height: screenHeight * 0.4),
                   SizedBox(height: screenHeight * 0.01),
-                  Text(
+                  const Text(
                     "Hold on...",
                     style: theme.headline,
                   ),
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 20),
+                padding: const EdgeInsets.only(bottom: 20),
                 child: ButtonOutline(
                   label: "Cancel",
                   style: theme.caption1,
