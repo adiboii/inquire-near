@@ -29,18 +29,19 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  auto_size_text: ^3.0.0
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_rating_bar: ^4.0.1
   flutter_svg: ^1.1.3
   font_awesome_flutter: ^10.1.0
   google_fonts: ^3.0.1
   image_picker: ^0.8.5+3
+  import_sorter: ^4.6.0
   lottie: ^1.4.1
-  auto_size_text: ^3.0.0
   shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
-  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

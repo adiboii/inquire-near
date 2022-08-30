@@ -1,7 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:lottie/lottie.dart';
+
+// Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import 'package:lottie/lottie.dart';
 
 class ETAScreen extends StatefulWidget {
   const ETAScreen({Key? key}) : super(key: key);

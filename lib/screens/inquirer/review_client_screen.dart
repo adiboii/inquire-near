@@ -1,6 +1,11 @@
-import 'package:auto_size_text/auto_size_text.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+// Project imports:
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;

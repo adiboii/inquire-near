@@ -1,7 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:inquire_near/components/wallet.dart';
+
+// Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/list.dart';
+import 'package:inquire_near/components/wallet.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class UserWalletScreen extends StatefulWidget {

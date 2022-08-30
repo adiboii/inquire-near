@@ -1,9 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:inquire_near/components/inquiry_image.dart';
-import 'package:inquire_near/components/buttons.dart';
+// Dart imports:
 import 'dart:io';
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_svg/flutter_svg.dart';
+
+// Project imports:
 import 'package:inquire_near/components/bottom_bar.dart';
+import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class AddInquiryScreen extends StatefulWidget {

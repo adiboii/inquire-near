@@ -1,7 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:inquire_near/themes/app_theme.dart' as theme;
 
+// Package imports:
+import 'package:flutter_svg/svg.dart';
+
+// Project imports:
+import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'buttons.dart';
 
 class AddInquiryCard extends StatelessWidget {
