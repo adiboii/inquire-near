@@ -1,9 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
+import '../../bloc/bloc/auth_bloc.dart';
 import '../../components/textfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,85 +20,123 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = "";
   final _formKey = GlobalKey<FormState>();
 
+  void _authenticateWithEmailAndPassword(context) {
+    if (_formKey.currentState!.validate()) {
+      BlocProvider.of<AuthBloc>(context).add(
+        SignInRequested(email, password),
+      );
+    }
+  }
+
+  void _authenticateWithGoogle(context) {
+    BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: theme.kScreenPadding,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Sign in to your account",
-                  style: theme.title3,
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: screenHeight * 0.03),
-                      InTextFormField(
-                        icon: const Icon(Icons.email),
-                        label: "Email",
-                        value: email,
-                      ),
-                      SizedBox(height: screenHeight * 0.04),
-                      InTextFormField(
-                        icon: const Icon(Icons.lock_open_sharp),
-                        label: "Password",
-                        value: password,
-                        isObscure: true,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: screenHeight * 0.07),
-                ButtonFill(
-                  label: "Sign In",
-                  onTap: () {
-                    Navigator.pushNamed(context, '/client_dashboard');
-                  },
-                ),
-                SizedBox(height: screenHeight * 0.075),
-                Column(
-                  children: [
-                    SizedBox(height: screenHeight * 0.01),
-                    Center(
-                      child: Text(
-                        "Sign In With",
-                        style:
-                            theme.subhead.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.05),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is Authenticated) {
+            Navigator.of(context).pushNamed('/client_dashboard');
+          }
+
+          if (state is AuthError) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.error)));
+          }
+        },
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is Loading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (state is Unauthenticated) {
+              return SafeArea(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: theme.kScreenPadding,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Image(
-                            width: 50,
-                            image:
-                                AssetImage("assets/images/logos/Google.png")),
-                        SizedBox(width: screenWidth * 0.10),
-                        const Image(
-                            width: 45,
-                            image:
-                                AssetImage("assets/images/logos/Facebook.png")),
-                        SizedBox(width: screenWidth * 0.10),
-                        const Image(
-                            width: 45,
-                            image: AssetImage("assets/images/logos/Apple.png")),
+                        const Text(
+                          "Sign in to your account",
+                          style: theme.title3,
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: screenHeight * 0.03),
+                              InTextFormField(
+                                icon: const Icon(Icons.email),
+                                label: "Email",
+                                value: email,
+                              ),
+                              SizedBox(height: screenHeight * 0.04),
+                              InTextFormField(
+                                icon: const Icon(Icons.lock_open_sharp),
+                                label: "Password",
+                                value: password,
+                                isObscure: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.07),
+                        ButtonFill(
+                          label: "Sign In",
+                          onTap: () {
+                            _authenticateWithEmailAndPassword(context);
+                          },
+                        ),
+                        SizedBox(height: screenHeight * 0.075),
+                        Column(
+                          children: [
+                            SizedBox(height: screenHeight * 0.01),
+                            Center(
+                              child: Text(
+                                "Sign In With",
+                                style: theme.subhead
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(height: screenHeight * 0.05),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Image(
+                                    width: 50,
+                                    image: AssetImage(
+                                        "assets/images/logos/Google.png")),
+                                SizedBox(width: screenWidth * 0.10),
+                                const Image(
+                                    width: 45,
+                                    image: AssetImage(
+                                        "assets/images/logos/Facebook.png")),
+                                SizedBox(width: screenWidth * 0.10),
+                                const Image(
+                                    width: 45,
+                                    image: AssetImage(
+                                        "assets/images/logos/Apple.png")),
+                              ],
+                            ),
+                          ],
+                        )
                       ],
                     ),
-                  ],
-                )
-              ],
-            ),
-          ),
+                  ),
+                ),
+              );
+            }
+            return Container();
+          },
         ),
       ),
     );

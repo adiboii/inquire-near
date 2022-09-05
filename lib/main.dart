@@ -1,5 +1,8 @@
 // Flutter imports:
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/data/repositories/auth_repository.dart';
 
 // Project imports:
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
@@ -29,9 +32,13 @@ import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
 import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
 
+import 'bloc/bloc/auth_bloc.dart';
+
 //import 'package:inquire_near/screens/routes.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const InquireNear());
 }
 
@@ -40,42 +47,51 @@ class InquireNear extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Inquire Near',
-      initialRoute: '/splash',
-      routes: {
-        '/splash': (context) => const SplashScreen(),
-        '/landing': (context) => const LandingScreen(),
-        '/login': (context) => const LoginScreen(),
-        '/sign_up': (context) => const SignUpScreen(),
-        '/onboarding': (context) => const OnboardingScreen(),
-        '/user_wallet': (context) => const UserWalletScreen(),
-        '/top_up': (context) => TopUpScreen(),
-        '/client_dashboard': (context) => const ClientDashboardScreen(),
-        '/profile': (context) => const ProfileScreen(),
-        '/inquiry_list': (context) => const InquiryListScreen(),
-        '/add_inquiry': (context) => const AddInquiryScreen(),
-        '/finding_inquirer': (context) => const FindingInquirerScreen(),
-        '/eta_screen': (context) => const ETAScreen(),
-        '/available_inquirers': (context) => const AvailableInquirersScreen(),
-        '/profile_details': (context) => const ProfileDetailsScreen(),
-        '/view_selected_inquiry': (context) =>
-            const ViewSelectedInquiryScreen(),
-        '/responses': (context) => const ResponsesScreen(),
-        '/payment_summary': (context) => const PaymentSummaryScreen(),
-        '/release_payment': (context) => const ReleasePaymentScreen(),
-        '/payment_success': (context) => const PaymentSuccessScreen(),
-        // Inquirer Screens
-        '/client_found': (context) => const ClientFoundScreen(),
-        '/reminders': (context) => const RemindersScreen(),
-        '/inquirer_inquiry_list': (context) =>
-            const InquirerInquiryListScreen(),
-        '/inquirer_view_selected_inquiry': (context) =>
-            const InquirerViewSelectedInquiryScreen(),
-        '/payment_received': (context) => const PaymentReceivedScreen(),
-        '/review_client': (context) => const ReviewClientScreen(),
-      },
+    return RepositoryProvider(
+      create: (context) => AuthRepository(),
+      child: BlocProvider(
+        create: (context) => AuthBloc(
+          authRepository: RepositoryProvider.of<AuthRepository>(context),
+        ),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Inquire Near',
+          initialRoute: '/splash',
+          routes: {
+            '/splash': (context) => const SplashScreen(),
+            '/landing': (context) => const LandingScreen(),
+            '/login': (context) => const LoginScreen(),
+            '/sign_up': (context) => const SignUpScreen(),
+            '/onboarding': (context) => const OnboardingScreen(),
+            '/user_wallet': (context) => const UserWalletScreen(),
+            '/top_up': (context) => TopUpScreen(),
+            '/client_dashboard': (context) => const ClientDashboardScreen(),
+            '/profile': (context) => const ProfileScreen(),
+            '/inquiry_list': (context) => const InquiryListScreen(),
+            '/add_inquiry': (context) => const AddInquiryScreen(),
+            '/finding_inquirer': (context) => const FindingInquirerScreen(),
+            '/eta_screen': (context) => const ETAScreen(),
+            '/available_inquirers': (context) =>
+                const AvailableInquirersScreen(),
+            '/profile_details': (context) => const ProfileDetailsScreen(),
+            '/view_selected_inquiry': (context) =>
+                const ViewSelectedInquiryScreen(),
+            '/responses': (context) => const ResponsesScreen(),
+            '/payment_summary': (context) => const PaymentSummaryScreen(),
+            '/release_payment': (context) => const ReleasePaymentScreen(),
+            '/payment_success': (context) => const PaymentSuccessScreen(),
+            // Inquirer Screens
+            '/client_found': (context) => const ClientFoundScreen(),
+            '/reminders': (context) => const RemindersScreen(),
+            '/inquirer_inquiry_list': (context) =>
+                const InquirerInquiryListScreen(),
+            '/inquirer_view_selected_inquiry': (context) =>
+                const InquirerViewSelectedInquiryScreen(),
+            '/payment_received': (context) => const PaymentReceivedScreen(),
+            '/review_client': (context) => const ReviewClientScreen(),
+          },
+        ),
+      ),
     );
   }
 }
