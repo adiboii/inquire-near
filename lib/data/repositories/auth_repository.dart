@@ -137,8 +137,10 @@ class AuthRepository {
       FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
+      print("auth error");
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
+      print("error here");
       throw const LogInWithEmailAndPasswordFailure();
     }
   }

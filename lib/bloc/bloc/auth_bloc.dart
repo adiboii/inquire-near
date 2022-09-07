@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:inquire_near/data/repositories/auth_repository.dart';
-import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -15,8 +15,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         await authRepository.signIn(
             email: event.email, password: event.password);
+
         emit(Authenticated());
       } catch (e) {
+        print(e.toString());
         emit(AuthError(e.toString()));
         emit(Unauthenticated());
       }
