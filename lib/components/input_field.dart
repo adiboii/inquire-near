@@ -24,9 +24,14 @@ class InputField extends StatefulWidget {
 
 class _InputFieldState extends State<InputField> {
   // Properties
-  bool isObscured = false;
+  bool? isObscured;
+  // Methods
+  @override
+  void initState() {
+    super.initState();
+    isObscured = widget.isPassword;
+  }
 
-  // Build Method
   @override
   Widget build(BuildContext context) {
     // Screen Dimensions
@@ -42,6 +47,9 @@ class _InputFieldState extends State<InputField> {
           height: screenHeight * 0.01,
         ),
         TextFormField(
+          onChanged: (value) {
+            setState(() {});
+          },
           controller: widget.controller,
           style: theme.callout,
           decoration: InputDecoration(
@@ -49,29 +57,43 @@ class _InputFieldState extends State<InputField> {
               horizontal: 10,
               vertical: 10,
             ),
-            suffixIcon: IconButton(
-              onPressed: () {
-                if (widget.isPassword) {
-                  isObscured = !isObscured;
-                } else {
-                  widget.controller.text = '';
-                }
-              },
-              icon: Icon(
-                (widget.isPassword == false)
-                    ? Icons.close
-                    : Icons.visibility_off,
-              ),
-            ),
+            suffixIcon: (!widget.controller.text.isEmpty)
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        if (widget.isPassword) {
+                          isObscured = !isObscured!;
+                        } else {
+                          widget.controller.text = '';
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      (widget.isPassword == false)
+                          ? Icons.close
+                          : (isObscured!)
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                    ),
+                  )
+                : null,
             prefixIcon: Icon(
               widget.icon,
             ),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade300, width: 1)),
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+                width: 1,
+              ),
+            ),
             focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: theme.primary, width: 1)),
+              borderSide: BorderSide(
+                color: theme.primary,
+                width: 1,
+              ),
+            ),
           ),
-          obscureText: isObscured,
+          obscureText: isObscured!,
           validator: (val) => val!.isEmpty ? "Please enter your name" : null,
         ),
         SizedBox(

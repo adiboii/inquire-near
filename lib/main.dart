@@ -61,7 +61,7 @@ class InquireNear extends StatelessWidget {
             '/splash': (context) => const SplashScreen(),
             '/landing': (context) => const LandingScreen(),
             '/login': (context) => const LoginScreen(),
-            '/sign_up': (context) => const SignUpScreen(),
+            '/sign_up': (context) => SignUpScreen(),
             '/onboarding': (context) => const OnboardingScreen(),
             '/user_wallet': (context) => const UserWalletScreen(),
             '/top_up': (context) => TopUpScreen(),
