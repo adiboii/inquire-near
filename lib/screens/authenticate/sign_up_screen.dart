@@ -1,10 +1,12 @@
 // Flutter imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
-import 'package:inquire_near/components/container.dart';
+import 'package:inquire_near/components/icon_container.dart';
+import 'package:inquire_near/components/input_field.dart';
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
@@ -18,19 +20,22 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  String confirmPassword = "";
-  String email = "";
-  String error = "";
-  String name = "";
-  String password = "";
+  final firstNameTextController = TextEditingController();
+  final lastNameTextController = TextEditingController();
+  final emailAddressTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+  final confirmPasswordTextController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   void _authenticateWithEmailAndPassword(context) {
-    if (_formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
       // If email is valid adding new event [SignUpRequested].
       BlocProvider.of<AuthBloc>(context).add(
-        SignUpRequested(email, password),
+        SignUpRequested(
+          emailAddressTextController.text,
+          passwordTextController.text,
+        ),
       );
     }
   }
@@ -49,12 +54,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
-            Navigator.of(context).pushNamed('/client_dashboard');
+            Navigator.of(context).pushNamed(
+              '/client_dashboard',
+            );
           }
 
           if (state is AuthError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.error),
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -72,212 +82,71 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Create a new account",
-                            style: theme.title2,
-                          ),
-                          SizedBox(height: screenHeight * 0.03),
-                          const Center(
-                            child: Text(
-                              "Use your socials",
-                              style: theme.subhead,
-                            ),
-                          ),
-                          SizedBox(height: screenHeight * 0.04),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const IconContainer(
-                                  source: "assets/images/logos/Google.png"),
-                              SizedBox(width: screenWidth * 0.04),
-                              const IconContainer(
-                                  source: "assets/images/logos/Facebook.png"),
-                              SizedBox(width: screenWidth * 0.04),
-                              const IconContainer(
-                                  source: "assets/images/logos/Apple.png"),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          const Center(child: Text("or")),
-                          SizedBox(height: screenHeight * 0.02),
-                        ],
+                      const AutoSizeText(
+                        "Create a new account",
+                        style: theme.title2,
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
+                      const Center(
+                        child: AutoSizeText(
+                          "Use your Google account",
+                          style: theme.subhead,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.04,
+                      ),
+                      const Center(
+                        child: IconContainer(
+                          source: "assets/images/logos/Google.png",
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
+                      const Center(
+                        child: AutoSizeText(
+                          'or',
+                          style: theme.caption1,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
                       ),
                       Form(
-                        key: _formKey,
+                        key: formKey,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Full Name",
-                                  style: theme.caption2,
-                                ),
-                                const SizedBox(height: 4),
-                                TextFormField(
-                                  // TODO: transfer to components
-                                  style: theme.callout,
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 10,
-                                    ),
-                                    prefixIcon: const Icon(Icons.person),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey.shade300,
-                                            width: 1)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: theme.primary, width: 1)),
-                                  ),
-                                  obscureText: false,
-                                  validator: (val) => val!.isEmpty
-                                      ? "Please enter your name"
-                                      : null,
-                                  onChanged: (val) {
-                                    setState(() => name = val);
-                                  },
-                                ),
-                              ],
+                            InputField(
+                              label: 'First Name',
+                              controller: firstNameTextController,
+                              icon: Icons.person,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Email",
-                                  style: theme.caption2,
-                                ),
-                                const SizedBox(height: 4),
-                                TextFormField(
-                                  // TODO: transfer to components
-                                  style: theme.callout,
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 10,
-                                    ),
-                                    prefixIcon: const Icon(Icons.email),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey.shade300,
-                                            width: 1)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: theme.primary, width: 1)),
-                                  ),
-                                  obscureText: false,
-                                  validator: (val) => val!.isEmpty
-                                      ? "Please enter your email address"
-                                      : null,
-                                  onChanged: (val) {
-                                    setState(() => email = val);
-                                  },
-                                ),
-                              ],
+                            InputField(
+                              label: 'Last Name',
+                              controller: lastNameTextController,
+                              icon: Icons.person,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Password",
-                                  style: theme.caption2,
-                                ),
-                                const SizedBox(height: 4),
-                                TextFormField(
-                                  // TODO: transfer to components
-                                  style: theme.callout,
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 10,
-                                    ),
-                                    prefixIcon:
-                                        const Icon(Icons.lock_outline_sharp),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey.shade300,
-                                            width: 1)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: theme.primary, width: 1)),
-                                  ),
-                                  obscureText: true,
-                                  validator: (val) => val!.isEmpty
-                                      ? "Please enter your password"
-                                      : null,
-                                  onChanged: (val) {
-                                    setState(() => password = val);
-                                  },
-                                ),
-                              ],
+                            InputField(
+                              label: 'Email Address',
+                              controller: emailAddressTextController,
+                              icon: Icons.email,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Confirm Password",
-                                  style: theme.caption2,
-                                ),
-                                const SizedBox(height: 4),
-                                TextFormField(
-                                  // TODO: transfer to components
-                                  style: theme.callout,
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 10,
-                                    ),
-                                    prefixIcon:
-                                        const Icon(Icons.lock_outline_sharp),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey.shade300,
-                                            width: 1)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: theme.primary, width: 1)),
-                                  ),
-                                  obscureText: true,
-                                  validator: (val) => val!.isEmpty
-                                      ? "Please enter your password"
-                                      : null,
-                                  onChanged: (val) {
-                                    setState(() => confirmPassword = val);
-                                  },
-                                ),
-                              ],
+                            InputField(
+                              label: 'Password',
+                              controller: passwordTextController,
+                              icon: Icons.lock,
+                              isPassword: true,
                             ),
-                            // InTextFormField(
-                            //   icon: const Icon(Icons.person),
-                            //   label: "Full Name",
-                            //   value: name,
-                            // ),
-                            // SizedBox(height: screenHeight * 0.02),
-                            // InTextFormField(
-                            //   icon: const Icon(Icons.email),
-                            //   label: "Email",
-                            //   value: email,
-                            // ),
-                            // SizedBox(height: screenHeight * 0.02),
-                            // InTextFormField(
-                            //   icon: const Icon(Icons.lock_open_sharp),
-                            //   label: "Password",
-                            //   value: password,
-                            //   isObscure: true,
-                            // ),
-                            // SizedBox(height: screenHeight * 0.02),
-                            // InTextFormField(
-                            //   icon: const Icon(Icons.lock_open_sharp),
-                            //   label: "Confrim Password",
-                            //   value: confirmPassword,
-                            //   isObscure: true,
-                            // ),
-                            // SizedBox(height: screenHeight * 0.02),
+                            InputField(
+                              label: 'Confirm Password',
+                              controller: confirmPasswordTextController,
+                              icon: Icons.lock,
+                              isPassword: true,
+                            ),
                           ],
                         ),
                       ),

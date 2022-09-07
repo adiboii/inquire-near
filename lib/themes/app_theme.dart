@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 const Color textColor = Color(0xff201F32);
 const Color buttonText = Color(0xffffffff);
 const Color primary = Color(0xff007AFF);
-const Color gray = Color(0xFFECECEC);
+const Color gray = Color.fromARGB(255, 233, 213, 213);
 const Color secondary = Color(0xFF3B4B84);
 const Color red = Color(0xFFFF5151);
 const Color lightBlue = Color(0xFFF0F7FF);
 const Color primaryYellow = Color(0xFFFBBC05);
+const Color primaryGray = Color(0xFFABABB2);
 
 //Text Themes
 //TODO: remove header textstyles
