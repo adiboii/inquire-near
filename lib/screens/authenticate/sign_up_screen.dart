@@ -7,26 +7,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/icon_container.dart';
 import 'package:inquire_near/components/input_field.dart';
-import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 import '../../bloc/bloc/auth_bloc.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
+class SignUpScreen extends StatelessWidget {
+  // Properties
+  // Text Controllers
   final firstNameTextController = TextEditingController();
   final lastNameTextController = TextEditingController();
   final emailAddressTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   final confirmPasswordTextController = TextEditingController();
 
+  // Form Key
   final formKey = GlobalKey<FormState>();
+
+  // Constructors
+  SignUpScreen({Key? key}) : super(key: key);
 
   void _authenticateWithEmailAndPassword(context) {
     if (formKey.currentState!.validate()) {
@@ -49,7 +47,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -84,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       const AutoSizeText(
                         "Create a new account",
-                        style: theme.title2,
+                        style: theme.title3,
                       ),
                       SizedBox(
                         height: screenHeight * 0.03,
@@ -92,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const Center(
                         child: AutoSizeText(
                           "Use your Google account",
-                          style: theme.subhead,
+                          style: theme.caption1,
                         ),
                       ),
                       SizedBox(
@@ -118,7 +115,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Form(
                         key: formKey,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             InputField(
                               label: 'First Name',
@@ -150,7 +146,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.025),
+                      SizedBox(
+                        height: screenHeight * 0.025,
+                      ),
                       ButtonFill(
                         label: "Create Account",
                         onTap: () {
@@ -163,7 +161,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             );
           }
-
           return Container();
         },
       ),
