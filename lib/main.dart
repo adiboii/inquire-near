@@ -27,39 +27,7 @@ class InquireNear extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
           initialRoute: '/splash',
-          routes: {
-            '/splash': (context) => const SplashScreen(),
-            '/landing': (context) => const LandingScreen(),
-            '/login': (context) => const LoginScreen(),
-            '/sign_up': (context) => SignUpScreen(),
-            '/onboarding': (context) => const OnboardingScreen(),
-            '/user_wallet': (context) => const UserWalletScreen(),
-            '/top_up': (context) => TopUpScreen(),
-            '/client_dashboard': (context) => const ClientDashboardScreen(),
-            '/profile': (context) => const ProfileScreen(),
-            '/inquiry_list': (context) => const InquiryListScreen(),
-            '/add_inquiry': (context) => const AddInquiryScreen(),
-            '/finding_inquirer': (context) => const FindingInquirerScreen(),
-            '/eta_screen': (context) => const ETAScreen(),
-            '/available_inquirers': (context) =>
-                const AvailableInquirersScreen(),
-            '/profile_details': (context) => const ProfileDetailsScreen(),
-            '/view_selected_inquiry': (context) =>
-                const ViewSelectedInquiryScreen(),
-            '/responses': (context) => const ResponsesScreen(),
-            '/payment_summary': (context) => const PaymentSummaryScreen(),
-            '/release_payment': (context) => const ReleasePaymentScreen(),
-            '/payment_success': (context) => const PaymentSuccessScreen(),
-            // Inquirer Screens
-            '/client_found': (context) => const ClientFoundScreen(),
-            '/reminders': (context) => const RemindersScreen(),
-            '/inquirer_inquiry_list': (context) =>
-                const InquirerInquiryListScreen(),
-            '/inquirer_view_selected_inquiry': (context) =>
-                const InquirerViewSelectedInquiryScreen(),
-            '/payment_received': (context) => const PaymentReceivedScreen(),
-            '/review_client': (context) => const ReviewClientScreen(),
-          },
+          onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
     );
