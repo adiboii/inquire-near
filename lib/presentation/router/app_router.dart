@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/add_inquiry_screen.dart';
@@ -41,7 +44,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case '/sign_up':
-        return MaterialPageRoute(builder: (_) => const SignUpScreen());
+        return MaterialPageRoute(builder: (_) => SignUpScreen());
 
       case '/onboarding':
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());

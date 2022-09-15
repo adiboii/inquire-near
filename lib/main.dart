@@ -1,7 +1,11 @@
 // Flutter imports:
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/presentation/router/app_router.dart';
 import 'bloc/bloc/auth_bloc.dart';

@@ -1,6 +1,14 @@
+// Dart imports:
+import 'dart:developer';
+
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+
+// Project imports:
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 
 part 'auth_event.dart';
@@ -18,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         emit(Authenticated());
       } catch (e) {
-        print(e.toString());
+        log(e.toString());
         emit(AuthError(e.toString()));
         emit(Unauthenticated());
       }
