@@ -1,6 +1,8 @@
 // Flutter imports:
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
@@ -8,7 +10,6 @@ import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/icon_container.dart';
 import 'package:inquire_near/components/input_field.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-
 import '../../bloc/bloc/auth_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -38,11 +39,12 @@ class SignUpScreen extends StatelessWidget {
     }
   }
 
-  void _authenticateWithGoogle(context) {
-    BlocProvider.of<AuthBloc>(context).add(
-      GoogleSignInRequested(),
-    );
-  }
+  // TODO: Use this functionality for Google SSO (Socials Login)
+  // void _authenticateWithGoogle(context) {
+  //   BlocProvider.of<AuthBloc>(context).add(
+  //     GoogleSignInRequested(),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

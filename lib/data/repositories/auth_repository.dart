@@ -1,3 +1,7 @@
+// Dart imports:
+import 'dart:developer';
+
+// Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -137,10 +141,10 @@ class AuthRepository {
       FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      print("auth error");
+      log("Firebase: Auth error");
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
-      print("error here");
+      log("Firebase: Sign In error");
       throw const LogInWithEmailAndPasswordFailure();
     }
   }

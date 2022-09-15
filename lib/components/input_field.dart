@@ -1,5 +1,10 @@
-import 'package:auto_size_text/auto_size_text.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
+
+// Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InputField extends StatefulWidget {
@@ -57,7 +62,7 @@ class _InputFieldState extends State<InputField> {
               horizontal: 10,
               vertical: 10,
             ),
-            suffixIcon: (!widget.controller.text.isEmpty)
+            suffixIcon: (widget.controller.text.isNotEmpty)
                 ? IconButton(
                     onPressed: () {
                       setState(() {
