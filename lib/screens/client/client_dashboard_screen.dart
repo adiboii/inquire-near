@@ -55,7 +55,7 @@ class ClientDashboardScreen extends StatelessWidget {
                           ),
                           Text(
                             "${user.email}",
-                            style: theme.title2,
+                            style: theme.title3,
                           )
                         ],
                       ),
@@ -86,58 +86,50 @@ class ClientDashboardScreen extends StatelessWidget {
                   icon: Icons.search,
                   controller: search,
                   hint: "Search for places"),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: screenHeight * 0.025),
-                  const Text(
-                    "Categories",
-                    style: theme.title3,
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
-                  //TODO: convert to widget
-                  SizedBox(
-                    height: screenHeight * 0.02,
-                    child: ListView(
-                      //TODO: convert to listview.builder
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/inquiry_list');
-                            },
-                            child: const Text("Popular")),
-                        SizedBox(width: screenWidth * 0.05),
-                        const Text("Government"),
-                        SizedBox(width: screenWidth * 0.05),
-                        const Text("Malls"),
-                        SizedBox(width: screenWidth * 0.05),
-                        const Text("Grocery"),
-                        SizedBox(width: screenWidth * 0.05),
-                        const Text("Lorem Ipsum"),
-                        SizedBox(width: screenWidth * 0.05),
-                        const Text("Lorem Ipsum"),
-                      ],
-                    ),
-                  ),
-                ],
+              SizedBox(height: screenHeight * 0.01),
+              const Text(
+                "Categories",
+                style: theme.title3,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: screenHeight * 0.025),
-                  const Text(
-                    "Your Card",
-                    style: theme.title3,
-                  ),
-                  SizedBox(height: screenHeight * 0.025),
-                  Center(
-                    child: Wallet(
-                        screenHeight: screenHeight, screenWidth: screenWidth),
-                  )
-                ],
+              SizedBox(height: screenHeight * 0.01),
+              //TODO: convert to widget
+              SizedBox(
+                height: screenHeight * 0.02,
+                child: ListView(
+                  //TODO: convert to listview.builder
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/inquiry_list');
+                        },
+                        child: const Text("Popular")),
+                    SizedBox(width: screenWidth * 0.05),
+                    const Text("Government"),
+                    SizedBox(width: screenWidth * 0.05),
+                    const Text("Malls"),
+                    SizedBox(width: screenWidth * 0.05),
+                    const Text("Grocery"),
+                    SizedBox(width: screenWidth * 0.05),
+                    const Text("Lorem Ipsum"),
+                    SizedBox(width: screenWidth * 0.05),
+                    const Text("Lorem Ipsum"),
+                  ],
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.01),
+              const Text(
+                "Your Card",
+                style: theme.title3,
+              ),
+              SizedBox(height: screenHeight * 0.01),
+              Center(
+                child: Wallet(
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                  name: "Cymmer Maranga",
+                  balance: 445.20,
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -151,7 +143,7 @@ class ClientDashboardScreen extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.025),
                   //TODO: convert to widget
                   SizedBox(
-                    height: screenHeight * 0.22,
+                    height: screenHeight * 0.20,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [

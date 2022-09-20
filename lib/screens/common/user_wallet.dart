@@ -37,10 +37,15 @@ class _UserWalletState extends State<UserWalletScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: theme.kScreenPadding,
+          padding: theme.kScreenPadding.copyWith(top: 0),
           child: Column(
             children: [
-              Wallet(screenHeight: height, screenWidth: width),
+              Wallet(
+                screenHeight: height,
+                screenWidth: width,
+                name: "Cymmer Maranga",
+                balance: 445.20,
+              ),
               const SizedBox(height: 12),
               Row(
                 children: [
@@ -74,7 +79,7 @@ class _UserWalletState extends State<UserWalletScreen> {
                   const SizedBox(height: 12),
                   Center(
                     child: SizedBox(
-                      height: height * 0.45,
+                      height: height * 0.35,
                       child: ListView(
                         scrollDirection: Axis.vertical,
                         children: const [

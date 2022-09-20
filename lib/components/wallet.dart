@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 // Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -7,59 +8,70 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 class Wallet extends StatelessWidget {
   final double screenWidth;
   final double screenHeight;
+  final String name;
+  final double balance;
 
   const Wallet(
-      {super.key, required this.screenHeight, required this.screenWidth});
+      {super.key,
+      required this.screenHeight,
+      required this.screenWidth,
+      required this.name,
+      required this.balance});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: screenWidth * 0.80,
-      height: screenHeight * 0.25,
-      padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+      height: screenHeight * 0.30,
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
       decoration: const BoxDecoration(
-        color: theme.primary,
+        color: theme.paypalBlue,
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+      child: Stack(
         children: [
-          Row(
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Image.asset("assets/images/logos/paypal.png",
+                  height: screenHeight * 0.20)),
+          Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Text(
+                "Paypal",
+                style: theme.headline.copyWith(color: Colors.white),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Cymmer Maranga",
-                      style: theme.title3
-                          .copyWith(color: Colors.white, fontSize: 12)),
-                  Text(
-                    "•••• •••• •••• 2457",
-                    style: theme.title3.copyWith(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(name,
+                          style: theme.headline.copyWith(color: Colors.white)),
+                      Text(
+                        "•••• •••• •••• 2457",
+                        style: theme.footnote.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Total Balance",
+                          style: theme.footnote.copyWith(
+                            color: Colors.white,
+                          )),
+                      Text(balance.toStringAsFixed(2),
+                          style: theme.title2.copyWith(color: Colors.white)),
+                    ],
+                  )
                 ],
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Total Balance",
-                      style: theme.title3.copyWith(
-                        color: Colors.white,
-                        fontSize: 12,
-                      )),
-                  Text(
-                    "₱455.20",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        ?.copyWith(color: Colors.white, fontSize: 25),
-                  ),
-                ],
-              )
             ],
           ),
         ],
