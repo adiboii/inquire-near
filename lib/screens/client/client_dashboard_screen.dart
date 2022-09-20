@@ -135,7 +135,11 @@ class ClientDashboardScreen extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.025),
                   Center(
                     child: Wallet(
-                        screenHeight: screenHeight, screenWidth: screenWidth),
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      name: "Cymmer Maranga",
+                      balance: 445.20,
+                    ),
                   )
                 ],
               ),
@@ -151,7 +155,7 @@ class ClientDashboardScreen extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.025),
                   //TODO: convert to widget
                   SizedBox(
-                    height: screenHeight * 0.22,
+                    height: screenHeight * 0.20,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
