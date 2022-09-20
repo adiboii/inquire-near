@@ -63,7 +63,8 @@ class ClientDashboardScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/client_found');
+                      Navigator.pushReplacementNamed(
+                          context, '/inquirer_dashboard');
                     },
                     child: SizedBox(
                       height: screenHeight * 0.05,
