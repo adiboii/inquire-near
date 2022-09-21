@@ -4,7 +4,6 @@ import 'package:inquire_near/data/models/enums.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class SwitchUserType extends StatelessWidget {
-  //TODO: Change to user enum
   final UserType userType;
   const SwitchUserType({
     Key? key,
