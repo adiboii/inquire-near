@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:inquire_near/components/switch_user_type.dart';
 
 // Project imports:
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/components/wallet.dart';
+import 'package:inquire_near/data/models/enums.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ClientDashboardScreen extends StatelessWidget {
@@ -61,26 +62,8 @@ class ClientDashboardScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacementNamed(
-                          context, '/inquirer_dashboard');
-                    },
-                    child: SizedBox(
-                      height: screenHeight * 0.05,
-                      width: screenHeight * 0.05,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: theme.primary,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: SvgPicture.asset(
-                          "assets/images/svgs/change_user_type.svg",
-                          fit: BoxFit.scaleDown,
-                        ),
-                      ),
-                    ),
-                  ),
+                  SwitchUserType(
+                      screenHeight: screenHeight, userType: UserType.inquirer),
                 ],
               ),
               InTextField(
