@@ -18,6 +18,7 @@ import 'package:inquire_near/screens/common/landing_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
 import 'package:inquire_near/screens/common/profile_details.dart';
 import 'package:inquire_near/screens/common/profile_screen.dart';
+import 'package:inquire_near/screens/common/report_screen.dart';
 import 'package:inquire_near/screens/common/splash_screen.dart';
 import 'package:inquire_near/screens/common/top_up.dart';
 import 'package:inquire_near/screens/common/user_wallet.dart';
@@ -53,6 +54,10 @@ class AppRouter {
 
       case '/top_up':
         return MaterialPageRoute(builder: (_) => TopUpScreen());
+
+      case '/report':
+        return MaterialPageRoute(
+            builder: (_) => const ReportScreen(reportByClient: false));
 
       // Client Screens
 
@@ -96,6 +101,10 @@ class AppRouter {
 
       case '/payment_success':
         return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
+
+      case '/report_by_client':
+        return MaterialPageRoute(
+            builder: (_) => const ReportScreen(reportByClient: true));
 
       // Inquirer Screens
       case '/client_found':
