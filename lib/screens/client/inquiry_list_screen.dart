@@ -6,6 +6,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/components/cards.dart';
+import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListScreen extends StatefulWidget {
@@ -16,10 +18,32 @@ class InquiryListScreen extends StatefulWidget {
 }
 
 class _InquiryListScreenState extends State<InquiryListScreen> {
+  final inquiryList = <Inquiry>[];
+  Future<void> _addInquiry(BuildContext context) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    final result = await Navigator.pushNamed(
+      context,
+      '/add_inquiry',
+    ) as Inquiry?;
+
+    // When a BuildContext is used from a StatefulWidget, the mounted property
+    // must be checked after an asynchronous gap.
+    if (!mounted) return;
+    if (result == null) return;
+    inquiryList.add(result);
+    // After the Selection Screen returns a result, hide any previous snackbars
+    // and show the new result.
+    // ScaffoldMessenger.of(context)
+    //   ..removeCurrentSnackBar()
+    //   ..showSnackBar(SnackBar(content: Text("$result")));
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -56,40 +80,51 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                 style: theme.headline.copyWith(fontSize: 16),
               ),
               SizedBox(height: screenHeight * 0.02),
-              // AddInquiryCard(
-              //   screenHeight: screenHeight,
-              //   screenWidth: screenWidth,
-              //   onTap: () {
-              //     Navigator.pushNamed(context, '/add_inquiry');
-              //   },
-              // ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: InquiryList(
-                    screenHeight: screenHeight,
-                    screenWidth: screenWidth,
-                  ),
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.04),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ButtonOutline(
-                    label: "Add an inquiry",
-                    style: theme.caption1Bold,
-                    width: screenWidth * 0.40,
-                    height: screenHeight * 0.06,
-                  ),
-                  ButtonFill(
-                      label: "Finish",
-                      style: theme.caption1Bold,
-                      width: screenWidth * 0.40,
-                      height: screenHeight * 0.06),
-                ],
-              )
+              (inquiryList.isEmpty)
+                  ? AddInquiryCard(
+                      screenHeight: screenHeight,
+                      screenWidth: screenWidth,
+                      onTap: () {
+                        _addInquiry(context);
+                      },
+                    )
+                  : Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: InquiryList(
+                          inquiryList: inquiryList,
+                          screenHeight: screenHeight,
+                          screenWidth: screenWidth,
+                        ),
+                      ),
+                    ),
+              (inquiryList.isNotEmpty)
+                  ? Column(
+                      children: [
+                        SizedBox(height: screenHeight * 0.04),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ButtonOutline(
+                              label: "Add an inquiry",
+                              style: theme.caption1Bold,
+                              width: screenWidth * 0.40,
+                              height: screenHeight * 0.06,
+                              onTap: () {
+                                _addInquiry(context);
+                              },
+                            ),
+                            ButtonFill(
+                                label: "Finish",
+                                style: theme.caption1Bold,
+                                width: screenWidth * 0.40,
+                                height: screenHeight * 0.06),
+                          ],
+                        )
+                      ],
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
@@ -99,10 +134,13 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
 }
 
 class InquiryList extends StatelessWidget {
+  final List<Inquiry> inquiryList;
+
   const InquiryList({
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
+    required this.inquiryList,
   }) : super(key: key);
 
   final double screenHeight;
@@ -110,38 +148,26 @@ class InquiryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.builder(
+      itemCount: inquiryList.length,
+      itemBuilder: ((context, index) {
+        final inquiryItem = inquiryList[index];
+        return Dismissible(
+          key: Key(inquiryItem.message!),
+          onDismissed: (direction) {
+            inquiryList.removeAt(index);
+          },
+          background: Container(color: theme.red),
+          child: InquiryItem(
+            screenHeight: screenHeight,
+            screenWidth: screenWidth,
+            label: inquiryList[index].getInquiry()!,
+            attachedPhotos: inquiryList[index].getImage() != null ? 1 : 0,
+            requireProof: inquiryList[index].getRequireProof()!,
+          ),
+        );
+      }),
       scrollDirection: Axis.vertical,
-      children: [
-        InquiryItem(
-          screenHeight: screenHeight,
-          screenWidth: screenWidth,
-          label: "Is it open right now?",
-          attachedPhotos: 1,
-          requireProof: true,
-        ),
-        InquiryItem(
-          screenHeight: screenHeight,
-          screenWidth: screenWidth,
-          label: "Are there a lot of people right now?",
-          attachedPhotos: 1,
-          requireProof: false,
-        ),
-        InquiryItem(
-          screenHeight: screenHeight,
-          screenWidth: screenWidth,
-          label: "What is the current priority number",
-          attachedPhotos: 2,
-          requireProof: true,
-        ),
-        InquiryItem(
-          screenHeight: screenHeight,
-          screenWidth: screenWidth,
-          label: "What time does it close?",
-          attachedPhotos: 1,
-          requireProof: true,
-        ),
-      ],
     );
   }
 }

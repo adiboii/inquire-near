@@ -6,10 +6,14 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:image_picker/image_picker.dart';
+import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class BottomBar extends StatefulWidget {
   final Function(File) onIconSelected;
-  const BottomBar({Key? key, required this.onIconSelected}) : super(key: key);
+  final ValueChanged<bool> requireProof;
+  BottomBar(
+      {Key? key, required this.onIconSelected, required this.requireProof})
+      : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -24,6 +28,14 @@ class _BottomBarState extends State<BottomBar> {
         // _image = file;
         widget.onIconSelected(File(file!.path));
       });
+    });
+  }
+
+  bool _requireProof = false;
+  void updateBool(bool? value) {
+    setState(() {
+      widget.requireProof(value!);
+      _requireProof = value;
     });
   }
 
@@ -49,6 +61,14 @@ class _BottomBarState extends State<BottomBar> {
             },
             icon: const Icon(Icons.camera_alt_sharp),
           ),
+          Checkbox(
+            value: _requireProof,
+            onChanged: (val) => updateBool(val),
+          ),
+          const Text(
+            "Require Proof",
+            style: theme.subhead,
+          )
         ],
       ),
     );

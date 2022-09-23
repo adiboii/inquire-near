@@ -11,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inquire_near/components/bottom_bar.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
+import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class AddInquiryScreen extends StatefulWidget {
@@ -21,17 +22,26 @@ class AddInquiryScreen extends StatefulWidget {
 }
 
 class _AddInquiryScreenState extends State<AddInquiryScreen> {
-  File? _image;
+  late Inquiry inquiry;
+  TextEditingController inquiryContoller = TextEditingController();
+  bool requireProof = false;
+  File? image;
 
   void _onCrossIconPressed() {
     setState(() {
-      _image = null;
+      image = null;
     });
   }
 
   void _onIconSelected(File file) {
     setState(() {
-      _image = file;
+      image = file;
+    });
+  }
+
+  void updateBool(bool value) {
+    setState(() {
+      requireProof = value;
     });
   }
 
@@ -88,8 +98,11 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                 style: theme.caption1Bold,
                                 borderRadius: 5,
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/available_inquirers');
+                                  inquiry = Inquiry(
+                                      message: inquiryContoller.text,
+                                      requireProof: requireProof,
+                                      image: image);
+                                  Navigator.pop(context, inquiry);
                                 },
                               ),
                             ],
@@ -110,7 +123,8 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                               SizedBox(width: screenWidth * 0.04),
                               SizedBox(
                                 width: screenWidth * 0.7,
-                                child: const TextField(
+                                child: TextField(
+                                  controller: inquiryContoller,
                                   decoration: InputDecoration.collapsed(
                                       hintText: "What do you need?"),
                                   style: theme.subhead,
@@ -125,7 +139,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 24, 0, 10),
                         child: InquiryImage(
-                          image: _image,
+                          image: image,
                           onCrossIconPressed: _onCrossIconPressed,
                         ),
                       ),
@@ -139,6 +153,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
             alignment: Alignment.bottomCenter,
             child: BottomBar(
               onIconSelected: _onIconSelected,
+              requireProof: updateBool,
             ),
           ),
         ],
