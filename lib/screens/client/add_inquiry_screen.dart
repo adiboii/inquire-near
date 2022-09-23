@@ -125,7 +125,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                 width: screenWidth * 0.7,
                                 child: TextField(
                                   controller: inquiryContoller,
-                                  decoration: InputDecoration.collapsed(
+                                  decoration: const InputDecoration.collapsed(
                                       hintText: "What do you need?"),
                                   style: theme.subhead,
                                   maxLength: 150,
