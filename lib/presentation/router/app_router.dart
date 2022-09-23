@@ -41,7 +41,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case '/sign_up':
-        return MaterialPageRoute(builder: (_) => const SignUpScreen());
+        return MaterialPageRoute(builder: (_) => SignUpScreen());
 
       case '/onboarding':
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
@@ -114,7 +114,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const PaymentReceivedScreen());
 
       case '/review_client':
-        return MaterialPageRoute(builder: (_) => const ReviewClientScreen());
+        return MaterialPageRoute(builder: (_) => ClientFeedbackScreen());
 
       default:
         return null;

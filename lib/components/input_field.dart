@@ -7,6 +7,7 @@ class InputField extends StatefulWidget {
   final String label;
   final TextEditingController controller;
   final IconData icon;
+  final String? Function(String?)? validator;
   final bool isPassword;
 
   // Constructors
@@ -15,6 +16,7 @@ class InputField extends StatefulWidget {
     required this.label,
     required this.controller,
     required this.icon,
+    required this.validator,
     this.isPassword = false,
   }) : super(key: key);
 
@@ -53,11 +55,8 @@ class _InputFieldState extends State<InputField> {
           controller: widget.controller,
           style: theme.callout,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 10,
-            ),
-            suffixIcon: (!widget.controller.text.isEmpty)
+            contentPadding: const EdgeInsets.symmetric(vertical: 10),
+            suffixIcon: (widget.controller.text.isNotEmpty)
                 ? IconButton(
                     onPressed: () {
                       setState(() {
@@ -69,7 +68,7 @@ class _InputFieldState extends State<InputField> {
                       });
                     },
                     icon: Icon(
-                      (widget.isPassword == false)
+                      (!widget.isPassword)
                           ? Icons.close
                           : (isObscured!)
                               ? Icons.visibility_off
@@ -83,18 +82,26 @@ class _InputFieldState extends State<InputField> {
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.grey.shade300,
-                width: 1,
               ),
             ),
             focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(
                 color: theme.primary,
-                width: 1,
+              ),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.red,
+              ),
+            ),
+            focusedErrorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: theme.red,
               ),
             ),
           ),
           obscureText: isObscured!,
-          validator: (val) => val!.isEmpty ? "Please enter your name" : null,
+          validator: widget.validator,
         ),
         SizedBox(
           height: screenHeight * 0.04,

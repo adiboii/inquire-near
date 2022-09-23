@@ -18,7 +18,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         emit(Authenticated());
       } catch (e) {
-        print(e.toString());
         emit(AuthError(e.toString()));
         emit(Unauthenticated());
       }
@@ -28,10 +27,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(Loading());
       try {
         await authRepository.signUp(
-            email: event.email, password: event.password);
+            firstName: event.firstName,
+            lastName: event.lastName,
+            email: event.email,
+            password: event.password);
         emit(Authenticated());
-      } catch (e) {
-        emit(AuthError(e.toString()));
+      } on SignUpWithEmailAndPasswordFailure catch (e) {
+        emit(AuthError(e.message));
         emit(Unauthenticated());
       }
     });
