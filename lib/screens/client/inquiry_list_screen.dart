@@ -84,10 +84,12 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                     height: screenHeight * 0.06,
                   ),
                   ButtonFill(
-                      label: "Finish",
-                      style: theme.caption1Bold,
-                      width: screenWidth * 0.40,
-                      height: screenHeight * 0.06),
+                    label: "Finish",
+                    style: theme.caption1Bold,
+                    width: screenWidth * 0.40,
+                    height: screenHeight * 0.06,
+                    onTap: () {},
+                  ),
                 ],
               )
             ],
