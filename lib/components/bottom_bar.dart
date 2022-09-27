@@ -11,7 +11,7 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 class BottomBar extends StatefulWidget {
   final Function(File) onIconSelected;
   final ValueChanged<bool> requireProof;
-  BottomBar(
+  const BottomBar(
       {Key? key, required this.onIconSelected, required this.requireProof})
       : super(key: key);
 
