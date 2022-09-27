@@ -10,15 +10,12 @@ class InquiryRepository {
   final user = FirebaseAuth.instance.currentUser!;
 
   Future<void> addInquiry({required List<Inquiry> inquiryList}) async {
-    log(db.toString());
     final inquiryDoc = <String, dynamic>{
       "ClientID": user.uid,
       "isCompleted": false,
       "Date": DateTime.now(),
       "Inquiries": inquiryList.map((inquiry) => inquiry.toJSON()).toList(),
     };
-
-    log("Add Inquiry Method started");
 
     try {
       await db.collection("transactions").add(inquiryDoc).then(
@@ -27,7 +24,5 @@ class InquiryRepository {
     } catch (e) {
       log(e.toString());
     }
-
-    log("Add Inquiry Method finished");
   }
 }
