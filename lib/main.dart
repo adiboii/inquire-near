@@ -1,6 +1,8 @@
 // Flutter imports:
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
 import 'package:inquire_near/data/repositories/auth_repository.dart';
@@ -45,7 +47,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: '/splash',
+          initialRoute: '/report',
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),

@@ -1,6 +1,10 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+// Dart imports:
+import 'dart:developer';
+
+// Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:inquire_near/data/models/inquirenear_user.dart';
@@ -151,7 +155,7 @@ class AuthRepository {
 
   Future<void> signIn({required String email, required String password}) async {
     try {
-      FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);

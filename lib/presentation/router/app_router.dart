@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/add_inquiry_screen.dart';
@@ -16,10 +18,12 @@ import 'package:inquire_near/screens/common/landing_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
 import 'package:inquire_near/screens/common/profile_details.dart';
 import 'package:inquire_near/screens/common/profile_screen.dart';
+import 'package:inquire_near/screens/common/report_screen.dart';
 import 'package:inquire_near/screens/common/splash_screen.dart';
 import 'package:inquire_near/screens/common/top_up.dart';
 import 'package:inquire_near/screens/common/user_wallet.dart';
 import 'package:inquire_near/screens/inquirer/client_found_screen.dart';
+import 'package:inquire_near/screens/inquirer/inquirer_dashboard_screen.dart';
 import 'package:inquire_near/screens/inquirer/inquirer_inquiry_list_screen.dart';
 import 'package:inquire_near/screens/inquirer/inquirer_view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
@@ -51,6 +55,10 @@ class AppRouter {
 
       case '/top_up':
         return MaterialPageRoute(builder: (_) => TopUpScreen());
+
+      case '/report':
+        return MaterialPageRoute(
+            builder: (_) => const ReportScreen(reportByClient: false));
 
       // Client Screens
 
@@ -95,7 +103,16 @@ class AppRouter {
       case '/payment_success':
         return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
 
+      case '/report_by_client':
+        return MaterialPageRoute(
+            builder: (_) => const ReportScreen(reportByClient: true));
+
       // Inquirer Screens
+
+      case '/inquirer_dashboard':
+        return MaterialPageRoute(
+            builder: (_) => const InquirerDashboardScreen());
+
       case '/client_found':
         return MaterialPageRoute(builder: (_) => const ClientFoundScreen());
 

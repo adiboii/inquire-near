@@ -146,8 +146,8 @@ class InquiryList extends StatelessWidget {
   }
 }
 
-class InquiryItem extends StatelessWidget {
-  InquiryItem(
+class InquiryItem extends StatefulWidget {
+  const InquiryItem(
       {Key? key,
       required this.screenHeight,
       required this.screenWidth,
@@ -161,15 +161,17 @@ class InquiryItem extends StatelessWidget {
   final String label;
   final int attachedPhotos;
   final bool requireProof;
+
+  @override
+  State<InquiryItem> createState() => _InquiryItemState();
+}
+
+class _InquiryItemState extends State<InquiryItem> {
   late String requireProofString;
 
   @override
   Widget build(BuildContext context) {
-    if (requireProof) {
-      requireProofString = "True";
-    } else {
-      requireProofString = "False";
-    }
+    requireProofString = widget.requireProof ? "True" : "False";
 
     return Column(
       children: [
@@ -177,30 +179,30 @@ class InquiryItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              radius: screenWidth * 0.05,
+              radius: widget.screenWidth * 0.05,
               backgroundImage: const AssetImage(
                 'assets/images/illustrations/profile.png',
               ),
             ),
-            SizedBox(width: screenWidth * 0.05),
+            SizedBox(width: widget.screenWidth * 0.05),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AutoSizeText(
-                  label,
+                  widget.label,
                   style: theme.subhead,
                 ),
-                SizedBox(height: screenHeight * 0.01),
+                SizedBox(height: widget.screenHeight * 0.01),
                 Text(
-                  "Attached photos: $attachedPhotos",
+                  "Attached photos: ${widget.attachedPhotos}",
                   style: theme.caption1,
                 ),
-                SizedBox(height: screenHeight * 0.01),
+                SizedBox(height: widget.screenHeight * 0.01),
                 Text(
                   "Require Proof: $requireProofString",
                   style: theme.caption1,
                 ),
-                SizedBox(height: screenHeight * 0.01),
+                SizedBox(height: widget.screenHeight * 0.01),
               ],
             ),
           ],

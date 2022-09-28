@@ -52,9 +52,9 @@ class InTextField extends StatelessWidget {
 class InTextFormField extends StatefulWidget {
   final String label;
   final Icon? icon;
-  String value;
+  final String value;
   final bool isObscure;
-  InTextFormField(
+  const InTextFormField(
       {super.key,
       this.label = '',
       this.icon,
@@ -67,8 +67,11 @@ class InTextFormField extends StatefulWidget {
 
 class _InTextFormFieldState extends State<InTextFormField> {
   String? formValue;
+  late String textValue;
+
   @override
   void initState() {
+    textValue = widget.value;
     super.initState();
   }
 
@@ -100,7 +103,7 @@ class _InTextFormFieldState extends State<InTextFormField> {
           validator: (val) =>
               val!.isEmpty ? "Please enter your username" : null,
           onChanged: (val) {
-            setState(() => widget.value = val);
+            setState(() => textValue = val);
           },
         ),
       ],
