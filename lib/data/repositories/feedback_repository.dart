@@ -14,8 +14,8 @@ class FeedbackRepository {
         .collection('feedbacks')
         .doc('transaction-id');
     final feedback = Feedback(
-      clientEmail: _currentUserEmail!,
-      inquirerEmail: inquirerEmail,
+      clientID: _currentUserEmail!,
+      inquirerID: inquirerEmail,
       rating: rating,
       review: review,
     );
