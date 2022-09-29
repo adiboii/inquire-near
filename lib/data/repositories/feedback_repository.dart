@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../models/feedback.dart';
+import 'package:inquire_near/data/models/feedback.dart';
 
 class FeedbackRepository {
   final _currentUserEmail = FirebaseAuth.instance.currentUser!.email;

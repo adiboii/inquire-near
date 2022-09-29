@@ -6,23 +6,12 @@ class InputValidator {
   final _validPassword = RegExp(r'^.{6,}$');
 
   // Methods
-  bool isValidName(String? name) {
-    if (_validName.hasMatch(name!)) return true;
-    return false;
-  }
+  bool isValidName(String? name) => _validName.hasMatch(name!);
 
-  bool isValidEmailAddress(String? emailAddress) {
-    if (_validEmailAddress.hasMatch(emailAddress!)) return true;
-    return false;
-  }
+  bool isValidEmailAddress(String? emailAddress) =>
+      _validEmailAddress.hasMatch(emailAddress!);
 
-  bool isValidPassword(String? password) {
-    if (_validPassword.hasMatch(password!)) return true;
-    return false;
-  }
+  bool isValidPassword(String? password) => _validPassword.hasMatch(password!);
 
-  bool isEmpty(String? input) {
-    if (input!.isEmpty) return true;
-    return false;
-  }
+  bool isEmpty(String? input) => input!.isEmpty;
 }

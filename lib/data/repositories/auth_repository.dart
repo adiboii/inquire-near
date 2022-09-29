@@ -184,17 +184,17 @@ class AuthRepository {
         idToken: googleAuth?.idToken,
       );
 
-      Map<String, dynamic> idMap = parseJwt(googleAuth?.idToken);
-
       await FirebaseAuth.instance.signInWithCredential(credential);
+      Map<String, dynamic> idMap = parseJwt(googleAuth?.idToken);
       final userDocument = FirebaseFirestore.instance
           .collection('users')
           .doc(_firebaseAuth.currentUser!.uid);
       final user = InquireNearUser(
         uid: _firebaseAuth.currentUser!.uid,
         firstName: idMap['given_name'],
-        lastName: idMap['last_name'],
+        lastName: idMap['family_name'],
       );
+      print(idMap);
       await userDocument.set(user.toJSON());
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure(e.code);

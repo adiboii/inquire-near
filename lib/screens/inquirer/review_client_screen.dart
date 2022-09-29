@@ -20,11 +20,9 @@ class ClientFeedbackScreen extends StatefulWidget {
 }
 
 class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
-  // Properties
   final _reviewTextController = TextEditingController();
   int rating = 0;
 
-  // Methods
   void _clickSubmit(context) {
     BlocProvider.of<FeedbackBloc>(context).add(
       SubmitFeedbackRequested(' ', rating, _reviewTextController.text),
@@ -33,7 +31,6 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Screen Dimensions
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
