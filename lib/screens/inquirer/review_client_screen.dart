@@ -3,19 +3,34 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class ReviewClientScreen extends StatelessWidget {
-  const ReviewClientScreen({Key? key}) : super(key: key);
+class ClientFeedbackScreen extends StatefulWidget {
+  ClientFeedbackScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ClientFeedbackScreen> createState() => _ClientFeedbackScreenState();
+}
+
+class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
+  final _reviewTextController = TextEditingController();
+  int rating = 0;
+
+  void _clickSubmit(context) {
+    BlocProvider.of<FeedbackBloc>(context).add(
+      SubmitFeedbackRequested(' ', rating, _reviewTextController.text),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Screen Dimensions
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
@@ -69,7 +84,11 @@ class ReviewClientScreen extends StatelessWidget {
                             color: Colors.grey,
                           ),
                         ),
-                        onRatingUpdate: (rating) {},
+                        onRatingUpdate: (rating) {
+                          setState(() {
+                            this.rating = int.parse(rating.toString());
+                          });
+                        },
                         itemSize: screenHeight * 0.035,
                       ),
                       SizedBox(
@@ -90,8 +109,9 @@ class ReviewClientScreen extends StatelessWidget {
                         ),
                         width: double.infinity,
                         height: screenHeight * 0.38,
-                        child: const TextField(
-                          decoration: InputDecoration(
+                        child: TextField(
+                          controller: _reviewTextController,
+                          decoration: const InputDecoration(
                             hintText: 'Leave a Review',
                             hintStyle: theme.caption1,
                             border: InputBorder.none,
@@ -108,6 +128,7 @@ class ReviewClientScreen extends StatelessWidget {
                     height: screenHeight * 0.07,
                     style: theme.caption1Bold,
                     onTap: () {
+                      _clickSubmit(context);
                       Navigator.pushReplacementNamed(
                           context, '/client_dashboard');
                     },
