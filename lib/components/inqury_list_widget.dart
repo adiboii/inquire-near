@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:inquire_near/components/inquiry_item.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:inquire_near/screens/client/edit_inquiry_screen.dart';
+import 'package:inquire_near/data/models/inquiry_list.dart';
+import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/edit_inquiry_screen.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class InquiryList extends StatefulWidget {
-  final List<Inquiry> inquiryList;
+class InquiryListWidget extends StatefulWidget {
+  final InquiryList inquiryList;
   final ValueChanged<int> updateLength;
-  const InquiryList({
+  const InquiryListWidget({
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
@@ -19,56 +20,56 @@ class InquiryList extends StatefulWidget {
   final double screenWidth;
 
   @override
-  State<InquiryList> createState() => _InquiryListState();
+  State<InquiryListWidget> createState() => _InquiryListWidgetState();
 }
 
-class _InquiryListState extends State<InquiryList> {
+class _InquiryListWidgetState extends State<InquiryListWidget> {
   Future<Inquiry> _editInquiry(
       BuildContext context, Inquiry inquiryToBeEdited) async {
     final result = await Navigator.push(
         context,
         MaterialPageRoute(
             builder: ((context) =>
-                EditInquiryScreen(inquiry: inquiryToBeEdited)))) as Inquiry?;
+                EditInquiryScreen(inquiry: inquiryToBeEdited)))) as Inquiry;
 
-    // When a BuildContext is used from a StatefulWidget, the mounted property
-    // must be checked after an asynchronous gap.
-    // if (!mounted || result == null) return Inquiry();
-    return result!;
+    //if (!mounted || result == null) return Inquiry();
+    return result;
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: widget.inquiryList.length,
+      itemCount: widget.inquiryList.getListLength(),
       itemBuilder: ((context, index) {
-        final inquiryItem = widget.inquiryList[index];
+        final inquiryItem = widget.inquiryList.getList()[index];
         return Dismissible(
-          key: Key(inquiryItem.message!),
+          key: Key(inquiryItem.question),
           onDismissed: (direction) {
             setState(() {
-              widget.inquiryList.removeAt(index);
+              widget.inquiryList.getList().removeAt(index);
             });
-            widget.updateLength(widget.inquiryList.length);
-            //log(widget.inquiryList.length.toString());
+            widget.updateLength(widget.inquiryList.getListLength());
           },
           background: Container(color: theme.red),
           child: InkWell(
             onTap: () async {
-              Inquiry editedInquiry =
-                  await _editInquiry(context, widget.inquiryList[index]);
+              Inquiry editedInquiry = await _editInquiry(
+                  context, widget.inquiryList.getList()[index]);
 
               setState(() {
-                widget.inquiryList[index] = editedInquiry;
+                widget.inquiryList.getList()[index] = editedInquiry;
               });
             },
             child: InquiryItem(
               screenHeight: widget.screenHeight,
               screenWidth: widget.screenWidth,
-              label: widget.inquiryList[index].getInquiry()!,
+              label: widget.inquiryList.getList()[index].getInquiry()!,
               attachedPhotos:
-                  widget.inquiryList[index].getImage() != null ? 1 : 0,
-              requireProof: widget.inquiryList[index].getRequireProof()!,
+                  widget.inquiryList.getList()[index].getImage() != null
+                      ? 1
+                      : 0,
+              requireProof:
+                  widget.inquiryList.getList()[index].getRequireProof()!,
             ),
           ),
         );

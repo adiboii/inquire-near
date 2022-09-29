@@ -9,7 +9,7 @@ import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 // Project imports:
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
-import 'package:inquire_near/presentation/router/app_router.dart';
+import 'package:inquire_near/app_router.dart';
 import 'bloc/bloc/auth_bloc.dart';
 
 Future<void> main() async {

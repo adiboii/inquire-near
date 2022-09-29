@@ -7,6 +7,6 @@ abstract class InquiryEvent extends Equatable {
 }
 
 class CreateInquiryRequested extends InquiryEvent {
-  final List<Inquiry> inquiryList;
+  final InquiryList inquiryList;
   CreateInquiryRequested({required this.inquiryList});
 }

@@ -63,7 +63,7 @@ class ClientDashboardScreen extends StatelessWidget {
                     ],
                   ),
                   SwitchUserType(
-                      screenHeight: screenHeight, userType: UserType.inquirer),
+                      screenHeight: screenHeight, currentRole: Role.inquirer),
                 ],
               ),
               InTextField(

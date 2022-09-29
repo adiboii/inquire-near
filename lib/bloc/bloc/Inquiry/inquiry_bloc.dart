@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:inquire_near/data/models/inquiry.dart';
+import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
 import 'package:meta/meta.dart';
 

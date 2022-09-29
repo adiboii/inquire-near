@@ -47,12 +47,12 @@ class InquiryN {
 }
 
 class Inquiry {
-  final String? id;
-  final String question;
-  final bool requiresProof;
-  final File? image;
+  late String? id;
+  String question;
+  bool requiresProof;
+  File? image;
   String imageUrl = '';
-  final Map<String, dynamic>? answer;
+  Map<String, dynamic>? answer;
 
   Inquiry({
     this.id,
@@ -72,6 +72,11 @@ class Inquiry {
 
   File? getImage() {
     return image;
+  }
+
+  int getAttachedImages() {
+    if (image != null) return 1;
+    return 0;
   }
 
   Map<String, dynamic> toJSON() {

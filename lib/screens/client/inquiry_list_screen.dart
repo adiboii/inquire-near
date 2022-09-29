@@ -11,8 +11,10 @@ import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/cards.dart';
-import 'package:inquire_near/components/inqury_list.dart';
+import 'package:inquire_near/components/inqury_list_widget.dart';
+import 'package:inquire_near/data/models/enums.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
+import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListScreen extends StatefulWidget {
@@ -22,42 +24,46 @@ class InquiryListScreen extends StatefulWidget {
   State<InquiryListScreen> createState() => _InquiryListScreenState();
 }
 
+final inList = <Inquiry>[];
+final user = FirebaseAuth.instance.currentUser!;
+
 class _InquiryListScreenState extends State<InquiryListScreen> {
-  final user = FirebaseAuth.instance.currentUser!;
-  final inquiryList = <Inquiry>[];
-
-  Future<void> _addInquiry(BuildContext context) async {
-    final result = await Navigator.pushNamed(
-      context,
-      '/add_inquiry',
-    ) as Inquiry?;
-
-    if (!mounted || result == null) return;
-
-    setState(() {
-      inquiryList.add(result);
-    });
-  }
-
-  Future<void> saveInquiry(context) async {
-    for (Inquiry inquiry in inquiryList) {
-      await inquiry.saveToFirebaseStorage(user.uid.toString());
-    }
-
-    BlocProvider.of<InquiryBloc>(context)
-        .add(CreateInquiryRequested(inquiryList: inquiryList));
-  }
-
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    int length = inquiryList.length;
+
+    InquiryList inquiryList =
+        InquiryList(clientID: user.uid, list: inList, store: Store.bancoDeOro);
+
+    int length = inquiryList.getListLength();
 
     void updateLength(int value) {
       setState(() {
         length = value;
       });
+    }
+
+    Future<void> addInquiry(BuildContext context) async {
+      final result = await Navigator.pushNamed(
+        context,
+        '/add_inquiry',
+      ) as Inquiry?;
+
+      if (!mounted || result == null) return;
+
+      setState(() {
+        inquiryList.addInquiry(result);
+      });
+    }
+
+    Future<void> saveInquiry(context) async {
+      for (Inquiry inquiry in inquiryList.getList()) {
+        await inquiry.saveToFirebaseStorage(user.uid.toString());
+      }
+
+      BlocProvider.of<InquiryBloc>(context)
+          .add(CreateInquiryRequested(inquiryList: inquiryList));
     }
 
     return Scaffold(
@@ -117,17 +123,16 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                             screenHeight: screenHeight,
                             screenWidth: screenWidth,
                             onTap: () {
-                              _addInquiry(context);
-                              setState(() {
-                                length = inquiryList.length;
-                              });
+                              addInquiry(context).then((value) =>
+                                  updateLength(inquiryList.getListLength()));
+                              log(inquiryList.getListLength().toString());
                             },
                           )
                         : Expanded(
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
-                              child: InquiryList(
+                              child: InquiryListWidget(
                                 inquiryList: inquiryList,
                                 screenHeight: screenHeight,
                                 screenWidth: screenWidth,
@@ -135,7 +140,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                               ),
                             ),
                           ),
-                    (inquiryList.isNotEmpty)
+                    (inList.isNotEmpty)
                         ? Column(
                             children: [
                               SizedBox(height: screenHeight * 0.04),
@@ -150,7 +155,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                                     width: screenWidth * 0.40,
                                     height: screenHeight * 0.06,
                                     onTap: () {
-                                      _addInquiry(context);
+                                      addInquiry(context);
                                     },
                                   ),
                                   ButtonFill(

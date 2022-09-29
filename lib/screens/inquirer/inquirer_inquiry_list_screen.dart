@@ -7,7 +7,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import '../../components/inqury_list.dart';
 
 class InquirerInquiryListScreen extends StatelessWidget {
   const InquirerInquiryListScreen({Key? key}) : super(key: key);

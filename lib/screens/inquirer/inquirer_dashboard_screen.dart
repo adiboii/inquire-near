@@ -51,7 +51,7 @@ class _InquirerDashboardScreenState extends State<InquirerDashboardScreen> {
                     ],
                   ),
                   SwitchUserType(
-                      screenHeight: screenHeight, userType: UserType.client),
+                      screenHeight: screenHeight, currentRole: Role.client),
                 ],
               ),
               StatusSwitch(isOnline: isOnline, screenHeight: screenHeight),

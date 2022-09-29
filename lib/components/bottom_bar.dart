@@ -11,8 +11,12 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 class BottomBar extends StatefulWidget {
   final Function(File) onIconSelected;
   final ValueChanged<bool> requireProof;
+  final bool? initialValue;
   const BottomBar(
-      {Key? key, required this.onIconSelected, required this.requireProof})
+      {Key? key,
+      required this.onIconSelected,
+      required this.requireProof,
+      this.initialValue})
       : super(key: key);
 
   @override
@@ -31,16 +35,16 @@ class _BottomBarState extends State<BottomBar> {
     });
   }
 
-  bool _requireProof = false;
-  void updateBool(bool? value) {
-    setState(() {
-      widget.requireProof(value!);
-      _requireProof = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    bool? requireProof = widget.initialValue;
+    void updateBool(bool? value) {
+      setState(() {
+        widget.requireProof(value!);
+        requireProof = value;
+      });
+    }
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 50,
@@ -62,8 +66,8 @@ class _BottomBarState extends State<BottomBar> {
             icon: const Icon(Icons.camera_alt_sharp),
           ),
           Checkbox(
-            value: _requireProof,
-            onChanged: (val) => updateBool(val),
+            value: requireProof,
+            onChanged: updateBool,
           ),
           const Text(
             "Require Proof",
