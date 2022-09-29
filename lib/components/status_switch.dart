@@ -1,9 +1,15 @@
+// Dart imports:
 import 'dart:developer';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:lottie/lottie.dart';
+
+// Project imports:
+import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class StatusSwitch extends StatefulWidget {
   const StatusSwitch({

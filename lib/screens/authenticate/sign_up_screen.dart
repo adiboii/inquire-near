@@ -1,5 +1,7 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:developer';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -12,7 +14,6 @@ import 'package:inquire_near/components/google_button.dart';
 import 'package:inquire_near/components/input_field.dart';
 import 'package:inquire_near/components/input_validator.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-
 import '../../bloc/bloc/auth/auth_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {

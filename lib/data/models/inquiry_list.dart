@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'enums.dart';
 

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 // Project imports:
-import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class AddInquiryTitleBar extends StatelessWidget {
   const AddInquiryTitleBar({

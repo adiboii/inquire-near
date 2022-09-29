@@ -1,14 +1,15 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/cards.dart';
 import 'package:inquire_near/components/inqury_list_widget.dart';

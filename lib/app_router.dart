@@ -1,7 +1,8 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:inquire_near/constants.dart';
 
 // Project imports:
+import 'package:inquire_near/constants.dart';
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/Add_Inquiry_Screen/add_inquiry_screen.dart';

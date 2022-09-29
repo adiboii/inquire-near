@@ -7,12 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/app_router.dart';
-import 'package:inquire_near/data/repositories/auth_repository.dart';
-import 'package:inquire_near/data/repositories/inquiry_repository.dart';
-import 'package:inquire_near/data/repositories/feedback_repository.dart';
-import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
+import 'package:inquire_near/data/repositories/auth_repository.dart';
+import 'package:inquire_near/data/repositories/feedback_repository.dart';
+import 'package:inquire_near/data/repositories/inquiry_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

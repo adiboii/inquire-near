@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:inquire_near/components/inquiry_item.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';

@@ -1,12 +1,13 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 // Dart imports:
+import 'dart:convert';
 import 'dart:developer';
 
 // Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+// Project imports:
 import 'package:inquire_near/data/models/inquirenear_user.dart';
 
 class SignUpWithEmailAndPasswordFailure implements Exception {

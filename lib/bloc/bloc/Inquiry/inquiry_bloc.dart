@@ -1,10 +1,14 @@
+// Dart imports:
 import 'dart:developer';
 
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+
+// Project imports:
 import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
-import 'package:meta/meta.dart';
 
 part 'inquiry_event.dart';
 part 'inquiry_state.dart';

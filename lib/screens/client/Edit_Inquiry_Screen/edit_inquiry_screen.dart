@@ -1,11 +1,15 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:inquire_near/components/bottom_bar.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_title_bar.dart';
 import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_inquiry_input.dart';
+import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_title_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class EditInquiryScreen extends StatefulWidget {

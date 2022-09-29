@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:image_picker/image_picker.dart';
+
+// Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class BottomBar extends StatefulWidget {
