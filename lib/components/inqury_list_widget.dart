@@ -65,9 +65,7 @@ class _InquiryListWidgetState extends State<InquiryListWidget> {
               screenWidth: widget.screenWidth,
               label: widget.inquiryList.getList()[index].getInquiry()!,
               attachedPhotos:
-                  widget.inquiryList.getList()[index].getImage() != null
-                      ? 1
-                      : 0,
+                  widget.inquiryList.getList()[index].getAttachedImages(),
               requireProof:
                   widget.inquiryList.getList()[index].getRequireProof()!,
             ),
