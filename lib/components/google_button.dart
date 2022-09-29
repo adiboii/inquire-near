@@ -1,14 +1,16 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-class IconContainer extends StatelessWidget {
+class GoogleButton extends StatelessWidget {
   // Properties
-  final String source;
+  final String logoSource;
+  final Function onTap;
 
   // Constructor
-  const IconContainer({
+  const GoogleButton({
     super.key,
-    required this.source,
+    required this.logoSource,
+    required this.onTap,
   });
 
   // Build Method
@@ -16,7 +18,9 @@ class IconContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        onTap();
+      },
       child: Container(
         height: screenHeight * 0.1,
         width: screenHeight * 0.1,
@@ -26,13 +30,11 @@ class IconContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: const BorderRadius.all(
-            Radius.circular(
-              10,
-            ),
+            Radius.circular(10.0),
           ),
         ),
         child: Image.asset(
-          source,
+          logoSource,
         ),
       ),
     );

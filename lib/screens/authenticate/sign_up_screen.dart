@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'dart:developer';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -7,10 +8,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
-import 'package:inquire_near/components/icon_container.dart';
+import 'package:inquire_near/components/google_button.dart';
 import 'package:inquire_near/components/input_field.dart';
+import 'package:inquire_near/components/input_validator.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import '../../bloc/bloc/auth_bloc.dart';
+
+import '../../bloc/bloc/auth/auth_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
   // Properties
@@ -24,14 +27,18 @@ class SignUpScreen extends StatelessWidget {
   // Form Key
   final formKey = GlobalKey<FormState>();
 
+  // Input Validator
+  final inputValidator = InputValidator();
+
   // Constructors
   SignUpScreen({Key? key}) : super(key: key);
 
   void _authenticateWithEmailAndPassword(context) {
     if (formKey.currentState!.validate()) {
-      // If email is valid adding new event [SignUpRequested].
       BlocProvider.of<AuthBloc>(context).add(
         SignUpRequested(
+          firstNameTextController.text,
+          lastNameTextController.text,
           emailAddressTextController.text,
           passwordTextController.text,
         ),
@@ -39,15 +46,15 @@ class SignUpScreen extends StatelessWidget {
     }
   }
 
-  // TODO: Use this functionality for Google SSO (Socials Login)
-  // void _authenticateWithGoogle(context) {
-  //   BlocProvider.of<AuthBloc>(context).add(
-  //     GoogleSignInRequested(),
-  //   );
-  // }
+  void _authenticateWithGoogle(context) {
+    BlocProvider.of<AuthBloc>(context).add(
+      GoogleSignInRequested(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    // Screen Dimensions
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -97,9 +104,12 @@ class SignUpScreen extends StatelessWidget {
                       SizedBox(
                         height: screenHeight * 0.04,
                       ),
-                      const Center(
-                        child: IconContainer(
-                          source: "assets/images/logos/Google.png",
+                      Center(
+                        child: GoogleButton(
+                          logoSource: "assets/images/logos/Google.png",
+                          onTap: () {
+                            _authenticateWithGoogle(context);
+                          },
                         ),
                       ),
                       SizedBox(
@@ -115,6 +125,7 @@ class SignUpScreen extends StatelessWidget {
                         height: screenHeight * 0.02,
                       ),
                       Form(
+                        autovalidateMode: AutovalidateMode.always,
                         key: formKey,
                         child: Column(
                           children: [
@@ -122,28 +133,75 @@ class SignUpScreen extends StatelessWidget {
                               label: 'First Name',
                               controller: firstNameTextController,
                               icon: Icons.person,
+                              validator: (value) {
+                                if (!inputValidator.isEmpty(value)) {
+                                  if (!inputValidator.isValidName(value)) {
+                                    return 'First Name must only contain alphanumeric characters';
+                                  }
+                                } else {
+                                  return 'First Name is a required field';
+                                }
+                              },
                             ),
                             InputField(
                               label: 'Last Name',
                               controller: lastNameTextController,
                               icon: Icons.person,
+                              validator: (value) {
+                                if (!inputValidator.isEmpty(value)) {
+                                  if (!inputValidator.isValidName(value)) {
+                                    return 'Last Name must only contain alphanumeric characters';
+                                  }
+                                } else {
+                                  return 'Last Name is a required field';
+                                }
+                              },
                             ),
                             InputField(
                               label: 'Email Address',
                               controller: emailAddressTextController,
                               icon: Icons.email,
+                              validator: (value) {
+                                if (!inputValidator.isEmpty(value)) {
+                                  if (!inputValidator
+                                      .isValidEmailAddress(value)) {
+                                    return 'Invalid Email Address format';
+                                  }
+                                } else {
+                                  return 'Email Address is a required field';
+                                }
+                              },
                             ),
                             InputField(
                               label: 'Password',
                               controller: passwordTextController,
                               icon: Icons.lock,
                               isPassword: true,
+                              validator: (value) {
+                                if (!inputValidator.isEmpty(value)) {
+                                  if (!inputValidator.isValidPassword(value)) {
+                                    return 'Password should have at least 6 characters';
+                                  }
+                                } else {
+                                  return 'Password is a required field';
+                                }
+                              },
                             ),
                             InputField(
                               label: 'Confirm Password',
                               controller: confirmPasswordTextController,
                               icon: Icons.lock,
                               isPassword: true,
+                              validator: (value) {
+                                if (!inputValidator.isEmpty(value)) {
+                                  if (passwordTextController.text !=
+                                      confirmPasswordTextController.text) {
+                                    return 'Passwords did not match';
+                                  }
+                                } else {
+                                  return 'Confirm Password is a required field';
+                                }
+                              },
                             ),
                           ],
                         ),

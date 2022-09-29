@@ -131,7 +131,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const PaymentReceivedScreen());
 
       case '/review_client':
-        return MaterialPageRoute(builder: (_) => const ReviewClientScreen());
+        return MaterialPageRoute(builder: (_) => ClientFeedbackScreen());
 
       default:
         return null;
