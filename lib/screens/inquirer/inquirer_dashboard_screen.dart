@@ -1,5 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
 import 'package:inquire_near/components/greeting.dart';
 import 'package:inquire_near/components/status_switch.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
@@ -51,7 +53,7 @@ class _InquirerDashboardScreenState extends State<InquirerDashboardScreen> {
                     ],
                   ),
                   SwitchUserType(
-                      screenHeight: screenHeight, userType: UserType.client),
+                      screenHeight: screenHeight, currentRole: Role.client),
                 ],
               ),
               StatusSwitch(isOnline: isOnline, screenHeight: screenHeight),

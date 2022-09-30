@@ -1,11 +1,21 @@
+// Dart imports:
+import 'dart:developer';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/components/cards.dart';
+import 'package:inquire_near/components/inqury_list_widget.dart';
+import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/data/models/inquiry.dart';
+import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListScreen extends StatefulWidget {
@@ -15,200 +25,163 @@ class InquiryListScreen extends StatefulWidget {
   State<InquiryListScreen> createState() => _InquiryListScreenState();
 }
 
+final inList = <Inquiry>[];
+final user = FirebaseAuth.instance.currentUser!;
+
 class _InquiryListScreenState extends State<InquiryListScreen> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+
+    InquiryList inquiryList =
+        InquiryList(clientID: user.uid, list: inList, store: Store.bancoDeOro);
+
+    int length = inquiryList.getListLength();
+
+    void updateLength(int value) {
+      setState(() {
+        length = value;
+      });
+    }
+
+    Future<void> addInquiry(BuildContext context) async {
+      final result = await Navigator.pushNamed(
+        context,
+        '/add_inquiry',
+      ) as Inquiry?;
+
+      if (!mounted || result == null) return;
+
+      setState(() {
+        inquiryList.addInquiry(result);
+      });
+    }
+
+    Future<void> saveInquiry(context) async {
+      for (Inquiry inquiry in inquiryList.getList()) {
+        await inquiry.saveToFirebaseStorage(user.uid.toString());
+      }
+
+      BlocProvider.of<InquiryBloc>(context)
+          .add(CreateInquiryRequested(inquiryList: inquiryList));
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: theme.kScreenPadding.copyWith(top: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image(
-                        image: const AssetImage('assets/images/logos/BIR.png'),
-                        width: screenWidth * 0.12,
-                      ),
-                      SizedBox(width: screenWidth * 0.05),
-                      const Text(
-                        "Bureau of Internal Revenue\nCebu South Branch",
-                        style: theme.subheadBold,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              Text(
-                "What do you need from here?",
-                style: theme.headline.copyWith(fontSize: 16),
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              // AddInquiryCard(
-              //   screenHeight: screenHeight,
-              //   screenWidth: screenWidth,
-              //   onTap: () {
-              //     Navigator.pushNamed(context, '/add_inquiry');
-              //   },
-              // ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: InquiryList(
-                    screenHeight: screenHeight,
-                    screenWidth: screenWidth,
-                  ),
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.04),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ButtonOutline(
-                    label: "Add an inquiry",
-                    style: theme.caption1Bold,
-                    width: screenWidth * 0.40,
-                    height: screenHeight * 0.06,
-                  ),
-                  ButtonFill(
-                      label: "Finish",
-                      style: theme.caption1Bold,
-                      width: screenWidth * 0.40,
-                      height: screenHeight * 0.06),
-                ],
-              )
-            ],
+          child: BlocConsumer<InquiryBloc, InquiryState>(
+            listener: (context, state) {
+              if (state is InquiryFinished) {
+                Navigator.pushNamed(context, '/finding_inquirer');
+              }
+            },
+            builder: (context, state) {
+              if (state is Loading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (state is InquiryInitial) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back_ios,
+                              color: Colors.black),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image(
+                              image: const AssetImage(
+                                  'assets/images/logos/BIR.png'),
+                              width: screenWidth * 0.12,
+                            ),
+                            SizedBox(width: screenWidth * 0.05),
+                            const Text(
+                              "Bureau of Internal Revenue\nCebu South Branch",
+                              style: theme.subheadBold,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    Text(
+                      "What do you need from here?",
+                      style: theme.headline.copyWith(fontSize: 16),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    (length == 0)
+                        ? AddInquiryCard(
+                            screenHeight: screenHeight,
+                            screenWidth: screenWidth,
+                            onTap: () {
+                              addInquiry(context).then((value) =>
+                                  updateLength(inquiryList.getListLength()));
+                              log(inquiryList.getListLength().toString());
+                            },
+                          )
+                        : Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: InquiryListWidget(
+                                inquiryList: inquiryList,
+                                screenHeight: screenHeight,
+                                screenWidth: screenWidth,
+                                updateLength: updateLength,
+                              ),
+                            ),
+                          ),
+                    (inList.isNotEmpty)
+                        ? Column(
+                            children: [
+                              SizedBox(height: screenHeight * 0.04),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ButtonOutline(
+                                    label: "Add an inquiry",
+                                    style: theme.caption1Bold,
+                                    width: screenWidth * 0.40,
+                                    height: screenHeight * 0.06,
+                                    onTap: () {
+                                      addInquiry(context);
+                                    },
+                                  ),
+                                  ButtonFill(
+                                    label: "Finish",
+                                    style: theme.caption1Bold,
+                                    width: screenWidth * 0.40,
+                                    height: screenHeight * 0.06,
+                                    onTap: () {
+                                      saveInquiry(context);
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
+                          )
+                        : const SizedBox(),
+                  ],
+                );
+              }
+
+              return const SizedBox();
+            },
           ),
         ),
       ),
-    );
-  }
-}
-
-class InquiryList extends StatelessWidget {
-  const InquiryList({
-    Key? key,
-    required this.screenHeight,
-    required this.screenWidth,
-  }) : super(key: key);
-
-  final double screenHeight;
-  final double screenWidth;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.vertical,
-      children: [
-        InquiryItem(
-          screenHeight: screenHeight,
-          screenWidth: screenWidth,
-          label: "Is it open right now?",
-          attachedPhotos: 1,
-          requireProof: true,
-        ),
-        InquiryItem(
-          screenHeight: screenHeight,
-          screenWidth: screenWidth,
-          label: "Are there a lot of people right now?",
-          attachedPhotos: 1,
-          requireProof: false,
-        ),
-        InquiryItem(
-          screenHeight: screenHeight,
-          screenWidth: screenWidth,
-          label: "What is the current priority number",
-          attachedPhotos: 2,
-          requireProof: true,
-        ),
-        InquiryItem(
-          screenHeight: screenHeight,
-          screenWidth: screenWidth,
-          label: "What time does it close?",
-          attachedPhotos: 1,
-          requireProof: true,
-        ),
-      ],
-    );
-  }
-}
-
-class InquiryItem extends StatefulWidget {
-  const InquiryItem(
-      {Key? key,
-      required this.screenHeight,
-      required this.screenWidth,
-      required this.label,
-      required this.attachedPhotos,
-      required this.requireProof})
-      : super(key: key);
-
-  final double screenHeight;
-  final double screenWidth;
-  final String label;
-  final int attachedPhotos;
-  final bool requireProof;
-
-  @override
-  State<InquiryItem> createState() => _InquiryItemState();
-}
-
-class _InquiryItemState extends State<InquiryItem> {
-  late String requireProofString;
-
-  @override
-  Widget build(BuildContext context) {
-    requireProofString = widget.requireProof ? "True" : "False";
-
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: widget.screenWidth * 0.05,
-              backgroundImage: const AssetImage(
-                'assets/images/illustrations/profile.png',
-              ),
-            ),
-            SizedBox(width: widget.screenWidth * 0.05),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  widget.label,
-                  style: theme.subhead,
-                ),
-                SizedBox(height: widget.screenHeight * 0.01),
-                Text(
-                  "Attached photos: ${widget.attachedPhotos}",
-                  style: theme.caption1,
-                ),
-                SizedBox(height: widget.screenHeight * 0.01),
-                Text(
-                  "Require Proof: $requireProofString",
-                  style: theme.caption1,
-                ),
-                SizedBox(height: widget.screenHeight * 0.01),
-              ],
-            ),
-          ],
-        ),
-        const Divider(height: 20),
-      ],
     );
   }
 }
