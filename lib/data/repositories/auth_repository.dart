@@ -8,7 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 // Project imports:
-import 'package:inquire_near/data/models/inquirenear_user.dart';
+import 'package:inquire_near/data/models/in_user.dart';
+import 'package:inquire_near/enums/role.dart';
 
 class SignUpWithEmailAndPasswordFailure implements Exception {
   const SignUpWithEmailAndPasswordFailure([
@@ -141,7 +142,7 @@ class AuthRepository {
       final userDocument = FirebaseFirestore.instance
           .collection('users')
           .doc(_firebaseAuth.currentUser!.uid);
-      final user = InquireNearUser(
+      final user = INUser(
         uid: _firebaseAuth.currentUser!.uid,
         firstName: firstName,
         lastName: lastName,
@@ -190,12 +191,12 @@ class AuthRepository {
       final userDocument = FirebaseFirestore.instance
           .collection('users')
           .doc(_firebaseAuth.currentUser!.uid);
-      final user = InquireNearUser(
+      final user = INUser(
         uid: _firebaseAuth.currentUser!.uid,
         firstName: idMap['given_name'],
         lastName: idMap['family_name'],
+        isActive: null,
       );
-      print(idMap);
       await userDocument.set(user.toJSON());
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure(e.code);

@@ -1,15 +1,20 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/enums/role.dart';
 
-class InquireNearUser extends Equatable {
-  const InquireNearUser({
+class INUser extends Equatable {
+  INUser({
     this.uid,
-    this.firstName,
-    this.lastName,
+    required this.firstName,
+    required this.lastName,
+    this.role = Role.Client,
+    this.isActive,
   });
   final String? uid;
   final String? firstName;
   final String? lastName;
+  Role role;
+  bool? isActive;
 
   @override
   List<Object?> get props => [uid, firstName, lastName];
@@ -18,5 +23,7 @@ class InquireNearUser extends Equatable {
         'uid': uid,
         'firstName': firstName,
         'lastName': lastName,
+        'role': role.toString(),
+        'isActive': isActive,
       };
 }
