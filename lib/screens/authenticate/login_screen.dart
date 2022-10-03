@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
+import 'package:inquire_near/components/input_field.dart';
+import 'package:inquire_near/components/input_validator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,14 +19,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController emailAddressTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
+  final inputValidator = InputValidator();
+
   final _formKey = GlobalKey<FormState>();
 
   void _authenticateWithEmailAndPassword(context) {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context).add(
-        SignInRequested(email.text, password.text),
+        SignInRequested(
+            emailAddressTextController.text, passwordTextController.text),
       );
     }
   }
@@ -35,8 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    email.dispose();
-    password.dispose();
+    emailAddressTextController.dispose();
+    passwordTextController.dispose();
     super.dispose();
   }
 
@@ -81,70 +86,35 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: screenHeight * 0.03),
-                            const Text(
-                              "Email",
-                              style: theme.caption2,
+                            InputField(
+                              label: 'Email Address',
+                              controller: emailAddressTextController,
+                              icon: Icons.email,
+                              validator: (value) {
+                                if (!inputValidator.isEmpty(value)) {
+                                  if (!inputValidator
+                                      .isValidEmailAddress(value)) {
+                                    return 'Invalid Email Address format';
+                                  }
+                                } else {
+                                  return 'Please enter your email address';
+                                }
+                              },
                             ),
-                            const SizedBox(height: 4),
-                            TextFormField(
-                              // TODO: transfer to components
-                              controller: email,
-                              style: theme.callout,
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 10,
-                                ),
-                                prefixIcon: const Icon(Icons.email),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey.shade300, width: 1)),
-                                focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: theme.primary, width: 1)),
-                              ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              obscureText: false,
-                              validator: (val) => val!.isEmpty
-                                  ? "Please enter your email address"
-                                  : null,
-                            ),
-                            SizedBox(height: screenHeight * 0.04),
-                            const Text(
-                              "Password",
-                              style: theme.caption2,
-                            ),
-                            const SizedBox(height: 4),
-                            TextFormField(
-                              // TODO: transfer to components
-                              controller: password,
-                              style: theme.callout,
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 10,
-                                ),
-                                prefixIcon:
-                                    const Icon(Icons.lock_outline_sharp),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey.shade300, width: 1)),
-                                focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: theme.primary, width: 1)),
-                              ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              obscureText: true,
-                              validator: (val) => val!.isEmpty
-                                  ? "Please enter your password"
-                                  : null,
+                            InputField(
+                              label: 'Password',
+                              controller: passwordTextController,
+                              icon: Icons.lock,
+                              isPassword: true,
+                              validator: (value) {
+                                if (inputValidator.isEmpty(value)) {
+                                  return 'Please enter your password';
+                                }
+                              },
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.07),
                       ButtonFill(
                         label: "Sign In",
                         onTap: () {
