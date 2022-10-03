@@ -51,8 +51,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         await authRepository.signInWithGoogle();
         emit(Authenticated());
-      } catch (e) {
-        emit(AuthError(e.toString()));
+      } on LogInWithGoogleFailure catch (e) {
+        emit(AuthError(e.message));
         emit(Unauthenticated());
       }
     });
