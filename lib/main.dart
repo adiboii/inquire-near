@@ -10,9 +10,11 @@ import 'package:inquire_near/app_router.dart';
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
+import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/feedback_repository.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
+import 'package:inquire_near/data/repositories/paypal_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +58,10 @@ class InquireNear extends StatelessWidget {
                   RepositoryProvider.of<FeedbackRepository>(context),
             ),
           ),
+          BlocProvider<PaymentBloc>(
+              create: (context) => PaymentBloc(
+                  payPalRepository:
+                      RepositoryProvider.of<PayPalRepository>(context)))
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
