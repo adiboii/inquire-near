@@ -38,6 +38,8 @@ class InquireNear extends StatelessWidget {
         RepositoryProvider<FeedbackRepository>(
           create: (context) => FeedbackRepository(),
         ),
+        RepositoryProvider<PayPalRepository>(
+            create: (context) => PayPalRepository())
       ],
       child: MultiBlocProvider(
         providers: [
