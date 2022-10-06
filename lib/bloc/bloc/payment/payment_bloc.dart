@@ -1,8 +1,12 @@
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+
+// Project imports:
 import 'package:inquire_near/data/repositories/paypal_repository.dart';
 import 'package:inquire_near/screens/client/payment_summary/widgets/payment_inapp_browser.dart';
 

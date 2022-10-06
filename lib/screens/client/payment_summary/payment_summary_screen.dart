@@ -1,21 +1,22 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/screens/client/payment_summary/widgets/location.dart';
 import 'package:inquire_near/screens/client/payment_summary/widgets/order_summary.dart';
 import 'package:inquire_near/screens/client/payment_summary/widgets/payment_inapp_browser.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-
-import 'package:dio/dio.dart';
-
-import 'package:inquire_near/constants.dart' as constants;
 
 class PaymentSummaryScreen extends StatelessWidget {
   const PaymentSummaryScreen({Key? key}) : super(key: key);
