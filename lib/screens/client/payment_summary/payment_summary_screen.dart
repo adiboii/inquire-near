@@ -47,7 +47,19 @@ class PaymentSummaryScreen extends StatelessWidget {
       ),
       body: BlocConsumer<PaymentBloc, PaymentState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state is PaymentSuccessful) {
+            
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content:
+                    Text("Payment successful. Redirecting to Answer Page.")));
+            // TODO: Redirect to answer screen after payment successful
+          }
+
+          if (state is PaymentError) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content:
+                    Text("Payment failed. Try again.")));
+          }
         },
         builder: (context, state) {
           if (state is Loading) {
@@ -65,9 +77,11 @@ class PaymentSummaryScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
-                      Location(screenWidth: screenWidth, screenHeight: screenHeight),
+                      Location(
+                          screenWidth: screenWidth, screenHeight: screenHeight),
                       SizedBox(height: screenHeight * 0.05),
-                      OrderSummary(screenWidth: screenWidth, screenHeight: screenHeight),
+                      OrderSummary(
+                          screenWidth: screenWidth, screenHeight: screenHeight),
                     ],
                   ),
                 ),
@@ -84,4 +98,3 @@ class PaymentSummaryScreen extends StatelessWidget {
     );
   }
 }
-

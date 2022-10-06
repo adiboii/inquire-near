@@ -1,33 +1,41 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class PaymentInAppBrowser extends InAppBrowser {
+  Function setPaymentResponse;
+
+  PaymentInAppBrowser({required this.setPaymentResponse});
+
   @override
-  Future onBrowserCreated() async {
-    print("Browser Created!");
-  }
+  Future onBrowserCreated() async {}
 
   @override
   Future onLoadStart(url) async {
-    print("Started $url");
+    if (url != null && url.toString().contains("localhost")) {
+      try {
+        setPaymentResponse(
+            url.queryParameters["paymentId"], url.queryParameters["PayerID"]);
+      } catch (e) {
+        log("Set Payment Response Error: ${e.toString()}");
+        setPaymentResponse(null, null);
+      }
+
+      super.close();
+    }
   }
 
   @override
-  Future onLoadStop(url) async {
-    print("Stopped $url");
-  }
+  Future onLoadStop(url) async {}
 
   @override
-  void onLoadError(url, code, message) {
-    print("Can't load $url.. Error: $message");
-  }
+  void onLoadError(url, code, message) {}
 
   @override
-  void onProgressChanged(progress) {
-    print("Progress: $progress");
-  }
+  void onProgressChanged(progress) {}
 
   @override
-  void onExit() {
-    print("Browser closed!");
-  }
+  void onExit() {}
 }

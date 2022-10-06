@@ -12,3 +12,7 @@ class PaymentInitial extends PaymentState {}
 class Loading extends PaymentState {}
 
 class PaymentError extends PaymentState {}
+
+class PaymentSuccessful extends PaymentState {}
+
+class PaymentOngoing extends PaymentState {}
