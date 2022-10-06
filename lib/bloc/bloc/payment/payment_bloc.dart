@@ -28,7 +28,8 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     __setPaymentResponse(null, null);
 
     emit(Loading());
-    String? approvalLink = await payPalRepository.getPaymentLink();
+    String? approvalLink = await payPalRepository.getPaymentLink(
+        event.amount, event.transactionId);
 
     if (approvalLink != null) {
       final PaymentInAppBrowser browser =

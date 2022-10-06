@@ -16,9 +16,9 @@ class PayPalRepository {
     return null;
   }
 
-  Future<String?> getPaymentLink() async {
+  Future<String?> getPaymentLink(double amount, String transactionId) async {
     Response response = await dio.post("${constants.PAYPAL_BASE_URL}/pay",
-        data: {"amount": 100, "transactionId": "abc123"});
+        data: {"amount": amount, "transactionId": transactionId});
 
     List<Map<String, dynamic>> links =
         (response.data as List).map((e) => e as Map<String, dynamic>).toList();
