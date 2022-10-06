@@ -17,7 +17,7 @@ class PaymentInAppBrowser extends InAppBrowser {
     if (url != null && url.toString().contains("localhost")) {
       try {
         setPaymentResponse(
-            url.queryParameters["paymentId"], url.queryParameters["PayerID"]);
+            url.queryParameters["PayerID"], url.queryParameters["paymentId"]);
       } catch (e) {
         log("Set Payment Response Error: ${e.toString()}");
         setPaymentResponse(null, null);

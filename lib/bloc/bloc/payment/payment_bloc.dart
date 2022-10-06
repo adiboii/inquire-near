@@ -47,7 +47,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
       // Wait for payment details to be set
       final completer = Completer();
-      Timer.periodic(const Duration(seconds: 1), (timer) {
+      Timer.periodic(const Duration(seconds: 1), (timer) async {
         if (!isPaying!) {
           if (payerId == null ||
               paymentId == null ||
@@ -55,7 +55,14 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
               paymentId == "") {
             emit(PaymentError());
           } else {
-            emit(PaymentSuccessful());
+            bool executeStatus = await payPalRepository.executePayment(
+                payerId.toString(), paymentId.toString());
+
+            if (executeStatus) {
+              emit(PaymentSuccessful());
+            } else {
+              emit(PaymentError());
+            }
           }
           timer.cancel();
         }

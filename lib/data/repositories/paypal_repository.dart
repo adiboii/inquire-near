@@ -1,4 +1,6 @@
 // Package imports:
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 // Project imports:
@@ -26,5 +28,19 @@ class PayPalRepository {
     String? approvalLink = _getApprovalLink(links);
 
     return approvalLink;
+  }
+
+  Future<bool> executePayment(String payerId, String paymentId) async {
+    try {
+      Response response = await dio.get(
+          "${constants.PAYPAL_BASE_URL}/success?PayerID=$payerId&paymentId=$paymentId");
+      if (response.statusCode == 200) {
+        return true;
+      }
+    } catch (e) {
+      log("executePayment Error: $e");
+    }
+
+    return false;
   }
 }
