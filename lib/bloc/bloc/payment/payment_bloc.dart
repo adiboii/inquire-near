@@ -23,21 +23,16 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     on<Pay>(_onPay);
   }
 
-  void setPaymentResponse(String? payerId, String? paymentId) {
-    this.payerId = payerId;
-    this.paymentId = paymentId;
-    isPaying = false;
-  }
-
+  // Event handlers
   void _onPay(event, emit) async {
-    setPaymentResponse(null, null);
+    __setPaymentResponse(null, null);
 
     emit(Loading());
     String? approvalLink = await payPalRepository.getPaymentLink();
 
     if (approvalLink != null) {
       final PaymentInAppBrowser browser =
-          PaymentInAppBrowser(setPaymentResponse: setPaymentResponse);
+          PaymentInAppBrowser(setPaymentResponse: __setPaymentResponse);
       InAppBrowserClassOptions browserOptions = InAppBrowserClassOptions(
           crossPlatform:
               InAppBrowserOptions(hideUrlBar: true, hideToolbarTop: true),
@@ -67,5 +62,14 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
       await completer.future;
     }
+
+    emit(PaymentInitial());
+  }
+
+  // Helper functions
+  void __setPaymentResponse(String? payerId, String? paymentId) {
+    this.payerId = payerId;
+    this.paymentId = paymentId;
+    isPaying = false;
   }
 }
