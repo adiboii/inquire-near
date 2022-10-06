@@ -89,6 +89,7 @@ class PaymentSummaryScreen extends StatelessWidget {
                 ButtonFill(
                     label: "Continue",
                     style: theme.caption1Bold,
+                    // TODO: Use actual data instead of dummy data
                     onTap: () => BlocProvider.of<PaymentBloc>(context)
                         .add(const Pay(100, 'abc123'))),
               ],
