@@ -1,9 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:inquire_near/constants.dart';
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
-import 'package:inquire_near/screens/client/add_inquiry_screen.dart';
+import 'package:inquire_near/screens/client/Add_Inquiry_Screen/add_inquiry_screen.dart';
 import 'package:inquire_near/screens/client/available_inquirers_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
@@ -30,12 +32,15 @@ import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
 import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
 
+//TODO: implement
+//Map Router
+
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
 
       // Common Screens
-      case '/splash':
+      case splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
       case '/landing':
@@ -131,7 +136,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const PaymentReceivedScreen());
 
       case '/review_client':
-        return MaterialPageRoute(builder: (_) => const ReviewClientScreen());
+        return MaterialPageRoute(builder: (_) => ClientFeedbackScreen());
 
       default:
         return null;

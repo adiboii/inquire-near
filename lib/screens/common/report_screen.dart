@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/choose_report_type.dart';
 import 'package:inquire_near/components/input_report.dart';

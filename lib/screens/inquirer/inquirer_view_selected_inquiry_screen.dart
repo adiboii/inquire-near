@@ -25,6 +25,7 @@ class _InquirerViewSelectedInquiryScreenState
   @override
   Widget build(BuildContext context) {
     File? image;
+    bool requireProof = false;
     void onIconSelected(File file) {
       setState(() {
         image = file;
@@ -37,9 +38,16 @@ class _InquirerViewSelectedInquiryScreenState
       });
     }
 
+    void updateBool(bool value) {
+      setState(() {
+        requireProof = value;
+      });
+    }
+
     // Screen Dimensions
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[50],
@@ -117,6 +125,7 @@ class _InquirerViewSelectedInquiryScreenState
             alignment: Alignment.bottomCenter,
             child: BottomBar(
               onIconSelected: onIconSelected,
+              requireProof: updateBool,
             ),
           ),
         ],

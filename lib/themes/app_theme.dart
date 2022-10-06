@@ -11,6 +11,7 @@ const Color red = Color(0xFFFF5151);
 const Color lightBlue = Color(0xFFF0F7FF);
 const Color primaryYellow = Color(0xFFFBBC05);
 const Color primaryGray = Color(0xFFABABB2);
+const Color kPrimaryGreen = Color(0xFF39E75F);
 const Color paypalBlue = Color(0xFF0F1152);
 
 //Text Themes
