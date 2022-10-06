@@ -1,9 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_svg/flutter_svg.dart';
-
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -50,7 +47,6 @@ class PaymentSummaryScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            // SvgPicture.asset("assets/images/svgs/location.svg"),
                             SizedBox(width: screenWidth * 0.02),
                             const Text(
                               'Location',
@@ -94,8 +90,6 @@ class PaymentSummaryScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            //TODO: change to order svg
-                            // SvgPicture.asset("assets/images/svgs/location.svg"),
                             SizedBox(
                               width: screenWidth * 0.02,
                             ),
