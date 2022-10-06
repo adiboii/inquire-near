@@ -2,9 +2,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/screens/client/payment_summary/widgets/payment_inapp_browser.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 import 'package:dio/dio.dart';
@@ -175,20 +177,35 @@ class PaymentSummaryScreen extends StatelessWidget {
                       "${constants.PAYPAL_BASE_URL}/pay",
                       data: {"amount": 100, "transactionId": "abc123"});
 
-                  List<Map<String, dynamic>> links =
-                      (response.data as List)
-                          .map((e) => e as Map<String, dynamic>)
-                          .toList();
+                  List<Map<String, dynamic>> links = (response.data as List)
+                      .map((e) => e as Map<String, dynamic>)
+                      .toList();
 
                   String? getApprovalLink(List<Map<String, dynamic>> links) {
-                      for(Map<String, dynamic> linkData in links) {
-                        if(linkData["name"] == "approval_url") {
-                          return linkData["link"];
-                        }
+                    for (Map<String, dynamic> linkData in links) {
+                      if (linkData["name"] == "approval_url") {
+                        return linkData["link"];
                       }
-                      return null;
+                    }
+                    return null;
                   }
-                  
+
+                  String? approvalLink = getApprovalLink(links);
+
+                  if (approvalLink != null) {
+                    final PaymentInAppBrowser browser = PaymentInAppBrowser();
+                    InAppBrowserClassOptions browserOptions =
+                        InAppBrowserClassOptions(
+                            crossPlatform:
+                                InAppBrowserOptions(hideUrlBar: true, hideToolbarTop: true),
+                            inAppWebViewGroupOptions: InAppWebViewGroupOptions(
+                                crossPlatform: InAppWebViewOptions(
+                                    javaScriptEnabled: true)));
+
+                    browser.openUrlRequest(
+                        urlRequest: URLRequest(url: Uri.parse(approvalLink)),
+                        options: browserOptions);
+                  }
                 },
               ),
             ],
