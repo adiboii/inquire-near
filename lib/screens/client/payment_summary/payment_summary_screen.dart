@@ -8,6 +8,8 @@ import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/screens/client/payment_summary/widgets/location.dart';
+import 'package:inquire_near/screens/client/payment_summary/widgets/order_summary.dart';
 import 'package:inquire_near/screens/client/payment_summary/widgets/payment_inapp_browser.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
@@ -63,119 +65,9 @@ class PaymentSummaryScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(width: screenWidth * 0.02),
-                              const Text(
-                                'Location',
-                                style: theme.subheadBold,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.015),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: screenWidth * 0.071,
-                              ),
-                              Image.asset(
-                                'assets/images/logos/BIR.png',
-                                width: screenWidth * 0.1,
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.03,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    'Bureau of Internal Revenue (BIR)',
-                                    style: theme.caption1,
-                                  ),
-                                  Text(
-                                    'Cebu South Branch',
-                                    style: theme.caption1,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                      Location(screenWidth: screenWidth, screenHeight: screenHeight),
                       SizedBox(height: screenHeight * 0.05),
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: screenWidth * 0.02,
-                              ),
-                              const Text(
-                                'Order',
-                                style: theme.subheadBold,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.015,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                'Inquiries',
-                                style: theme.caption1,
-                              ),
-                              Text(
-                                '4 x PHP 25.00',
-                                style: theme.caption1,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.01,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                'Require Proof',
-                                style: theme.caption1,
-                              ),
-                              Text(
-                                '4 x PHP 5.00',
-                                style: theme.caption1,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.01,
-                          ),
-                          const Divider(
-                            thickness: 0.9,
-                            color: Colors.black,
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.01,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                'Total Amount',
-                                style: theme.caption1,
-                              ),
-                              Text(
-                                'PHP 100.00',
-                                style: theme.headline,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                      OrderSummary(screenWidth: screenWidth, screenHeight: screenHeight),
                     ],
                   ),
                 ),
@@ -192,3 +84,4 @@ class PaymentSummaryScreen extends StatelessWidget {
     );
   }
 }
+
