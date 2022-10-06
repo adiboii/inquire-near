@@ -47,49 +47,10 @@ class PaymentSummaryScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Pay with",
-                          style: theme.headline,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                    "assets/images/logos/paypal.svg"),
-                                SizedBox(width: screenWidth * 0.02),
-                                const Text(
-                                  "Paypal",
-                                  style: theme.subhead,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "Available Balance",
-                                  style: theme.caption2
-                                      .copyWith(color: theme.primary),
-                                ),
-                                const Text(
-                                  "PHP 455.20",
-                                )
-                              ],
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    SizedBox(height: screenHeight * 0.05),
-                    Column(
                       children: [
                         Row(
                           children: [
-                            SvgPicture.asset("assets/images/svgs/location.svg"),
+                            // SvgPicture.asset("assets/images/svgs/location.svg"),
                             SizedBox(width: screenWidth * 0.02),
                             const Text(
                               'Location',
@@ -134,7 +95,7 @@ class PaymentSummaryScreen extends StatelessWidget {
                         Row(
                           children: [
                             //TODO: change to order svg
-                            SvgPicture.asset("assets/images/svgs/location.svg"),
+                            // SvgPicture.asset("assets/images/svgs/location.svg"),
                             SizedBox(
                               width: screenWidth * 0.02,
                             ),
