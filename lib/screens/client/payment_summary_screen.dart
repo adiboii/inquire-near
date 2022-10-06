@@ -159,9 +159,12 @@ class PaymentSummaryScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const ButtonFill(
+              ButtonFill(
                 label: "Continue",
                 style: theme.caption1Bold,
+                onTap: () {
+                  
+                },
               ),
             ],
           ),
