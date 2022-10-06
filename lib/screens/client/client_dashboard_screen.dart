@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:inquire_near/components/switch_user_type.dart';
 
 // Project imports:
+import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/components/wallet.dart';
 import 'package:inquire_near/data/models/enums.dart';
@@ -63,7 +63,7 @@ class ClientDashboardScreen extends StatelessWidget {
                     ],
                   ),
                   SwitchUserType(
-                      screenHeight: screenHeight, userType: UserType.inquirer),
+                      screenHeight: screenHeight, currentRole: Role.inquirer),
                 ],
               ),
               InTextField(

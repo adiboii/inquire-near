@@ -31,10 +31,12 @@ environment:
 dependencies:
   auto_size_text: ^3.0.0
   bloc: ^8.1.0
+  cloud_firestore: ^3.4.9
   cupertino_icons: ^1.0.2
   equatable: ^2.0.5
   firebase_auth: ^3.7.0
   firebase_core: ^1.21.1
+  firebase_storage: ^10.3.9
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1

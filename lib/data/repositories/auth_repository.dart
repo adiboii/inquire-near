@@ -1,9 +1,15 @@
 // Dart imports:
+import 'dart:convert';
 import 'dart:developer';
 
 // Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+// Project imports:
+import 'package:inquire_near/data/models/in_user.dart';
+import 'package:inquire_near/enums/role.dart';
 
 class SignUpWithEmailAndPasswordFailure implements Exception {
   const SignUpWithEmailAndPasswordFailure([
@@ -15,10 +21,6 @@ class SignUpWithEmailAndPasswordFailure implements Exception {
       case 'invalid-email':
         return const SignUpWithEmailAndPasswordFailure(
           'Email is not valid or badly formatted.',
-        );
-      case 'user-disabled':
-        return const SignUpWithEmailAndPasswordFailure(
-          'This user has been disabled. Please contact support for help.',
         );
       case 'email-already-in-use':
         return const SignUpWithEmailAndPasswordFailure(
@@ -113,6 +115,10 @@ class LogInWithGoogleFailure implements Exception {
         return const LogInWithGoogleFailure(
           'The credential verification ID received is invalid.',
         );
+      case 'email-already-in-use':
+        return const LogInWithGoogleFailure(
+          'An account already exists for that email.',
+        );
       default:
         return const LogInWithGoogleFailure();
     }
@@ -125,10 +131,23 @@ class LogInWithGoogleFailure implements Exception {
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> signUp(
+      {required String firstName,
+      required String lastName,
+      required String email,
+      required String password}) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      final userDocument = FirebaseFirestore.instance
+          .collection('users')
+          .doc(_firebaseAuth.currentUser!.uid);
+      final user = INUser(
+        uid: _firebaseAuth.currentUser!.uid,
+        firstName: firstName,
+        lastName: lastName,
+      );
+      await userDocument.set(user.toJSON());
     } on FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -141,10 +160,8 @@ class AuthRepository {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      log("Firebase: Auth error");
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
-      log("Firebase: Sign In error");
       throw const LogInWithEmailAndPasswordFailure();
     }
   }
@@ -170,10 +187,32 @@ class AuthRepository {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
+      Map<String, dynamic> idMap = parseJwt(googleAuth?.idToken);
+      final userDocument = FirebaseFirestore.instance
+          .collection('users')
+          .doc(_firebaseAuth.currentUser!.uid);
+      final user = INUser(
+        uid: _firebaseAuth.currentUser!.uid,
+        firstName: idMap['given_name'],
+        lastName: idMap['family_name'],
+        isActive: null,
+      );
+      await userDocument.set(user.toJSON());
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure(e.code);
     } catch (_) {
       throw const LogInWithGoogleFailure();
     }
+  }
+
+  static Map<String, dynamic> parseJwt(String? token) {
+    final List<String> parts = token!.split('.');
+    // retrieve token payload
+    final String payload = parts[1];
+    final String normalized = base64Url.normalize(payload);
+    final String resp = utf8.decode(base64Url.decode(normalized));
+    // convert to Map
+    final payloadMap = json.decode(resp);
+    return payloadMap;
   }
 }

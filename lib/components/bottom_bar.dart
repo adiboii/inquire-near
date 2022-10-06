@@ -7,9 +7,19 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:image_picker/image_picker.dart';
 
+// Project imports:
+import 'package:inquire_near/themes/app_theme.dart' as theme;
+
 class BottomBar extends StatefulWidget {
   final Function(File) onIconSelected;
-  const BottomBar({Key? key, required this.onIconSelected}) : super(key: key);
+  final ValueChanged<bool> requireProof;
+  final bool? initialValue;
+  const BottomBar(
+      {Key? key,
+      required this.onIconSelected,
+      required this.requireProof,
+      this.initialValue})
+      : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -29,6 +39,14 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    bool? requireProof = widget.initialValue;
+    void updateBool(bool? value) {
+      setState(() {
+        widget.requireProof(value!);
+        requireProof = value;
+      });
+    }
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 50,
@@ -49,6 +67,14 @@ class _BottomBarState extends State<BottomBar> {
             },
             icon: const Icon(Icons.camera_alt_sharp),
           ),
+          Checkbox(
+            value: requireProof,
+            onChanged: updateBool,
+          ),
+          const Text(
+            "Require Proof",
+            style: theme.subhead,
+          )
         ],
       ),
     );

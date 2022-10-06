@@ -1,14 +1,19 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
+
+// Project imports:
 import 'package:inquire_near/data/models/enums.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class SwitchUserType extends StatelessWidget {
-  final UserType userType;
+  final Role currentRole;
   const SwitchUserType({
     Key? key,
     required this.screenHeight,
-    required this.userType,
+    required this.currentRole,
   }) : super(key: key);
 
   final double screenHeight;
@@ -17,7 +22,7 @@ class SwitchUserType extends StatelessWidget {
   Widget build(BuildContext context) {
     String route = '/client_dashboard';
 
-    if (userType == UserType.inquirer) {
+    if (currentRole == Role.inquirer) {
       route = '/inquirer_dashboard';
     }
 
