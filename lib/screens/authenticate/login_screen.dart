@@ -99,6 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 } else {
                                   return 'Please enter your email address';
                                 }
+
+                                return null;
                               },
                             ),
                             InputField(
@@ -110,6 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (inputValidator.isEmpty(value)) {
                                   return 'Please enter your password';
                                 }
+
+                                return null;
                               },
                             ),
                           ],

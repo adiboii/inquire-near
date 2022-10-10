@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:developer';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -142,6 +139,8 @@ class SignUpScreen extends StatelessWidget {
                                 } else {
                                   return 'First Name is a required field';
                                 }
+
+                                return null;
                               },
                             ),
                             InputField(
@@ -156,6 +155,8 @@ class SignUpScreen extends StatelessWidget {
                                 } else {
                                   return 'Last Name is a required field';
                                 }
+
+                                return null;
                               },
                             ),
                             InputField(
@@ -171,6 +172,8 @@ class SignUpScreen extends StatelessWidget {
                                 } else {
                                   return 'Email Address is a required field';
                                 }
+
+                                return null;
                               },
                             ),
                             InputField(
@@ -186,6 +189,8 @@ class SignUpScreen extends StatelessWidget {
                                 } else {
                                   return 'Password is a required field';
                                 }
+
+                                return null;
                               },
                             ),
                             InputField(
@@ -202,6 +207,8 @@ class SignUpScreen extends StatelessWidget {
                                 } else {
                                   return 'Confirm Password is a required field';
                                 }
+
+                                return null;
                               },
                             ),
                           ],
