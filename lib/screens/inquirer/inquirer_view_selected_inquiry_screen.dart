@@ -25,6 +25,7 @@ class _InquirerViewSelectedInquiryScreenState
   @override
   Widget build(BuildContext context) {
     File? image;
+    // ignore: unused_local_variable
     bool requireProof = false;
     void onIconSelected(File file) {
       setState(() {

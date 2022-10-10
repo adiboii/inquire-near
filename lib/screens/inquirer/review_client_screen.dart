@@ -13,7 +13,7 @@ import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ClientFeedbackScreen extends StatefulWidget {
-  ClientFeedbackScreen({Key? key}) : super(key: key);
+  const ClientFeedbackScreen({Key? key}) : super(key: key);
 
   @override
   State<ClientFeedbackScreen> createState() => _ClientFeedbackScreenState();

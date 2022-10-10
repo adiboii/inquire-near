@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:convert';
-import 'dart:developer';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -202,7 +201,6 @@ class AuthRepository {
         firstName: idMap['given_name'],
         lastName: idMap['family_name'],
       );
-      print(idMap);
       await userDocument.set(user.toJSON());
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure(e.code);

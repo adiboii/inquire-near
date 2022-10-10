@@ -1,8 +1,8 @@
 enum StoreCategory {
-  Dining,
-  Entertainment,
-  Cinema,
-  Gadgets,
-  Services,
-  Shopping,
+  dining,
+  entertainment,
+  cinema,
+  hadgets,
+  services,
+  shopping,
 }
