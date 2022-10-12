@@ -21,6 +21,10 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 class PaymentSummaryScreen extends StatelessWidget {
   const PaymentSummaryScreen({Key? key}) : super(key: key);
 
+  void pay(BuildContext context, double amount, String transactionId) {
+    BlocProvider.of<PaymentBloc>(context).add(const Pay(100, 'abc123'));
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -49,7 +53,6 @@ class PaymentSummaryScreen extends StatelessWidget {
       body: BlocConsumer<PaymentBloc, PaymentState>(
         listener: (context, state) {
           if (state is PaymentSuccessful) {
-            
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content:
                     Text("Payment successful. Redirecting to Answer Page.")));
@@ -57,9 +60,8 @@ class PaymentSummaryScreen extends StatelessWidget {
           }
 
           if (state is PaymentError) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content:
-                    Text("Payment failed. Try again.")));
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Payment failed. Try again.")));
           }
         },
         builder: (context, state) {
@@ -90,8 +92,7 @@ class PaymentSummaryScreen extends StatelessWidget {
                     label: "Continue",
                     style: theme.caption1Bold,
                     // TODO: Use actual data instead of dummy data
-                    onTap: () => BlocProvider.of<PaymentBloc>(context)
-                        .add(const Pay(100, 'abc123'))),
+                    onTap: () => pay(context, 100, 'abc123')),
               ],
             ),
           );

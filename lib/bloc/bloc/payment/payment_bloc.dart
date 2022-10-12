@@ -18,6 +18,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   String? payerId;
   String? paymentId;
   bool? isPaying;
+  late PaymentInAppBrowser browser;
 
   PaymentBloc({required this.payPalRepository}) : super(PaymentInitial()) {
     on<Pay>(_onPay);
@@ -32,8 +33,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         event.amount, event.transactionId);
 
     if (approvalLink != null) {
-      final PaymentInAppBrowser browser =
-          PaymentInAppBrowser(setPaymentResponse: __setPaymentResponse);
+      browser = PaymentInAppBrowser(setPaymentResponse: __setPaymentResponse);
       InAppBrowserClassOptions browserOptions = InAppBrowserClassOptions(
           crossPlatform:
               InAppBrowserOptions(hideUrlBar: true, hideToolbarTop: true),
