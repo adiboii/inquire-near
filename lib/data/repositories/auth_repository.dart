@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:convert';
-import 'dart:developer';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,6 +10,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/enums/role.dart';
 
+import 'package:inquire_near/constants.dart' as constants;
+
 class SignUpWithEmailAndPasswordFailure implements Exception {
   const SignUpWithEmailAndPasswordFailure([
     this.message = 'An unknown exception occurred.',
@@ -18,15 +19,15 @@ class SignUpWithEmailAndPasswordFailure implements Exception {
 
   factory SignUpWithEmailAndPasswordFailure.fromCode(String code) {
     switch (code) {
-      case 'invalid-email':
+      case constants.invalidEmail:
         return const SignUpWithEmailAndPasswordFailure(
           'Email is not valid or badly formatted.',
         );
-      case 'email-already-in-use':
+      case constants.emailAlreadyInUse:
         return const SignUpWithEmailAndPasswordFailure(
           'An account already exists for that email.',
         );
-      case 'operation-not-allowed':
+      case constants.operationNotAllowed:
         return const SignUpWithEmailAndPasswordFailure(
           'Operation is not allowed.  Please contact support.',
         );
@@ -49,19 +50,19 @@ class LogInWithEmailAndPasswordFailure implements Exception {
 
   factory LogInWithEmailAndPasswordFailure.fromCode(String code) {
     switch (code) {
-      case 'invalid-email':
+      case constants.invalidEmail:
         return const LogInWithEmailAndPasswordFailure(
           'Email is not valid or badly formatted.',
         );
-      case 'user-disabled':
+      case constants.userDisabled:
         return const LogInWithEmailAndPasswordFailure(
           'This user has been disabled. Please contact support for help.',
         );
-      case 'user-not-found':
+      case constants.userNotFound:
         return const LogInWithEmailAndPasswordFailure(
           'Email is not found, please create an account.',
         );
-      case 'wrong-password':
+      case constants.wrongPassword:
         return const LogInWithEmailAndPasswordFailure(
           'Incorrect password, please try again.',
         );
@@ -95,15 +96,15 @@ class LogInWithGoogleFailure implements Exception {
         return const LogInWithGoogleFailure(
           'Operation is not allowed.  Please contact support.',
         );
-      case 'user-disabled':
+      case constants.userDisabled:
         return const LogInWithGoogleFailure(
           'This user has been disabled. Please contact support for help.',
         );
-      case 'user-not-found':
+      case constants.userNotFound:
         return const LogInWithGoogleFailure(
           'Email is not found, please create an account.',
         );
-      case 'wrong-password':
+      case constants.wrongPassword:
         return const LogInWithGoogleFailure(
           'Incorrect password, please try again.',
         );
@@ -115,7 +116,7 @@ class LogInWithGoogleFailure implements Exception {
         return const LogInWithGoogleFailure(
           'The credential verification ID received is invalid.',
         );
-      case 'email-already-in-use':
+      case constants.emailAlreadyInUse:
         return const LogInWithGoogleFailure(
           'An account already exists for that email.',
         );

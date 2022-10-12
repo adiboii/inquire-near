@@ -109,7 +109,7 @@ class _InputFieldState extends State<InputField> {
           validator: widget.validator,
         ),
         SizedBox(
-          height: screenHeight * 0.04,
+          height: screenHeight * 0.02,
         ),
       ],
     );

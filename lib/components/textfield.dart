@@ -86,7 +86,6 @@ class _InTextFormFieldState extends State<InTextFormField> {
         ),
         const SizedBox(height: 4),
         TextFormField(
-          // TODO: transfer to components
           style: theme.callout,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(
