@@ -9,12 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 // Project imports:
 import 'package:inquire_near/data/models/inquirenear_user.dart';
 
-const String invalidEmail = 'invalid-email';
-const String userDisabled = 'user-disabled';
-const String operationNotAllowed = 'operation-not-allowed';
-const String userNotFound = 'user-not-found';
-const String wrongPassword = 'wrong-password';
-const String emailAlreadyInUse = 'email-already-in-use';
+import 'package:inquire_near/constants.dart' as constants;
 
 class SignUpWithEmailAndPasswordFailure implements Exception {
   const SignUpWithEmailAndPasswordFailure([
@@ -23,15 +18,15 @@ class SignUpWithEmailAndPasswordFailure implements Exception {
 
   factory SignUpWithEmailAndPasswordFailure.fromCode(String code) {
     switch (code) {
-      case invalidEmail:
+      case constants.invalidEmail:
         return const SignUpWithEmailAndPasswordFailure(
           'Email is not valid or badly formatted.',
         );
-      case emailAlreadyInUse:
+      case constants.emailAlreadyInUse:
         return const SignUpWithEmailAndPasswordFailure(
           'An account already exists for that email.',
         );
-      case operationNotAllowed:
+      case constants.operationNotAllowed:
         return const SignUpWithEmailAndPasswordFailure(
           'Operation is not allowed.  Please contact support.',
         );
@@ -54,19 +49,19 @@ class LogInWithEmailAndPasswordFailure implements Exception {
 
   factory LogInWithEmailAndPasswordFailure.fromCode(String code) {
     switch (code) {
-      case invalidEmail:
+      case constants.invalidEmail:
         return const LogInWithEmailAndPasswordFailure(
           'Email is not valid or badly formatted.',
         );
-      case userDisabled:
+      case constants.userDisabled:
         return const LogInWithEmailAndPasswordFailure(
           'This user has been disabled. Please contact support for help.',
         );
-      case userNotFound:
+      case constants.userNotFound:
         return const LogInWithEmailAndPasswordFailure(
           'Email is not found, please create an account.',
         );
-      case wrongPassword:
+      case constants.wrongPassword:
         return const LogInWithEmailAndPasswordFailure(
           'Incorrect password, please try again.',
         );
@@ -100,15 +95,15 @@ class LogInWithGoogleFailure implements Exception {
         return const LogInWithGoogleFailure(
           'Operation is not allowed.  Please contact support.',
         );
-      case userDisabled:
+      case constants.userDisabled:
         return const LogInWithGoogleFailure(
           'This user has been disabled. Please contact support for help.',
         );
-      case userNotFound:
+      case constants.userNotFound:
         return const LogInWithGoogleFailure(
           'Email is not found, please create an account.',
         );
-      case wrongPassword:
+      case constants.wrongPassword:
         return const LogInWithGoogleFailure(
           'Incorrect password, please try again.',
         );
@@ -120,7 +115,7 @@ class LogInWithGoogleFailure implements Exception {
         return const LogInWithGoogleFailure(
           'The credential verification ID received is invalid.',
         );
-      case emailAlreadyInUse:
+      case constants.emailAlreadyInUse:
         return const LogInWithGoogleFailure(
           'An account already exists for that email.',
         );
