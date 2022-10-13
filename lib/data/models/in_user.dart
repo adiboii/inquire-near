@@ -1,5 +1,7 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
+
+// Project imports:
 import 'package:inquire_near/enums/role.dart';
 
 class INUser extends Equatable {
