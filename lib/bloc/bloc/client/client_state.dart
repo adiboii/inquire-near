@@ -18,5 +18,3 @@ class NewAvailableInquirersFound extends ClientState {
 }
 
 class NoAvailableInquirersFound extends ClientState {}
-
-class FindAvailableInquirersError extends ClientState {}
