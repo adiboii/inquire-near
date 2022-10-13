@@ -1,12 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_svg/svg.dart';
-
 // Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import 'package:inquire_near/utils.dart' as utils;
 
 class InListItem extends StatelessWidget {
   final Color color;

@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:html';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
