@@ -17,7 +17,7 @@ class GetAvailableInquirers extends ClientEvent {
 
 class StopFindAvailableInquirer extends ClientEvent {}
 
-// These are events used added inside the bloc to
+// These are events used inside the bloc to
 // prevent Stream errors.
 class EmitFindNewAvailableInquirers extends ClientEvent {}
 
