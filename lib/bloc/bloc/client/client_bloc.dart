@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:html';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
@@ -14,23 +15,25 @@ part 'client_event.dart';
 part 'client_state.dart';
 
 class ClientBloc extends Bloc<ClientEvent, ClientState> {
-  late Stream _availableInquirersStream;
+  late StreamSubscription? _findAvailableInquirersSubscription;
+
   int counter = 0;
 
   ClientBloc() : super(ClientInitial()) {
-    _availableInquirersStream = FirebaseFirestore.instance
-        .collection('users')
-        .where('role', isEqualTo: Role.Inquirer.toString())
-        .where('isActive', isEqualTo: true)
-        .snapshots();
+    _findAvailableInquirersSubscription = null;
 
     on<FindAvailableInquirers>((event, emit) async {
-      _availableInquirersStream.listen((ev) async {
+      _findAvailableInquirersSubscription = FirebaseFirestore.instance
+          .collection('users')
+          .where('role', isEqualTo: Role.Inquirer.toString())
+          .where('isActive', isEqualTo: true)
+          .snapshots()
+          .listen((ev) async {
         if (ev.docs.isNotEmpty || ev.docChanges.isNotEmpty) {
           add(EmitFindNewAvailableInquirers());
           List<INUser> inquirers = [];
           for (var doc in ev.docs) {
-            INUser inquirer = INUser.fromJson(await doc.data());
+            INUser inquirer = INUser.fromJson(doc.data());
             inquirer.setUID(doc.id);
             inquirers.add(inquirer);
           }
@@ -57,6 +60,12 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
 
     on<EmitNoAvailableInquirers>((event, emit) {
       emit(NoAvailableInquirersFound());
+    });
+
+    on<StopFindAvailableInquirer>((event, emit) async {
+      if(_findAvailableInquirersSubscription != null) {
+        _findAvailableInquirersSubscription!.cancel();
+      }
     });
   }
 }

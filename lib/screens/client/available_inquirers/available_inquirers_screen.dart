@@ -81,4 +81,10 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    BlocProvider.of<ClientBloc>(context).add(StopFindAvailableInquirer());
+  }
 }

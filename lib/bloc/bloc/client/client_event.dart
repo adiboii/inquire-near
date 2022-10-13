@@ -15,6 +15,7 @@ class GetAvailableInquirers extends ClientEvent {
   const GetAvailableInquirers(this.inquirers);
 }
 
+class StopFindAvailableInquirer extends ClientEvent {}
 
 // These are events used added inside the bloc to
 // prevent Stream errors.
