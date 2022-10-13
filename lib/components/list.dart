@@ -7,6 +7,8 @@ import 'package:flutter_svg/svg.dart';
 // Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
+import 'package:inquire_near/utils.dart' as utils;
+
 class InListItem extends StatelessWidget {
   final Color color;
   final String type;
@@ -49,57 +51,3 @@ class InListItem extends StatelessWidget {
   }
 }
 
-class AvailableInquirer extends StatelessWidget {
-  final String name;
-  final String rating;
-  final String location;
-  const AvailableInquirer({
-    required this.name,
-    required this.rating,
-    required this.location,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.blue[800],
-          radius: 30,
-        ),
-        const SizedBox(width: 24),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: theme.subheadBold,
-            ),
-            const SizedBox(height: 4),
-            Row(
-              children: [
-                SvgPicture.asset("assets/images/svgs/star.svg"),
-                Text(
-                  rating,
-                  style: theme.caption2,
-                ),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Row(
-              children: [
-                SvgPicture.asset("assets/images/svgs/location.svg"),
-                Text(
-                  location,
-                  style: theme.caption2,
-                ),
-              ],
-            ),
-          ],
-        )
-      ],
-    );
-  }
-}

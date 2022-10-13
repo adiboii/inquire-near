@@ -6,7 +6,7 @@ import 'package:inquire_near/constants.dart';
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/Add_Inquiry_Screen/add_inquiry_screen.dart';
-import 'package:inquire_near/screens/client/available_inquirers_screen.dart';
+import 'package:inquire_near/screens/client/available_inquirers/available_inquirers_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
