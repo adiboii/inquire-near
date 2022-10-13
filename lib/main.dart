@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/app_router.dart';
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
+import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/feedback_repository.dart';
@@ -56,11 +57,14 @@ class InquireNear extends StatelessWidget {
                   RepositoryProvider.of<FeedbackRepository>(context),
             ),
           ),
+          BlocProvider<ClientBloc>(
+            create: (context) => ClientBloc(),
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: '/landing',
+          initialRoute: '/available_inquirers',
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
