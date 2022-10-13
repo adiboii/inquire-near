@@ -1,12 +1,13 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+// Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
-
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-
 import 'package:inquire_near/utils.dart' as utils;
 
 class AvailableInquirer extends StatefulWidget {

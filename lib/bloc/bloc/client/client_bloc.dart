@@ -1,8 +1,12 @@
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+
+// Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/enums/role.dart';
 

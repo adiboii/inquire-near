@@ -1,6 +1,10 @@
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+
+// Project imports:
 import 'package:inquire_near/enums/role.dart';
 
 class INUser extends Equatable {

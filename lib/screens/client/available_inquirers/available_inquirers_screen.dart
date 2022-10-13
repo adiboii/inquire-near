@@ -1,8 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/available_inquirer.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/cancel_button.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/header.dart';

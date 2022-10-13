@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:lottie/lottie.dart';
 
+// Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class FindingInquirerScreen extends StatelessWidget {

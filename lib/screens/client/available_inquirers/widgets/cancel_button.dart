@@ -1,6 +1,8 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:inquire_near/components/buttons.dart';
 
+// Project imports:
+import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class CancelButton extends StatelessWidget {
