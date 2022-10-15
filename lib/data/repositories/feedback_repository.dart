@@ -20,6 +20,7 @@ class FeedbackRepository {
       inquirerID: inquirerEmail,
       rating: rating,
       review: review,
+      transactionId: ''
     );
     await feedbackDocument.set(feedback.toJSON());
   }
