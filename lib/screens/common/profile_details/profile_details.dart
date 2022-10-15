@@ -12,10 +12,6 @@ import 'package:inquire_near/screens/common/profile_details/widgets/profile_imag
 import 'package:inquire_near/screens/common/profile_details/widgets/reviews.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/user_statistics.dart';
 
-// Package imports:
-
-
-
 class ProfileDetailsScreen extends StatefulWidget {
   final String userId;
   final bool isHiring;
