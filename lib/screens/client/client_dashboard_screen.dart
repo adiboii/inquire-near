@@ -89,7 +89,7 @@ class ClientDashboardScreen extends StatelessWidget {
                         },
                         child: const Text("Popular")),
                     SizedBox(width: screenWidth * 0.05),
-                    const Text("Government"),
+                    const Text("Dining"),
                     SizedBox(width: screenWidth * 0.05),
                     const Text("Malls"),
                     SizedBox(width: screenWidth * 0.05),
@@ -99,20 +99,6 @@ class ClientDashboardScreen extends StatelessWidget {
                     SizedBox(width: screenWidth * 0.05),
                     const Text("Lorem Ipsum"),
                   ],
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.01),
-              const Text(
-                "Your Card",
-                style: theme.title3,
-              ),
-              SizedBox(height: screenHeight * 0.01),
-              Center(
-                child: Wallet(
-                  screenHeight: screenHeight,
-                  screenWidth: screenWidth,
-                  name: "Cymmer Maranga",
-                  balance: 445.20,
                 ),
               ),
               Column(

@@ -43,3 +43,12 @@ final stores = [
   StoreData(name: 'Watsons', category: 'Shopping'),
   StoreData(name: 'H&M', category: 'Shopping'),
 ];
+
+final categories = [
+  'Dining',
+  'Entertainment',
+  'Cinema',
+  'Gadgets',
+  'Services',
+  'Shopping'
+];
