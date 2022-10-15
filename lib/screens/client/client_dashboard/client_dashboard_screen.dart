@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/screens/client/client_dashboard/widgets/recent_place.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/constants.dart' as constants;
 
@@ -114,46 +115,25 @@ class ClientDashboardScreen extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight * 0.025),
                   //TODO: convert to widget
-                  SizedBox(
-                    height: screenHeight * 0.20,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Container(
-                          width: 175,
-                          decoration: const BoxDecoration(
-                            color: theme.gray,
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
+                  Row(
+                    children: [
+                      const Expanded(
+                        child: RecentPlace(
+                          storeName: 'BDO',
+                          imageFilePath: 'assets/images/logos/bdo.png',
                         ),
-                        SizedBox(width: screenWidth * 0.03),
-                        Container(
-                          width: 175,
-                          decoration: const BoxDecoration(
-                            color: theme.gray,
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.05,
+                      ),
+                      const Expanded(
+                        child: RecentPlace(
+                          storeName: 'H&M',
+                          imageFilePath: 'assets/images/logos/hm.png',
                         ),
-                        SizedBox(width: screenWidth * 0.03),
-                        Container(
-                          width: 175,
-                          decoration: const BoxDecoration(
-                            color: theme.gray,
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                        ),
-                        SizedBox(width: screenWidth * 0.03),
-                        Container(
-                          width: 175,
-                          decoration: const BoxDecoration(
-                            color: theme.gray,
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                        ),
-                        SizedBox(width: screenWidth * 0.03),
-                      ],
-                    ),
-                  ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ],
