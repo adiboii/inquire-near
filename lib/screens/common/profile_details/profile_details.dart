@@ -1,17 +1,20 @@
 // Flutter imports:
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-
+// Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
+import 'package:inquire_near/screens/common/profile_details/profile_details_utils.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/cover_image.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/name_and_date_joined.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/profile_image.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/reviews.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/user_statistics.dart';
 
-import 'package:inquire_near/screens/common/profile_details/profile_details_utils.dart';
+// Package imports:
+
+
 
 class ProfileDetailsScreen extends StatefulWidget {
   final String userId;

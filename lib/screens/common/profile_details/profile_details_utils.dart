@@ -1,7 +1,9 @@
+// Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:inquire_near/data/models/in_user.dart';
 
+// Project imports:
 import 'package:inquire_near/data/models/feedback.dart';
+import 'package:inquire_near/data/models/in_user.dart';
 
 class ProfileDetailsUtils {
   Future<INUser> _getUser(String userId) async {
