@@ -7,15 +7,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 // Project imports:
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/components/textfield.dart';
-import 'package:inquire_near/components/wallet.dart';
 import 'package:inquire_near/data/models/enums.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
+import 'package:inquire_near/constants.dart' as constants;
 
 class ClientDashboardScreen extends StatelessWidget {
   const ClientDashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final categories = constants.categories;
     final user = FirebaseAuth.instance.currentUser!;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -78,27 +79,28 @@ class ClientDashboardScreen extends StatelessWidget {
               SizedBox(height: screenHeight * 0.01),
               //TODO: convert to widget
               SizedBox(
-                height: screenHeight * 0.02,
-                child: ListView(
-                  //TODO: convert to listview.builder
+                height: screenHeight * 0.04,
+                child: ListView.builder(
+                  itemCount: categories.length,
+                  itemBuilder: ((context, index) {
+                    return Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/inquiry_list');
+                          },
+                          child: Text(
+                            categories[index],
+                            style: theme.callout,
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.04,
+                        ),
+                      ],
+                    );
+                  }),
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/inquiry_list');
-                        },
-                        child: const Text("Popular")),
-                    SizedBox(width: screenWidth * 0.05),
-                    const Text("Dining"),
-                    SizedBox(width: screenWidth * 0.05),
-                    const Text("Malls"),
-                    SizedBox(width: screenWidth * 0.05),
-                    const Text("Grocery"),
-                    SizedBox(width: screenWidth * 0.05),
-                    const Text("Lorem Ipsum"),
-                    SizedBox(width: screenWidth * 0.05),
-                    const Text("Lorem Ipsum"),
-                  ],
                 ),
               ),
               Column(
