@@ -9,6 +9,7 @@ import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/data/models/enums.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/recent_place.dart';
+import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/constants.dart' as constants;
 
@@ -23,6 +24,7 @@ class ClientDashboardScreen extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     final TextEditingController search = TextEditingController();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         top: false,
         child: Padding(
@@ -68,16 +70,18 @@ class ClientDashboardScreen extends StatelessWidget {
                       screenHeight: screenHeight, currentRole: Role.inquirer),
                 ],
               ),
-              InTextField(
-                  icon: Icons.search,
-                  controller: search,
-                  hint: "Search for places"),
-              SizedBox(height: screenHeight * 0.01),
+              SizedBox(height: screenHeight * 0.02),
+              SearchBar(
+                onTap: () {
+                  Navigator.pushNamed(context, '/search');
+                },
+              ),
+              SizedBox(height: screenHeight * 0.02),
               const Text(
                 "Categories",
                 style: theme.title3,
               ),
-              SizedBox(height: screenHeight * 0.01),
+              SizedBox(height: screenHeight * 0.02),
               //TODO: convert to widget
               SizedBox(
                 height: screenHeight * 0.04,
