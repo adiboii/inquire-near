@@ -6,10 +6,11 @@ class SearchBar extends StatelessWidget {
     super.key,
     this.controller,
     required this.onTap,
+    this.onChanged,
   });
   final TextEditingController? controller;
   final Function onTap;
-
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,6 +31,7 @@ class SearchBar extends StatelessWidget {
           border: InputBorder.none,
           hintText: 'Search for a store',
         ),
+        onChanged: onChanged,
       ),
     );
   }

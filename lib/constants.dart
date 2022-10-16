@@ -19,29 +19,83 @@ const String emailAlreadyInUse = 'email-already-in-use';
 
 final stores = [
   // Dining
-  StoreData(name: 'Casa Verde', category: 'Dining'),
-  StoreData(name: 'Seafood Island', category: 'Dining'),
-  StoreData(name: 'Bigby\'s', category: 'Dining'),
+  StoreData(
+      name: 'Casa Verde',
+      category: 'Dining',
+      imageFileLocation: 'assets/images/logos/casa_verde.jpeg'),
+  StoreData(
+      name: 'Seafood Island',
+      category: 'Dining',
+      imageFileLocation: 'assets/images/logos/seafood_island.png'),
+  StoreData(
+      name: 'Bigby\'s',
+      category: 'Dining',
+      imageFileLocation: 'assets/images/logos/bigbys.jpeg'),
   // Entertainment
-  StoreData(name: 'SM Bowling Center', category: 'Entertainment'),
-  StoreData(name: 'Ice Skating Rink', category: 'Entertainment'),
-  StoreData(name: 'Color Museum', category: 'Entertainment'),
+  StoreData(
+      name: 'SM Bowling Center',
+      category: 'Entertainment',
+      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+  StoreData(
+      name: 'Ice Skating Rink',
+      category: 'Entertainment',
+      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+  StoreData(
+      name: 'Color Museum',
+      category: 'Entertainment',
+      imageFileLocation: 'assets/images/logos/color_museum.jpeg'),
   // Cinema
-  StoreData(name: 'Center Stage', category: 'Cinema'),
-  StoreData(name: 'Director\'s Club', category: 'Cinema'),
-  StoreData(name: 'SM Cinema', category: 'Cinema'),
+  StoreData(
+      name: 'Center Stage',
+      category: 'Cinema',
+      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+  StoreData(
+      name: 'Director\'s Club',
+      category: 'Cinema',
+      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+  StoreData(
+      name: 'SM Cinema',
+      category: 'Cinema',
+      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
   // Gadgets
-  StoreData(name: 'DataBlitz', category: 'Gadgets'),
-  StoreData(name: 'Octagon', category: 'Gadgets'),
-  StoreData(name: 'iStore', category: 'Gadgets'),
+  StoreData(
+      name: 'DataBlitz',
+      category: 'Gadgets',
+      imageFileLocation: 'assets/images/logos/datablitz.jpeg'),
+  StoreData(
+      name: 'Octagon',
+      category: 'Gadgets',
+      imageFileLocation: 'assets/images/logos/octagon.png'),
+  StoreData(
+      name: 'iStore',
+      category: 'Gadgets',
+      imageFileLocation: 'assets/images/logos/apple_logo.png'),
   // Services
-  StoreData(name: 'BDO', category: 'Services'),
-  StoreData(name: 'Bruno\'s Barbers', category: 'Services'),
-  StoreData(name: 'PLDT', category: 'Services'),
+  StoreData(
+      name: 'BDO',
+      category: 'Services',
+      imageFileLocation: 'assets/images/logos/bdo.png'),
+  StoreData(
+      name: 'Bruno\'s Barbers',
+      category: 'Services',
+      imageFileLocation: 'assets/images/logos/bruno_barbers.png'),
+  StoreData(
+      name: 'PLDT',
+      category: 'Services',
+      imageFileLocation: 'assets/images/logos/pldt.png'),
   // Shopping
-  StoreData(name: 'SM Appliance Center', category: 'Shopping'),
-  StoreData(name: 'Watsons', category: 'Shopping'),
-  StoreData(name: 'H&M', category: 'Shopping'),
+  StoreData(
+      name: 'SM Appliance Center',
+      category: 'Shopping',
+      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+  StoreData(
+      name: 'Watsons',
+      category: 'Shopping',
+      imageFileLocation: 'assets/images/logos/watsons.png'),
+  StoreData(
+      name: 'H&M',
+      category: 'Shopping',
+      imageFileLocation: 'assets/images/logos/hm.png'),
 ];
 
 final categories = [
