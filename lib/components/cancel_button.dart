@@ -20,7 +20,7 @@ class CancelButton extends StatelessWidget {
         color: theme.red,
         textColor: theme.red,
         onTap: () {
-          Navigator.pop(context);
+          Navigator.pop(context, false);
         },
       ),
     );
