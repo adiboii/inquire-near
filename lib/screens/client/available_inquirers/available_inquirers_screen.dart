@@ -57,8 +57,11 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              // TODO: Show actual reviews of selected Inquirer
-                              Navigator.pushNamed(context, '/profile_details');
+                              Navigator.pushNamed(context, '/profile_details',
+                                  arguments: {
+                                    "userId": state.inquirers[index].uid,
+                                    "isHiring": true
+                                  });
                             },
                             child: AvailableInquirer(
                                 inquirer: state.inquirers[index]),
