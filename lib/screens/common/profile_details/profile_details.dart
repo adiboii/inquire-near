@@ -1,14 +1,17 @@
 // Flutter imports:
 
-// Flutter imports:
+// Dart imports:
 import 'dart:developer';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
-import 'package:inquire_near/components/cancel_button.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
+import 'package:inquire_near/components/cancel_button.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/cover_image.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/hire_button.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/name_and_date_joined.dart';

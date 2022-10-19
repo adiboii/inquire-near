@@ -1,5 +1,4 @@
-
-
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -7,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
+import 'package:inquire_near/components/cancel_button.dart';
 import 'package:inquire_near/data/models/hiring_request.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/available_inquirer.dart';
-import 'package:inquire_near/components/cancel_button.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/header.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
