@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/screens/client/client_dashboard/category_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/recent_place.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -92,7 +93,14 @@ class ClientDashboardScreen extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/inquiry_list');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CategoryScreen(
+                                  category: categories[index],
+                                ),
+                              ),
+                            );
                           },
                           child: Text(
                             categories[index],
