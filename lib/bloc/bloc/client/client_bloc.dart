@@ -5,9 +5,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/data/models/hiring_request.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
+import 'package:inquire_near/data/repositories/client_repository.dart';
 import 'package:inquire_near/enums/role.dart';
 
 part 'client_event.dart';
@@ -15,8 +17,10 @@ part 'client_state.dart';
 
 class ClientBloc extends Bloc<ClientEvent, ClientState> {
   late StreamSubscription? _findAvailableInquirersSubscription;
+  late ClientRepository clientRepository;
 
   ClientBloc() : super(ClientInitial()) {
+    clientRepository = ClientRepository();
     _findAvailableInquirersSubscription = null;
 
     on<FindAvailableInquirers>(_onFindAvailableInquirers);
@@ -28,6 +32,8 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     on<EmitNoAvailableInquirers>(_onEmitNoAvailableInquirers);
 
     on<StopFindAvailableInquirer>(_onStopFindAvailableInquirer);
+
+    on<HireInquirer>(_onHireInquirer);
   }
 
   void _onFindAvailableInquirers(event, emit) {
@@ -74,5 +80,12 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     if (_findAvailableInquirersSubscription != null) {
       _findAvailableInquirersSubscription!.cancel();
     }
+  }
+
+  void _onHireInquirer(event, emit) async {
+    bool isCreated =
+        await clientRepository.createHiringRequest(event.hiringRequest);
+
+    emit(CreateHiringRequestStatus(isCreated));
   }
 }

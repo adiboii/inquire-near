@@ -22,3 +22,9 @@ class StopFindAvailableInquirer extends ClientEvent {}
 class EmitFindNewAvailableInquirers extends ClientEvent {}
 
 class EmitNoAvailableInquirers extends ClientEvent {}
+
+class HireInquirer extends ClientEvent {
+  final HiringRequest hiringRequest;
+
+  const HireInquirer(this.hiringRequest);
+}

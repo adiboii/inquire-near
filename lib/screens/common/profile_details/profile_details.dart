@@ -2,11 +2,13 @@
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:inquire_near/components/cancel_button.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/screens/common/profile_details/profile_details_utils.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/cover_image.dart';
+import 'package:inquire_near/screens/common/profile_details/widgets/hire_button.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/name_and_date_joined.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/profile_image.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/reviews.dart';
@@ -63,7 +65,22 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                       ],
                     ),
                   ),
-                  Reviews(data: data)
+                  Reviews(data: data),
+                  const Expanded(child: SizedBox.shrink()),
+                  widget.isHiring
+                      ? Column(
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: HireButton(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: CancelButton(),
+                            ),
+                          ],
+                        )
+                      : const SizedBox.shrink()
                 ],
               );
             }),
