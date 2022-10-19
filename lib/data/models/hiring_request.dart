@@ -1,25 +1,26 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:inquire_near/data/models/enums.dart';
 
 class HiringRequest {
   final String transactionId;
   final String clientId;
   final String inquirerId;
-  final bool isAccepted;
+  final HiringRequestStatus status;
   final Timestamp requestMade = Timestamp.now();
 
   HiringRequest({
     required this.transactionId,
     required this.clientId,
     required this.inquirerId,
-    required this.isAccepted,
+    required this.status,
   });
 
   Map<String, dynamic> toJson() => {
         'transactionId': transactionId,
         'clientId': clientId,
         'inquirerId': inquirerId,
-        'isAccepted': isAccepted,
+        'status': status.toValue(),
         'requestMade': requestMade
       };
 }
