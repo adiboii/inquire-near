@@ -13,7 +13,7 @@ import 'package:inquire_near/data/models/inquiry_list.dart';
 
 class InquiryRepository {
   final db = FirebaseFirestore.instance;
-  //final user = FirebaseAuth.instance.currentUser!;
+  final user = FirebaseAuth.instance.currentUser!;
 
   Future<void> createInquiryList({required InquiryList inquiryList}) async {
     try {

@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
@@ -22,7 +21,7 @@ class ClientDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     InquiryList inquiryList = InquiryList();
-    //final user = FirebaseAuth.instance.currentUser!;
+
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     final TextEditingController search = TextEditingController();
@@ -55,8 +54,8 @@ class ClientDashboardScreen extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
+                        children: const [
+                          Text(
                             "Welcome back,",
                             style: theme.subhead,
                           ),

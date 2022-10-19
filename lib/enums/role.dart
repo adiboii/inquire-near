@@ -1,4 +1,4 @@
 enum Role {
-  Client,
-  Inquirer,
+  client,
+  inquirer,
 }

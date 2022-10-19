@@ -1,11 +1,8 @@
 // Dart imports:
-import 'dart:developer';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
@@ -26,8 +23,6 @@ class InquiryListScreen extends StatefulWidget {
 
 class _InquiryListScreenState extends State<InquiryListScreen> {
   List<Inquiry> inquiryList = [];
-
-//final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,5 @@
 // Project imports:
 import 'package:inquire_near/data/models/base_model.dart';
-import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'enums.dart';
 
 class InquiryList extends BaseModel {
   late String? uid;
