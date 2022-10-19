@@ -28,3 +28,9 @@ class HireInquirer extends ClientEvent {
 
   const HireInquirer(this.hiringRequest);
 }
+
+class GetInquirerDetails extends ClientEvent {
+  final String inquirerId;
+
+  const GetInquirerDetails(this.inquirerId);
+}

@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -131,8 +132,8 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                       );
                     }
 
-                    // Return Loading screen by default
-                    return const FindingInquirerScreen();
+                    // Return Loading by default
+                    return const CircularProgressIndicator();
                   },
                 ),
               ),
@@ -146,7 +147,7 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     BlocProvider.of<ClientBloc>(context).add(StopFindAvailableInquirer());
+    super.dispose();
   }
 }

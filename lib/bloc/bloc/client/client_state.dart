@@ -24,3 +24,13 @@ class CreateHiringRequestStatus extends ClientState {
 
   const CreateHiringRequestStatus(this.status);
 }
+
+// Inquirer Profile Details Related States
+class Loading extends ClientState {}
+
+class RetrievedInquirerDetails extends ClientState {
+  // This data is composed of different statistics, not only `user`
+  final Map<String, dynamic> data;
+
+  const RetrievedInquirerDetails(this.data);
+}

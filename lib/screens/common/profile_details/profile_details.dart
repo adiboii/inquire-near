@@ -1,12 +1,14 @@
 // Flutter imports:
 
 // Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/components/cancel_button.dart';
 
 // Project imports:
-import 'package:inquire_near/data/models/in_user.dart';
-import 'package:inquire_near/screens/common/profile_details/profile_details_utils.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/cover_image.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/hire_button.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/name_and_date_joined.dart';
@@ -26,64 +28,68 @@ class ProfileDetailsScreen extends StatefulWidget {
 }
 
 class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
-  ProfileDetailsUtils localUtils = ProfileDetailsUtils();
+  @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<ClientBloc>(context).add(GetInquirerDetails(widget.userId));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         top: false,
-        child: FutureBuilder(
-            future: localUtils.getUserData(widget.userId),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.data == null) {
-                return const Center(child: CircularProgressIndicator());
-              }
+        child: BlocBuilder<ClientBloc, ClientState>(builder: (context, state) {
+          if (state is Loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-              Map<String, dynamic> data = snapshot.data;
-              INUser user = data['user'];
-
-              return Column(
-                children: [
-                  const CoverImage(),
-                  Container(
-                    transform: Matrix4.translationValues(0, -40, 0),
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const ProfileImage(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            NameAndDateJoined(user: user),
-                            const Expanded(child: SizedBox.shrink()),
-                            UserStatistics(data: data)
-                          ],
-                        )
-                      ],
-                    ),
+          if (state is RetrievedInquirerDetails) {
+            return Column(
+              children: [
+                const CoverImage(),
+                Container(
+                  transform: Matrix4.translationValues(0, -40, 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const ProfileImage(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          NameAndDateJoined(user: state.data["user"]),
+                          const Expanded(child: SizedBox.shrink()),
+                          UserStatistics(data: state.data)
+                        ],
+                      )
+                    ],
                   ),
-                  Reviews(data: data),
-                  const Expanded(child: SizedBox.shrink()),
-                  widget.isHiring
-                      ? Column(
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: HireButton(),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: CancelButton(),
-                            ),
-                          ],
-                        )
-                      : const SizedBox.shrink()
-                ],
-              );
-            }),
+                ),
+                Reviews(data: state.data),
+                const Expanded(child: SizedBox.shrink()),
+                widget.isHiring
+                    ? Column(
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: HireButton(),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: CancelButton(),
+                          ),
+                        ],
+                      )
+                    : const SizedBox.shrink()
+              ],
+            );
+          }
+
+          return const Center(child: CircularProgressIndicator());
+        }),
       ),
     );
   }

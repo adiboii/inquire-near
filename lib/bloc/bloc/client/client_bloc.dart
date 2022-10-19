@@ -10,6 +10,7 @@ import 'package:inquire_near/data/models/hiring_request.dart';
 // Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/repositories/client_repository.dart';
+import 'package:inquire_near/data/repositories/user_repository.dart';
 import 'package:inquire_near/enums/role.dart';
 
 part 'client_event.dart';
@@ -18,9 +19,11 @@ part 'client_state.dart';
 class ClientBloc extends Bloc<ClientEvent, ClientState> {
   late StreamSubscription? _findAvailableInquirersSubscription;
   late ClientRepository clientRepository;
+  late UserRepository userRepository;
 
   ClientBloc() : super(ClientInitial()) {
     clientRepository = ClientRepository();
+    userRepository = UserRepository();
     _findAvailableInquirersSubscription = null;
 
     on<FindAvailableInquirers>(_onFindAvailableInquirers);
@@ -34,6 +37,8 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     on<StopFindAvailableInquirer>(_onStopFindAvailableInquirer);
 
     on<HireInquirer>(_onHireInquirer);
+
+    on<GetInquirerDetails>(_onGetInquirerDetails);
   }
 
   void _onFindAvailableInquirers(event, emit) {
@@ -87,5 +92,14 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
         await clientRepository.createHiringRequest(event.hiringRequest);
 
     emit(CreateHiringRequestStatus(isCreated));
+  }
+
+  void _onGetInquirerDetails(event, emit) async {
+    emit(Loading());
+
+    Map<String, dynamic> data =
+        await userRepository.getUserData(event.inquirerId);
+
+    emit(RetrievedInquirerDetails(data));
   }
 }

@@ -1,5 +1,8 @@
-// Flutter imports:
+
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
@@ -20,6 +23,7 @@ class CancelButton extends StatelessWidget {
         color: theme.red,
         textColor: theme.red,
         onTap: () {
+          BlocProvider.of<ClientBloc>(context).add(FindAvailableInquirers());
           Navigator.pop(context, false);
         },
       ),
