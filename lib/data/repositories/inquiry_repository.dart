@@ -6,9 +6,9 @@ import 'dart:io';
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:inquire_near/data/models/inquiry.dart';
 
 // Project imports:
+import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
 
 class InquiryRepository {

@@ -4,6 +4,8 @@ import 'dart:io';
 
 // Package imports:
 import 'package:firebase_storage/firebase_storage.dart';
+
+// Project imports:
 import 'package:inquire_near/data/models/base_model.dart';
 
 class Inquiry extends BaseModel {

@@ -1,14 +1,16 @@
 // Dart imports:
 import 'dart:developer';
 
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+
 // Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
+import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
 
