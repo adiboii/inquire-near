@@ -29,10 +29,10 @@ class InquireNear extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(
+        RepositoryProvider<AuthRepository>(
           create: (context) => AuthRepository(),
         ),
-        RepositoryProvider(
+        RepositoryProvider<InquiryRepository>(
           create: (context) => InquiryRepository(),
         ),
         RepositoryProvider<FeedbackRepository>(
@@ -68,7 +68,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: '/payment_summary',
+          initialRoute: '/client_dashboard',
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),

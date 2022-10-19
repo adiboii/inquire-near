@@ -50,7 +50,6 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     requireProof = widget.inquiry.requiresProof;
     inquiryContoller.text = widget.inquiry.question;

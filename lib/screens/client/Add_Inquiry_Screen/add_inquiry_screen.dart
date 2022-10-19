@@ -3,6 +3,8 @@ import 'dart:io';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/bottom_bar.dart';
@@ -20,10 +22,10 @@ class AddInquiryScreen extends StatefulWidget {
 }
 
 class _AddInquiryScreenState extends State<AddInquiryScreen> {
-  late Inquiry inquiry;
-  TextEditingController inquiryContoller = TextEditingController();
-  bool requireProof = false;
   File? image;
+  late Inquiry inquiry;
+  bool requireProof = false;
+  TextEditingController inquiryContoller = TextEditingController();
 
   void _onCrossIconPressed() {
     setState(() {
@@ -44,11 +46,14 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
   }
 
   void saveInquiryThenPop() {
+    String inquiryListID =
+        BlocProvider.of<InquiryBloc>(context).inquiryList.getID();
     inquiry = Inquiry(
+        inquiryListID: inquiryListID,
         question: inquiryContoller.text,
         requiresProof: requireProof,
         image: image);
-
+    //TODO: add save to firebase
     Navigator.pop(context, inquiry);
   }
 

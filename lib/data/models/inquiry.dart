@@ -4,57 +4,112 @@ import 'dart:io';
 
 // Package imports:
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:inquire_near/data/models/base_model.dart';
 
-class Inquiry {
-  late String? id;
+class Inquiry extends BaseModel {
+  // misc
+  String inquiryListID;
+  String? uid;
+
+  // inquiry properties
   String question;
   bool requiresProof;
   File? image;
-  String imageUrl = '';
-  Map<String, dynamic>? answer;
+  String? imageUrl;
 
+  // answer properties
+  String? answerMessage;
+  File? answerImage;
+  String? answerImageUrl;
+
+  //constructor
   Inquiry({
-    this.id,
-    this.answer,
-    this.image,
+    this.uid,
+    required this.inquiryListID,
     required this.question,
     required this.requiresProof,
-  });
+    this.image,
+  }) : super();
+
+  //json manipulations
+  Inquiry.fromJson(Map<String, dynamic> json)
+      : inquiryListID = json['inquiryListID'],
+        question = json['inquiryMessage'],
+        requiresProof = json['requireProof'];
+
+  Map<String, dynamic> toJSON() => {
+        'inquiryListID': inquiryListID,
+        'inquiryMessage': question,
+        'imageUrl': imageUrl,
+        'requireProof': requiresProof,
+        'answerMessage': answerMessage,
+        'answerImage': answerImage,
+        'dateTimeCreated': super.dateTimeCreated,
+      };
+
+  // getters
+  String getID() {
+    return uid ?? '';
+  }
+
+  String getInquiryListID() {
+    return inquiryListID;
+  }
 
   String? getInquiry() {
     return question;
   }
 
-  bool? getRequireProof() {
-    return requiresProof;
-  }
-
-  File? getImage() {
-    return image;
-  }
-
-  int getAttachedImages() {
+  int numOfImagesAttached() {
     if (image != null) return 1;
     return 0;
   }
 
-  Map<String, dynamic> toJSON() {
-    return {
-      'inquiryMessage': question,
-      'imageUrl': imageUrl,
-      'requireProof': requiresProof,
-    };
+  bool getRequireProof() {
+    return requiresProof;
   }
 
-  Future<void> saveToFirebaseStorage(String uid) async {
+  String getURL() {
+    return imageUrl!;
+  }
+
+  //setters
+  void setInquiryID(String uid) {
+    this.uid = uid;
+  }
+
+  void setInquiryListID(String uid) {
+    inquiryListID = uid;
+  }
+
+  void setQuestion(String question) {
+    this.question = question;
+  }
+
+  void setRequireProof(bool requiresProof) {
+    this.requiresProof = requiresProof;
+  }
+
+  void setImage(File image) {
+    this.image = image;
+  }
+
+  void setURL(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  // helper functions
+  Future<void> saveToFirebaseStorage() async {
+    log("Trying to uplaod image");
     if (image != null) {
       try {
         var ref = FirebaseStorage.instance
             .ref()
-            .child(uid)
-            .child(DateTime.now().toString());
+            .child(uid!)
+            .child("$uid" + "_inquiry_image");
         await ref.putFile(image!);
         imageUrl = await ref.getDownloadURL();
+        log(imageUrl!);
       } on FirebaseException catch (e) {
         log(e.toString());
       }

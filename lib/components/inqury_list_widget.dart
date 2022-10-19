@@ -9,14 +9,12 @@ import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/edit_inquiry_scr
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListWidget extends StatefulWidget {
-  final InquiryList inquiryList;
-  final ValueChanged<int> updateLength;
+  final List<Inquiry> inquiryList;
   const InquiryListWidget({
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
     required this.inquiryList,
-    required this.updateLength,
   }) : super(key: key);
 
   final double screenHeight;
@@ -34,7 +32,6 @@ class _InquiryListWidgetState extends State<InquiryListWidget> {
         MaterialPageRoute(
             builder: ((context) =>
                 EditInquiryScreen(inquiry: inquiryToBeEdited)))) as Inquiry;
-
     //if (!mounted || result == null) return Inquiry();
     return result;
   }
@@ -42,35 +39,33 @@ class _InquiryListWidgetState extends State<InquiryListWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: widget.inquiryList.getListLength(),
+      itemCount: widget.inquiryList.length,
       itemBuilder: ((context, index) {
-        final inquiryItem = widget.inquiryList.getList()[index];
+        final inquiryItem = widget.inquiryList[index];
         return Dismissible(
-          key: Key(inquiryItem.question),
+          key: Key(inquiryItem.getID()),
           onDismissed: (direction) {
             setState(() {
-              widget.inquiryList.getList().removeAt(index);
+              widget.inquiryList.removeAt(index);
             });
-            widget.updateLength(widget.inquiryList.getListLength());
           },
           background: Container(color: theme.red),
           child: InkWell(
             onTap: () async {
-              Inquiry editedInquiry = await _editInquiry(
-                  context, widget.inquiryList.getList()[index]);
+              Inquiry editedInquiry =
+                  await _editInquiry(context, widget.inquiryList[index]);
 
               setState(() {
-                widget.inquiryList.getList()[index] = editedInquiry;
+                widget.inquiryList[index] = editedInquiry;
               });
             },
             child: InquiryItem(
               screenHeight: widget.screenHeight,
               screenWidth: widget.screenWidth,
-              label: widget.inquiryList.getList()[index].getInquiry()!,
-              attachedPhotos:
-                  widget.inquiryList.getList()[index].getAttachedImages(),
-              requireProof:
-                  widget.inquiryList.getList()[index].getRequireProof()!,
+              index: (index + 1).toString(),
+              label: widget.inquiryList[index].getInquiry(),
+              attachedPhotos: widget.inquiryList[index].numOfImagesAttached(),
+              requireProof: widget.inquiryList[index].getRequireProof(),
             ),
           ),
         );

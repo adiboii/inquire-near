@@ -1,41 +1,30 @@
 // Project imports:
+import 'package:inquire_near/data/models/base_model.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'enums.dart';
 
-class InquiryList {
-  String? id;
-  final String clientID;
-  List<Inquiry> list;
-  final Store store;
+class InquiryList extends BaseModel {
+  late String? uid;
+  List<String> inquiryList = <String>[];
 
-  InquiryList(
-      {this.id,
-      required this.clientID,
-      required this.list,
-      required this.store});
+  InquiryList({this.uid}) : super();
 
-  void addInquiry(Inquiry inquiry) {
-    list.add(inquiry);
+  void setID(String uid) {
+    this.uid = uid;
   }
 
-  int getListLength() {
-    return list.length;
+  void add(String inquiryID) {
+    inquiryList.add(inquiryID);
   }
 
-  List<Inquiry> getList() {
-    return list;
-  }
-
-  void setId(String id) {
-    this.id = id;
+  String getID() {
+    return uid!;
   }
 
   Map<String, dynamic> toJSON() {
     return {
-      "clientID": clientID,
-      "inquiryList": list.map((inquiry) => inquiry.toJSON()).toList(),
-      //TODO: need the store map here
-      "store": store.toString(),
+      "dateTimeCreated": super.dateTimeCreated,
     };
   }
 }

@@ -13,9 +13,8 @@ import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/cards.dart';
 import 'package:inquire_near/components/inqury_list_widget.dart';
-import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListScreen extends StatefulWidget {
@@ -25,47 +24,43 @@ class InquiryListScreen extends StatefulWidget {
   State<InquiryListScreen> createState() => _InquiryListScreenState();
 }
 
-final inList = <Inquiry>[];
-final user = FirebaseAuth.instance.currentUser!;
-
 class _InquiryListScreenState extends State<InquiryListScreen> {
+  final List<Inquiry> inquiryList = [];
+//final user = FirebaseAuth.instance.currentUser!;
+
+  Future<void> addInquiry(BuildContext context) async {
+    final result =
+        await Navigator.pushNamed(context, '/add_inquiry') as Inquiry?;
+
+    if (!mounted || result == null) return;
+
+    setState(() {
+      inquiryList.add(result);
+    });
+  }
+
+  Future<void> saveInquiry(context) async {
+    // loop through all inquries
+    // and save them inside firebase
+    for (Inquiry inquiry in inquiryList) {
+      if (inquiry.uid != null) continue;
+      BlocProvider.of<InquiryBloc>(context)
+          .add(CreateInquiryRequested(inquiry: inquiry));
+
+      //once saved, save the images
+      //inside firebase storage
+      if (inquiry.uid != null) {
+        await inquiry.saveToFirebaseStorage();
+      }
+    }
+
+    BlocProvider.of<InquiryBloc>(context).add(FinishInquiry());
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-
-    InquiryList inquiryList =
-        InquiryList(clientID: user.uid, list: inList, store: Store.bancoDeOro);
-
-    int length = inquiryList.getListLength();
-
-    void updateLength(int value) {
-      setState(() {
-        length = value;
-      });
-    }
-
-    Future<void> addInquiry(BuildContext context) async {
-      final result = await Navigator.pushNamed(
-        context,
-        '/add_inquiry',
-      ) as Inquiry?;
-
-      if (!mounted || result == null) return;
-
-      setState(() {
-        inquiryList.addInquiry(result);
-      });
-    }
-
-    Future<void> saveInquiry(context) async {
-      for (Inquiry inquiry in inquiryList.getList()) {
-        await inquiry.saveToFirebaseStorage(user.uid.toString());
-      }
-
-      BlocProvider.of<InquiryBloc>(context)
-          .add(CreateInquiryRequested(inquiryList: inquiryList));
-    }
 
     return Scaffold(
       body: SafeArea(
@@ -84,49 +79,23 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                 );
               }
 
-              if (state is InquiryInitial) {
+              if (state is InquiryInProgress) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back_ios,
-                              color: Colors.black),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image(
-                              image: const AssetImage(
-                                  'assets/images/logos/BIR.png'),
-                              width: screenWidth * 0.12,
-                            ),
-                            SizedBox(width: screenWidth * 0.05),
-                            const Text(
-                              "Bureau of Internal Revenue\nCebu South Branch",
-                              style: theme.subheadBold,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                    const PageTitle(title: "Store Name"),
                     SizedBox(height: screenHeight * 0.02),
                     Text(
                       "What do you need from here?",
                       style: theme.headline.copyWith(fontSize: 16),
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    (length == 0)
+                    (inquiryList.isEmpty)
                         ? AddInquiryCard(
                             screenHeight: screenHeight,
                             screenWidth: screenWidth,
                             onTap: () {
-                              addInquiry(context).then((value) =>
-                                  updateLength(inquiryList.getListLength()));
-                              log(inquiryList.getListLength().toString());
+                              addInquiry(context);
                             },
                           )
                         : Expanded(
@@ -137,11 +106,10 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                                 inquiryList: inquiryList,
                                 screenHeight: screenHeight,
                                 screenWidth: screenWidth,
-                                updateLength: updateLength,
                               ),
                             ),
                           ),
-                    (inList.isNotEmpty)
+                    (inquiryList.isNotEmpty)
                         ? Column(
                             children: [
                               SizedBox(height: screenHeight * 0.04),
@@ -176,7 +144,6 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                   ],
                 );
               }
-
               return const SizedBox();
             },
           ),

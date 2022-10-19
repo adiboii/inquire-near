@@ -14,14 +14,16 @@ class InquiryItem extends StatefulWidget {
       required this.screenWidth,
       required this.label,
       required this.attachedPhotos,
-      required this.requireProof})
+      required this.requireProof,
+      required this.index})
       : super(key: key);
 
   final double screenHeight;
   final double screenWidth;
-  final String label;
+  final String? label;
   final int attachedPhotos;
   final bool requireProof;
+  final String index;
 
   @override
   State<InquiryItem> createState() => _InquiryItemState();
@@ -36,21 +38,21 @@ class _InquiryItemState extends State<InquiryItem> {
 
     return Column(
       children: [
+        const SizedBox(height: 15),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
               radius: widget.screenWidth * 0.05,
-              backgroundImage: const AssetImage(
-                'assets/images/illustrations/profile.png',
-              ),
+              child: Text(widget.index,
+                  style: theme.caption2Bold.copyWith(color: Colors.white)),
             ),
-            SizedBox(width: widget.screenWidth * 0.05),
+            SizedBox(width: widget.screenWidth * 0.04),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AutoSizeText(
-                  widget.label,
+                  widget.label!,
                   style: theme.subhead,
                 ),
                 SizedBox(height: widget.screenHeight * 0.01),

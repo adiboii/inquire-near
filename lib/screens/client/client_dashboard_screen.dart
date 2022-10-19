@@ -3,20 +3,26 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/components/wallet.dart';
 import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ClientDashboardScreen extends StatelessWidget {
   const ClientDashboardScreen({Key? key}) : super(key: key);
 
+  Future<void> createInquiryList() async {}
+
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    InquiryList inquiryList = InquiryList();
+    //final user = FirebaseAuth.instance.currentUser!;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     final TextEditingController search = TextEditingController();
@@ -55,7 +61,7 @@ class ClientDashboardScreen extends StatelessWidget {
                             style: theme.subhead,
                           ),
                           Text(
-                            "${user.email}",
+                            "Cymmer",
                             style: theme.title3,
                           )
                         ],
@@ -85,6 +91,8 @@ class ClientDashboardScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                         onTap: () {
+                          BlocProvider.of<InquiryBloc>(context)
+                              .add(CreateInquiryList(inquiryList: inquiryList));
                           Navigator.pushNamed(context, '/inquiry_list');
                         },
                         child: const Text("Popular")),
