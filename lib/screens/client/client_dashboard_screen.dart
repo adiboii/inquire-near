@@ -16,8 +16,6 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 class ClientDashboardScreen extends StatelessWidget {
   const ClientDashboardScreen({Key? key}) : super(key: key);
 
-  Future<void> createInquiryList() async {}
-
   @override
   Widget build(BuildContext context) {
     InquiryList inquiryList = InquiryList();
