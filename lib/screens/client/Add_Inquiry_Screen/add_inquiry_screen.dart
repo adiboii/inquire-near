@@ -23,7 +23,6 @@ class AddInquiryScreen extends StatefulWidget {
 }
 
 class _AddInquiryScreenState extends State<AddInquiryScreen> {
-  @override
   File? image;
   late Inquiry inquiry;
   bool requireProof = false;
@@ -82,7 +81,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                             .inquiryList
                                             .getID(),
                                     question: inquiryContoller.text,
-                                    requiresProof: requireProof,
+                                    requireProof: requireProof,
                                     image: image);
                               });
 

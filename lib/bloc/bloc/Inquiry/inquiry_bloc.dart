@@ -29,6 +29,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     on<DeleteInquiryRequested>(_onDeleteInquiryRequested);
     on<FinishInquiry>(_onFinishInquiry);
     on<RevisitInquiry>(_onRevisitInquiry);
+    on<FinalizeInquiry>(_onFinalizeInquiry);
   }
 
   Future<void> _onCreateInquiryList(
@@ -85,5 +86,19 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
   Future<void> _onRevisitInquiry(
       RevisitInquiry event, Emitter<InquiryState> emit) async {
     emit(InquiryInProgress());
+  }
+
+  Future<void> _onFinalizeInquiry(
+      FinalizeInquiry event, Emitter<InquiryState> emit) async {
+    emit(Loading());
+    try {
+      for (Inquiry inquiry in inquiries) {
+        if (inquiry.image != null) await inquiry.saveToFirebaseStorage();
+        await inquiryRepository.createInquiry(inquiry: inquiry);
+      }
+      emit(InquiryFinished());
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }

@@ -42,7 +42,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
 
   void updateBool(bool value) {
     setState(() {
-      inquiry.requiresProof = value;
+      inquiry.requireProof = value;
     });
   }
 
@@ -61,7 +61,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
           .elementAt(widget.index);
     });
 
-    requireProof = inquiry.requiresProof;
+    requireProof = inquiry.requireProof;
     inquiryContoller.text = inquiry.question;
   }
 
@@ -71,7 +71,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     inquiryContoller.text = inquiry.question.toString();
-    requireProof = inquiry.requiresProof;
+    requireProof = inquiry.requireProof;
     image = inquiry.image;
     //Inquiry inquiry;
     return Scaffold(
@@ -103,7 +103,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                                             .inquiryList
                                             .getID(),
                                     question: inquiryContoller.text,
-                                    requiresProof: requireProof,
+                                    requireProof: requireProof,
                                     image: image);
                               });
 

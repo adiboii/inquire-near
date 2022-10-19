@@ -13,7 +13,7 @@ class Inquiry extends BaseModel {
 
   // inquiry properties
   String question;
-  bool requiresProof;
+  bool requireProof;
   File? image;
   String? imageUrl;
 
@@ -27,7 +27,7 @@ class Inquiry extends BaseModel {
     this.uid,
     required this.inquiryListID,
     required this.question,
-    required this.requiresProof,
+    required this.requireProof,
     this.image,
   }) : super();
 
@@ -35,15 +35,15 @@ class Inquiry extends BaseModel {
   Inquiry.fromJson(Map<String, dynamic> json)
       : inquiryListID = json['inquiryListID'],
         question = json['inquiryMessage'],
-        requiresProof = json['requireProof'];
+        requireProof = json['requireProof'];
 
   Map<String, dynamic> toJSON() => {
         'inquiryListID': inquiryListID,
-        'inquiryMessage': question,
+        'question': question,
         'imageUrl': imageUrl,
-        'requireProof': requiresProof,
+        'requireProof': requireProof,
         'answerMessage': answerMessage,
-        'answerImage': answerImage,
+        'answerImageUrl': answerImage,
         'dateTimeCreated': super.dateTimeCreated,
       };
 
@@ -66,7 +66,7 @@ class Inquiry extends BaseModel {
   }
 
   bool getRequireProof() {
-    return requiresProof;
+    return requireProof;
   }
 
   String getURL() {
@@ -78,26 +78,6 @@ class Inquiry extends BaseModel {
     this.uid = uid;
   }
 
-  void setInquiryListID(String uid) {
-    inquiryListID = uid;
-  }
-
-  void setQuestion(String question) {
-    this.question = question;
-  }
-
-  void setRequireProof(bool requiresProof) {
-    this.requiresProof = requiresProof;
-  }
-
-  void setImage(File image) {
-    this.image = image;
-  }
-
-  void setURL(String imageUrl) {
-    this.imageUrl = imageUrl;
-  }
-
   // helper functions
   Future<void> saveToFirebaseStorage() async {
     log("Trying to uplaod image");
@@ -105,8 +85,8 @@ class Inquiry extends BaseModel {
       try {
         var ref = FirebaseStorage.instance
             .ref()
-            .child(uid!)
-            .child("$uid" + "_inquiry_image");
+            .child('client_id')
+            .child("inquiry_id" + "_inquiry_image");
         await ref.putFile(image!);
         imageUrl = await ref.getDownloadURL();
         log(imageUrl!);
