@@ -6,7 +6,6 @@ import 'dart:io';
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 
 // Project imports:
@@ -16,22 +15,22 @@ class InquiryRepository {
   final db = FirebaseFirestore.instance;
   //final user = FirebaseAuth.instance.currentUser!;
 
-  Future<void> createInquiry({required Inquiry nInquiry}) async {
+  Future<void> createInquiry({required Inquiry inquiry}) async {
     try {
       log("Trying to create inquiry object");
       await db
           .collection("inquiry")
-          .add(nInquiry.instantiate())
-          .then((DocumentReference docRef) => nInquiry.setInquiryID(docRef.id));
-      log(nInquiry.getID());
+          .add(inquiry.toJSON())
+          .then((DocumentReference docRef) => inquiry.setInquiryID(docRef.id));
+      log(inquiry.getID());
     } catch (e) {
       log(e.toString());
     }
   }
 
-  Future<void> saveInquiry({required Inquiry nInquiry}) async {
+  Future<void> saveInquiry({required Inquiry inquiry}) async {
     try {
-      await db.collection("inquiry").doc(nInquiry.uid).set(nInquiry.toJSON());
+      await db.collection("inquiry").doc(inquiry.uid).set(inquiry.toJSON());
     } catch (e) {
       log(e.toString());
     }
@@ -44,21 +43,6 @@ class InquiryRepository {
           .add(inquiryList.toJSON())
           .then((DocumentReference docRef) => inquiryList.setID(docRef.id));
     } catch (e) {
-      log(e.toString());
-    }
-  }
-
-  Future<void> saveToFirebaseStorage(File image, String clientID,
-      String inquiryID, String? downloadURL) async {
-    try {
-      var ref = FirebaseStorage.instance
-          .ref()
-          .child(clientID!)
-          .child("${inquiryID}_inquiry_image");
-      await ref.putFile(image);
-      downloadURL = await ref.getDownloadURL();
-      log("URL here: $downloadURL");
-    } on FirebaseException catch (e) {
       log(e.toString());
     }
   }

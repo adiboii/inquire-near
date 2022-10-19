@@ -11,24 +11,24 @@ class CreateInquiryList extends InquiryEvent {
   CreateInquiryList({required this.inquiryList});
 }
 
-class CreateInquiryRequested extends InquiryEvent {
-  final Inquiry inquiry;
-  CreateInquiryRequested({required this.inquiry});
-}
-
 class AddInquiryRequested extends InquiryEvent {
   final Inquiry inquiry;
   AddInquiryRequested({required this.inquiry});
 }
 
 class EditInquiryRequested extends InquiryEvent {
-  final Inquiry inquiry;
-  EditInquiryRequested({required this.inquiry});
+  final int index;
+  final Inquiry editedInquiry;
+
+  EditInquiryRequested({
+    required this.index,
+    required this.editedInquiry,
+  });
 }
 
 class DeleteInquiryRequested extends InquiryEvent {
-  final Inquiry inquiry;
-  DeleteInquiryRequested({required this.inquiry});
+  final int index;
+  DeleteInquiryRequested({required this.index});
 }
 
 class FinishInquiry extends InquiryEvent {

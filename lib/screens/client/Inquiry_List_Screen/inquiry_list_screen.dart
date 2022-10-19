@@ -25,42 +25,18 @@ class InquiryListScreen extends StatefulWidget {
 }
 
 class _InquiryListScreenState extends State<InquiryListScreen> {
-  final List<Inquiry> inquiryList = [];
+  List<Inquiry> inquiryList = [];
+
 //final user = FirebaseAuth.instance.currentUser!;
-
-  Future<void> addInquiry(BuildContext context) async {
-    final result =
-        await Navigator.pushNamed(context, '/add_inquiry') as Inquiry?;
-
-    if (!mounted || result == null) return;
-
-    setState(() {
-      inquiryList.add(result);
-    });
-  }
-
-  Future<void> saveInquiry(context) async {
-    // loop through all inquries
-    // and save them inside firebase
-    for (Inquiry inquiry in inquiryList) {
-      if (inquiry.uid != null) continue;
-      BlocProvider.of<InquiryBloc>(context)
-          .add(CreateInquiryRequested(inquiry: inquiry));
-
-      //once saved, save the images
-      //inside firebase storage
-      if (inquiry.uid != null) {
-        await inquiry.saveToFirebaseStorage();
-      }
-    }
-
-    BlocProvider.of<InquiryBloc>(context).add(FinishInquiry());
-  }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+
+    setState(() {
+      inquiryList = BlocProvider.of<InquiryBloc>(context).inquiries;
+    });
 
     return Scaffold(
       body: SafeArea(
@@ -95,7 +71,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                             screenHeight: screenHeight,
                             screenWidth: screenWidth,
                             onTap: () {
-                              addInquiry(context);
+                              Navigator.pushNamed(context, '/add_inquiry');
                             },
                           )
                         : Expanded(
@@ -124,7 +100,8 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                                     width: screenWidth * 0.40,
                                     height: screenHeight * 0.06,
                                     onTap: () {
-                                      addInquiry(context);
+                                      Navigator.pushNamed(
+                                          context, '/add_inquiry');
                                     },
                                   ),
                                   ButtonFill(
@@ -133,7 +110,8 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                                     width: screenWidth * 0.40,
                                     height: screenHeight * 0.06,
                                     onTap: () {
-                                      saveInquiry(context);
+                                      Navigator.pushNamed(
+                                          context, '/finding_inquirer');
                                     },
                                   ),
                                 ],

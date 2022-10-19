@@ -20,34 +20,15 @@ part 'inquiry_state.dart';
 class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
   final InquiryRepository inquiryRepository;
   late InquiryList inquiryList;
-  final List<Inquiry> inquiries = [];
+  List<Inquiry> inquiries = [];
 
   InquiryBloc({required this.inquiryRepository}) : super(InquiryInProgress()) {
     on<CreateInquiryList>(_onCreateInquiryList);
-    on<CreateInquiryRequested>(_onCreateInquiryRequested);
     on<AddInquiryRequested>(_onAddInquiryRequested);
+    on<EditInquiryRequested>(_onEditInquiryRequested);
+    on<DeleteInquiryRequested>(_onDeleteInquiryRequested);
     on<FinishInquiry>(_onFinishInquiry);
     on<RevisitInquiry>(_onRevisitInquiry);
-  }
-
-  Future<void> _onAddInquiryRequested(
-      AddInquiryRequested event, Emitter<InquiryState> emit) async {
-    emit(Loading());
-    try {
-      inquiries.add(event.inquiry);
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-  Future<void> _onEditRequested(
-      EditInquiryRequested event, Emitter<InquiryState> emit) async {
-    emit(Loading());
-    try {
-      emit(InquiryInProgress());
-    } catch (e) {
-      log(e.toString());
-    }
   }
 
   Future<void> _onCreateInquiryList(
@@ -56,17 +37,40 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     try {
       inquiryList = event.inquiryList;
       await inquiryRepository.createInquiryList(inquiryList: inquiryList);
+      log("Inquiry List ID: ${inquiryList.uid}");
       emit(InquiryInProgress());
     } catch (e) {
       log(e.toString());
     }
   }
 
-  Future<void> _onCreateInquiryRequested(
-      CreateInquiryRequested event, Emitter<InquiryState> emit) async {
+  Future<void> _onAddInquiryRequested(
+      AddInquiryRequested event, Emitter<InquiryState> emit) async {
     emit(Loading());
     try {
-      await inquiryRepository.createInquiry(nInquiry: event.inquiry);
+      inquiries.add(event.inquiry);
+      emit(InquiryInProgress());
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> _onEditInquiryRequested(
+      EditInquiryRequested event, Emitter<InquiryState> emit) async {
+    emit(Loading());
+    try {
+      inquiries[event.index] = event.editedInquiry;
+      emit(InquiryInProgress());
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> _onDeleteInquiryRequested(
+      DeleteInquiryRequested event, Emitter<InquiryState> emit) async {
+    emit(Loading());
+    try {
+      inquiries.removeAt(event.index);
       emit(InquiryInProgress());
     } catch (e) {
       log(e.toString());

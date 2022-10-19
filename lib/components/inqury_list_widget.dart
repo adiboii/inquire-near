@@ -1,10 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/inquiry_item.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/edit_inquiry_screen.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
@@ -25,15 +26,11 @@ class InquiryListWidget extends StatefulWidget {
 }
 
 class _InquiryListWidgetState extends State<InquiryListWidget> {
-  Future<Inquiry> _editInquiry(
-      BuildContext context, Inquiry inquiryToBeEdited) async {
-    final result = await Navigator.push(
+  Future<void> _editInquiry(BuildContext context, int index) async {
+    Navigator.push(
         context,
         MaterialPageRoute(
-            builder: ((context) =>
-                EditInquiryScreen(inquiry: inquiryToBeEdited)))) as Inquiry;
-    //if (!mounted || result == null) return Inquiry();
-    return result;
+            builder: ((context) => EditInquiryScreen(index: index))));
   }
 
   @override
@@ -45,19 +42,13 @@ class _InquiryListWidgetState extends State<InquiryListWidget> {
         return Dismissible(
           key: Key(inquiryItem.getID()),
           onDismissed: (direction) {
-            setState(() {
-              widget.inquiryList.removeAt(index);
-            });
+            BlocProvider.of<InquiryBloc>(context)
+                .add(DeleteInquiryRequested(index: index));
           },
           background: Container(color: theme.red),
           child: InkWell(
             onTap: () async {
-              Inquiry editedInquiry =
-                  await _editInquiry(context, widget.inquiryList[index]);
-
-              setState(() {
-                widget.inquiryList[index] = editedInquiry;
-              });
+              _editInquiry(context, index);
             },
             child: InquiryItem(
               screenHeight: widget.screenHeight,
