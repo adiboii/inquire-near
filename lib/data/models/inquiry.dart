@@ -4,7 +4,6 @@ import 'dart:io';
 
 // Package imports:
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/base_model.dart';
@@ -50,27 +49,28 @@ class Inquiry extends BaseModel {
         'dateTimeCreated': super.dateTimeCreated,
       };
 
+  // getters
   int get numOfAttachedImages => image != null ? 1 : 0;
 
+  // setters
   set inquiryUID(String uid) {
     this.uid = uid;
   }
 
   // helper functions
-  Future<void> saveToFirebaseStorage() async {
+  Future<String?> saveToFirebaseStorage({required String inquiryID}) async {
     if (image != null) {
       try {
-        //TOOD: use client ID
         var ref = FirebaseStorage.instance
             .ref()
-            .child('client_id')
-            .child("inquiry_id" + "_inquiry_image");
+            .child(inquiryListID) 
+            .child("${inquiryID}_inquiry_image");
         await ref.putFile(image!);
         imageUrl = await ref.getDownloadURL();
-        log(imageUrl!);
       } on FirebaseException catch (e) {
         log(e.toString());
       }
     }
+    return imageUrl;
   }
 }
