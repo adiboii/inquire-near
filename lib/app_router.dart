@@ -12,7 +12,7 @@ import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart'
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
 import 'package:inquire_near/screens/client/inquiry_list_screen.dart';
 import 'package:inquire_near/screens/client/payment_success_screen.dart';
-import 'package:inquire_near/screens/client/payment_summary_screen.dart';
+import 'package:inquire_near/screens/client/payment_summary/payment_summary_screen.dart';
 import 'package:inquire_near/screens/client/release_payment_screen.dart';
 import 'package:inquire_near/screens/client/responses_screen.dart';
 import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
