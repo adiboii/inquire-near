@@ -39,7 +39,7 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
 
   void _toggleIsOnline(event, emit) async {
     isOnline = !isOnline;
-
+    emit(OnlineStatusToggled(isOnline));
     await FirebaseFirestore.instance
         .collection("users")
         .doc(
@@ -71,7 +71,6 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
         log("Stopping Request Subscription Error: ${e.toString()}");
       }
     }
-    emit(OnlineStatusToggled(isOnline));
   }
 
   void _onNewHiringRequestFound(event, emit) {
