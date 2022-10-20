@@ -45,7 +45,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
               }
             },
             builder: (context, state) {
-              if (state is Loading) {
+              if (state is Loading || state is CreatingInquiryList) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );

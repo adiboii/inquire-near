@@ -4,6 +4,7 @@ import 'dart:developer';
 // Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_inquiry_input.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
@@ -31,14 +32,15 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
 
   Future<void> _onCreateInquiryList(
       CreateInquiryList event, Emitter<InquiryState> emit) async {
-    emit(Loading());
+    emit(CreatingInquiryList());
     try {
       inquiryList = event.inquiryList;
       await inquiryRepository.createInquiryList(inquiryList: inquiryList);
-      log("Inquiry List ID: ${inquiryList.uid}");
       emit(InquiryInProgress());
     } catch (e) {
+      //TODO: error handling
       log(e.toString());
+      emit(InquiryInProgress());
     }
   }
 
@@ -49,7 +51,9 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries.add(event.inquiry);
       emit(InquiryInProgress());
     } catch (e) {
+      //TODO: error handling
       log(e.toString());
+      emit(InquiryInProgress());
     }
   }
 
@@ -60,7 +64,9 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries[event.index] = event.editedInquiry;
       emit(InquiryInProgress());
     } catch (e) {
+      //TODO: error handling
       log(e.toString());
+      emit(InquiryInProgress());
     }
   }
 
@@ -71,7 +77,9 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries.removeAt(event.index);
       emit(InquiryInProgress());
     } catch (e) {
+      //TODO: error handling
       log(e.toString());
+      emit(InquiryInProgress());
     }
   }
 
@@ -95,7 +103,9 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       }
       emit(InquiryFinished());
     } catch (e) {
+      //TODO: error handling
       log(e.toString());
+      emit(InquiryInProgress());
     }
   }
 }

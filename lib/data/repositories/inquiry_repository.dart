@@ -20,7 +20,7 @@ class InquiryRepository {
       await db
           .collection("inquiryList")
           .add(inquiryList.toJSON())
-          .then((DocumentReference docRef) => inquiryList.setID(docRef.id));
+          .then((DocumentReference docRef) => inquiryList.setID = docRef.id);
     } catch (e) {
       log(e.toString());
     }
@@ -28,12 +28,10 @@ class InquiryRepository {
 
   Future<void> createInquiry({required Inquiry inquiry}) async {
     try {
-      log("Trying to create inquiry object");
       await db
           .collection("inquiry")
           .add(inquiry.toJSON())
-          .then((DocumentReference docRef) => inquiry.setInquiryID(docRef.id));
-      log(inquiry.getID());
+          .then((DocumentReference docRef) => inquiry.inquiryUID = docRef.id);
     } catch (e) {
       log(e.toString());
     }

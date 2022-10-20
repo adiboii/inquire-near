@@ -25,7 +25,7 @@ class EditInquiryScreen extends StatefulWidget {
 }
 
 class _EditInquiryScreenState extends State<EditInquiryScreen> {
-  TextEditingController inquiryContoller = TextEditingController();
+  TextEditingController inquiryController = TextEditingController();
   late bool requireProof;
   File? image;
   late Inquiry inquiry;
@@ -50,7 +50,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
 
   void updateMessage(String message) {
     inquiry.question = message;
-    inquiryContoller.selection =
+    inquiryController.selection =
         TextSelection.collapsed(offset: message.length);
   }
 
@@ -64,7 +64,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
     });
 
     requireProof = inquiry.requireProof;
-    inquiryContoller.text = inquiry.question;
+    inquiryController.text = inquiry.question;
   }
 
   @override
@@ -72,7 +72,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    inquiryContoller.text = inquiry.question.toString();
+    inquiryController.text = inquiry.question.toString();
     requireProof = inquiry.requireProof;
     image = inquiry.image;
     //Inquiry inquiry;
@@ -103,8 +103,8 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                                     inquiryListID:
                                         BlocProvider.of<InquiryBloc>(context)
                                             .inquiryList
-                                            .getID(),
-                                    question: inquiryContoller.text,
+                                            .uid!,
+                                    question: inquiryController.text,
                                     requireProof: requireProof,
                                     image: image);
                               });
@@ -120,7 +120,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                           SizedBox(height: screenHeight * 0.04),
                           InquiryInput(
                             screenWidth: screenWidth,
-                            inquiryContoller: inquiryContoller,
+                            inquiryContoller: inquiryController,
                             updateMessage: updateMessage,
                           ),
                         ],

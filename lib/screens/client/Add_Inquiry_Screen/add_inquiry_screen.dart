@@ -80,7 +80,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                     inquiryListID:
                                         BlocProvider.of<InquiryBloc>(context)
                                             .inquiryList
-                                            .getID(),
+                                            .uid!,
                                     question: inquiryContoller.text,
                                     requireProof: requireProof,
                                     image: image);

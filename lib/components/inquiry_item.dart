@@ -34,8 +34,6 @@ class _InquiryItemState extends State<InquiryItem> {
 
   @override
   Widget build(BuildContext context) {
-    requireProofString = widget.requireProof ? "True" : "False";
-
     return Column(
       children: [
         const SizedBox(height: 15),
@@ -62,7 +60,7 @@ class _InquiryItemState extends State<InquiryItem> {
                 ),
                 SizedBox(height: widget.screenHeight * 0.01),
                 Text(
-                  "Require Proof: $requireProofString",
+                  "Require Proof: ${widget.requireProof.toString()}",
                   style: theme.caption1,
                 ),
                 SizedBox(height: widget.screenHeight * 0.01),

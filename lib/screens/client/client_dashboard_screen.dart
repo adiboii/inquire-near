@@ -57,6 +57,7 @@ class ClientDashboardScreen extends StatelessWidget {
                             "Welcome back,",
                             style: theme.subhead,
                           ),
+                          //TODO: use INUser name
                           Text(
                             "Cymmer",
                             style: theme.title3,
