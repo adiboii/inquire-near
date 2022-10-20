@@ -11,4 +11,10 @@ class Initial extends InquirerEvent {}
 
 class ToggleIsOnline extends InquirerEvent {}
 
-class NewHiringRequestFound extends InquirerEvent {}
+class NewHiringRequestFound extends InquirerEvent {
+  final HiringRequest hiringRequest;
+
+  const NewHiringRequestFound(this.hiringRequest);
+}
+
+class AcceptRequest extends InquirerEvent {}

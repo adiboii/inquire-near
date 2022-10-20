@@ -6,8 +6,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 // Project imports:
 import 'package:inquire_near/components/bordered_profile_picture.dart';
-import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/location_and_order_details.dart';
+import 'package:inquire_near/screens/inquirer/client_found/widgets/accept_request_button.dart';
+import 'package:inquire_near/screens/inquirer/client_found/widgets/reject_request_button.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ClientFoundScreen extends StatelessWidget {
@@ -72,26 +73,11 @@ class ClientFoundScreen extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    ButtonFill(
-                      label: 'Accept Request',
-                      style: theme.caption1Bold,
-                      height: screenHeight * 0.07,
-                      onTap: () {
-                        Navigator.of(context).pushReplacementNamed(
-                          '/reminders',
-                        );
-                      },
-                    ),
+                    const AcceptRequestButton(),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    ButtonOutline(
-                      label: 'Reject Request',
-                      style: theme.caption1Bold,
-                      height: screenHeight * 0.07,
-                      color: theme.red,
-                      textColor: theme.red,
-                    ),
+                    const RejectRequestButton(),
                   ],
                 ),
               ],

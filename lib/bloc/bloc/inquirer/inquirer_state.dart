@@ -1,8 +1,8 @@
 part of 'inquirer_bloc.dart';
 
 abstract class InquirerState extends Equatable {
-  final bool isOnline;
-  const InquirerState(this.isOnline);
+  final bool? isOnline;
+  const InquirerState([this.isOnline]);
 
   @override
   List<Object> get props => [];
@@ -19,5 +19,11 @@ class OnlineStatusToggled extends InquirerState {
 }
 
 class HiringRequestFound extends InquirerState {
-  const HiringRequestFound(super.isOnline);
+  final HiringRequest hiringRequest;
+
+  const HiringRequestFound(this.hiringRequest);
+}
+
+class AcceptedRequest extends InquirerState {
+  const AcceptedRequest();
 }

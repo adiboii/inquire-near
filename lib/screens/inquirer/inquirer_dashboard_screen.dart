@@ -31,11 +31,15 @@ class _InquirerDashboardScreenState extends State<InquirerDashboardScreen> {
       body: SafeArea(
         child: BlocConsumer<InquirerBloc, InquirerState>(
           listenWhen: (context, state) {
-            return state.isOnline;
+            return state.isOnline ?? true;
           },
           listener: (context, state) {
             if (state is HiringRequestFound) {
               Navigator.of(context).pushNamed('/client_found');
+            }
+
+            if (state is AcceptedRequest) {
+              Navigator.of(context).pushNamed('/reminders');
             }
           },
           buildWhen: (previous, current) {
@@ -78,7 +82,7 @@ class _InquirerDashboardScreenState extends State<InquirerDashboardScreen> {
                     ],
                   ),
                   StatusSwitch(
-                    currentStatus: state.isOnline,
+                    currentStatus: state.isOnline ?? false,
                   ),
                   SizedBox(height: screenHeight * 0.01),
                   const Text(

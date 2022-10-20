@@ -8,8 +8,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 // Project imports:
-import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/data/models/hiring_request.dart';
 import 'package:inquire_near/data/models/in_user.dart';
+import 'package:inquire_near/enums/hiring_request_status.dart';
 
 part 'inquirer_event.dart';
 part 'inquirer_state.dart';
@@ -17,6 +18,7 @@ part 'inquirer_state.dart';
 class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
   bool isOnline = false; // Set default to false
   late StreamSubscription? _hiringRequestSubscription;
+  HiringRequest? hiringRequest;
 
   InquirerBloc() : super(const InquirerInitial(false)) {
     on<Initial>((event, emit) async {
@@ -35,6 +37,8 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
     on<ToggleIsOnline>(_toggleIsOnline);
 
     on<NewHiringRequestFound>(_onNewHiringRequestFound);
+
+    on<AcceptRequest>(_onAcceptRequest);
   }
 
   void _toggleIsOnline(event, emit) async {
@@ -54,13 +58,15 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
               isEqualTo:
                   'hsF8cjt9DreKqy6fctdPrMBjdGI2') // TODO: Change actual inquirerId to currentUser
           .where('status', isEqualTo: HiringRequestStatus.pending.toValue())
+          .orderBy("requestMade", descending: true)
           .snapshots()
           .listen((ev) async {
         if (ev.docs.isNotEmpty) {
-          for (var doc in ev.docs) {
-            log(doc.data().toString());
-          }
-          add(NewHiringRequestFound());
+          // Just get the latest HiringRequest data
+          HiringRequest hiringRequest =
+              HiringRequest.fromJson(ev.docs[0].data());
+          hiringRequest.setId(ev.docs[0].id);
+          add(NewHiringRequestFound(hiringRequest));
         }
       });
     } else {
@@ -75,6 +81,17 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
   }
 
   void _onNewHiringRequestFound(event, emit) {
-    emit(HiringRequestFound(isOnline));
+    hiringRequest = event.hiringRequest;
+    emit(HiringRequestFound(hiringRequest!));
+  }
+
+  void _onAcceptRequest(event, emit) async {
+    if (hiringRequest == null || hiringRequest?.id == null) return;
+    await FirebaseFirestore.instance
+        .collection('hiringRequests')
+        .doc(hiringRequest?.id)
+        .update({"status": HiringRequestStatus.accepted.toValue()});
+
+    emit(const AcceptedRequest());
   }
 }
