@@ -12,7 +12,7 @@ import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
 import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
-import 'package:inquire_near/constants.dart';
+import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/feedback_repository.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
@@ -73,7 +73,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: splash,
+          initialRoute: constants.splash,
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
