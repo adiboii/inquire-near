@@ -12,11 +12,21 @@ class INUser extends Equatable {
     this.role = Role.client,
     this.isActive,
   });
-  final String? uid;
+  late String? uid;
   final String? firstName;
   final String? lastName;
   Role role;
   bool? isActive;
+
+  INUser.fromJson(Map<String, dynamic> json)
+      : firstName = json["firstName"],
+        lastName = json["lastName"],
+        role = getRoleFromString(json["role"]),
+        isActive = json["isActive"];
+
+  void setUID(String uid) {
+    this.uid = uid;
+  }
 
   @override
   List<Object?> get props => [uid, firstName, lastName];
