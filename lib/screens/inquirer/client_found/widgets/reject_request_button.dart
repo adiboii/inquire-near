@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
@@ -16,6 +18,10 @@ class RejectRequestButton extends StatelessWidget {
       height: screenHeight * 0.07,
       color: theme.red,
       textColor: theme.red,
+      onTap: () {
+        BlocProvider.of<InquirerBloc>(context).add(RejectRequest());
+        Navigator.of(context).pop();
+      },
     );
   }
 }
