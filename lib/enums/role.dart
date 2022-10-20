@@ -1,6 +1,6 @@
 enum Role {
-  client,
-  inquirer,
+  Client,
+  Inquirer,
 }
 
 Role getRoleFromString(String role) {

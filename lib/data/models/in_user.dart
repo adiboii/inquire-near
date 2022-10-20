@@ -9,7 +9,7 @@ class INUser extends Equatable {
     this.uid,
     required this.firstName,
     required this.lastName,
-    this.role = Role.client,
+    this.role = Role.Client,
     this.isActive,
   });
   late String? uid;
