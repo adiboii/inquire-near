@@ -13,8 +13,6 @@ class ToggleIsOnline extends InquirerEvent {
   final bool isOnline;
 
   const ToggleIsOnline(this.isOnline);
-
-  
 }
 
 class NewHiringRequestFound extends InquirerEvent {
