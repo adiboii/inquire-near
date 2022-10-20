@@ -24,6 +24,8 @@ class HiringRequestFound extends InquirerState {
   const HiringRequestFound(this.hiringRequest);
 }
 
-class AcceptedRequest extends InquirerState {
-  const AcceptedRequest();
-}
+class AcceptedRequest extends InquirerState {}
+
+class RejectedRequest extends InquirerState {}
+
+class Empty extends InquirerState {}

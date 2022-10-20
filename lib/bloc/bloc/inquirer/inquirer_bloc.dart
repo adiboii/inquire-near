@@ -44,10 +44,14 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
     on<NewHiringRequestFound>(_onNewHiringRequestFound);
 
     on<AcceptRequest>(_onAcceptRequest);
+
+    on<RejectRequest>(_onRejectRequest);
   }
 
   void _toggleIsOnline(event, emit) async {
     isOnline = event.isOnline;
+
+    emit(Empty()); // This is to trigger buildWhen()
 
     await FirebaseFirestore.instance
         .collection("users")
@@ -96,6 +100,16 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
         .doc(hiringRequest?.id)
         .update({"status": HiringRequestStatus.accepted.toValue()});
 
-    emit(const AcceptedRequest());
+    emit(AcceptedRequest());
+  }
+
+  void _onRejectRequest(event, emit) async {
+    if (hiringRequest == null || hiringRequest?.id == null) return;
+    await FirebaseFirestore.instance
+        .collection('hiringRequests')
+        .doc(hiringRequest?.id)
+        .update({"status": HiringRequestStatus.rejected.toValue()});
+
+    emit(RejectedRequest());
   }
 }

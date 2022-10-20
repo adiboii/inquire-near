@@ -22,3 +22,5 @@ class NewHiringRequestFound extends InquirerEvent {
 }
 
 class AcceptRequest extends InquirerEvent {}
+
+class RejectRequest extends InquirerEvent {}
