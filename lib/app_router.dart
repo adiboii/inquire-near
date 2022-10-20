@@ -6,11 +6,11 @@ import 'package:inquire_near/constants.dart';
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/Add_Inquiry_Screen/add_inquiry_screen.dart';
-import 'package:inquire_near/screens/client/available_inquirers/available_inquirers_screen.dart';
+import 'package:inquire_near/screens/client/Inquiry_List_Screen/inquiry_list_screen.dart';
+import 'screens/client/available_inquirers/available_inquirers_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
-import 'package:inquire_near/screens/client/inquiry_list_screen.dart';
 import 'package:inquire_near/screens/client/payment_success_screen.dart';
 import 'package:inquire_near/screens/client/payment_summary/payment_summary_screen.dart';
 import 'package:inquire_near/screens/client/release_payment_screen.dart';
@@ -147,7 +147,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const PaymentReceivedScreen());
 
       case '/review_client':
-        return MaterialPageRoute(builder: (_) => ClientFeedbackScreen());
+        return MaterialPageRoute(builder: (_) => const ClientFeedbackScreen());
     }
 
     return MaterialPageRoute(builder: (_) => const ErrorScreen());

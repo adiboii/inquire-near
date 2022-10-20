@@ -4,7 +4,11 @@ import 'dart:io';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 // Project imports:
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/bottom_bar.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
@@ -13,56 +17,64 @@ import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_tit
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class EditInquiryScreen extends StatefulWidget {
-  final Inquiry inquiry;
-  const EditInquiryScreen({super.key, required this.inquiry});
+  final int index;
+  const EditInquiryScreen({super.key, required this.index});
 
   @override
   State<EditInquiryScreen> createState() => _EditInquiryScreenState();
 }
 
 class _EditInquiryScreenState extends State<EditInquiryScreen> {
-  TextEditingController inquiryContoller = TextEditingController();
+  TextEditingController inquiryController = TextEditingController();
   late bool requireProof;
   File? image;
+  late Inquiry inquiry;
+
   void _onCrossIconPressed() {
     setState(() {
-      widget.inquiry.image = null;
+      inquiry.image = null;
     });
   }
 
   void _onIconSelected(File file) {
     setState(() {
-      widget.inquiry.image = file;
+      inquiry.image = file;
     });
   }
 
   void updateBool(bool value) {
     setState(() {
-      widget.inquiry.requiresProof = value;
+      inquiry.requireProof = value;
     });
   }
 
   void updateMessage(String message) {
-    widget.inquiry.question = message;
-    inquiryContoller.selection =
+    inquiry.question = message;
+    inquiryController.selection =
         TextSelection.collapsed(offset: message.length);
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    requireProof = widget.inquiry.requiresProof;
-    inquiryContoller.text = widget.inquiry.question;
+    setState(() {
+      inquiry = BlocProvider.of<InquiryBloc>(context)
+          .inquiries
+          .elementAt(widget.index);
+    });
+
+    requireProof = inquiry.requireProof;
+    inquiryController.text = inquiry.question;
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    inquiryContoller.text = widget.inquiry.question.toString();
-    requireProof = widget.inquiry.requiresProof;
-    image = widget.inquiry.image;
+
+    inquiryController.text = inquiry.question.toString();
+    requireProof = inquiry.requireProof;
+    image = inquiry.image;
     //Inquiry inquiry;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -82,18 +94,33 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                     children: [
                       Column(
                         children: [
-                          TitleBar(
-                            inquiry: widget.inquiry,
+                          EditInquiryTitleBar(
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
-                            inquiryContoller: inquiryContoller,
-                            requireProof: requireProof,
-                            image: image,
+                            onTap: () {
+                              setState(() {
+                                inquiry = Inquiry(
+                                    inquiryListID:
+                                        BlocProvider.of<InquiryBloc>(context)
+                                            .inquiryList
+                                            .uid!,
+                                    question: inquiryController.text,
+                                    requireProof: requireProof,
+                                    image: image);
+                              });
+
+                              BlocProvider.of<InquiryBloc>(context).add(
+                                  EditInquiryRequested(
+                                      index: widget.index,
+                                      editedInquiry: inquiry));
+
+                              Navigator.pop(context);
+                            },
                           ),
                           SizedBox(height: screenHeight * 0.04),
                           InquiryInput(
                             screenWidth: screenWidth,
-                            inquiryContoller: inquiryContoller,
+                            inquiryContoller: inquiryController,
                             updateMessage: updateMessage,
                           ),
                         ],
