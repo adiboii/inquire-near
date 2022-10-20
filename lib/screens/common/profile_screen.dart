@@ -34,7 +34,6 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          // TODO: implement listener
           if (state is Unauthenticated) {
             Navigator.of(context)
                 .pushNamedAndRemoveUntil('/landing', (route) => false);
