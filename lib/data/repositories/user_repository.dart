@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:inquire_near/data/models/feedback.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 
-class ProfileDetailsUtils {
+class UserRepository {
   Future<INUser> _getUser(String userId) async {
     DocumentSnapshot<Map<String, dynamic>> user =
         await FirebaseFirestore.instance.collection("users").doc(userId).get();

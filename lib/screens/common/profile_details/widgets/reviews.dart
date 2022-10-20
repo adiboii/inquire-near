@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:inquire_near/data/models/feedback.dart' as fModel;
+import 'package:inquire_near/data/models/feedback.dart' as f_model;
 import 'package:inquire_near/screens/common/profile_details/widgets/recent_review_item.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/utils.dart' as utils;
@@ -35,13 +35,13 @@ class Reviews extends StatelessWidget {
                   child: Text("No reviews yet"),
                 )
               : ListView.separated(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
                   itemCount: data["feedbacks"].length,
                   itemBuilder: (context, index) {
                     String firstName =
                         data["feedbacks"][index].keys.toList().first;
-                    fModel.Feedback feedback =
+                    f_model.Feedback feedback =
                         data["feedbacks"][index][firstName];
 
                     return RecentReviewItem(

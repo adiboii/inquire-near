@@ -1,4 +1,4 @@
-
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -6,9 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
+import 'package:inquire_near/components/cancel_button.dart';
+import 'package:inquire_near/data/models/enums.dart';
 import 'package:inquire_near/data/models/hiring_request.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/available_inquirer.dart';
-import 'package:inquire_near/components/cancel_button.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/header.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -77,7 +78,7 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: BlocBuilder<ClientBloc, ClientState>(
-                  builder: (context, state) {
+                  builder: (_, state) {
                     if (state is CreateHiringRequestStatus) {
                       if (state.status) {
                         // TODO: Change to "Waiting for Inquirer to Accept"
@@ -99,7 +100,7 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                         itemCount: state.inquirers.length,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
+                        itemBuilder: (_, index) {
                           return GestureDetector(
                             onTap: () async {
                               final result = await Navigator.pushNamed(
@@ -115,7 +116,7 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                                     clientId: 'shouldBeLoggedInUser',
                                     inquirerId:
                                         state.inquirers[index].uid.toString(),
-                                    isAccepted: false);
+                                    status: HiringRequestStatus.pending);
 
                                 if (!mounted) return;
                                 BlocProvider.of<ClientBloc>(context)
@@ -131,8 +132,8 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                       );
                     }
 
-                    // Return Loading screen by default
-                    return const FindingInquirerScreen();
+                    // Return Loading by default
+                    return const Center(child: CircularProgressIndicator());
                   },
                 ),
               ),
@@ -146,7 +147,7 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     BlocProvider.of<ClientBloc>(context).add(StopFindAvailableInquirer());
+    super.dispose();
   }
 }
