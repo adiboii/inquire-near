@@ -1,4 +1,3 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -51,7 +50,8 @@ class _StatusSwitchState extends State<StatusSwitch> {
             height: 30,
             borderRadius: 20.0,
             showOnOff: true,
-            onToggle: (_) => inquirerBloc.add(ToggleIsOnline())),
+            onToggle: (_) =>
+                inquirerBloc.add(ToggleIsOnline(!inquirerBloc.isOnline))),
         SizedBox(height: screenHeight * 0.02),
         Lottie.asset("assets/images/lottie/job_search.json",
             height: screenHeight * 0.30),

@@ -30,8 +30,13 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
       INUser inquirer = INUser.fromJson(userDocument.data()!);
 
       inquirer.isActive ??= false;
-      isOnline = inquirer.isActive!;
-      emit(InquirerInitial(inquirer.isActive!));
+
+      emit(InquirerInitial(isOnline));
+
+      if (isOnline != inquirer.isActive!) {
+        isOnline = inquirer.isActive!;
+        add(ToggleIsOnline(inquirer.isActive!));
+      }
     });
 
     on<ToggleIsOnline>(_toggleIsOnline);
@@ -42,7 +47,7 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
   }
 
   void _toggleIsOnline(event, emit) async {
-    isOnline = !isOnline;
+    isOnline = event.isOnline;
 
     await FirebaseFirestore.instance
         .collection("users")
