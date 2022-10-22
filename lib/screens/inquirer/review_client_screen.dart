@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -25,7 +27,8 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
 
   void _clickSubmit(context) {
     BlocProvider.of<FeedbackBloc>(context).add(
-      SubmitFeedbackRequested(' ', rating, _reviewTextController.text),
+      SubmitFeedbackRequested(
+          'dummytext@gmail.om', rating, _reviewTextController.text),
     );
   }
 
@@ -86,7 +89,8 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
                         ),
                         onRatingUpdate: (rating) {
                           setState(() {
-                            this.rating = int.parse(rating.toString());
+                            final ratingStrings = rating.toString().split('.');
+                            this.rating = int.parse(ratingStrings[0]);
                           });
                         },
                         itemSize: screenHeight * 0.035,

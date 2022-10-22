@@ -27,8 +27,8 @@ import 'package:inquire_near/screens/common/top_up.dart';
 import 'package:inquire_near/screens/common/user_wallet.dart';
 import 'package:inquire_near/screens/inquirer/client_found_screen.dart';
 import 'package:inquire_near/screens/inquirer/inquirer_dashboard_screen.dart';
-import 'package:inquire_near/screens/inquirer/inquirer_inquiry_list_screen.dart';
-import 'package:inquire_near/screens/inquirer/inquirer_view_selected_inquiry_screen.dart';
+import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_inquiry_list_screen.dart';
+import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
 import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
@@ -134,13 +134,13 @@ class AppRouter {
 
       case '/inquirer_view_selected_inquiry':
         return MaterialPageRoute(
-            builder: (_) => const InquirerViewSelectedInquiryScreen());
+            builder: (_) => InquirerViewSelectedInquiryScreen());
 
       case '/payment_received':
         return MaterialPageRoute(builder: (_) => const PaymentReceivedScreen());
 
       case '/review_client':
-        return MaterialPageRoute(builder: (_) => ClientFeedbackScreen());
+        return MaterialPageRoute(builder: (_) => const ClientFeedbackScreen());
 
       default:
         return null;

@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inquire_near/data/models/feedback.dart';
 
 class FeedbackRepository {
-  final _currentUserEmail = FirebaseAuth.instance.currentUser!.email;
+  //final _currentUserEmail = FirebaseAuth.instance.currentUser!.email;
   Future submitFeedback({
     required String inquirerEmail,
     required int rating,
@@ -16,7 +16,7 @@ class FeedbackRepository {
         .collection('feedbacks')
         .doc('transaction-id');
     final feedback = Feedback(
-      clientID: _currentUserEmail!,
+      clientID: 'test@gmail.com',
       inquirerID: inquirerEmail,
       rating: rating,
       review: review,
