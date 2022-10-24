@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/report/report_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
@@ -17,8 +19,18 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
-  TextEditingController description = TextEditingController();
-  TextEditingController issue = TextEditingController();
+  TextEditingController titleTextController = TextEditingController();
+  TextEditingController descriptionTextController = TextEditingController();
+
+  void _clickSubmit(context) {
+    BlocProvider.of<ReportBloc>(context).add(
+      SubmitReportRequested(
+        titleTextController.text,
+        descriptionTextController.text,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -45,15 +57,17 @@ class _ReportScreenState extends State<ReportScreen> {
                 SizedBox(height: screenHeight * 0.025),
                 InputReport(
                   screenHeight: screenHeight,
-                  description: description,
-                  issue: issue,
+                  title: titleTextController,
+                  description: descriptionTextController,
                   reportByClient: widget.reportByClient,
                 ),
                 SizedBox(height: screenHeight * 0.025),
                 ButtonOutline(
                   label: "Submit Report",
                   style: theme.caption1Bold,
-                  onTap: () {},
+                  onTap: () {
+                    _clickSubmit(context);
+                  },
                 ),
               ],
             ),
