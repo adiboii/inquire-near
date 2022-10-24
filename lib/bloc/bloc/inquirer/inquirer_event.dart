@@ -9,6 +9,18 @@ abstract class InquirerEvent extends Equatable {
 
 class Initial extends InquirerEvent {}
 
-class ToggleIsOnline extends InquirerEvent {}
+class ToggleIsOnline extends InquirerEvent {
+  final bool isOnline;
 
-class NewHiringRequestFound extends InquirerEvent {}
+  const ToggleIsOnline(this.isOnline);
+}
+
+class NewHiringRequestFound extends InquirerEvent {
+  final HiringRequest hiringRequest;
+
+  const NewHiringRequestFound(this.hiringRequest);
+}
+
+class AcceptRequest extends InquirerEvent {}
+
+class RejectRequest extends InquirerEvent {}
