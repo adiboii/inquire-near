@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:inquire_near/data/models/inquiry_list.dart';
-import 'package:inquire_near/data/models/transaction.dart';
 
 // Project imports:
+import 'package:inquire_near/data/models/inquiry_list.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class LocationAndOrderDetails extends StatelessWidget {

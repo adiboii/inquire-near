@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
-import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/location_and_order_details.dart';
 import 'package:inquire_near/screens/inquirer/client_found/widgets/accept_request_button.dart';
