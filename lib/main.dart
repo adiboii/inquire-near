@@ -11,8 +11,8 @@ import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
+import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
-import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/feedback_repository.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
@@ -65,6 +65,9 @@ class InquireNear extends StatelessWidget {
           BlocProvider<ClientBloc>(
             create: (context) => ClientBloc(),
           ),
+          BlocProvider<InquirerBloc>(
+            create: (context) => InquirerBloc(),
+          ),
           BlocProvider<PaymentBloc>(
               create: (context) => PaymentBloc(
                   payPalRepository:
@@ -73,7 +76,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: constants.splash,
+          initialRoute: '/inquirer_dashboard',
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
