@@ -6,20 +6,21 @@ import 'package:inquire_near/constants.dart';
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/Add_Inquiry_Screen/add_inquiry_screen.dart';
-import 'package:inquire_near/screens/client/available_inquirers_screen.dart';
+import 'package:inquire_near/screens/client/Inquiry_List_Screen/inquiry_list_screen.dart';
+import 'package:inquire_near/screens/client/available_inquirers/available_inquirers_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard/search_screen.dart';
 import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
-import 'package:inquire_near/screens/client/inquiry_list_screen.dart';
 import 'package:inquire_near/screens/client/payment_success_screen.dart';
-import 'package:inquire_near/screens/client/payment_summary_screen.dart';
+import 'package:inquire_near/screens/client/payment_summary/payment_summary_screen.dart';
 import 'package:inquire_near/screens/client/release_payment_screen.dart';
 import 'package:inquire_near/screens/client/responses_screen.dart';
 import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
+import 'package:inquire_near/screens/common/error_screen.dart';
 import 'package:inquire_near/screens/common/landing_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
-import 'package:inquire_near/screens/common/profile_details.dart';
+import 'package:inquire_near/screens/common/profile_details/profile_details.dart';
 import 'package:inquire_near/screens/common/profile_screen.dart';
 import 'package:inquire_near/screens/common/report_screen.dart';
 import 'package:inquire_near/screens/common/splash_screen.dart';
@@ -37,7 +38,9 @@ import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
 //Map Router
 
 class AppRouter {
-  Route? onGenerateRoute(RouteSettings settings) {
+  Route onGenerateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+
     switch (settings.name) {
 
       // Common Screens
@@ -91,7 +94,15 @@ class AppRouter {
             builder: (_) => const AvailableInquirersScreen());
 
       case '/profile_details':
-        return MaterialPageRoute(builder: (_) => const ProfileDetailsScreen());
+        if (args is Map) {
+          return MaterialPageRoute(
+              builder: (_) => ProfileDetailsScreen(
+                    userId: args["userId"],
+                    isHiring: args["isHiring"],
+                  ));
+        }
+
+        break;
 
       case '/view_selected_inquiry':
         return MaterialPageRoute(
@@ -141,9 +152,8 @@ class AppRouter {
 
       case '/review_client':
         return MaterialPageRoute(builder: (_) => const ClientFeedbackScreen());
-
-      default:
-        return null;
     }
+
+    return MaterialPageRoute(builder: (_) => const ErrorScreen());
   }
 }

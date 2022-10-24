@@ -18,11 +18,7 @@ class ClientDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    InquiryList inquiryList = InquiryList(
-      clientID: '1',
-      store: Store.bancoDeOro,
-      list: [],
-    );
+    InquiryList inquiryList = InquiryList();
 
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -93,8 +89,8 @@ class ClientDashboardScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                         onTap: () {
-                          // BlocProvider.of<InquiryBloc>(context)
-                          //     .add(CreateInquiryList(inquiryList: inquiryList));
+                          BlocProvider.of<InquiryBloc>(context)
+                              .add(CreateInquiryList(inquiryList: inquiryList));
                           Navigator.pushNamed(context, '/inquiry_list');
                         },
                         child: const Text("Popular")),

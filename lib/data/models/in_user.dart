@@ -1,5 +1,7 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
+
+// Project imports:
 import 'package:inquire_near/enums/role.dart';
 
 class INUser extends Equatable {
@@ -10,11 +12,21 @@ class INUser extends Equatable {
     this.role = Role.Client,
     this.isActive,
   });
-  final String? uid;
+  late String? uid;
   final String? firstName;
   final String? lastName;
   Role role;
   bool? isActive;
+
+  INUser.fromJson(Map<String, dynamic> json)
+      : firstName = json["firstName"],
+        lastName = json["lastName"],
+        role = getRoleFromString(json["role"]),
+        isActive = json["isActive"];
+
+  void setUID(String uid) {
+    this.uid = uid;
+  }
 
   @override
   List<Object?> get props => [uid, firstName, lastName];
