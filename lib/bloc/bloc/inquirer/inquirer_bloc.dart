@@ -112,6 +112,4 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
 
     emit(RejectedRequest());
   }
-
-  void _onGetHiringDetails(event, emit) async {}
 }

@@ -1,7 +1,6 @@
 // Dart imports:
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,14 +12,14 @@ import 'package:inquire_near/data/models/inquiry_list.dart';
 
 class InquiryRepository {
   final db = FirebaseFirestore.instance;
-  final user = FirebaseAuth.instance.currentUser!;
+  //final user = FirebaseAuth.instance.currentUser!;
 
   Future<void> createInquiryList({required InquiryList inquiryList}) async {
     try {
       await db
           .collection("inquiryList")
           .add(inquiryList.toJSON())
-          .then((DocumentReference docRef) => inquiryList.setID = docRef.id);
+          .then((DocumentReference docRef) => inquiryList.uid = docRef.id);
     } catch (e) {
       log(e.toString());
     }
@@ -35,5 +34,21 @@ class InquiryRepository {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  Future<List<Inquiry>> getInquiries(String inquiryListID) async {
+    List<Inquiry> inquiries = [];
+
+    QuerySnapshot<Map<String, dynamic>> inquiriesDoc = await FirebaseFirestore
+        .instance
+        .collection("inquiry")
+        .where('inquiryListID', isEqualTo: inquiryListID)
+        .get();
+
+    for (var inquiry in inquiriesDoc.docs) {
+      inquiries.add(Inquiry.fromJson(inquiry.data()));
+    }
+
+    return inquiries;
   }
 }

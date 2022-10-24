@@ -4,7 +4,6 @@ import 'dart:io';
 
 // Package imports:
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/base_model.dart';
@@ -37,7 +36,8 @@ class Inquiry extends BaseModel {
   //json manipulations
   Inquiry.fromJson(Map<String, dynamic> json)
       : inquiryListID = json['inquiryListID'],
-        question = json['inquiryMessage'],
+        question = json['question'],
+        imageUrl = json['imageUrl'],
         requireProof = json['requireProof'];
 
   Map<String, dynamic> toJSON() => {
@@ -50,7 +50,10 @@ class Inquiry extends BaseModel {
         'dateTimeCreated': super.dateTimeCreated,
       };
 
-  int get numOfAttachedImages => image != null ? 1 : 0;
+  int get numOfAttachedImages {
+    if (image != null || imageUrl != null) return 1;
+    return 0;
+  }
 
   set inquiryUID(String uid) {
     this.uid = uid;
@@ -60,7 +63,7 @@ class Inquiry extends BaseModel {
   Future<void> saveToFirebaseStorage() async {
     if (image != null) {
       try {
-        //TOOD: use client ID
+        //TODO: use client ID
         var ref = FirebaseStorage.instance
             .ref()
             .child('client_id')

@@ -12,17 +12,21 @@ import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class EditInquiryTitleBar extends StatelessWidget {
-  const EditInquiryTitleBar({
+class InquiryTitleBar extends StatelessWidget {
+  const InquiryTitleBar({
     Key? key,
     required this.screenWidth,
     required this.screenHeight,
     required this.onTap,
+    required this.label,
+    required this.buttonLabel,
   }) : super(key: key);
 
   final double screenWidth;
   final double screenHeight;
   final Function() onTap;
+  final String label;
+  final String buttonLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +45,15 @@ class EditInquiryTitleBar extends StatelessWidget {
             SizedBox(width: screenWidth * 0.04),
             SvgPicture.asset("assets/images/svgs/add_inquiry.svg"),
             SizedBox(width: screenWidth * 0.04),
-            const Text(
-              "Edit inquiry",
+            Text(
+              label,
               style: theme.headline,
             ),
           ],
         ),
 
         ButtonFill(
-          label: "Edit inquiry",
+          label: buttonLabel,
           width: screenWidth * 0.25,
           height: screenHeight * 0.05,
           style: theme.caption1Bold,

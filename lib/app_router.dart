@@ -7,6 +7,7 @@ import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/Add_Inquiry_Screen/add_inquiry_screen.dart';
 import 'package:inquire_near/screens/client/Inquiry_List_Screen/inquiry_list_screen.dart';
+import 'package:inquire_near/screens/inquirer/client_inquiry_list/client_inquiry_list.dart';
 import 'screens/client/available_inquirers/available_inquirers_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
@@ -124,7 +125,6 @@ class AppRouter {
             builder: (_) => const ReportScreen(reportByClient: true));
 
       // Inquirer Screens
-
       case '/inquirer_dashboard':
         return MaterialPageRoute(
             builder: (_) => const InquirerDashboardScreen());
@@ -138,6 +138,10 @@ class AppRouter {
       case '/inquirer_inquiry_list':
         return MaterialPageRoute(
             builder: (_) => const InquirerInquiryListScreen());
+
+      case '/client_inquiry_list':
+        return MaterialPageRoute(
+            builder: (_) => const ClientInquiryListScreen());
 
       case '/inquirer_view_selected_inquiry':
         return MaterialPageRoute(

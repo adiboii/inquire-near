@@ -42,3 +42,8 @@ class RevisitInquiry extends InquiryEvent {
 class FinalizeInquiry extends InquiryEvent {
   FinalizeInquiry();
 }
+
+class GetClientInquiries extends InquiryEvent {
+  final String inquiryListID;
+  GetClientInquiries({required this.inquiryListID});
+}
