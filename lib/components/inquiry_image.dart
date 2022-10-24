@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 class InquiryImage extends StatelessWidget {
   final File? image;
+
   final VoidCallback onCrossIconPressed;
-  const InquiryImage({super.key, this.image, required this.onCrossIconPressed});
+  const InquiryImage({super.key, required this.onCrossIconPressed, this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,9 @@ class InquiryImage extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5)),
                         image: DecorationImage(
-                            image: FileImage(image!), fit: BoxFit.cover),
+                          image: FileImage(image!),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),

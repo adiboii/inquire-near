@@ -29,3 +29,10 @@ class AcceptedRequest extends InquirerState {}
 class RejectedRequest extends InquirerState {}
 
 class Empty extends InquirerState {}
+
+class RetrievedHiringDetails extends InquirerState {
+  // This data is composed of different statistics, not only `user`
+  final Map<String, dynamic> data;
+
+  const RetrievedHiringDetails(this.data);
+}
