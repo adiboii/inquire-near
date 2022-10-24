@@ -16,6 +16,7 @@ class FeedbackRepository {
         .collection('feedbacks')
         .doc('transaction-id');
     final feedback = Feedback(
+      // TODO: change to client and inquirer uid
       clientID: 'test@gmail.com',
       inquirerID: inquirerEmail,
       rating: rating,
