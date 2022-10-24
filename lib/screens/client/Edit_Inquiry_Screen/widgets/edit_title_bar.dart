@@ -12,26 +12,17 @@ import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class TitleBar extends StatelessWidget {
-  const TitleBar({
+class EditInquiryTitleBar extends StatelessWidget {
+  const EditInquiryTitleBar({
     Key? key,
-    required this.inquiry,
     required this.screenWidth,
     required this.screenHeight,
-    required this.inquiryContoller,
-    required this.requireProof,
-    required this.image,
+    required this.onTap,
   }) : super(key: key);
 
-  final Inquiry inquiry;
   final double screenWidth;
   final double screenHeight;
-
-  final TextEditingController inquiryContoller;
-
-  final bool requireProof;
-
-  final File? image;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +34,7 @@ class TitleBar extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.pop(context, inquiry);
+                Navigator.pop(context);
               },
               child: SvgPicture.asset("assets/images/svgs/cancel.svg"),
             ),
@@ -63,13 +54,7 @@ class TitleBar extends StatelessWidget {
           height: screenHeight * 0.05,
           style: theme.caption1Bold,
           borderRadius: 5,
-          onTap: () {
-            inquiry.question = inquiryContoller.text;
-            inquiry.requiresProof = requireProof;
-            inquiry.image = image;
-
-            Navigator.pop(context, inquiry);
-          },
+          onTap: onTap,
         ),
       ],
     );

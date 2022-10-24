@@ -7,10 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 // Project imports:
-import 'package:inquire_near/data/models/in_user.dart';
-import 'package:inquire_near/enums/role.dart';
-
 import 'package:inquire_near/constants.dart' as constants;
+import 'package:inquire_near/data/models/in_user.dart';
 
 class SignUpWithEmailAndPasswordFailure implements Exception {
   const SignUpWithEmailAndPasswordFailure([

@@ -4,57 +4,70 @@ import 'dart:io';
 
 // Package imports:
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 
-class Inquiry {
-  late String? id;
+// Project imports:
+import 'package:inquire_near/data/models/base_model.dart';
+
+class Inquiry extends BaseModel {
+  // misc
+  String inquiryListID;
+  String? uid;
+
+  // inquiry properties
   String question;
-  bool requiresProof;
+  bool requireProof;
   File? image;
-  String imageUrl = '';
-  Map<String, dynamic>? answer;
+  String? imageUrl;
 
+  // answer properties
+  String? answerMessage;
+  File? answerImage;
+  String? answerImageUrl;
+
+  //constructor
   Inquiry({
-    this.id,
-    this.answer,
-    this.image,
+    this.uid,
+    required this.inquiryListID,
     required this.question,
-    required this.requiresProof,
-  });
+    required this.requireProof,
+    this.image,
+  }) : super();
 
-  String? getInquiry() {
-    return question;
+  //json manipulations
+  Inquiry.fromJson(Map<String, dynamic> json)
+      : inquiryListID = json['inquiryListID'],
+        question = json['inquiryMessage'],
+        requireProof = json['requireProof'];
+
+  Map<String, dynamic> toJSON() => {
+        'inquiryListID': inquiryListID,
+        'question': question,
+        'imageUrl': imageUrl,
+        'requireProof': requireProof,
+        'answerMessage': answerMessage,
+        'answerImageUrl': answerImage,
+        'dateTimeCreated': super.dateTimeCreated,
+      };
+
+  int get numOfAttachedImages => image != null ? 1 : 0;
+
+  set inquiryUID(String uid) {
+    this.uid = uid;
   }
 
-  bool? getRequireProof() {
-    return requiresProof;
-  }
-
-  File? getImage() {
-    return image;
-  }
-
-  int getAttachedImages() {
-    if (image != null) return 1;
-    return 0;
-  }
-
-  Map<String, dynamic> toJSON() {
-    return {
-      'inquiryMessage': question,
-      'imageUrl': imageUrl,
-      'requireProof': requiresProof,
-    };
-  }
-
-  Future<void> saveToFirebaseStorage(String uid) async {
+  // helper functions
+  Future<void> saveToFirebaseStorage() async {
     if (image != null) {
       try {
+        //TOOD: use client ID
         var ref = FirebaseStorage.instance
             .ref()
-            .child(uid)
-            .child(DateTime.now().toString());
+            .child('client_id')
+            .child("inquiry_id" + "_inquiry_image");
         await ref.putFile(image!);
         imageUrl = await ref.getDownloadURL();
+        log(imageUrl!);
       } on FirebaseException catch (e) {
         log(e.toString());
       }

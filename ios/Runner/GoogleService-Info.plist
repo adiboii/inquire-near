@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>731949676966-aj7fu693cqd4atfjfvvj09hr5thfpakl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.731949676966-aj7fu693cqd4atfjfvvj09hr5thfpakl</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>731949676966-dp8t0p6qmu0l5dna42csdd2ogka478dh.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBVRcawRoOL7Bvmy5TYKK5Yw24M7VMalgQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>731949676966</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.inquireNear</string>
+	<key>PROJECT_ID</key>
+	<string>inquire-near-2022</string>
+	<key>STORAGE_BUCKET</key>
+	<string>inquire-near-2022.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:731949676966:ios:3ca5b85e36682d771d3767</string>
+</dict>
+</plist>
