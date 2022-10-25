@@ -1,19 +1,19 @@
 part of 'inquiry_bloc.dart';
 
 @immutable
-abstract class InquiryState extends Equatable {}
+abstract class InquiryState extends Equatable {
+  const InquiryState();
 
-class InquiryInitial extends InquiryState {
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
-class Loading extends InquiryState {
-  @override
-  List<Object?> get props => [];
-}
+class CreatingInquiryList extends InquiryState {}
 
-class InquiryFinished extends InquiryState {
-  @override
-  List<Object?> get props => [];
-}
+class Loading extends InquiryState {}
+
+class InquiryInProgress extends InquiryState {}
+
+class InquiryFinished extends InquiryState {}
+
+class ClientInquiriesRetrieved extends InquiryState {}

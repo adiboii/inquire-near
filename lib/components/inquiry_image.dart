@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 class InquiryImage extends StatelessWidget {
   final File? image;
-  final VoidCallback onCrossIconPressed;
-  const InquiryImage({super.key, this.image, required this.onCrossIconPressed});
+
+  final VoidCallback? onCrossIconPressed;
+  const InquiryImage({super.key, this.onCrossIconPressed, this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,9 @@ class InquiryImage extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5)),
                         image: DecorationImage(
-                            image: FileImage(image!), fit: BoxFit.cover),
+                          image: FileImage(image!),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -49,6 +52,36 @@ class InquiryImage extends StatelessWidget {
                   ),
                 )
               ],
+            ),
+    );
+  }
+}
+
+class ClientInquiryImage extends StatelessWidget {
+  final String? imageUrl;
+
+  const ClientInquiryImage({super.key, this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: imageUrl == null
+          ? Container()
+          : InteractiveViewer(
+              child: Container(
+                alignment: Alignment.topRight,
+                child: Container(
+                  height: 220,
+                  width: MediaQuery.of(context).size.width * .8,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    image: DecorationImage(
+                      image: NetworkImage(imageUrl!),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
             ),
     );
   }

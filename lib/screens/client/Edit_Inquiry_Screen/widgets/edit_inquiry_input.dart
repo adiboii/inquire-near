@@ -9,12 +9,12 @@ class InquiryInput extends StatefulWidget {
     Key? key,
     required this.screenWidth,
     required this.inquiryContoller,
-    required this.updateMessage,
+    this.updateMessage,
   }) : super(key: key);
 
   final double screenWidth;
   final TextEditingController inquiryContoller;
-  final Function(String) updateMessage;
+  final Function(String)? updateMessage;
   @override
   State<InquiryInput> createState() => _InquiryInputState();
 }
@@ -41,6 +41,7 @@ class _InquiryInputState extends State<InquiryInput> {
             controller: widget.inquiryContoller,
             onChanged: widget.updateMessage,
             decoration:
+                //TODO: find a way to
                 const InputDecoration.collapsed(hintText: "What do you need?"),
             style: theme.subhead,
             maxLength: 150,

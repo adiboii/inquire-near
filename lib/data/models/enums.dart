@@ -28,15 +28,3 @@ enum ReportType {
   monetary,
   rating,
 }
-
-enum HiringRequestStatus {
-  pending,
-  accepted,
-  rejected
-}
-
-extension ParseToString on HiringRequestStatus {
-  String toValue() {
-    return toString().split('.').last;
-  }
-}

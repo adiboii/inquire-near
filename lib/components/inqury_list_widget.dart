@@ -1,22 +1,23 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 // Project imports:
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/inquiry_item.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/edit_inquiry_screen.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListWidget extends StatefulWidget {
-  final InquiryList inquiryList;
-  final ValueChanged<int> updateLength;
+  final List<Inquiry> inquiryList;
   const InquiryListWidget({
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
     required this.inquiryList,
-    required this.updateLength,
   }) : super(key: key);
 
   final double screenHeight;
@@ -27,50 +28,36 @@ class InquiryListWidget extends StatefulWidget {
 }
 
 class _InquiryListWidgetState extends State<InquiryListWidget> {
-  Future<Inquiry> _editInquiry(
-      BuildContext context, Inquiry inquiryToBeEdited) async {
-    final result = await Navigator.push(
+  Future<void> _editInquiry(BuildContext context, int index) async {
+    Navigator.push(
         context,
         MaterialPageRoute(
-            builder: ((context) =>
-                EditInquiryScreen(inquiry: inquiryToBeEdited)))) as Inquiry;
-
-    //if (!mounted || result == null) return Inquiry();
-    return result;
+            builder: ((context) => EditInquiryScreen(index: index))));
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: widget.inquiryList.getListLength(),
+      itemCount: widget.inquiryList.length,
       itemBuilder: ((context, index) {
-        final inquiryItem = widget.inquiryList.getList()[index];
         return Dismissible(
-          key: Key(inquiryItem.question),
+          key: Key(index.toString()),
           onDismissed: (direction) {
-            setState(() {
-              widget.inquiryList.getList().removeAt(index);
-            });
-            widget.updateLength(widget.inquiryList.getListLength());
+            BlocProvider.of<InquiryBloc>(context)
+                .add(DeleteInquiryRequested(index: index));
           },
           background: Container(color: theme.red),
           child: InkWell(
             onTap: () async {
-              Inquiry editedInquiry = await _editInquiry(
-                  context, widget.inquiryList.getList()[index]);
-
-              setState(() {
-                widget.inquiryList.getList()[index] = editedInquiry;
-              });
+              _editInquiry(context, index);
             },
             child: InquiryItem(
               screenHeight: widget.screenHeight,
               screenWidth: widget.screenWidth,
-              label: widget.inquiryList.getList()[index].getInquiry()!,
-              attachedPhotos:
-                  widget.inquiryList.getList()[index].getAttachedImages(),
-              requireProof:
-                  widget.inquiryList.getList()[index].getRequireProof()!,
+              index: (index + 1).toString(),
+              label: widget.inquiryList[index].question,
+              attachedPhotos: widget.inquiryList[index].numOfAttachedImages,
+              requireProof: widget.inquiryList[index].requireProof,
             ),
           ),
         );

@@ -6,7 +6,44 @@ abstract class InquiryEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class CreateInquiryRequested extends InquiryEvent {
+class CreateInquiryList extends InquiryEvent {
   final InquiryList inquiryList;
-  CreateInquiryRequested({required this.inquiryList});
+  CreateInquiryList({required this.inquiryList});
+}
+
+class AddInquiryRequested extends InquiryEvent {
+  final Inquiry inquiry;
+  AddInquiryRequested({required this.inquiry});
+}
+
+class EditInquiryRequested extends InquiryEvent {
+  final int index;
+  final Inquiry editedInquiry;
+
+  EditInquiryRequested({
+    required this.index,
+    required this.editedInquiry,
+  });
+}
+
+class DeleteInquiryRequested extends InquiryEvent {
+  final int index;
+  DeleteInquiryRequested({required this.index});
+}
+
+class FinishInquiry extends InquiryEvent {
+  FinishInquiry();
+}
+
+class RevisitInquiry extends InquiryEvent {
+  RevisitInquiry();
+}
+
+class FinalizeInquiry extends InquiryEvent {
+  FinalizeInquiry();
+}
+
+class GetClientInquiries extends InquiryEvent {
+  final String inquiryListID;
+  GetClientInquiries({required this.inquiryListID});
 }

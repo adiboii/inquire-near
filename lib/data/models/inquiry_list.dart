@@ -1,41 +1,27 @@
 // Project imports:
-import 'package:inquire_near/data/models/inquiry.dart';
-import 'enums.dart';
+import 'package:inquire_near/data/models/base_model.dart';
 
-class InquiryList {
-  String? id;
-  final String clientID;
-  List<Inquiry> list;
-  final Store store;
+class InquiryList extends BaseModel {
+  //TODO: add remaining properties to add inquiry module
+  late String? id;
+  int? noOfInquiries;
+  int? noOfRequireProof;
 
-  InquiryList(
-      {this.id,
-      required this.clientID,
-      required this.list,
-      required this.store});
+  InquiryList({this.id}) : super();
 
-  void addInquiry(Inquiry inquiry) {
-    list.add(inquiry);
-  }
+  InquiryList.fromJson(Map<String, dynamic> json)
+      : noOfInquiries = json['noOfInquiries'],
+        noOfRequireProof = json['noOfRequireProof'];
 
-  int getListLength() {
-    return list.length;
-  }
-
-  List<Inquiry> getList() {
-    return list;
-  }
-
-  void setId(String id) {
-    this.id = id;
+  set uid(String uid) {
+    id = uid;
   }
 
   Map<String, dynamic> toJSON() {
     return {
-      "clientID": clientID,
-      "inquiryList": list.map((inquiry) => inquiry.toJSON()).toList(),
-      //TODO: need the store map here
-      "store": store.toString(),
+      "noOfInquiries": noOfInquiries,
+      "noOfRequireProof": noOfRequireProof,
+      "dateTimeCreated": super.dateTimeCreated,
     };
   }
 }
