@@ -27,6 +27,8 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<TransactionBloc>(context).add(GetHiringRequestDetails(
+        hiringRequest: BlocProvider.of<InquirerBloc>(context).hiringRequest!));
     BlocProvider.of<TransactionBloc>(context).add(GetTransactionDetails());
   }
 

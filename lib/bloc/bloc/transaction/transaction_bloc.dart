@@ -22,18 +22,17 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   TransactionBloc(
       {required this.transactionRepository, required this.userRepository})
       : super(TransactionInitial()) {
-    hiringRequest = HiringRequest(
-        clientId: "4Ltsqt5nyNZA4jfBv3ogQ68yyVg1",
-        inquirerId: "hsF8cjt9DreKqy6fctdPrMBjdGI2",
-        transactionId: "rNZ74JZFPx4wXyysOrnr",
-        status: HiringRequestStatus.pending);
-
-    hiringRequest!.setId("6H6SNAeBFdne0cB54ITF");
-
-    on<GetTransactionDetails>(_onGetHiringDetails);
+    on<GetHiringRequestDetails>(_onGetHiringDetails);
+    on<GetTransactionDetails>(_onGetTransactionDetails);
   }
 
-  void _onGetHiringDetails(GetTransactionDetails event, emit) async {
+  void _onGetHiringDetails(GetHiringRequestDetails event, emit) async {
+    emit(Retrieving());
+    hiringRequest = event.hiringRequest;
+    emit(RetreievedHiringRequestDetails());
+  }
+
+  void _onGetTransactionDetails(GetTransactionDetails event, emit) async {
     emit(Retrieving());
 
     INTransaction transaction = await transactionRepository

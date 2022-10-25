@@ -10,5 +10,6 @@ class GetTransactionDetails extends TransactionEvent {
 }
 
 class GetHiringRequestDetails extends TransactionEvent {
-  GetHiringRequestDetails();
+  final HiringRequest hiringRequest;
+  GetHiringRequestDetails({required this.hiringRequest});
 }
