@@ -26,12 +26,30 @@ class InquiryRepository {
     }
   }
 
-  Future<void> createInquiry({required Inquiry inquiry}) async {
+  Future<String?> createInquiry({required Inquiry inquiry}) async {
+    String? id;
     try {
       await db
           .collection("inquiry")
           .add(inquiry.toJSON())
-          .then((DocumentReference docRef) => inquiry.inquiryUID = docRef.id);
+          .then((DocumentReference docRef) {
+        id = docRef.id;
+        inquiry.inquiryUID = docRef.id;
+      });
+      return id;
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+
+  Future<void> setImageURL(
+      {required String inquiryID, required String imageUrl}) async {
+    try {
+      await db
+          .collection("inquiry")
+          .doc(inquiryID)
+          .update({'imageUrl': imageUrl});
     } catch (e) {
       log(e.toString());
     }
