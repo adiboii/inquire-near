@@ -71,6 +71,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                     children: [
                       Column(
                         children: [
+                          //TODO: change to InquiryTitleBar component
                           AddInquiryTitleBar(
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
@@ -80,7 +81,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                     inquiryListID:
                                         BlocProvider.of<InquiryBloc>(context)
                                             .inquiryList
-                                            .uid!,
+                                            .id!,
                                     question: inquiryContoller.text,
                                     requireProof: requireProof,
                                     image: image);

@@ -4,7 +4,6 @@ import 'dart:developer';
 // Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_inquiry_input.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
@@ -28,6 +27,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     on<FinishInquiry>(_onFinishInquiry);
     on<RevisitInquiry>(_onRevisitInquiry);
     on<FinalizeInquiry>(_onFinalizeInquiry);
+    on<GetClientInquiries>(_onGetClientInquiries);
   }
 
   Future<void> _onCreateInquiryList(
@@ -113,6 +113,18 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       //TODO: error handling
       log(e.toString());
       emit(InquiryInProgress());
+    }
+  }
+
+  Future<void> _onGetClientInquiries(GetClientInquiries event, emit) async {
+    emit(Loading());
+    try {
+      inquiries = await inquiryRepository.getInquiries(event.inquiryListID);
+      emit(ClientInquiriesRetrieved());
+    } catch (e) {
+      //TODO: error handling
+      log(e.toString());
+      emit(ClientInquiriesRetrieved());
     }
   }
 }

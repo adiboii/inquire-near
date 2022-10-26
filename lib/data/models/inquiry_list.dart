@@ -2,16 +2,25 @@
 import 'package:inquire_near/data/models/base_model.dart';
 
 class InquiryList extends BaseModel {
-  late String? uid;
+  //TODO: add remaining properties to add inquiry module
+  late String? id;
+  int? noOfInquiries;
+  int? noOfRequireProof;
 
-  InquiryList({this.uid}) : super();
+  InquiryList({this.id}) : super();
 
-  set setID(String uid) {
-    this.uid = uid;
+  InquiryList.fromJson(Map<String, dynamic> json)
+      : noOfInquiries = json['noOfInquiries'],
+        noOfRequireProof = json['noOfRequireProof'];
+
+  set uid(String uid) {
+    id = uid;
   }
 
   Map<String, dynamic> toJSON() {
     return {
+      "noOfInquiries": noOfInquiries,
+      "noOfRequireProof": noOfRequireProof,
       "dateTimeCreated": super.dateTimeCreated,
     };
   }

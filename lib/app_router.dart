@@ -26,13 +26,15 @@ import 'package:inquire_near/screens/common/report_screen.dart';
 import 'package:inquire_near/screens/common/splash_screen.dart';
 import 'package:inquire_near/screens/common/top_up.dart';
 import 'package:inquire_near/screens/common/user_wallet.dart';
-import 'package:inquire_near/screens/inquirer/client_found_screen.dart';
+import 'package:inquire_near/screens/inquirer/client_found/client_found_screen.dart';
+import 'package:inquire_near/screens/inquirer/client_inquiry_list/client_inquiry_list.dart';
 import 'package:inquire_near/screens/inquirer/inquirer_dashboard_screen.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_inquiry_list_screen.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
 import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
+import 'screens/client/available_inquirers/available_inquirers_screen.dart';
 
 //TODO: implement
 //Map Router
@@ -128,7 +130,6 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SearchScreen());
 
       // Inquirer Screens
-
       case '/inquirer_dashboard':
         return MaterialPageRoute(
             builder: (_) => const InquirerDashboardScreen());
@@ -142,6 +143,10 @@ class AppRouter {
       case '/inquirer_inquiry_list':
         return MaterialPageRoute(
             builder: (_) => const InquirerInquiryListScreen());
+
+      case '/client_inquiry_list':
+        return MaterialPageRoute(
+            builder: (_) => const ClientInquiryListScreen());
 
       case '/inquirer_view_selected_inquiry':
         return MaterialPageRoute(

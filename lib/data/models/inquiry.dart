@@ -36,7 +36,8 @@ class Inquiry extends BaseModel {
   //json manipulations
   Inquiry.fromJson(Map<String, dynamic> json)
       : inquiryListID = json['inquiryListID'],
-        question = json['inquiryMessage'],
+        question = json['question'],
+        imageUrl = json['imageUrl'],
         requireProof = json['requireProof'];
 
   Map<String, dynamic> toJSON() => {

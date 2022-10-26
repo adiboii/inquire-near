@@ -19,7 +19,8 @@ class INUser extends Equatable {
   bool? isActive;
 
   INUser.fromJson(Map<String, dynamic> json)
-      : firstName = json["firstName"],
+      : uid = json["uid"],
+        firstName = json["firstName"],
         lastName = json["lastName"],
         role = getRoleFromString(json["role"]),
         isActive = json["isActive"];

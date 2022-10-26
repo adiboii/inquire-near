@@ -55,7 +55,12 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const PageTitle(title: "Store Name"),
+                    PageTitle(
+                      title: "Store Name",
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                     SizedBox(height: screenHeight * 0.02),
                     Text(
                       "What do you need from here?",
