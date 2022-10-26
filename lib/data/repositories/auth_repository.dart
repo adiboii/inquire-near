@@ -154,10 +154,20 @@ class AuthRepository {
     }
   }
 
-  Future<void> signIn({required String email, required String password}) async {
+  Future<INUser> signIn(
+      {required String email, required String password}) async {
     try {
-      await FirebaseAuth.instance
+      final UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+
+      DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
+          .instance
+          .collection("users")
+          .doc(userCredential.user!.uid)
+          .get();
+      INUser userData = INUser.fromJson(user.data()!);
+
+      return userData;
     } on FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {

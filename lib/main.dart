@@ -64,6 +64,7 @@ class InquireNear extends StatelessWidget {
           BlocProvider<AuthBloc>(
             create: (context) => AuthBloc(
               authRepository: RepositoryProvider.of<AuthRepository>(context),
+              userRepository: RepositoryProvider.of<UserRepository>(context)
             ),
           ),
           BlocProvider<TransactionBloc>(
@@ -105,7 +106,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: constants.splash,
+          initialRoute: '/wrapper',
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
