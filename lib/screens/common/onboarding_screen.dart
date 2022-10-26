@@ -46,15 +46,14 @@ class _OnboardingState extends State<OnboardingScreen> {
             children: const [
               OnboardingPage(
                 imageURL: "assets/images/illustrations/ChooseAPlace.png",
-                title: "Choose a place",
-                subtitle:
-                    "Easy access to far or popular locations you want to know.",
+                title: "Choose a store",
+                subtitle: "Easy access to stores in SM Seaside Cebu",
               ),
               OnboardingPage(
                 imageURL: "assets/images/illustrations/AskQuestions.png",
                 title: "Ask questions",
                 subtitle:
-                    "Connect and ask all the questions you need to know without going to the place. ",
+                    "Connect and ask all the questions you need to know without going to the store.",
               ),
               OnboardingPage(
                 imageURL: "assets/images/illustrations/EnjoyAsking.png",
@@ -74,9 +73,9 @@ class _OnboardingState extends State<OnboardingScreen> {
           children: [
             SizedBox(
               child: TextButton(
-                onPressed: () => controller.animateToPage(2,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/landing');
+                },
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.transparent),
