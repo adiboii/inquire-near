@@ -12,6 +12,8 @@ import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
+import '../../../bloc/bloc/transaction/transaction_bloc.dart';
+
 class InquiryListScreen extends StatefulWidget {
   const InquiryListScreen({Key? key}) : super(key: key);
 
@@ -59,7 +61,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PageTitle(
-                      title: "Store Name",
+                      title: BlocProvider.of<TransactionBloc>(context).store!,
                       onTap: () {
                         Navigator.pop(context);
                       },
