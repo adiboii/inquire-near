@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 // Project imports:
@@ -15,6 +16,7 @@ class INUser extends Equatable {
   late String? uid;
   final String? firstName;
   final String? lastName;
+  late Timestamp dateTimeCreated;
   Role role;
   bool? isActive;
 
@@ -32,11 +34,14 @@ class INUser extends Equatable {
   @override
   List<Object?> get props => [uid, firstName, lastName];
 
-  Map<String, dynamic> toJSON() => {
-        'uid': uid,
-        'firstName': firstName,
-        'lastName': lastName,
-        'role': role.toString(),
-        'isActive': isActive,
-      };
+  Map<String, dynamic> toJSON() {
+    dateTimeCreated = Timestamp.now();
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'role': role.toValue(),
+      'isActive': isActive,
+      'dateTimeCreated': dateTimeCreated,
+    };
+  }
 }
