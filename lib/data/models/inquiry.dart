@@ -50,30 +50,28 @@ class Inquiry extends BaseModel {
         'dateTimeCreated': super.dateTimeCreated,
       };
 
-  int get numOfAttachedImages {
-    if (image != null || imageUrl != null) return 1;
-    return 0;
-  }
+  // getters
+  int get numOfAttachedImages => image != null ? 1 : 0;
 
+  // setters
   set inquiryUID(String uid) {
     this.uid = uid;
   }
 
   // helper functions
-  Future<void> saveToFirebaseStorage() async {
+  Future<String?> saveToFirebaseStorage({required String inquiryID}) async {
     if (image != null) {
       try {
-        //TODO: use client ID
         var ref = FirebaseStorage.instance
             .ref()
-            .child('client_id')
-            .child("inquiry_id" + "_inquiry_image");
+            .child(inquiryListID) 
+            .child("${inquiryID}_inquiry_image");
         await ref.putFile(image!);
         imageUrl = await ref.getDownloadURL();
-        log(imageUrl!);
       } on FirebaseException catch (e) {
         log(e.toString());
       }
     }
+    return imageUrl;
   }
 }

@@ -96,10 +96,17 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
   Future<void> _onFinalizeInquiry(
       FinalizeInquiry event, Emitter<InquiryState> emit) async {
     emit(Loading());
+    String? inquiryID;
+    String? imageUrl;
     try {
       for (Inquiry inquiry in inquiries) {
-        if (inquiry.image != null) await inquiry.saveToFirebaseStorage();
-        await inquiryRepository.createInquiry(inquiry: inquiry);
+        inquiryID = await inquiryRepository.createInquiry(inquiry: inquiry);
+
+        if (inquiry.image != null) {
+          imageUrl = await inquiry.saveToFirebaseStorage(inquiryID: inquiryID!);
+          await inquiryRepository.setImageURL(
+              inquiryID: inquiryID, imageUrl: imageUrl!);
+        }
       }
       emit(InquiryFinished());
     } catch (e) {

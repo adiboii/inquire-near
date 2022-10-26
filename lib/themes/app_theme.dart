@@ -141,6 +141,7 @@ const kScreenPaddingWithAppBar = EdgeInsets.symmetric(
   vertical: 10.0,
   horizontal: 20.0,
 );
+const kCardPadding = EdgeInsets.all(20.0);
 
 // Icon Sizes
 const subheadIcon = 19.0;
