@@ -25,6 +25,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  FocusNode focusEmail = FocusNode();
+  FocusNode focusPassword = FocusNode();
+  final emailKey = GlobalKey<FormFieldState>();
+  final passwordKey = GlobalKey<FormFieldState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    focusEmail.addListener(() {
+      if (!focusEmail.hasFocus) {
+        emailKey.currentState?.validate();
+      }
+    });
+
+    focusPassword.addListener(() {
+      if (!focusPassword.hasFocus) {
+        passwordKey.currentState?.validate();
+      }
+    });
+  }
+
   void _authenticateWithEmailAndPassword(context) {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context).add(
@@ -42,6 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     emailAddressTextController.dispose();
     passwordTextController.dispose();
+    focusEmail.dispose();
+    focusPassword.dispose();
     super.dispose();
   }
 
@@ -99,8 +123,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Form(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -128,8 +150,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               icon: Icons.lock,
                               isPassword: true,
                               validator: (value) {
-                                if (inputValidator.isEmpty(value)) {
-                                  return 'Please enter your password';
+                                if (!inputValidator.isEmpty(value)) {
+                                  if (!inputValidator.isValidPassword(value)) {
+                                    return 'Password should have at least 6 characters';
+                                  }
+                                } else {
+                                  return 'Password is a required field';
                                 }
 
                                 return null;
