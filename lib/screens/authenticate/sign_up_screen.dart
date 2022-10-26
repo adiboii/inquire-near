@@ -86,9 +86,14 @@ class SignUpScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AutoSizeText(
-                        "Create a new account",
-                        style: theme.title3,
+                      Row(
+                        children: const [
+                          BackButton(),
+                          AutoSizeText(
+                            "Create a new account",
+                            style: theme.title3,
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: screenHeight * 0.03,
