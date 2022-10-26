@@ -47,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -80,7 +79,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         "Sign in to your account",
                         style: theme.title3,
                       ),
+                      SizedBox(height: screenHeight * 0.05),
+                      const Center(
+                        child: Text(
+                          "Sign In With",
+                          style: theme.caption1,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.05),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            _authenticateWithGoogle(context);
+                          },
+                          child: const Image(
+                              width: 50,
+                              image:
+                                  AssetImage("assets/images/logos/Google.png")),
+                        ),
+                      ),
                       Form(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,6 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                       ),
+                      SizedBox(height: screenHeight * 0.05),
                       ButtonFill(
                         label: "Sign In",
                         onTap: () {
@@ -126,25 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       SizedBox(height: screenHeight * 0.075),
-                      Center(
-                        child: Text(
-                          "Sign In With",
-                          style: theme.subhead
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(height: screenHeight * 0.05),
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            _authenticateWithGoogle(context);
-                          },
-                          child: const Image(
-                              width: 50,
-                              image:
-                                  AssetImage("assets/images/logos/Google.png")),
-                        ),
-                      ),
                     ],
                   ),
                 ),
