@@ -1,6 +1,3 @@
-// Dart imports:
-
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -26,6 +23,12 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
   List<Inquiry> inquiryList = [];
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<InquiryBloc>(context).add(CreateInquiryList());
+  }
+
+  @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -41,7 +44,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
           child: BlocConsumer<InquiryBloc, InquiryState>(
             listener: (context, state) {
               if (state is InquiryFinished) {
-                Navigator.pushNamed(context, '/finding_inquirer');
+                Navigator.pushNamed(context, '/available_inquirers');
               }
             },
             builder: (context, state) {

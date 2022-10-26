@@ -34,8 +34,8 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       CreateInquiryList event, Emitter<InquiryState> emit) async {
     emit(CreatingInquiryList());
     try {
-      inquiryList = event.inquiryList;
-      await inquiryRepository.createInquiryList(inquiryList: inquiryList);
+      inquiryList = (await inquiryRepository.createInquiryList(
+          inquiryList: InquiryList()))!;
       emit(InquiryInProgress());
     } catch (e) {
       //TODO: error handling

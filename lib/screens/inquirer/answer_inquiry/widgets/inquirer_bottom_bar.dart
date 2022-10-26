@@ -32,13 +32,13 @@ class _InquirerBottomBarState extends State<InquirerBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    bool? requireProof = widget.initialValue;
-    void updateBool(bool? value) {
-      setState(() {
-        widget.requireProof(value!);
-        requireProof = value;
-      });
-    }
+    // bool? requireProof = widget.initialValue;
+    // void updateBool(bool? value) {
+    //   setState(() {
+    //     widget.requireProof(value!);
+    //     requireProof = value;
+    //   });
+    // }
 
     return Container(
       width: MediaQuery.of(context).size.width,

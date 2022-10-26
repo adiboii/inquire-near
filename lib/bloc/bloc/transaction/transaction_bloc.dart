@@ -9,7 +9,6 @@ import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
-import 'package:inquire_near/enums/hiring_request_status.dart';
 
 part 'transaction_event.dart';
 part 'transaction_state.dart';

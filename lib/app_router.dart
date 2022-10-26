@@ -34,7 +34,6 @@ import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_view_selec
 import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
 import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
-import 'screens/client/available_inquirers/available_inquirers_screen.dart';
 
 //TODO: implement
 //Map Router

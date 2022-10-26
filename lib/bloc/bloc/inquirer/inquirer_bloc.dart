@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';
@@ -21,14 +22,6 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
   HiringRequest? hiringRequest;
 
   InquirerBloc() : super(const InquirerInitial(false)) {
-    //TODO: finish hiring request implementation
-    // this is just to simulate getting a transaction doc
-    hiringRequest = HiringRequest(
-        clientId: "4Ltsqt5nyNZA4jfBv3ogQ68yyVg1",
-        inquirerId: "hsF8cjt9DreKqy6fctdPrMBjdGI2",
-        transactionId: "rNZ74JZFPx4wXyysOrnr",
-        status: HiringRequestStatus.pending);
-    hiringRequest!.setId("6H6SNAeBFdne0cB54ITF");
     on<Initial>((event, emit) async {
       DocumentSnapshot<Map<String, dynamic>> userDocument =
           await FirebaseFirestore.instance
@@ -59,12 +52,13 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
   void _toggleIsOnline(event, emit) async {
     isOnline = event.isOnline;
 
+    final currentUser = FirebaseAuth.instance.currentUser!;
+
     emit(Empty()); // This is to trigger buildWhen()
 
     await FirebaseFirestore.instance
         .collection("users")
-        .doc(
-            "4Ltsqt5nyNZA4jfBv3ogQ68yyVg1") // TODO: Change to actual current logged in user
+        .doc(currentUser.uid) // TODO: Change to actual current logged in user
         .update({"isActive": isOnline}).onError(
             (e, _) => log("Error writing document: $e"));
 
@@ -72,20 +66,19 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
       _hiringRequestSubscription = FirebaseFirestore.instance
           .collection('hiringRequests')
           .where('inquirerId',
-              isEqualTo:
-                  'hsF8cjt9DreKqy6fctdPrMBjdGI2') // TODO: Change actual inquirerId to currentUser
+              isEqualTo: currentUser
+                  .uid) // TODO: Change actual inquirerId to currentUser
           .where('status', isEqualTo: HiringRequestStatus.pending.toValue())
           .orderBy("requestMade", descending: true)
           .snapshots()
           .listen((ev) async {
         if (ev.docs.isNotEmpty) {
-          //TODO: clean up here, was commented out for simulation
           // Just get the latest HiringRequest data
-          // HiringRequest hiringRequest =
-          //     HiringRequest.fromJson(ev.docs[0].data());
-          // hiringRequest.setId(ev.docs[0].id);
+          HiringRequest hiringRequest =
+              HiringRequest.fromJson(ev.docs[0].data());
+          hiringRequest.setId(ev.docs[0].id);
 
-          add(NewHiringRequestFound(hiringRequest!));
+          add(NewHiringRequestFound(hiringRequest));
         }
       });
     } else {

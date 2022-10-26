@@ -32,7 +32,10 @@ class _BottomBarState extends State<BottomBar> {
         .then((XFile? file) {
       setState(() {
         // _image = file;
-        widget.onIconSelected(File(file!.path));
+        try {
+          widget.onIconSelected(File(file!.path));
+        // ignore: empty_catches
+        } catch (e) {}
       });
     });
   }

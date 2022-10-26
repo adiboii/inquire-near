@@ -13,15 +13,18 @@ import 'package:inquire_near/data/models/inquiry_list.dart';
 class InquiryRepository {
   final db = FirebaseFirestore.instance;
 
-  Future<void> createInquiryList({required InquiryList inquiryList}) async {
+  Future<InquiryList?> createInquiryList(
+      {required InquiryList inquiryList}) async {
     try {
-      await db
-          .collection("inquiryList")
-          .add(inquiryList.toJSON())
-          .then((DocumentReference docRef) => inquiryList.uid = docRef.id);
+      final DocumentReference doc =
+          await db.collection("inquiryList").add(inquiryList.toJSON());
+      inquiryList.uid = doc.id;
+      return inquiryList;
     } catch (e) {
       log(e.toString());
     }
+
+    return null;
   }
 
   Future<String?> createInquiry({required Inquiry inquiry}) async {
