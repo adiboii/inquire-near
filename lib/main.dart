@@ -21,6 +21,8 @@ import 'package:inquire_near/data/repositories/paypal_repository.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
 
+import 'constants.dart' as constants
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -93,7 +95,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: '/client_found',
+          initialRoute: constants.splash,
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
