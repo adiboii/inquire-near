@@ -1,6 +1,10 @@
 // Package imports:
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/enums/paypal_status.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
@@ -18,11 +22,16 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   HiringRequest? hiringRequest;
   final TransactionRepository transactionRepository;
   final UserRepository userRepository;
+  late INTransaction transaction;
+
   TransactionBloc(
       {required this.transactionRepository, required this.userRepository})
       : super(TransactionInitial()) {
     on<GetHiringRequestDetails>(_onGetHiringDetails);
     on<GetTransactionDetails>(_onGetTransactionDetails);
+    on<GetTransactionStatus>(_onGetTransactionStatus);
+    on<EmitSuccessfulTransactionStatus>(_onEmitSuccessfulTransactionStatus);
+    on<EmitFailedTransactionStatus>(_onEmitFailedTransactionStatus);
   }
 
   void _onGetHiringDetails(GetHiringRequestDetails event, emit) async {
@@ -39,6 +48,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
     transaction.uid = hiringRequest!.transactionId;
 
+    this.transaction = transaction;
+
     Map<String, dynamic> userData =
         await userRepository.getUserData(hiringRequest!.clientId);
 
@@ -52,5 +63,31 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       userData: userData,
       inquiryList: inquiryList,
     ));
+  }
+
+  late StreamSubscription transactionStatusListener;
+  void _onGetTransactionStatus(event, emit) {
+    transactionStatusListener = FirebaseFirestore.instance
+        .collection('transaction')
+        .doc(transaction.id)
+        .snapshots()
+        .listen((ev) async {
+      INTransaction t = INTransaction.fromJson(ev.data()!);
+
+      if (t.payPalStatus == PayPalStatus.success) {
+        add(EmitSuccessfulTransactionStatus(t.payPalID.toString()));
+      } else if (t.payPalStatus == PayPalStatus.failed) {
+        add(EmitFailedTransactionStatus());
+      }
+    });
+  }
+
+  void _onEmitSuccessfulTransactionStatus(event, emit) {
+    transactionStatusListener.cancel();
+    emit(RetrievedTransactionStatus(event.payPalID));
+  }
+
+  void _onEmitFailedTransactionStatus(event, emit) {
+    emit(FailedTransactionStatus());
   }
 }

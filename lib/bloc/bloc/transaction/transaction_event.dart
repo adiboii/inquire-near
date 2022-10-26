@@ -13,3 +13,13 @@ class GetHiringRequestDetails extends TransactionEvent {
   final HiringRequest hiringRequest;
   GetHiringRequestDetails({required this.hiringRequest});
 }
+
+class GetTransactionStatus extends TransactionEvent {}
+
+class EmitSuccessfulTransactionStatus extends TransactionEvent {
+  final String payPalID;
+
+  EmitSuccessfulTransactionStatus(this.payPalID);
+}
+
+class EmitFailedTransactionStatus extends TransactionEvent {}
