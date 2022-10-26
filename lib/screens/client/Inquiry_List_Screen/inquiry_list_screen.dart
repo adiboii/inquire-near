@@ -5,14 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/cards.dart';
 import 'package:inquire_near/components/inqury_list_widget.dart';
 import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-
-import '../../../bloc/bloc/transaction/transaction_bloc.dart';
 
 class InquiryListScreen extends StatefulWidget {
   const InquiryListScreen({Key? key}) : super(key: key);

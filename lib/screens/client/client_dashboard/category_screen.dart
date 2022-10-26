@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/store_container.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/utils.dart' as utils;
-
-import '../../../bloc/bloc/transaction/transaction_bloc.dart';
 
 class CategoryScreen extends StatelessWidget {
   CategoryScreen({
