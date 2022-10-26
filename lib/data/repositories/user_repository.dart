@@ -6,7 +6,7 @@ import 'package:inquire_near/data/models/feedback.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 
 class UserRepository {
-  Future<INUser> _getUser(String userId) async {
+  Future<INUser> getUser(String userId) async {
     DocumentSnapshot<Map<String, dynamic>> user =
         await FirebaseFirestore.instance.collection("users").doc(userId).get();
     INUser userData = INUser.fromJson(user.data()!);
@@ -38,7 +38,7 @@ class UserRepository {
       Feedback feedback = Feedback.fromJson(element.data());
 
       // Get User to get first name of client
-      INUser client = await _getUser(element["clientId"]);
+      INUser client = await getUser(element["clientId"]);
 
       feedbacks.add({client.firstName!: feedback});
 
@@ -47,7 +47,7 @@ class UserRepository {
     double ratingAverage = ratingSum / feedbackDocs.docs.length;
 
     Map<String, dynamic> computedFeedbackMap = {
-      "user": await _getUser(userId),
+      "user": await getUser(userId),
       "feedbacks": feedbacks,
       "numberOfFeedbacks": feedbackDocs.docs.length,
       "averageRating": ratingAverage,
