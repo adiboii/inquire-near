@@ -56,11 +56,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onSignUpRequested(SignUpRequested event, Emitter<AuthState> emit) async {
     emit(Loading());
     try {
-      await authRepository.signUp(
+      INUser u = await authRepository.signUp(
           firstName: event.firstName,
           lastName: event.lastName,
           email: event.email,
           password: event.password);
+
+      user = u;
       emit(Authenticated());
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(AuthError(e.message));
@@ -72,7 +74,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       GoogleSignInRequested event, Emitter<AuthState> emit) async {
     emit(Loading());
     try {
-      await authRepository.signInWithGoogle();
+      INUser u = await authRepository.signInWithGoogle();
+      user = u;
+      // INUser u = await authRepository.signIn(
+      //     email: event.email, password: event.password);
+      // user = u;
       emit(Authenticated());
     } on LogInWithGoogleFailure catch (e) {
       emit(AuthError(e.message));
@@ -82,6 +88,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   _onSignOutRequested(SignOutRequested event, Emitter<AuthState> emit) async {
     emit(Loading());
+    user = null;
     await authRepository.signOut();
     emit(Unauthenticated());
   }

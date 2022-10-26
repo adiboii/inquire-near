@@ -130,7 +130,7 @@ class LogInWithGoogleFailure implements Exception {
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> signUp(
+  Future<INUser> signUp(
       {required String firstName,
       required String lastName,
       required String email,
@@ -147,6 +147,16 @@ class AuthRepository {
         lastName: lastName,
       );
       await userDocument.set(user.toJSON());
+
+      DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
+          .instance
+          .collection("users")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .get();
+      INUser userData = INUser.fromJson(userDoc.data()!);
+      userData.setUID(userDoc.id);
+
+      return userData;
     } on FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -166,6 +176,7 @@ class AuthRepository {
           .doc(userCredential.user!.uid)
           .get();
       INUser userData = INUser.fromJson(user.data()!);
+      userData.setUID(user.id);
 
       return userData;
     } on FirebaseAuthException catch (e) {
@@ -186,7 +197,7 @@ class AuthRepository {
     }
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<INUser> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -199,17 +210,16 @@ class AuthRepository {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-      Map<String, dynamic> idMap = parseJwt(googleAuth?.idToken);
-      final userDocument = FirebaseFirestore.instance
-          .collection('users')
-          .doc(_firebaseAuth.currentUser!.uid);
-      final user = INUser(
-        uid: _firebaseAuth.currentUser!.uid,
-        firstName: idMap['given_name'],
-        lastName: idMap['family_name'],
-        isActive: null,
-      );
-      await userDocument.set(user.toJSON());
+
+      DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
+          .instance
+          .collection("users")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .get();
+      INUser userData = INUser.fromJson(user.data()!);
+      userData.setUID(user.id);
+
+      return userData;
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure(e.code);
     } catch (_) {
