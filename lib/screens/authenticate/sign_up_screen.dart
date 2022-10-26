@@ -139,7 +139,6 @@ class SignUpScreen extends StatelessWidget {
                                 } else {
                                   return 'First Name is a required field';
                                 }
-
                                 return null;
                               },
                             ),
