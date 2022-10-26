@@ -26,7 +26,7 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
       DocumentSnapshot<Map<String, dynamic>> userDocument =
           await FirebaseFirestore.instance
               .collection("users")
-              .doc("hsF8cjt9DreKqy6fctdPrMBjdGI2")
+              .doc(FirebaseAuth.instance.currentUser!.uid)
               .get();
       INUser inquirer = INUser.fromJson(userDocument.data()!);
 

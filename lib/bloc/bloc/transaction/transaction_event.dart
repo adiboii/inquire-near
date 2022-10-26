@@ -23,3 +23,8 @@ class EmitSuccessfulTransactionStatus extends TransactionEvent {
 }
 
 class EmitFailedTransactionStatus extends TransactionEvent {}
+
+class ClickStore extends TransactionEvent {
+  final String store;
+  ClickStore({required this.store});
+}

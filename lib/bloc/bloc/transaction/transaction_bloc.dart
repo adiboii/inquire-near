@@ -24,6 +24,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   final UserRepository userRepository;
   late INTransaction transaction;
 
+  String? store;
   TransactionBloc(
       {required this.transactionRepository, required this.userRepository})
       : super(TransactionInitial()) {
@@ -32,12 +33,17 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<GetTransactionStatus>(_onGetTransactionStatus);
     on<EmitSuccessfulTransactionStatus>(_onEmitSuccessfulTransactionStatus);
     on<EmitFailedTransactionStatus>(_onEmitFailedTransactionStatus);
+    on<ClickStore>(_onClickStore);
   }
 
   void _onGetHiringDetails(GetHiringRequestDetails event, emit) async {
     emit(Retrieving());
     hiringRequest = event.hiringRequest;
     emit(RetreievedHiringRequestDetails());
+  }
+
+  void _onClickStore(ClickStore event, emit) async {
+    store = event.store;
   }
 
   void _onGetTransactionDetails(GetTransactionDetails event, emit) async {

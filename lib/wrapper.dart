@@ -16,6 +16,7 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
+    // This is for initial app open
     if (FirebaseAuth.instance.currentUser == null) {
       return const OnboardingScreen();
     }

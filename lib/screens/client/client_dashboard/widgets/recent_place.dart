@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class RecentPlace extends StatelessWidget {
-  const RecentPlace({
+class FeaturedPlace extends StatelessWidget {
+  const FeaturedPlace({
     super.key,
     required this.storeName,
     required this.imageFilePath,
@@ -17,6 +17,8 @@ class RecentPlace extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
+        BlocProvider.of<TransactionBloc>(context)
+            .add(ClickStore(store: storeName));
         Navigator.pushNamed(context, '/inquiry_list');
       },
       child: Container(
