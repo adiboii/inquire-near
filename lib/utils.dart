@@ -1,3 +1,5 @@
+import 'constants.dart' as constants;
+
 String getInitials(String name) {
   List<String> nameList = name.split(" ");
 
@@ -11,4 +13,8 @@ String getInitials(String name) {
 
 String censorizeName(String name) {
   return name.replaceRange(1, name.length - 1, "*" * (name.length - 2));
+}
+
+String getStoreNamePath(String storeName) {
+  return "${constants.logoPath}/${storeName.replaceAll(" ", '_').toLowerCase()}.png";
 }

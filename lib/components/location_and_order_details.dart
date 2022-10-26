@@ -9,6 +9,8 @@ import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
+import 'package:inquire_near/utils.dart' as utils;
+
 class LocationAndOrderDetails extends StatelessWidget {
   const LocationAndOrderDetails(
       {Key? key, required this.inquiryList, required this.transaction})
@@ -52,7 +54,7 @@ class LocationAndOrderDetails extends StatelessWidget {
                 width: screenWidth * 0.071,
               ),
               Image.asset(
-                'assets/images/logos/BIR.png', //TODO: update to StoreData
+                utils.getStoreNamePath(transaction.store),
                 width: screenWidth * 0.1,
               ),
               SizedBox(
@@ -66,7 +68,7 @@ class LocationAndOrderDetails extends StatelessWidget {
                     style: theme.caption1,
                   ),
                   const AutoSizeText(
-                    'SM Seaside Cebu',
+                    "SM Seaside Cebu",
                     style: theme.caption1,
                   ),
                 ],

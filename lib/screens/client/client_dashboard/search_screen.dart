@@ -4,6 +4,7 @@ import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.
 import 'package:inquire_near/screens/client/client_dashboard/widgets/store_container.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/constants.dart' as constants;
+import 'package:inquire_near/utils.dart' as utils;
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -62,7 +63,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: Row(
                             children: [
                               StoreContainer(
-                                imageFilePath: stores[index].imageFileLocation,
+                                imageFilePath:
+                                    utils.getStoreNamePath(stores[index].name),
                               ),
                               SizedBox(
                                 width: screenWidth * 0.04,
