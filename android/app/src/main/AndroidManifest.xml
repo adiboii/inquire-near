@@ -2,7 +2,7 @@
     package="com.example.inquire_near">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
    <application
-        android:label="inquire_near"
+        android:label="InquireNear"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
