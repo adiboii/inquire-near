@@ -25,28 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  FocusNode focusEmail = FocusNode();
-  FocusNode focusPassword = FocusNode();
-  final emailKey = GlobalKey<FormFieldState>();
-  final passwordKey = GlobalKey<FormFieldState>();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    focusEmail.addListener(() {
-      if (!focusEmail.hasFocus) {
-        emailKey.currentState?.validate();
-      }
-    });
-
-    focusPassword.addListener(() {
-      if (!focusPassword.hasFocus) {
-        passwordKey.currentState?.validate();
-      }
-    });
-  }
-
   void _authenticateWithEmailAndPassword(context) {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context).add(
@@ -64,8 +42,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     emailAddressTextController.dispose();
     passwordTextController.dispose();
-    focusEmail.dispose();
-    focusPassword.dispose();
     super.dispose();
   }
 
