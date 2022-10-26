@@ -17,17 +17,23 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   HiringRequest? hiringRequest;
   final TransactionRepository transactionRepository;
   final UserRepository userRepository;
+  String? store;
   TransactionBloc(
       {required this.transactionRepository, required this.userRepository})
       : super(TransactionInitial()) {
     on<GetHiringRequestDetails>(_onGetHiringDetails);
     on<GetTransactionDetails>(_onGetTransactionDetails);
+    on<ClickStore>(_onClickStore);
   }
 
   void _onGetHiringDetails(GetHiringRequestDetails event, emit) async {
     emit(Retrieving());
     hiringRequest = event.hiringRequest;
     emit(RetreievedHiringRequestDetails());
+  }
+
+  void _onClickStore(ClickStore event, emit) async {
+    store = event.store;
   }
 
   void _onGetTransactionDetails(GetTransactionDetails event, emit) async {
