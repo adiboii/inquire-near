@@ -4,7 +4,11 @@ import 'dart:io';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 // Project imports:
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/bottom_bar.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
@@ -13,17 +17,17 @@ import 'package:inquire_near/screens/client/Add_Inquiry_Screen/widgets/add_title
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class AddInquiryScreen extends StatefulWidget {
-  const AddInquiryScreen({Key? key}) : super(key: key);
+  const AddInquiryScreen({super.key});
 
   @override
   State<AddInquiryScreen> createState() => _AddInquiryScreenState();
 }
 
 class _AddInquiryScreenState extends State<AddInquiryScreen> {
-  late Inquiry inquiry;
-  TextEditingController inquiryContoller = TextEditingController();
-  bool requireProof = false;
   File? image;
+  late Inquiry inquiry;
+  bool requireProof = false;
+  TextEditingController inquiryContoller = TextEditingController();
 
   void _onCrossIconPressed() {
     setState(() {
@@ -43,14 +47,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
     });
   }
 
-  void saveInquiryThenPop() {
-    inquiry = Inquiry(
-        question: inquiryContoller.text,
-        requiresProof: requireProof,
-        image: image);
-
-    Navigator.pop(context, inquiry);
-  }
+  void saveInquiryThenPop() {}
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +72,26 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                       Column(
                         children: [
                           AddInquiryTitleBar(
-                              screenWidth: screenWidth,
-                              screenHeight: screenHeight,
-                              onTap: saveInquiryThenPop),
+                            screenWidth: screenWidth,
+                            screenHeight: screenHeight,
+                            onTap: () {
+                              setState(() {
+                                inquiry = Inquiry(
+                                    inquiryListID:
+                                        BlocProvider.of<InquiryBloc>(context)
+                                            .inquiryList
+                                            .uid!,
+                                    question: inquiryContoller.text,
+                                    requireProof: requireProof,
+                                    image: image);
+                              });
+
+                              BlocProvider.of<InquiryBloc>(context)
+                                  .add(AddInquiryRequested(inquiry: inquiry));
+
+                              Navigator.pop(context);
+                            },
+                          ),
                           SizedBox(height: screenHeight * 0.04),
                           AddInquiryInput(
                               screenWidth: screenWidth,

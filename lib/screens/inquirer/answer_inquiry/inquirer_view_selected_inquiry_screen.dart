@@ -8,12 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 // Project imports:
-import 'package:inquire_near/components/bottom_bar.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
+import 'package:inquire_near/screens/inquirer/answer_inquiry/widgets/inquirer_bottom_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquirerViewSelectedInquiryScreen extends StatefulWidget {
-  const InquirerViewSelectedInquiryScreen({Key? key}) : super(key: key);
+  InquirerViewSelectedInquiryScreen({Key? key}) : super(key: key);
+  final answerTextController = TextEditingController();
 
   @override
   State<InquirerViewSelectedInquiryScreen> createState() =>
@@ -93,19 +94,29 @@ class _InquirerViewSelectedInquiryScreenState
                         height: screenHeight * 0.1,
                       ),
                       Row(
+                        verticalDirection: VerticalDirection.up,
                         children: [
-                          CircleAvatar(
-                            radius: screenHeight * 0.02,
-                            backgroundImage: const AssetImage(
-                              'assets/images/illustrations/profile.png',
+                          Expanded(
+                            child: TextField(
+                              textAlign: TextAlign.end,
+                              controller: widget.answerTextController,
+                              decoration: const InputDecoration(
+                                hintText: 'Leave an answer',
+                                hintStyle: theme.subhead,
+                                border: InputBorder.none,
+                              ),
+                              keyboardType: TextInputType.multiline,
+                              maxLines: null,
                             ),
                           ),
                           SizedBox(
                             width: screenWidth * 0.02,
                           ),
-                          const AutoSizeText(
-                            'Yes',
-                            style: theme.subhead,
+                          CircleAvatar(
+                            radius: screenHeight * 0.02,
+                            backgroundImage: const AssetImage(
+                              'assets/images/illustrations/profile.png',
+                            ),
                           ),
                         ],
                       ),
@@ -124,7 +135,7 @@ class _InquirerViewSelectedInquiryScreenState
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: BottomBar(
+            child: InquirerBottomBar(
               onIconSelected: onIconSelected,
               requireProof: updateBool,
             ),
