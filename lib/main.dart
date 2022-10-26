@@ -12,13 +12,17 @@ import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
 import 'package:inquire_near/bloc/bloc/report/report_bloc.dart';
+import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
+import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/feedback_repository.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
 import 'package:inquire_near/data/repositories/report_repository.dart';
-import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/data/repositories/paypal_repository.dart';
+import 'package:inquire_near/data/repositories/transaction_repository.dart';
+import 'package:inquire_near/data/repositories/user_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +50,14 @@ class InquireNear extends StatelessWidget {
           create: (context) => ReportRepository(),
         ),
         RepositoryProvider<PayPalRepository>(
-            create: (context) => PayPalRepository())
+          create: (context) => PayPalRepository(),
+        ),
+        RepositoryProvider<TransactionRepository>(
+          create: (context) => TransactionRepository(),
+        ),
+        RepositoryProvider<UserRepository>(
+          create: (context) => UserRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -55,6 +66,13 @@ class InquireNear extends StatelessWidget {
               authRepository: RepositoryProvider.of<AuthRepository>(context),
             ),
           ),
+          BlocProvider<TransactionBloc>(
+              create: (context) => TransactionBloc(
+                    transactionRepository:
+                        RepositoryProvider.of<TransactionRepository>(context),
+                    userRepository:
+                        RepositoryProvider.of<UserRepository>(context),
+                  )),
           BlocProvider<InquiryBloc>(
             create: (context) => InquiryBloc(
               inquiryRepository:
@@ -75,6 +93,9 @@ class InquireNear extends StatelessWidget {
           ),
           BlocProvider<ClientBloc>(
             create: (context) => ClientBloc(),
+          ),
+          BlocProvider<InquirerBloc>(
+            create: (context) => InquirerBloc(),
           ),
           BlocProvider<PaymentBloc>(
               create: (context) => PaymentBloc(

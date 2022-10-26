@@ -46,7 +46,12 @@ class _ReportScreenState extends State<ReportScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const PageTitle(title: "What seems to be the problem?"),
+                PageTitle(
+                  title: "What seems to be the problem?",
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
                 SizedBox(height: screenHeight * 0.025),
                 if (widget.reportByClient)
                   ChooseReportType(

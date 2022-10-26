@@ -94,16 +94,18 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                     children: [
                       Column(
                         children: [
-                          EditInquiryTitleBar(
+                          InquiryTitleBar(
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
+                            label: "Edit Inquiry",
+                            buttonLabel: "Edit Inquiry",
                             onTap: () {
                               setState(() {
                                 inquiry = Inquiry(
                                     inquiryListID:
                                         BlocProvider.of<InquiryBloc>(context)
                                             .inquiryList
-                                            .uid!,
+                                            .id!,
                                     question: inquiryController.text,
                                     requireProof: requireProof,
                                     image: image);
