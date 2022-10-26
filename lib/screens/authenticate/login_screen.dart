@@ -75,9 +75,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Sign in to your account",
-                        style: theme.title3,
+                      Row(
+                        children: const [
+                          BackButton(),
+                          Text(
+                            "Sign in to your account",
+                            style: theme.title3,
+                          ),
+                        ],
                       ),
                       SizedBox(height: screenHeight * 0.05),
                       const Center(
@@ -99,8 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Form(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -128,8 +131,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               icon: Icons.lock,
                               isPassword: true,
                               validator: (value) {
-                                if (inputValidator.isEmpty(value)) {
-                                  return 'Please enter your password';
+                                if (!inputValidator.isEmpty(value)) {
+                                  if (!inputValidator.isValidPassword(value)) {
+                                    return 'Password should have at least 6 characters';
+                                  }
+                                } else {
+                                  return 'Password is a required field';
                                 }
 
                                 return null;

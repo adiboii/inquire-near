@@ -63,9 +63,8 @@ class InquireNear extends StatelessWidget {
         providers: [
           BlocProvider<AuthBloc>(
             create: (context) => AuthBloc(
-              authRepository: RepositoryProvider.of<AuthRepository>(context),
-              userRepository: RepositoryProvider.of<UserRepository>(context)
-            ),
+                authRepository: RepositoryProvider.of<AuthRepository>(context),
+                userRepository: RepositoryProvider.of<UserRepository>(context)),
           ),
           BlocProvider<TransactionBloc>(
               create: (context) => TransactionBloc(

@@ -32,6 +32,8 @@ class InputField extends StatefulWidget {
 class _InputFieldState extends State<InputField> {
   // Properties
   bool? isObscured;
+  FocusNode focusInput = FocusNode();
+  final inputKey = GlobalKey<FormFieldState>();
   // Methods
   @override
   void initState() {
@@ -54,6 +56,9 @@ class _InputFieldState extends State<InputField> {
           height: screenHeight * 0.01,
         ),
         TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: inputKey,
+          focusNode: focusInput,
           onChanged: (value) {
             setState(() {});
           },

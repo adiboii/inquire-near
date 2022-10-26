@@ -177,6 +177,9 @@ class AuthRepository {
 
   Future<void> signOut() async {
     try {
+      if (await GoogleSignIn().isSignedIn()) {
+        GoogleSignIn().signOut();
+      }
       await _firebaseAuth.signOut();
     } catch (e) {
       throw Exception(e);
