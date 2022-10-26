@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/screens/client/client_dashboard/client_dashboard_screen.dart';
-import 'package:inquire_near/screens/common/landing_screen.dart';
+import 'package:inquire_near/screens/common/onboarding_screen.dart';
 import 'package:inquire_near/screens/common/splash_screen.dart';
 
 class Wrapper extends StatefulWidget {
@@ -18,7 +18,7 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     // This is for initial app open
     if (FirebaseAuth.instance.currentUser == null) {
-      return const SplashScreen();
+      return const OnboardingScreen();
     }
 
     return BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
