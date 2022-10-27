@@ -114,8 +114,9 @@ class _OnboardingState extends State<OnboardingScreen> {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     prefs.setBool("showOnboarding", false);
-                    // ignore: use_build_context_synchronously
-                    Navigator.pushReplacementNamed(context, '/landing');
+                    if (mounted) {
+                      Navigator.pushReplacementNamed(context, '/landing');
+                    }
                   } else {
                     controller.nextPage(
                         duration: const Duration(milliseconds: 500),
