@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/store_container.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/constants.dart' as constants;
+import 'package:inquire_near/utils.dart' as utils;
 
 class CategoryScreen extends StatelessWidget {
   CategoryScreen({
@@ -24,9 +27,14 @@ class CategoryScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              category!,
-              style: theme.title2,
+            Row(
+              children: [
+                const BackButton(),
+                Text(
+                  category!,
+                  style: theme.title2,
+                ),
+              ],
             ),
             SizedBox(
               height: screenHeight * 0.02,
@@ -42,13 +50,15 @@ class CategoryScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
+                          BlocProvider.of<TransactionBloc>(context).add(
+                              ClickStore(store: filteredStores[index].name));
                           Navigator.pushNamed(context, '/inquiry_list');
                         },
                         child: Row(
                           children: [
                             StoreContainer(
-                              imageFilePath:
-                                  filteredStores[index].imageFileLocation,
+                              imageFilePath: utils
+                                  .getStoreNamePath(filteredStores[index].name),
                             ),
                             SizedBox(
                               width: screenWidth * 0.04,

@@ -19,85 +19,87 @@ const String userNotFound = 'user-not-found';
 const String wrongPassword = 'wrong-password';
 const String emailAlreadyInUse = 'email-already-in-use';
 
+const logoPath = "assets/images/logos";
+
 final stores = [
   // Dining
   StoreData(
-      name: 'Casa Verde',
-      category: 'Dining',
-      imageFileLocation: 'assets/images/logos/casa_verde.jpeg'),
+    name: 'Casa Verde',
+    category: 'Dining',
+  ),
   StoreData(
-      name: 'Seafood Island',
-      category: 'Dining',
-      imageFileLocation: 'assets/images/logos/seafood_island.png'),
+    name: 'Seafood Island',
+    category: 'Dining',
+  ),
   StoreData(
-      name: 'Bigby\'s',
-      category: 'Dining',
-      imageFileLocation: 'assets/images/logos/bigbys.jpeg'),
+    name: 'Bigby\'s',
+    category: 'Dining',
+  ),
   // Entertainment
   StoreData(
-      name: 'SM Bowling Center',
-      category: 'Entertainment',
-      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+    name: 'SM Bowling Center',
+    category: 'Entertainment',
+  ),
   StoreData(
-      name: 'Ice Skating Rink',
-      category: 'Entertainment',
-      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+    name: 'Ice Skating Rink',
+    category: 'Entertainment',
+  ),
   StoreData(
-      name: 'Color Museum',
-      category: 'Entertainment',
-      imageFileLocation: 'assets/images/logos/color_museum.jpeg'),
+    name: 'Color Museum',
+    category: 'Entertainment',
+  ),
   // Cinema
   StoreData(
-      name: 'Center Stage',
-      category: 'Cinema',
-      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+    name: 'Center Stage',
+    category: 'Cinema',
+  ),
   StoreData(
-      name: 'Director\'s Club',
-      category: 'Cinema',
-      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+    name: 'Director\'s Club',
+    category: 'Cinema',
+  ),
   StoreData(
-      name: 'SM Cinema',
-      category: 'Cinema',
-      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+    name: 'SM Cinema',
+    category: 'Cinema',
+  ),
   // Gadgets
   StoreData(
-      name: 'DataBlitz',
-      category: 'Gadgets',
-      imageFileLocation: 'assets/images/logos/datablitz.jpeg'),
+    name: 'DataBlitz',
+    category: 'Gadgets',
+  ),
   StoreData(
-      name: 'Octagon',
-      category: 'Gadgets',
-      imageFileLocation: 'assets/images/logos/octagon.png'),
+    name: 'Octagon',
+    category: 'Gadgets',
+  ),
   StoreData(
-      name: 'iStore',
-      category: 'Gadgets',
-      imageFileLocation: 'assets/images/logos/apple_logo.png'),
+    name: 'iStore',
+    category: 'Gadgets',
+  ),
   // Services
   StoreData(
-      name: 'BDO',
-      category: 'Services',
-      imageFileLocation: 'assets/images/logos/bdo.png'),
+    name: 'BDO',
+    category: 'Services',
+  ),
   StoreData(
-      name: 'Bruno\'s Barbers',
-      category: 'Services',
-      imageFileLocation: 'assets/images/logos/bruno_barbers.png'),
+    name: 'Bruno\'s Barbers',
+    category: 'Servies',
+  ),
   StoreData(
-      name: 'PLDT',
-      category: 'Services',
-      imageFileLocation: 'assets/images/logos/pldt.png'),
+    name: 'PLDT',
+    category: 'Services',
+  ),
   // Shopping
   StoreData(
-      name: 'SM Appliance Center',
-      category: 'Shopping',
-      imageFileLocation: 'assets/images/logos/sm_seaside.png'),
+    name: 'SM Appliance Center',
+    category: 'Shopping',
+  ),
   StoreData(
-      name: 'Watsons',
-      category: 'Shopping',
-      imageFileLocation: 'assets/images/logos/watsons.png'),
+    name: 'Watsons',
+    category: 'Shopping',
+  ),
   StoreData(
-      name: 'H&M',
-      category: 'Shopping',
-      imageFileLocation: 'assets/images/logos/hm.png'),
+    name: 'H&M',
+    category: 'Shopping',
+  ),
 ];
 
 final categories = [

@@ -34,6 +34,8 @@ import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_view_selec
 import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
 import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
+import 'package:inquire_near/screens/inquirer/waiting_for_client_to_pay.dart';
+import 'package:inquire_near/wrapper.dart';
 
 //TODO: implement
 //Map Router
@@ -45,6 +47,8 @@ class AppRouter {
     switch (settings.name) {
 
       // Common Screens
+      case '/wrapper':
+        return MaterialPageRoute(builder: (_) => const Wrapper());
       case splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
@@ -156,6 +160,9 @@ class AppRouter {
 
       case '/review_client':
         return MaterialPageRoute(builder: (_) => const ClientFeedbackScreen());
+
+      case '/waiting_for_client_to_pay':
+        return MaterialPageRoute(builder: (_) => const WaitingForClientToPay());
     }
 
     return MaterialPageRoute(builder: (_) => const ErrorScreen());

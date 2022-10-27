@@ -11,6 +11,8 @@ class Retrieving extends TransactionState {}
 
 class RetreievedHiringRequestDetails extends TransactionState {}
 
+class StoreClicked extends TransactionState {}
+
 class RetrievedTransactionDetails extends TransactionState {
   // This data is composed of transaction details as well as the `user`
   final INTransaction transaction;
@@ -21,3 +23,11 @@ class RetrievedTransactionDetails extends TransactionState {
       required this.userData,
       required this.inquiryList});
 }
+
+class RetrievedTransactionStatus extends TransactionState {
+  final String payPalID;
+
+  RetrievedTransactionStatus(this.payPalID);
+}
+
+class FailedTransactionStatus extends TransactionState {}

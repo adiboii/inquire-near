@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/cards.dart';
 import 'package:inquire_near/components/inqury_list_widget.dart';
@@ -59,7 +60,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PageTitle(
-                      title: "Store Name",
+                      title: BlocProvider.of<TransactionBloc>(context).store!,
                       onTap: () {
                         Navigator.pop(context);
                       },

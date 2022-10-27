@@ -45,7 +45,7 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
           child: BlocListener<InquirerBloc, InquirerState>(
             listener: (context, state) {
               if (state is AcceptedRequest) {
-                //TODO: pushnamed here
+                Navigator.of(context).pushNamed('/waiting_for_client_to_pay');
               }
             },
             child: BlocBuilder<TransactionBloc, TransactionState>(

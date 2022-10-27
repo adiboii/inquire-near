@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/data/models/store_data.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/store_container.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/constants.dart' as constants;
+import 'package:inquire_near/utils.dart' as utils;
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -38,10 +41,17 @@ class _SearchScreenState extends State<SearchScreen> {
           padding: theme.kScreenPadding,
           child: Column(
             children: [
-              SearchBar(
-                controller: searchTextController,
-                onTap: () {},
-                onChanged: searchStore,
+              Row(
+                children: [
+                  const BackButton(),
+                  Expanded(
+                    child: SearchBar(
+                      controller: searchTextController,
+                      onTap: () {},
+                      onChanged: searchStore,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: screenHeight * 0.02,
@@ -57,12 +67,15 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
+                            BlocProvider.of<TransactionBloc>(context)
+                                .add(ClickStore(store: stores[index].name));
                             Navigator.pushNamed(context, '/inquiry_list');
                           },
                           child: Row(
                             children: [
                               StoreContainer(
-                                imageFilePath: stores[index].imageFileLocation,
+                                imageFilePath:
+                                    utils.getStoreNamePath(stores[index].name),
                               ),
                               SizedBox(
                                 width: screenWidth * 0.04,

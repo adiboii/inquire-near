@@ -128,7 +128,6 @@ class SignUpScreen extends StatelessWidget {
                         height: screenHeight * 0.02,
                       ),
                       Form(
-                        autovalidateMode: AutovalidateMode.always,
                         key: formKey,
                         child: Column(
                           children: [
