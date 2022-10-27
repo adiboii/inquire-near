@@ -23,10 +23,14 @@ import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/data/repositories/paypal_repository.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+bool? showOnboarding = true;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  showOnboarding = preferences.getBool('showOnboarding');
   runApp(InquireNear(appRouter: AppRouter()));
 }
 
@@ -105,7 +109,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: '/onboarding',
+          initialRoute: showOnboarding == true ? '/onboarding' : '/landing',
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
