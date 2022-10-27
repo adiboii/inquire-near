@@ -105,7 +105,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: '/wrapper',
+          initialRoute: '/onboarding',
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),

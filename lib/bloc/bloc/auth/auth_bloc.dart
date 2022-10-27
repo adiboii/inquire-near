@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'dart:async';
+import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,11 +9,13 @@ import 'package:flutter/cupertino.dart';
 // Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 
 // Project imports:
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
+import 'package:inquire_near/enums/role.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -27,6 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       User? u = FirebaseAuth.instance.currentUser;
 
       if (u == null) {
+        log("User is null");
         user = null;
         add(EmitUnauthenticated());
       } else {
@@ -38,6 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<GoogleSignInRequested>(_onGoogleSignInRequested);
     on<SignOutRequested>(_onSignOutRequested);
     on<EmitUnauthenticated>(_onEmitUnauthenticated);
+    on<SwitchRole>(_onSwitchRole);
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
@@ -92,5 +98,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   _onEmitUnauthenticated(event, emit) {
     emit(Unauthenticated());
+  }
+
+  void _onSwitchRole(event, emit) async {
+    Role currentRole = user!.role;
+    Role roleToSwitch;
+
+    if (currentRole == Role.Client) {
+      roleToSwitch = Role.Inquirer;
+      user!.role = Role.Inquirer;
+    } else {
+      roleToSwitch = Role.Client;
+      user!.role = Role.Client;
+    }
+
+    //There is a bug where switching status changes the current role to client
+    //TODO: fix bug
+    userRepository.switchRole(id: user!.uid!, roleToSwitch: roleToSwitch);
   }
 }
