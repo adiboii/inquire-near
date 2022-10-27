@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/components/greeting.dart';
 import 'package:inquire_near/components/status_switch.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
-import 'package:inquire_near/components/wallet.dart';
-import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquirerDashboardScreen extends StatefulWidget {
@@ -74,30 +74,21 @@ class _InquirerDashboardScreenState extends State<InquirerDashboardScreen> {
                             ),
                           ),
                           SizedBox(width: screenWidth * 0.03),
-                          const Greeting(name: "Cymmer"),
+                          Greeting(
+                              name: BlocProvider.of<AuthBloc>(context)
+                                  .user!
+                                  .firstName!),
                         ],
                       ),
                       SwitchUserType(
-                          screenHeight: screenHeight, currentRole: Role.client),
+                          screenHeight: screenHeight,
+                          currentRole: Role.Inquirer),
                     ],
                   ),
                   StatusSwitch(
                     currentStatus: state.isOnline ?? false,
                   ),
                   SizedBox(height: screenHeight * 0.01),
-                  const Text(
-                    "Your Card",
-                    style: theme.title3,
-                  ),
-                  SizedBox(height: screenHeight * 0.01),
-                  Center(
-                    child: Wallet(
-                      screenHeight: screenHeight,
-                      screenWidth: screenWidth,
-                      name: "Cymmer Maranga",
-                      balance: 445.20,
-                    ),
-                  ),
                 ],
               ),
             );

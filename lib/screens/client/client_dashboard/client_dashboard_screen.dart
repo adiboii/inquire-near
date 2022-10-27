@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // Project imports:
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/components/textfield.dart';
-import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/screens/client/client_dashboard/category_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/recent_place.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.dart';
@@ -68,7 +68,7 @@ class ClientDashboardScreen extends StatelessWidget {
                     ],
                   ),
                   SwitchUserType(
-                      screenHeight: screenHeight, currentRole: Role.inquirer),
+                      screenHeight: screenHeight, currentRole: Role.Client),
                 ],
               ),
               SizedBox(height: screenHeight * 0.02),

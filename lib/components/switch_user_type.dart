@@ -1,11 +1,15 @@
 // Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 
 // Project imports:
-import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class SwitchUserType extends StatelessWidget {
@@ -20,14 +24,17 @@ class SwitchUserType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String route = '/client_dashboard';
+    String route;
 
-    if (currentRole == Role.inquirer) {
+    if (currentRole == Role.Client) {
       route = '/inquirer_dashboard';
+    } else {
+      route = '/client_dashboard';
     }
 
     return GestureDetector(
       onTap: () {
+        BlocProvider.of<AuthBloc>(context).add(SwitchRole());
         Navigator.pushReplacementNamed(context, route);
       },
       child: SizedBox(

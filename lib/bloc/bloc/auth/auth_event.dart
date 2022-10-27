@@ -35,3 +35,5 @@ class SignOutRequested extends AuthEvent {}
 
 // Event to be called in Timer/polling
 class EmitUnauthenticated extends AuthEvent {}
+
+class SwitchRole extends AuthEvent {}
