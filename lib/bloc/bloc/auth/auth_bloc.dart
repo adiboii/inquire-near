@@ -23,7 +23,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
   final UserRepository userRepository;
-  late INUser? user;
+  INUser? user;
 
   AuthBloc({required this.authRepository, required this.userRepository})
       : super(Unauthenticated()) {

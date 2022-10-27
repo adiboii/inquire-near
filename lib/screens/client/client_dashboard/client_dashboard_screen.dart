@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
+import 'package:inquire_near/components/recent_transactions.dart';
 
 // Project imports:
 import 'package:inquire_near/components/switch_user_type.dart';
-import 'package:inquire_near/components/textfield.dart';
 import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/screens/client/client_dashboard/category_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/recent_place.dart';
@@ -20,10 +21,8 @@ class ClientDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = constants.categories;
-    final user = FirebaseAuth.instance.currentUser!;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    final TextEditingController search = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -60,7 +59,7 @@ class ClientDashboardScreen extends StatelessWidget {
                             style: theme.subhead,
                           ),
                           Text(
-                            "${user.email}",
+                            BlocProvider.of<AuthBloc>(context).user!.firstName!,
                             style: theme.title3,
                           )
                         ],
@@ -80,7 +79,7 @@ class ClientDashboardScreen extends StatelessWidget {
               SizedBox(height: screenHeight * 0.02),
               const Text(
                 "Categories",
-                style: theme.title3,
+                style: theme.headline,
               ),
               SizedBox(height: screenHeight * 0.02),
               //TODO: convert to widget
@@ -122,15 +121,15 @@ class ClientDashboardScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: screenHeight * 0.025),
                   const Text(
-                    "Recent Places",
-                    style: theme.title3,
+                    "Featured Places",
+                    style: theme.headline,
                   ),
                   SizedBox(height: screenHeight * 0.025),
                   //TODO: convert to widget
                   Row(
                     children: [
                       const Expanded(
-                        child: RecentPlace(
+                        child: FeaturedPlace(
                           storeName: 'BDO',
                           imageFilePath: 'assets/images/logos/bdo.png',
                         ),
@@ -139,15 +138,19 @@ class ClientDashboardScreen extends StatelessWidget {
                         width: screenWidth * 0.05,
                       ),
                       const Expanded(
-                        child: RecentPlace(
+                        child: FeaturedPlace(
                           storeName: 'H&M',
-                          imageFilePath: 'assets/images/logos/hm.png',
+                          imageFilePath: 'assets/images/logos/h&m.png',
                         ),
                       ),
                     ],
                   )
                 ],
               ),
+              SizedBox(
+                height: screenHeight * 0.02,
+              ),
+              const RecentTransactions(),
             ],
           ),
         ),

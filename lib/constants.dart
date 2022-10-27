@@ -81,7 +81,7 @@ final stores = [
   ),
   StoreData(
     name: 'Bruno\'s Barbers',
-    category: 'Services',
+    category: 'Servies',
   ),
   StoreData(
     name: 'PLDT',

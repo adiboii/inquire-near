@@ -39,7 +39,7 @@ class _InquirerDashboardScreenState extends State<InquirerDashboardScreen> {
             }
 
             if (state is AcceptedRequest) {
-              Navigator.of(context).pushNamed('/reminders');
+              Navigator.of(context).pushNamed('/waiting_for_client_to_pay');
             }
           },
           buildWhen: (previous, current) {
