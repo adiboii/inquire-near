@@ -14,6 +14,16 @@ class GetHiringRequestDetails extends TransactionEvent {
   GetHiringRequestDetails({required this.hiringRequest});
 }
 
+class GetTransactionStatus extends TransactionEvent {}
+
+class EmitSuccessfulTransactionStatus extends TransactionEvent {
+  final String payPalID;
+
+  EmitSuccessfulTransactionStatus(this.payPalID);
+}
+
+class EmitFailedTransactionStatus extends TransactionEvent {}
+
 class ClickStore extends TransactionEvent {
   final String store;
   ClickStore({required this.store});

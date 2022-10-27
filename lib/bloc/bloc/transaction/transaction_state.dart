@@ -23,3 +23,11 @@ class RetrievedTransactionDetails extends TransactionState {
       required this.userData,
       required this.inquiryList});
 }
+
+class RetrievedTransactionStatus extends TransactionState {
+  final String payPalID;
+
+  RetrievedTransactionStatus(this.payPalID);
+}
+
+class FailedTransactionStatus extends TransactionState {}
