@@ -2,14 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/recent_transactions.dart';
 
 // Project imports:
 import 'package:inquire_near/components/switch_user_type.dart';
-import 'package:inquire_near/data/models/enums.dart';
+import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/screens/client/client_dashboard/category_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/recent_place.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.dart';
@@ -22,7 +21,6 @@ class ClientDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = constants.categories;
-    final user = FirebaseAuth.instance.currentUser!;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -69,7 +67,7 @@ class ClientDashboardScreen extends StatelessWidget {
                     ],
                   ),
                   SwitchUserType(
-                      screenHeight: screenHeight, currentRole: Role.inquirer),
+                      screenHeight: screenHeight, currentRole: Role.Client),
                 ],
               ),
               SizedBox(height: screenHeight * 0.02),

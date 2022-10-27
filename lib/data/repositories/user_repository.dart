@@ -1,9 +1,12 @@
 // Package imports:
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/feedback.dart';
 import 'package:inquire_near/data/models/in_user.dart';
+import 'package:inquire_near/enums/role.dart';
 
 class UserRepository {
   Future<INUser> getUser(String userId) async {
@@ -55,5 +58,17 @@ class UserRepository {
     };
 
     return computedFeedbackMap;
+  }
+
+  Future<void> switchRole(
+      {required String id, required Role roleToSwitch}) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(id)
+          .update({"role": roleToSwitch.toValue()});
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }
