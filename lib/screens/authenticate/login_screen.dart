@@ -47,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -76,9 +75,33 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Sign in to your account",
-                        style: theme.title3,
+                      Row(
+                        children: const [
+                          BackButton(),
+                          Text(
+                            "Sign in to your account",
+                            style: theme.title3,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.05),
+                      const Center(
+                        child: Text(
+                          "Sign In With",
+                          style: theme.caption1,
+                        ),
+                      ),
+                      SizedBox(height: screenHeight * 0.05),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            _authenticateWithGoogle(context);
+                          },
+                          child: const Image(
+                              width: 50,
+                              image:
+                                  AssetImage("assets/images/logos/Google.png")),
+                        ),
                       ),
                       Form(
                         key: _formKey,
@@ -109,8 +132,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               icon: Icons.lock,
                               isPassword: true,
                               validator: (value) {
-                                if (inputValidator.isEmpty(value)) {
-                                  return 'Please enter your password';
+                                if (!inputValidator.isEmpty(value)) {
+                                  if (!inputValidator.isValidPassword(value)) {
+                                    return 'Password should have at least 6 characters';
+                                  }
+                                } else {
+                                  return 'Password is a required field';
                                 }
 
                                 return null;
@@ -119,6 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                       ),
+                      SizedBox(height: screenHeight * 0.05),
                       ButtonFill(
                         label: "Sign In",
                         onTap: () {
@@ -126,25 +154,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       SizedBox(height: screenHeight * 0.075),
-                      Center(
-                        child: Text(
-                          "Sign In With",
-                          style: theme.subhead
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(height: screenHeight * 0.05),
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            _authenticateWithGoogle(context);
-                          },
-                          child: const Image(
-                              width: 50,
-                              image:
-                                  AssetImage("assets/images/logos/Google.png")),
-                        ),
-                      ),
                     ],
                   ),
                 ),

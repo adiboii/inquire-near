@@ -16,33 +16,40 @@ class InListItem extends StatelessWidget {
       required this.amount});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-          color: theme.gray,
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Column(
+      children: [
+        SizedBox(
+          height: screenHeight * 0.015,
         ),
-        borderRadius: const BorderRadius.all(Radius.circular(15)),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
+        Container(
+          height: 60,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: theme.primaryGray,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
-                backgroundColor: color,
-                radius: 5,
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: color,
+                    radius: 5,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(type),
+                ],
               ),
-              const SizedBox(width: 10),
-              Text(type),
+              Text(amount),
             ],
           ),
-          Text(amount),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
-

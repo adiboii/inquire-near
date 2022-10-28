@@ -130,7 +130,7 @@ class LogInWithGoogleFailure implements Exception {
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> signUp(
+  Future<INUser> signUp(
       {required String firstName,
       required String lastName,
       required String email,
@@ -147,6 +147,16 @@ class AuthRepository {
         lastName: lastName,
       );
       await userDocument.set(user.toJSON());
+
+      DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
+          .instance
+          .collection("users")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .get();
+      INUser userData = INUser.fromJson(userDoc.data()!);
+      userData.setUID(userDoc.id);
+
+      return userData;
     } on FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -154,10 +164,21 @@ class AuthRepository {
     }
   }
 
-  Future<void> signIn({required String email, required String password}) async {
+  Future<INUser> signIn(
+      {required String email, required String password}) async {
     try {
-      await FirebaseAuth.instance
+      final UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+
+      DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
+          .instance
+          .collection("users")
+          .doc(userCredential.user!.uid)
+          .get();
+      INUser userData = INUser.fromJson(user.data()!);
+      userData.setUID(user.id);
+
+      return userData;
     } on FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -167,13 +188,16 @@ class AuthRepository {
 
   Future<void> signOut() async {
     try {
+      if (await GoogleSignIn().isSignedIn()) {
+        GoogleSignIn().signOut();
+      }
       await _firebaseAuth.signOut();
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<INUser> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -186,17 +210,16 @@ class AuthRepository {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-      Map<String, dynamic> idMap = parseJwt(googleAuth?.idToken);
-      final userDocument = FirebaseFirestore.instance
-          .collection('users')
-          .doc(_firebaseAuth.currentUser!.uid);
-      final user = INUser(
-        uid: _firebaseAuth.currentUser!.uid,
-        firstName: idMap['given_name'],
-        lastName: idMap['family_name'],
-        isActive: null,
-      );
-      await userDocument.set(user.toJSON());
+
+      DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
+          .instance
+          .collection("users")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .get();
+      INUser userData = INUser.fromJson(user.data()!);
+      userData.setUID(user.id);
+
+      return userData;
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure(e.code);
     } catch (_) {

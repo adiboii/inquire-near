@@ -6,12 +6,12 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InputReport extends StatefulWidget {
   final double screenHeight;
+  final TextEditingController title;
   final TextEditingController description;
-  final TextEditingController issue;
   final bool reportByClient;
   const InputReport({
+    required this.title,
     required this.description,
-    required this.issue,
     required this.screenHeight,
     required this.reportByClient,
     Key? key,
@@ -33,7 +33,7 @@ class _InputReportState extends State<InputReport> {
         ),
         SizedBox(height: widget.screenHeight * 0.02),
         TextField(
-          controller: widget.description,
+          controller: widget.title,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             isDense: true,
@@ -56,7 +56,7 @@ class _InputReportState extends State<InputReport> {
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
             child: TextField(
-              controller: widget.issue,
+              controller: widget.description,
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 isDense: true,

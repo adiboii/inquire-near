@@ -1,31 +1,57 @@
 // Flutter imports:
+import 'dart:async';
+import 'dart:developer';
+import 'dart:ffi';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:inquire_near/data/models/in_user.dart';
 
 // Project imports:
 import 'package:inquire_near/data/repositories/auth_repository.dart';
+import 'package:inquire_near/data/repositories/user_repository.dart';
+import 'package:inquire_near/enums/role.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
+  final UserRepository userRepository;
+  INUser? user;
 
-  AuthBloc({required this.authRepository}) : super(Unauthenticated()) {
+  AuthBloc({required this.authRepository, required this.userRepository})
+      : super(Unauthenticated()) {
+    Timer.periodic(const Duration(seconds: 5), (_) async {
+      User? u = FirebaseAuth.instance.currentUser;
+
+      if (u == null) {
+        log("User is null");
+        user = null;
+        add(EmitUnauthenticated());
+      } else {
+        user = await userRepository.getUser(u.uid);
+      }
+    });
     on<SignInRequested>(_onSignInRequested);
     on<SignUpRequested>(_onSignUpRequested);
     on<GoogleSignInRequested>(_onGoogleSignInRequested);
     on<SignOutRequested>(_onSignOutRequested);
+    on<EmitUnauthenticated>(_onEmitUnauthenticated);
+    on<SwitchRole>(_onSwitchRole);
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
     emit(Loading());
     try {
-      await authRepository.signIn(email: event.email, password: event.password);
-
+      INUser u = await authRepository.signIn(
+          email: event.email, password: event.password);
+      user = u;
       emit(Authenticated());
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(AuthError(e.message));
@@ -36,11 +62,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onSignUpRequested(SignUpRequested event, Emitter<AuthState> emit) async {
     emit(Loading());
     try {
-      await authRepository.signUp(
+      INUser u = await authRepository.signUp(
           firstName: event.firstName,
           lastName: event.lastName,
           email: event.email,
           password: event.password);
+
+      user = u;
       emit(Authenticated());
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(AuthError(e.message));
@@ -52,7 +80,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       GoogleSignInRequested event, Emitter<AuthState> emit) async {
     emit(Loading());
     try {
-      await authRepository.signInWithGoogle();
+      INUser u = await authRepository.signInWithGoogle();
+      user = u;
       emit(Authenticated());
     } on LogInWithGoogleFailure catch (e) {
       emit(AuthError(e.message));
@@ -62,7 +91,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   _onSignOutRequested(SignOutRequested event, Emitter<AuthState> emit) async {
     emit(Loading());
+    user = null;
     await authRepository.signOut();
     emit(Unauthenticated());
+  }
+
+  _onEmitUnauthenticated(event, emit) {
+    emit(Unauthenticated());
+  }
+
+  void _onSwitchRole(event, emit) async {
+    Role currentRole = user!.role;
+    Role roleToSwitch;
+
+    if (currentRole == Role.Client) {
+      roleToSwitch = Role.Inquirer;
+      user!.role = Role.Inquirer;
+    } else {
+      roleToSwitch = Role.Client;
+      user!.role = Role.Client;
+    }
+
+    //There is a bug where switching status changes the current role to client
+    //TODO: fix bug
+    userRepository.switchRole(id: user!.uid!, roleToSwitch: roleToSwitch);
   }
 }

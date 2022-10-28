@@ -86,9 +86,14 @@ class SignUpScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AutoSizeText(
-                        "Create a new account",
-                        style: theme.title3,
+                      Row(
+                        children: const [
+                          BackButton(),
+                          AutoSizeText(
+                            "Create a new account",
+                            style: theme.title3,
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: screenHeight * 0.03,
@@ -123,7 +128,6 @@ class SignUpScreen extends StatelessWidget {
                         height: screenHeight * 0.02,
                       ),
                       Form(
-                        autovalidateMode: AutovalidateMode.always,
                         key: formKey,
                         child: Column(
                           children: [
@@ -139,7 +143,6 @@ class SignUpScreen extends StatelessWidget {
                                 } else {
                                   return 'First Name is a required field';
                                 }
-
                                 return null;
                               },
                             ),

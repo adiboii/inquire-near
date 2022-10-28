@@ -1,6 +1,3 @@
-// Dart imports:
-
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -8,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/cards.dart';
 import 'package:inquire_near/components/inqury_list_widget.dart';
@@ -26,6 +24,12 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
   List<Inquiry> inquiryList = [];
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<InquiryBloc>(context).add(CreateInquiryList());
+  }
+
+  @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -41,7 +45,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
           child: BlocConsumer<InquiryBloc, InquiryState>(
             listener: (context, state) {
               if (state is InquiryFinished) {
-                Navigator.pushNamed(context, '/finding_inquirer');
+                Navigator.pushNamed(context, '/available_inquirers');
               }
             },
             builder: (context, state) {
@@ -56,7 +60,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PageTitle(
-                      title: "Store Name",
+                      title: BlocProvider.of<TransactionBloc>(context).store!,
                       onTap: () {
                         Navigator.pop(context);
                       },

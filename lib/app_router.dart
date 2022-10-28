@@ -7,7 +7,9 @@ import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/Add_Inquiry_Screen/add_inquiry_screen.dart';
 import 'package:inquire_near/screens/client/Inquiry_List_Screen/inquiry_list_screen.dart';
-import 'package:inquire_near/screens/client/client_dashboard_screen.dart';
+import 'package:inquire_near/screens/client/available_inquirers/available_inquirers_screen.dart';
+import 'package:inquire_near/screens/client/client_dashboard/client_dashboard_screen.dart';
+import 'package:inquire_near/screens/client/client_dashboard/search_screen.dart';
 import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
 import 'package:inquire_near/screens/client/payment_success_screen.dart';
@@ -27,12 +29,13 @@ import 'package:inquire_near/screens/common/user_wallet.dart';
 import 'package:inquire_near/screens/inquirer/client_found/client_found_screen.dart';
 import 'package:inquire_near/screens/inquirer/client_inquiry_list/client_inquiry_list.dart';
 import 'package:inquire_near/screens/inquirer/inquirer_dashboard_screen.dart';
-import 'package:inquire_near/screens/inquirer/inquirer_inquiry_list_screen.dart';
-import 'package:inquire_near/screens/inquirer/inquirer_view_selected_inquiry_screen.dart';
+import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_inquiry_list_screen.dart';
+import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
 import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
-import 'screens/client/available_inquirers/available_inquirers_screen.dart';
+import 'package:inquire_near/screens/inquirer/waiting_for_client_to_pay.dart';
+import 'package:inquire_near/wrapper.dart';
 
 //TODO: implement
 //Map Router
@@ -44,6 +47,8 @@ class AppRouter {
     switch (settings.name) {
 
       // Common Screens
+      case '/wrapper':
+        return MaterialPageRoute(builder: (_) => const Wrapper());
       case splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
@@ -124,6 +129,9 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => const ReportScreen(reportByClient: true));
 
+      case '/search':
+        return MaterialPageRoute(builder: (_) => const SearchScreen());
+
       // Inquirer Screens
       case '/inquirer_dashboard':
         return MaterialPageRoute(
@@ -145,13 +153,16 @@ class AppRouter {
 
       case '/inquirer_view_selected_inquiry':
         return MaterialPageRoute(
-            builder: (_) => const InquirerViewSelectedInquiryScreen());
+            builder: (_) => InquirerViewSelectedInquiryScreen());
 
       case '/payment_received':
         return MaterialPageRoute(builder: (_) => const PaymentReceivedScreen());
 
       case '/review_client':
         return MaterialPageRoute(builder: (_) => const ClientFeedbackScreen());
+
+      case '/waiting_for_client_to_pay':
+        return MaterialPageRoute(builder: (_) => const WaitingForClientToPay());
     }
 
     return MaterialPageRoute(builder: (_) => const ErrorScreen());
