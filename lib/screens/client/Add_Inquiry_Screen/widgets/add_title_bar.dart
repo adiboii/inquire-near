@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:inquire_near/components/back_button.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
@@ -13,11 +14,13 @@ class AddInquiryTitleBar extends StatelessWidget {
     Key? key,
     required this.screenWidth,
     required this.screenHeight,
+    required this.label,
     required this.onTap,
   }) : super(key: key);
 
   final double screenWidth;
   final double screenHeight;
+  final String label;
   final void Function() onTap;
 
   @override
@@ -27,23 +30,21 @@ class AddInquiryTitleBar extends StatelessWidget {
       children: [
         Row(
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: SvgPicture.asset("assets/images/svgs/cancel.svg"),
-            ),
-            SizedBox(width: screenWidth * 0.04),
-            SvgPicture.asset("assets/images/svgs/add_inquiry.svg"),
-            SizedBox(width: screenWidth * 0.04),
-            const Text(
-              "Add an inquiry",
-              style: theme.headline,
+            const INBackButton(size: 24),
+            Row(
+              children: [
+                SvgPicture.asset("assets/images/svgs/add_inquiry.svg"),
+                SizedBox(width: screenWidth * 0.04),
+                const Text(
+                  "Add an inquiry",
+                  style: theme.headline,
+                ),
+              ],
             ),
           ],
         ),
         ButtonFill(
-          label: "Add inquiry",
+          label: label,
           width: screenWidth * 0.25,
           height: screenHeight * 0.05,
           style: theme.caption1Bold,
