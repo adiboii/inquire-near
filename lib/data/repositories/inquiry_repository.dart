@@ -27,6 +27,17 @@ class InquiryRepository {
     return null;
   }
 
+  Future<void> finalizeInquiryList({required InquiryList inquiryList}) async {
+    try {
+      await db.collection("inquiryList").doc(inquiryList.id).update({
+        'noOfInquiries': inquiryList.noOfInquiries,
+        'noOfRequireProof': inquiryList.noOfRequireProof,
+      });
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   Future<String?> createInquiry({required Inquiry inquiry}) async {
     String? id;
     try {

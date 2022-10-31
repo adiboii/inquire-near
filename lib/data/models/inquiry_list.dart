@@ -5,7 +5,7 @@ class InquiryList extends BaseModel {
   //TODO: add remaining properties to add inquiry module
   late String? id;
   int? noOfInquiries;
-  int? noOfRequireProof;
+  int noOfRequireProof = 0;
 
   InquiryList({this.id}) : super();
 

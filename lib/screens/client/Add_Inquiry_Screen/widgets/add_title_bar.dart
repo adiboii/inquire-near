@@ -14,13 +14,15 @@ class AddInquiryTitleBar extends StatelessWidget {
     Key? key,
     required this.screenWidth,
     required this.screenHeight,
-    required this.label,
+    required this.buttonLabel,
+    required this.pageLabel,
     required this.onTap,
   }) : super(key: key);
 
   final double screenWidth;
   final double screenHeight;
-  final String label;
+  final String buttonLabel;
+  final String pageLabel;
   final void Function() onTap;
 
   @override
@@ -35,8 +37,8 @@ class AddInquiryTitleBar extends StatelessWidget {
               children: [
                 SvgPicture.asset("assets/images/svgs/add_inquiry.svg"),
                 SizedBox(width: screenWidth * 0.04),
-                const Text(
-                  "Add an inquiry",
+                Text(
+                  pageLabel,
                   style: theme.headline,
                 ),
               ],
@@ -44,7 +46,7 @@ class AddInquiryTitleBar extends StatelessWidget {
           ],
         ),
         ButtonFill(
-          label: label,
+          label: buttonLabel,
           width: screenWidth * 0.25,
           height: screenHeight * 0.05,
           style: theme.caption1Bold,
