@@ -99,7 +99,13 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     String? inquiryID;
     String? imageUrl;
     try {
+      inquiryList.noOfInquiries = inquiries.length;
+
       for (Inquiry inquiry in inquiries) {
+        if (inquiry.requireProof == true) {
+          inquiryList.noOfRequireProof++;
+        }
+
         inquiryID = await inquiryRepository.createInquiry(inquiry: inquiry);
 
         if (inquiry.image != null) {
@@ -108,6 +114,9 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
               inquiryID: inquiryID, imageUrl: imageUrl!);
         }
       }
+
+      await inquiryRepository.finalizeInquiryList(inquiryList: inquiryList);
+
       emit(InquiryFinished());
     } catch (e) {
       //TODO: error handling

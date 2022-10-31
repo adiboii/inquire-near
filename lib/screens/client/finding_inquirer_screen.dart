@@ -62,12 +62,6 @@ class _FindingInquirerScreenState extends State<FindingInquirerScreen> {
                     color: theme.red,
                     textColor: theme.red,
                     onTap: () {
-                      //TODO: to integrate with transaction bloc
-                      //for testing purposes only
-                      //will refactor once integrated
-                      BlocProvider.of<InquiryBloc>(context)
-                          .add(FinalizeInquiry());
-
                       BlocProvider.of<InquiryBloc>(context)
                           .add(RevisitInquiry());
                       Navigator.pop(context);

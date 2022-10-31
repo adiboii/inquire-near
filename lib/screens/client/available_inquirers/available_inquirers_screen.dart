@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
@@ -121,6 +122,9 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                                 if (!mounted) return;
                                 BlocProvider.of<ClientBloc>(context)
                                     .add(HireInquirer(hiringRequest));
+
+                                BlocProvider.of<InquiryBloc>(context)
+                                    .add(FinalizeInquiry());
                               }
                             },
                             child: AvailableInquirer(

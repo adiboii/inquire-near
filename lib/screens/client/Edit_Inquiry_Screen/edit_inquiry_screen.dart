@@ -12,8 +12,8 @@ import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/bottom_bar.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
+import 'package:inquire_near/screens/client/Add_Inquiry_Screen/widgets/add_title_bar.dart';
 import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_inquiry_input.dart';
-import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_title_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class EditInquiryScreen extends StatefulWidget {
@@ -94,11 +94,11 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                     children: [
                       Column(
                         children: [
-                          InquiryTitleBar(
+                          AddInquiryTitleBar(
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
-                            label: "Edit Inquiry",
-                            buttonLabel: "Edit Inquiry",
+                            pageLabel: "Edit Inquiry",
+                            buttonLabel: "Edit",
                             onTap: () {
                               setState(() {
                                 inquiry = Inquiry(

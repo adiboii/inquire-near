@@ -77,7 +77,8 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                           AddInquiryTitleBar(
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
-                            label: "Add",
+                            pageLabel: "Add an Inquiry",
+                            buttonLabel: "Add",
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 setState(() {
