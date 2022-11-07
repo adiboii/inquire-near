@@ -35,7 +35,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         user = null;
         add(EmitUnauthenticated());
       } else {
-        user = await userRepository.getUser(u.uid);
+        try {
+          user = await userRepository.getUser(u.uid);
+        } catch (e) {
+          add(SignOutRequested());
+        }
       }
     });
     on<SignInRequested>(_onSignInRequested);
