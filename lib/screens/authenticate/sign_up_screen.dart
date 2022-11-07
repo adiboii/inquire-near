@@ -72,7 +72,7 @@ class SignUpScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          if (state is Loading) {
+          if (state is AuthLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );

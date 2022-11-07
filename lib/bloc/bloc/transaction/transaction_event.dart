@@ -5,6 +5,19 @@ abstract class TransactionEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class CreateTransaction extends TransactionEvent {
+  final String clientID;
+  final String inquiryListID;
+
+  final int noOfInquiries;
+  final int noOfRequireProof;
+  CreateTransaction(
+      {required this.clientID,
+      required this.inquiryListID,
+      required this.noOfInquiries,
+      required this.noOfRequireProof});
+}
+
 class GetTransactionDetails extends TransactionEvent {
   GetTransactionDetails();
 }

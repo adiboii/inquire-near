@@ -10,7 +10,7 @@ abstract class InquiryState extends Equatable {
 
 class CreatingInquiryList extends InquiryState {}
 
-class Loading extends InquiryState {}
+class InquiryLoading extends InquiryState {}
 
 class InquiryInProgress extends InquiryState {}
 

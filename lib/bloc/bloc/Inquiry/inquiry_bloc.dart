@@ -46,7 +46,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
 
   Future<void> _onAddInquiryRequested(
       AddInquiryRequested event, Emitter<InquiryState> emit) async {
-    emit(Loading());
+    emit(InquiryLoading());
     try {
       inquiries.add(event.inquiry);
       emit(InquiryInProgress());
@@ -59,7 +59,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
 
   Future<void> _onEditInquiryRequested(
       EditInquiryRequested event, Emitter<InquiryState> emit) async {
-    emit(Loading());
+    emit(InquiryLoading());
     try {
       inquiries[event.index] = event.editedInquiry;
       emit(InquiryInProgress());
@@ -72,7 +72,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
 
   Future<void> _onDeleteInquiryRequested(
       DeleteInquiryRequested event, Emitter<InquiryState> emit) async {
-    emit(Loading());
+    emit(InquiryLoading());
     try {
       inquiries.removeAt(event.index);
       emit(InquiryInProgress());
@@ -95,12 +95,11 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
 
   Future<void> _onFinalizeInquiry(
       FinalizeInquiry event, Emitter<InquiryState> emit) async {
-    emit(Loading());
+    emit(InquiryLoading());
     String? inquiryID;
     String? imageUrl;
     try {
       inquiryList.noOfInquiries = inquiries.length;
-
       for (Inquiry inquiry in inquiries) {
         if (inquiry.requireProof == true) {
           inquiryList.noOfRequireProof++;
@@ -114,7 +113,6 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
               inquiryID: inquiryID, imageUrl: imageUrl!);
         }
       }
-
       await inquiryRepository.finalizeInquiryList(inquiryList: inquiryList);
 
       emit(InquiryFinished());
@@ -126,7 +124,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
   }
 
   Future<void> _onGetClientInquiries(GetClientInquiries event, emit) async {
-    emit(Loading());
+    emit(InquiryLoading());
     try {
       inquiries = await inquiryRepository.getInquiries(event.inquiryListID);
       emit(ClientInquiriesRetrieved());
