@@ -36,7 +36,7 @@ class _ViewOnlyInquiryListState extends State<ViewOnlyInquiryList> {
   Widget build(BuildContext context) {
     return BlocBuilder<InquiryBloc, InquiryState>(
       builder: (context, state) {
-        if (state is Loading) {
+        if (state is InquiryLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );

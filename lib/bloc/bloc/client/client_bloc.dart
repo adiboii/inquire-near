@@ -95,7 +95,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
   }
 
   void _onGetInquirerDetails(event, emit) async {
-    emit(Loading());
+    emit(ClientLoading());
 
     Map<String, dynamic> data =
         await userRepository.getUserData(event.inquirerId);

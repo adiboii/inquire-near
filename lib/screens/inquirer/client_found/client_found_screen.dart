@@ -50,7 +50,7 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
             },
             child: BlocBuilder<TransactionBloc, TransactionState>(
               builder: (context, state) {
-                if (state is Retrieving) {
+                if (state is TransactionLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );

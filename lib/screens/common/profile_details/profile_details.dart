@@ -39,7 +39,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
       body: SafeArea(
         top: false,
         child: BlocBuilder<ClientBloc, ClientState>(builder: (context, state) {
-          if (state is Loading) {
+          if (state is ClientLoading) {
             return const Center(child: CircularProgressIndicator());
           }
 

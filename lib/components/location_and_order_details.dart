@@ -144,7 +144,7 @@ class LocationAndOrderDetails extends StatelessWidget {
                 style: theme.caption1,
               ),
               AutoSizeText(
-                'PHP ${transaction.amount.toStringAsFixed(2)}',
+                'PHP ${transaction.amount!.toStringAsFixed(2)}',
                 style: theme.headline,
               ),
             ],

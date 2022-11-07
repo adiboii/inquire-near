@@ -1,30 +1,28 @@
 // Package imports:
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:inquire_near/data/models/base_model.dart';
 import 'package:inquire_near/enums/paypal_status.dart';
 
-class INTransaction {
-  late String? id;
+class INTransaction extends BaseModel {
+  String? id;
   final String clientID;
-  final String inquirerID;
+  String? inquirerID;
   final String inquiryListID;
   final String store; //TODO: update to StoreData
   final bool isCompleted;
-  final double amount;
-  late String? payPalID;
-  final PayPalStatus? payPalStatus;
-  final Timestamp dateTimeStarted;
-  late Timestamp? dateTimeEnded;
+  double? amount;
+  String? payPalID;
+  PayPalStatus? payPalStatus;
+  Timestamp? dateTimeEnded;
 
-  INTransaction(this.payPalStatus,
-      {this.id,
-      required this.clientID,
-      required this.inquirerID,
-      required this.inquiryListID,
-      required this.store,
-      required this.isCompleted,
-      required this.amount,
-      required this.dateTimeStarted,
-      this.dateTimeEnded});
+  INTransaction({
+    required this.clientID,
+    required this.inquiryListID,
+    required this.store,
+    required this.isCompleted,
+  }) : super();
 
   INTransaction.fromJson(Map<String, dynamic> json)
       : clientID = json['clientID'],
@@ -34,10 +32,23 @@ class INTransaction {
         isCompleted = json['isCompleted'],
         amount = double.parse(json["amount"].toString()),
         payPalID = json['payPalID'],
-        payPalStatus = getPayPalStatusFromString(json["payPalStatus"]),
-        dateTimeStarted = json['dateTimeStarted'];
+        payPalStatus = getPayPalStatusFromString(json["payPalStatus"]);
 
   set uid(String id) {
     this.id = id;
   }
+
+  void setAmount(int noOfInquiries, int noOfRequireProof) {
+    amount = (noOfInquiries * 25) + (noOfRequireProof * 5);
+  }
+
+  Map<String, dynamic> toJSON() => {
+        'clientID': clientID,
+        'inquirerID': inquirerID,
+        'inquiryListID': inquiryListID,
+        'store': store,
+        'amount': amount,
+        'isCompleted': isCompleted,
+        'dateTimeCreated': super.dateTimeCreated,
+      };
 }
