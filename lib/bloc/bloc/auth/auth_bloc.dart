@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
@@ -31,7 +30,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       User? u = FirebaseAuth.instance.currentUser;
 
       if (u == null) {
-        log("User is null");
         user = null;
         add(EmitUnauthenticated());
       } else {
@@ -116,8 +114,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       user!.role = Role.Client;
     }
 
-    //There is a bug where switching status changes the current role to client
-    //TODO: fix bug
     userRepository.switchRole(id: user!.uid!, roleToSwitch: roleToSwitch);
   }
 }

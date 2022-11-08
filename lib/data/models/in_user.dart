@@ -13,7 +13,7 @@ class INUser extends Equatable {
     this.role = Role.Client,
     this.isActive,
   });
-  late String? uid;
+  String? uid;
   final String? firstName;
   final String? lastName;
   late Timestamp dateTimeCreated;
