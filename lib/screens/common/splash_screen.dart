@@ -3,9 +3,9 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:inquire_near/routes.dart';
 
 // Project imports:
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 //TODO: apply shared preferences
