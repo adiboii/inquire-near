@@ -1,8 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:inquire_near/components/back_button.dart';
 
 // Project imports:
+import 'package:inquire_near/components/back_button.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class PageTitle extends StatelessWidget {

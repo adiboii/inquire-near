@@ -1,18 +1,19 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:async';
 import 'dart:developer';
 import 'dart:ffi';
 
-import 'package:firebase_auth/firebase_auth.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:inquire_near/data/models/in_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // Project imports:
+import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
 import 'package:inquire_near/enums/role.dart';
@@ -37,6 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         try {
           user = await userRepository.getUser(u.uid);
+          user!.setUID(u.uid);
         } catch (e) {
           add(SignOutRequested());
         }
@@ -56,6 +58,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       INUser u = await authRepository.signIn(
           email: event.email, password: event.password);
       user = u;
+      log("User id: ${user!.uid}");
       emit(Authenticated());
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(AuthError(e.message));

@@ -13,6 +13,7 @@ import 'package:inquire_near/screens/common/profile_details/widgets/name_and_dat
 import 'package:inquire_near/screens/common/profile_details/widgets/profile_image.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/reviews.dart';
 import 'package:inquire_near/screens/common/profile_details/widgets/user_statistics.dart';
+import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ProfileDetailsScreen extends StatefulWidget {
   final String userId;
@@ -36,8 +37,13 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(0),
+          child: AppBar(
+            backgroundColor: theme.primary,
+          )),
       body: SafeArea(
-        top: false,
+        //top: false,
         child: BlocBuilder<ClientBloc, ClientState>(builder: (context, state) {
           if (state is ClientLoading) {
             return const Center(child: CircularProgressIndicator());

@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
+// Project imports:
 import 'package:inquire_near/data/repositories/report_repository.dart';
 
 part 'report_event.dart';

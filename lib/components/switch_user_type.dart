@@ -1,14 +1,15 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:developer';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 

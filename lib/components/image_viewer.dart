@@ -1,8 +1,14 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:inquire_near/components/back_button.dart' as components;
+
+// Package imports:
 import 'package:photo_view/photo_view.dart';
+
+// Project imports:
+import 'package:inquire_near/components/back_button.dart' as components;
 
 class ImageViewer extends StatelessWidget {
   const ImageViewer({super.key, this.imageUrl, this.file});

@@ -1,13 +1,13 @@
 // Flutter imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
-import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/cancel_button.dart';
