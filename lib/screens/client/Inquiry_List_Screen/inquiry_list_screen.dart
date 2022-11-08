@@ -13,6 +13,7 @@ import 'package:inquire_near/components/cards.dart';
 import 'package:inquire_near/components/inqury_list_widget.dart';
 import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListScreen extends StatefulWidget {
@@ -52,7 +53,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                     noOfRequireProof:
                         inquiryBloc.inquiryList.noOfRequireProof));
 
-                Navigator.pushNamed(context, '/available_inquirers');
+                Navigator.pushNamed(context, availableInquirersRoute);
               }
             },
             builder: (context, state) {
@@ -83,7 +84,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                             screenHeight: screenHeight,
                             screenWidth: screenWidth,
                             onTap: () {
-                              Navigator.pushNamed(context, '/add_inquiry');
+                              Navigator.pushNamed(context, addInquiryRoute);
                             },
                           )
                         : Expanded(
@@ -113,7 +114,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                                     height: screenHeight * 0.06,
                                     onTap: () {
                                       Navigator.pushNamed(
-                                          context, '/add_inquiry');
+                                          context, addInquiryRoute);
                                     },
                                   ),
                                   ButtonFill(
@@ -125,7 +126,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                                       inquiryBloc.add(FinalizeInquiry());
 
                                       Navigator.pushNamed(
-                                          context, '/available_inquirers');
+                                          context, findingInquirerRoute);
                                     },
                                   ),
                                 ],

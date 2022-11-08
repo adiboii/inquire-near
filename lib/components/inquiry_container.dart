@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryContainer extends StatefulWidget {
@@ -77,7 +78,7 @@ class _InquiryContainerState extends State<InquiryContainer> {
                     style: theme.caption1Bold,
                     onTap: () {
                       Navigator.of(context)
-                          .pushNamed('/inquirer_view_selected_inquiry');
+                          .pushNamed(inquirerViewSelectedInquiryRoute);
                     },
                   ),
                 ],

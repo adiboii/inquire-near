@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/data/models/in_user.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/client_dashboard/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
 import 'package:inquire_near/screens/common/splash_screen.dart';
@@ -30,7 +31,7 @@ class _WrapperState extends State<Wrapper> {
     return BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
       if (state is Unauthenticated) {
         Navigator.of(context)
-            .pushNamedAndRemoveUntil('/landing', (route) => false);
+            .pushNamedAndRemoveUntil(landingRoute, (route) => false);
       }
     }, builder: (context, state) {
       INUser? user = BlocProvider.of<AuthBloc>(context).user;

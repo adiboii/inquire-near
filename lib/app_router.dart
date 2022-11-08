@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:inquire_near/constants.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/authenticate/login_screen.dart';
 import 'package:inquire_near/screens/authenticate/sign_up_screen.dart';
 import 'package:inquire_near/screens/client/Add_Inquiry_Screen/add_inquiry_screen.dart';
@@ -39,9 +39,6 @@ import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
 import 'package:inquire_near/screens/inquirer/waiting_for_client_to_pay.dart';
 import 'package:inquire_near/wrapper.dart';
 
-//TODO: implement
-//Map Router
-
 class AppRouter {
   Route onGenerateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -49,62 +46,64 @@ class AppRouter {
     switch (settings.name) {
 
       // Common Screens
-      case '/wrapper':
+      case wrapperRoute:
         return MaterialPageRoute(builder: (_) => const Wrapper());
-      case splash:
+
+      case splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
-      case '/landing':
+      case landingRoute:
         return MaterialPageRoute(builder: (_) => const LandingScreen());
 
-      case '/login':
+      case loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
-      case '/sign_up':
+      case signUpRoute:
         return MaterialPageRoute(builder: (_) => SignUpScreen());
 
-      case '/onboarding':
+      case onboardingRoute:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
 
-      case '/user_wallet':
+      case userWalletRoute:
         return MaterialPageRoute(builder: (_) => const UserWalletScreen());
 
-      case '/top_up':
+      case topUpRoute:
         return MaterialPageRoute(builder: (_) => TopUpScreen());
 
-      case '/report':
+      case reportRoute:
         return MaterialPageRoute(
             builder: (_) => const ReportScreen(reportByClient: false));
 
-      case '/edit_profile':
+      case editProfileRoute:
         return MaterialPageRoute(builder: (_) => EditProfileScreen());
 
-        case '/about_inquirenear':
+      case aboutInquireNearRoute:
         return MaterialPageRoute(builder: (_) => AboutInquireNearScreen());
+
       // Client Screens
-      case '/client_dashboard':
+      case clientDashboardRoute:
         return MaterialPageRoute(builder: (_) => const ClientDashboardScreen());
 
-      case '/profile':
+      case profileRoute:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
 
-      case '/inquiry_list':
+      case inquiryListRoute:
         return MaterialPageRoute(builder: (_) => const InquiryListScreen());
 
-      case '/add_inquiry':
+      case addInquiryRoute:
         return MaterialPageRoute(builder: (_) => const AddInquiryScreen());
 
-      case '/finding_inquirer':
+      case findingInquirerRoute:
         return MaterialPageRoute(builder: (_) => const FindingInquirerScreen());
 
-      case '/eta_screen':
+      case etaScreenRoute:
         return MaterialPageRoute(builder: (_) => const ETAScreen());
 
-      case '/available_inquirers':
+      case availableInquirersRoute:
         return MaterialPageRoute(
             builder: (_) => const AvailableInquirersScreen());
 
-      case '/profile_details':
+      case profileDetailsRoute:
         if (args is Map) {
           return MaterialPageRoute(
               builder: (_) => ProfileDetailsScreen(
@@ -115,59 +114,59 @@ class AppRouter {
 
         break;
 
-      case '/view_selected_inquiry':
+      case viewSelectedInquiryRoute:
         return MaterialPageRoute(
             builder: (_) => const ViewSelectedInquiryScreen());
 
-      case '/responses':
+      case responsesRoute:
         return MaterialPageRoute(builder: (_) => const ResponsesScreen());
 
-      case '/payment_summary':
+      case paymentSummaryRoute:
         return MaterialPageRoute(builder: (_) => const PaymentSummaryScreen());
 
-      case '/release_payment':
+      case releasePaymentRoute:
         return MaterialPageRoute(builder: (_) => const ReleasePaymentScreen());
 
-      case '/payment_success':
+      case paymentSuccessRoute:
         return MaterialPageRoute(builder: (_) => const PaymentSuccessScreen());
 
-      case '/report_by_client':
+      case reportByClientRoute:
         return MaterialPageRoute(
             builder: (_) => const ReportScreen(reportByClient: true));
 
-      case '/search':
+      case searchRoute:
         return MaterialPageRoute(builder: (_) => const SearchScreen());
 
       // Inquirer Screens
-      case '/inquirer_dashboard':
+      case inquirerDashboardRoute:
         return MaterialPageRoute(
             builder: (_) => const InquirerDashboardScreen());
 
-      case '/client_found':
+      case clientFoundRoute:
         return MaterialPageRoute(builder: (_) => const ClientFoundScreen());
 
-      case '/reminders':
+      case remindersRoute:
         return MaterialPageRoute(builder: (_) => const RemindersScreen());
 
-      case '/inquirer_inquiry_list':
+      case inquirerInquiryListRoute:
         return MaterialPageRoute(
             builder: (_) => const InquirerInquiryListScreen());
 
-      case '/client_inquiry_list':
+      case clientInquiryListRoute:
         return MaterialPageRoute(
             builder: (_) => const ClientInquiryListScreen());
 
-      case '/inquirer_view_selected_inquiry':
+      case inquirerViewSelectedInquiryRoute:
         return MaterialPageRoute(
             builder: (_) => InquirerViewSelectedInquiryScreen());
 
-      case '/payment_received':
+      case paymentReceivedRoute:
         return MaterialPageRoute(builder: (_) => const PaymentReceivedScreen());
 
-      case '/review_client':
+      case reviewClientRoute:
         return MaterialPageRoute(builder: (_) => const ClientFeedbackScreen());
 
-      case '/waiting_for_client_to_pay':
+      case waitingForClientToPayRoute:
         return MaterialPageRoute(builder: (_) => const WaitingForClientToPay());
     }
 

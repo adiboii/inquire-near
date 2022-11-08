@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/labels.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ProfileScreen extends StatelessWidget {
@@ -65,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is Unauthenticated) {
             Navigator.of(context)
-                .pushNamedAndRemoveUntil('/landing', (route) => false);
+                .pushNamedAndRemoveUntil(landingRoute, (route) => false);
           }
         },
         child: Padding(

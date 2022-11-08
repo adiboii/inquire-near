@@ -16,7 +16,6 @@ import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 import 'package:inquire_near/bloc/bloc/report/report_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
-import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/feedback_repository.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
@@ -24,6 +23,7 @@ import 'package:inquire_near/data/repositories/paypal_repository.dart';
 import 'package:inquire_near/data/repositories/report_repository.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
+import 'package:inquire_near/routes.dart';
 
 bool? showOnboarding = true;
 Future<void> main() async {
@@ -109,7 +109,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: showOnboarding == true ? '/onboarding' : '/landing',
+          initialRoute: showOnboarding == true ? onboardingRoute : landingRoute,
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
