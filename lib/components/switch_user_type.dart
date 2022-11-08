@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -33,7 +35,8 @@ class SwitchUserType extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        BlocProvider.of<AuthBloc>(context).add(SwitchRole());
+        BlocProvider.of<AuthBloc>(context)
+            .add(SwitchRole(currentRole));
         Navigator.pushReplacementNamed(context, route);
       },
       child: SizedBox(
