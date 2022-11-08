@@ -51,7 +51,8 @@ class Inquiry extends BaseModel {
       };
 
   // getters
-  int get numOfAttachedImages => image != null ? 1 : 0;
+  String get withAttachedImages =>
+      image != null ? 'With Attachments' : 'No Attachements';
 
   // setters
   set inquiryUID(String uid) {
@@ -64,7 +65,7 @@ class Inquiry extends BaseModel {
       try {
         var ref = FirebaseStorage.instance
             .ref()
-            .child(inquiryListID) 
+            .child(inquiryListID)
             .child("${inquiryID}_inquiry_image");
         await ref.putFile(image!);
         imageUrl = await ref.getDownloadURL();

@@ -27,16 +27,13 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<InquiryBloc>(context).add(CreateInquiryList());
+    inquiryList = BlocProvider.of<InquiryBloc>(context).inquiries;
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-
-    setState(() {
-      inquiryList = BlocProvider.of<InquiryBloc>(context).inquiries;
-    });
 
     return Scaffold(
       body: SafeArea(

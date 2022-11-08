@@ -4,16 +4,23 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class AddInquiryInput extends StatelessWidget {
+class AddInquiryInput extends StatefulWidget {
   const AddInquiryInput({
     Key? key,
     required this.screenWidth,
     required this.inquiryContoller,
+    required this.validator,
   }) : super(key: key);
 
   final double screenWidth;
   final TextEditingController inquiryContoller;
+  final String? Function(String?)? validator;
 
+  @override
+  State<AddInquiryInput> createState() => _AddInquiryInputState();
+}
+
+class _AddInquiryInputState extends State<AddInquiryInput> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -22,22 +29,23 @@ class AddInquiryInput extends StatelessWidget {
       children: [
         SizedBox(
           child: CircleAvatar(
-            radius: screenWidth * 0.05,
+            radius: widget.screenWidth * 0.05,
             backgroundImage: const AssetImage(
               'assets/images/illustrations/profile.png',
             ),
           ),
         ),
-        SizedBox(width: screenWidth * 0.04),
+        SizedBox(width: widget.screenWidth * 0.04),
         SizedBox(
-          width: screenWidth * 0.7,
-          child: TextField(
-            controller: inquiryContoller,
+          width: widget.screenWidth * 0.7,
+          child: TextFormField(
+            controller: widget.inquiryContoller,
             decoration:
                 const InputDecoration.collapsed(hintText: "What do you need?"),
             style: theme.subhead,
             maxLength: 150,
             maxLines: null,
+            validator: widget.validator,
           ),
         ),
       ],
