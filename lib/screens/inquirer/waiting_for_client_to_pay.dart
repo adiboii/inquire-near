@@ -5,13 +5,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
-import 'package:inquire_near/routes.dart';
 import 'package:lottie/lottie.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class WaitingForClientToPay extends StatefulWidget {

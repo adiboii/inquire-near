@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:inquire_near/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // Project imports:
 import 'package:inquire_near/components/pages.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 //import 'package:shared_preferences/shared_preferences.dart';

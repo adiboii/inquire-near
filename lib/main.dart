@@ -16,6 +16,7 @@ import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 import 'package:inquire_near/bloc/bloc/report/report_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
+import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/feedback_repository.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
