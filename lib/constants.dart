@@ -4,7 +4,7 @@
 import 'package:inquire_near/data/models/store_data.dart';
 
 // ignore: constant_identifier_names
-const String PayPalBaseURL = "http://10.0.2.2:3000";
+const String PayPalBaseURL = "https://inquirenear-paypal-svjuxd2qva-de.a.run.app";
 
 // Auth Error Codes
 const String invalidEmail = 'invalid-email';
@@ -15,6 +15,9 @@ const String wrongPassword = 'wrong-password';
 const String emailAlreadyInUse = 'email-already-in-use';
 
 const logoPath = "assets/images/logos";
+
+const double inquiryPrice = 10.00;
+const double requireProofPrice = 15.00;
 
 final stores = [
   // Dining

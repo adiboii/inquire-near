@@ -102,7 +102,7 @@ void _onCreateTransaction(CreateTransaction event, emit) async {
         .listen((ev) async {
       INTransaction t = INTransaction.fromJson(ev.data()!);
 
-      if (t.payPalStatus == PayPalStatus.success) {
+      if (t.payPalStatus == PayPalStatus.completed) {
         add(EmitSuccessfulTransactionStatus(t.payPalID.toString()));
       } else if (t.payPalStatus == PayPalStatus.failed) {
         add(EmitFailedTransactionStatus());

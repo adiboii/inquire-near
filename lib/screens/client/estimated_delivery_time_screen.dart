@@ -22,41 +22,38 @@ class _ETAScreenState extends State<ETAScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: theme.kScreenPadding,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  const Text(
-                    "Estimated Delivery Time",
-                    style: theme.headline,
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
-                  const Text(
-                    "Sit back and relax while our\ninquirer handles things for you,",
-                    style: theme.subhead,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: screenHeight * 0.03),
-                  Lottie.asset("assets/images/lottie/eta.json",
-                      height: screenHeight * 0.30),
-                  SizedBox(height: screenHeight * 0.02),
-                  const Text(
-                    "25 min",
-                    style: theme.headline,
-                  ),
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-                child: ButtonOutline(
-                  label: "View Inquiries",
-                  style: theme.caption1,
+        child: SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: theme.kScreenPadding,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    const Text(
+                      "Estimated Delivery Time",
+                      style: theme.headline,
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    const Text(
+                      "Sit back and relax while our\ninquirer handles things for you,",
+                      style: theme.subhead,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    Lottie.asset("assets/images/lottie/eta.json",
+                        height: screenHeight * 0.30),
+                    SizedBox(height: screenHeight * 0.02),
+                    const Text(
+                      "25 min",
+                      style: theme.headline,
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              
+              ],
+            ),
           ),
         ),
       ),

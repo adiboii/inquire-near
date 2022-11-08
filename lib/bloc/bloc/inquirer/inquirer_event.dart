@@ -21,6 +21,10 @@ class NewHiringRequestFound extends InquirerEvent {
   const NewHiringRequestFound(this.hiringRequest);
 }
 
-class AcceptRequest extends InquirerEvent {}
+class AcceptRequest extends InquirerEvent {
+  final String transactionId;
+
+  const AcceptRequest(this.transactionId);
+}
 
 class RejectRequest extends InquirerEvent {}

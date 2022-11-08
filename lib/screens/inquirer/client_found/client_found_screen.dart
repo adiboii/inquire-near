@@ -10,6 +10,7 @@ import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/location_and_order_details.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/inquirer/client_found/widgets/accept_request_button.dart';
 import 'package:inquire_near/screens/inquirer/client_found/widgets/reject_request_button.dart';
@@ -38,6 +39,8 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
     // Screen Dimensions
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
+    INTransaction? transaction = BlocProvider.of<TransactionBloc>(context).transaction;
 
     return Scaffold(
       body: SafeArea(
@@ -110,7 +113,7 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
                         ),
                         Column(
                           children: [
-                            const AcceptRequestButton(),
+                            AcceptRequestButton(transaction: transaction),
                             SizedBox(
                               height: screenHeight * 0.01,
                             ),

@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:inquire_near/constants.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/base_model.dart';
@@ -40,7 +41,8 @@ class INTransaction extends BaseModel {
   }
 
   void setAmount(int noOfInquiries, int noOfRequireProof) {
-    amount = (noOfInquiries * 25) + (noOfRequireProof * 5);
+    amount =
+        (noOfInquiries * inquiryPrice) + (noOfRequireProof * requireProofPrice);
   }
 
   Map<String, dynamic> toJSON() => {
@@ -52,8 +54,8 @@ class INTransaction extends BaseModel {
         'isCompleted': isCompleted,
         'dateTimeCreated': super.dateTimeCreated,
       };
-      
-        @override
-        // TODO: implement props
-        List<Object?> get props => throw UnimplementedError();
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }
