@@ -101,7 +101,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     String? inquiryID;
     String? imageUrl;
     if (event.transaction != null) {
-      await _createNewInquiryList();
+      await _createNewInquiryList(event.transaction);
     }
 
     try {
@@ -142,17 +142,21 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     }
   }
 
-  Future<void> _createNewInquiryList() async {
-    await FirebaseFirestore.instance
-        .collection("inquiryList")
-        .doc(inquiryList.id)
-        .delete();
+  Future<void> _createNewInquiryList(INTransaction? transaction) async {
     for (Inquiry inquiry in inquiries) {
       await FirebaseFirestore.instance
           .collection("inquiry")
           .doc(inquiry.uid)
           .delete();
     }
+    await FirebaseFirestore.instance
+        .collection("inquiryList")
+        .doc(inquiryList.id)
+        .delete();
+    await FirebaseFirestore.instance
+        .collection("transaction")
+        .doc(transaction!.id)
+        .delete();
 
     try {
       inquiryList = (await inquiryRepository.createInquiryList(
@@ -161,6 +165,5 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       //TODO: error handling (ADI)
       log(e.toString());
     }
-    
   }
 }
