@@ -26,6 +26,15 @@ class SignUpRequested extends AuthEvent {
   SignUpRequested(this.firstName, this.lastName, this.email, this.password);
 }
 
+// When the user edits the account with first name and last name
+//this event is called and the [AuthRepository] is called to edit the user's account
+class EditProfileRequested extends AuthEvent {
+  final String firstName;
+  final String lastName;
+
+  EditProfileRequested(this.firstName, this.lastName);
+}
+
 // When the user signing in with google this event is
 //called and the [AuthRepository] is called to sign in the user
 class GoogleSignInRequested extends AuthEvent {}

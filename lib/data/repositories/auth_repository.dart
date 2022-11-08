@@ -226,6 +226,35 @@ class AuthRepository {
     }
   }
 
+
+  Future<INUser> editProfile(
+      {required String firstName,
+        required String lastName,
+      }) async {
+    try {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(_firebaseAuth.currentUser!.uid)
+          .update({
+        "firstName": firstName,
+        "lastName": lastName,
+      });
+
+      DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
+          .instance
+          .collection("users")
+          .doc(_firebaseAuth.currentUser!.uid)
+          .get();
+      INUser userData = INUser.fromJson(userDoc.data()!);
+      userData.setUID(userDoc.id);
+
+      return userData;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
   static Map<String, dynamic> parseJwt(String? token) {
     final List<String> parts = token!.split('.');
     // retrieve token payload

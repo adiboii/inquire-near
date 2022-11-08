@@ -8,6 +8,8 @@ const String onboardingRoute = '/onboarding';
 const String userWalletRoute = '/user_wallet';
 const String topUpRoute = '/top_up';
 const String reportRoute = '/report';
+const String editProfileRoute = '/edit_profile';
+const String aboutInquireNearRoute = '/about_inquirenear';
 
 // Client Routes
 const String clientDashboardRoute = '/client_dashboard';

@@ -14,6 +14,35 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+  //Display Deactivate dialog
+  showDeactivateDialog(BuildContext context){
+    showDialog(context: context, builder: (context) {
+      return AlertDialog(
+        title: const Text(
+          "Deactivate account",
+          style: theme.title3,
+        ),
+        content: const Text(
+            "Are you sure you want to deactivate your account?"
+        ),
+        actions: [
+          MaterialButton(
+            onPressed: () {
+              Navigator.pop(context, 'Cancel');
+            },
+            child: Text("Cancel"),
+          ),
+          MaterialButton(
+            onPressed: () {
+              //TO DO: update field of user isDeactivate
+            },
+            child: Text("Confirm"),
+          ),
+        ],
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -52,8 +81,8 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 25.0),
-              const Text(
-                'Cymmer John Maranga',
+               Text(
+                 BlocProvider.of<AuthBloc>(context).user!.firstName! + " " + BlocProvider.of<AuthBloc>(context).user!.lastName!,
                 style: theme.headline,
               ),
               const SizedBox(height: 10.0),
@@ -74,17 +103,18 @@ class ProfileScreen extends StatelessWidget {
                 style: theme.caption1,
                 color: theme.red,
                 textColor: theme.red,
+                onTap: (){
+                  showDeactivateDialog(context); 
+                },
               ),
-              const SizedBox(height: 30.0),
-              const InLabel(icon: Icons.help, label: "Help Center"),
               SizedBox(height: screenHeight * 0.04),
-              const InLabel(icon: Icons.question_answer, label: "FAQ"),
-              SizedBox(height: screenHeight * 0.04),
-              const InLabel(icon: Icons.lock, label: "Privacy Policy"),
-              SizedBox(height: screenHeight * 0.04),
-              const InLabel(icon: Icons.notes, label: "Terms of Service"),
-              SizedBox(height: screenHeight * 0.04),
-              const InLabel(icon: Icons.info_sharp, label: "About Busify"),
+              InLabel(
+                icon: Icons.info_sharp,
+                label: "About InquireNear",
+                onTap: () {
+                  Navigator.pushNamed(context, '/about_inquirenear');
+                },
+              ),
               SizedBox(height: screenHeight * 0.04),
               InLabel(
                 icon: Icons.exit_to_app,
