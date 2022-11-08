@@ -8,10 +8,9 @@ extension ParseToString on HiringRequestStatus {
 
 HiringRequestStatus getHiringRequestStatusFromString(String role) {
   for (HiringRequestStatus element in HiringRequestStatus.values) {
-    if (element.toString() == role) {
+    if (element.toValue() == role) {
       return element;
     }
   }
-
   return HiringRequestStatus.pending;
 }
