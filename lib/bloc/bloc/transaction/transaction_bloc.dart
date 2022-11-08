@@ -39,7 +39,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ClickStore>(_onClickStore);
   }
 
-  void _onCreateTransaction(CreateTransaction event, emit) async {
+void _onCreateTransaction(CreateTransaction event, emit) async {
     try {
       transaction = INTransaction(
           clientID: event.clientID,
