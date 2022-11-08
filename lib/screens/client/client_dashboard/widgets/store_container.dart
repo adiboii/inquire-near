@@ -35,7 +35,7 @@ class StoreContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 child: Image.asset(imageFilePath),
               ),

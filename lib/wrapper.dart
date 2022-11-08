@@ -11,7 +11,6 @@ import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/client_dashboard/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
-import 'package:inquire_near/screens/common/splash_screen.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({super.key});

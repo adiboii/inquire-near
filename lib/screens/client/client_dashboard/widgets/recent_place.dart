@@ -49,7 +49,7 @@ class FeaturedPlace extends StatelessWidget {
             children: [
               Expanded(
                 flex: 2,
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   child: Image.asset(imageFilePath),
                 ),
