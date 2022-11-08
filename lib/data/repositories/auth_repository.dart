@@ -210,15 +210,19 @@ class AuthRepository {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
-          .instance
-          .collection("users")
-          .doc(_firebaseAuth.currentUser!.uid)
-          .get();
-      INUser userData = INUser.fromJson(user.data()!);
-      userData.setUID(user.id);
+      Map<String, dynamic> idMap = parseJwt(googleAuth?.idToken);
+      final userDocument = FirebaseFirestore.instance
+          .collection('users')
+          .doc(_firebaseAuth.currentUser!.uid);
+      final user = INUser(
+        uid: _firebaseAuth.currentUser!.uid,
+        firstName: idMap['given_name'],
+        lastName: idMap['family_name'],
+        isActive: null,
+      );
+      await userDocument.set(user.toJSON());
 
-      return userData;
+      return user;
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure(e.code);
     } catch (_) {
@@ -226,11 +230,10 @@ class AuthRepository {
     }
   }
 
-
-  Future<INUser> editProfile(
-      {required String firstName,
-        required String lastName,
-      }) async {
+  Future<INUser> editProfile({
+    required String firstName,
+    required String lastName,
+  }) async {
     try {
       FirebaseFirestore.instance
           .collection('users')
@@ -253,7 +256,6 @@ class AuthRepository {
       rethrow;
     }
   }
-
 
   static Map<String, dynamic> parseJwt(String? token) {
     final List<String> parts = token!.split('.');
