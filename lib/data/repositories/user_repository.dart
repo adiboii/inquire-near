@@ -22,7 +22,7 @@ class UserRepository {
   Future<int> _getUserInquiriesCount(String userId) async {
     QuerySnapshot<Map<String, dynamic>> inquiries = await FirebaseFirestore
         .instance
-        .collection("inquiryList")
+        .collection("inquiryLists")
         .where('clientId', isEqualTo: userId)
         .get();
 

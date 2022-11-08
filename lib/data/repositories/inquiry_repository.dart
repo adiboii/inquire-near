@@ -16,7 +16,7 @@ class InquiryRepository {
       {required InquiryList inquiryList}) async {
     try {
       final DocumentReference doc =
-          await db.collection("inquiryList").add(inquiryList.toJSON());
+          await db.collection("inquiryLists").add(inquiryList.toJSON());
       inquiryList.uid = doc.id;
       return inquiryList;
     } catch (e) {
@@ -28,7 +28,7 @@ class InquiryRepository {
 
   Future<void> finalizeInquiryList({required InquiryList inquiryList}) async {
     try {
-      await db.collection("inquiryList").doc(inquiryList.id).update({
+      await db.collection("inquiryLists").doc(inquiryList.id).update({
         'noOfInquiries': inquiryList.noOfInquiries,
         'noOfRequireProof': inquiryList.noOfRequireProof,
       });
@@ -41,7 +41,7 @@ class InquiryRepository {
     String? id;
     try {
       await db
-          .collection("inquiry")
+          .collection("inquiries")
           .add(inquiry.toJSON())
           .then((DocumentReference docRef) {
         id = docRef.id;
@@ -58,7 +58,7 @@ class InquiryRepository {
       {required String inquiryID, required String imageUrl}) async {
     try {
       await db
-          .collection("inquiry")
+          .collection("inquiries")
           .doc(inquiryID)
           .update({'imageUrl': imageUrl});
     } catch (e) {
@@ -71,7 +71,7 @@ class InquiryRepository {
 
     QuerySnapshot<Map<String, dynamic>> inquiriesDoc = await FirebaseFirestore
         .instance
-        .collection("inquiry")
+        .collection("inquiries")
         .where('inquiryListID', isEqualTo: inquiryListID)
         .get();
 

@@ -10,7 +10,7 @@ class TransactionRepository {
   Future<String?> createTransactionAndGetId(
       {required INTransaction transaction}) async {
     DocumentReference transactionRef = await FirebaseFirestore.instance
-        .collection("transaction")
+        .collection("transactions")
         .add(transaction.toJSON());
 
     return transactionRef.id;
@@ -19,7 +19,7 @@ class TransactionRepository {
   Future<INTransaction> getTransactionDetails(String transactionID) async {
     DocumentSnapshot<Map<String, dynamic>> transactionDoc =
         await FirebaseFirestore.instance
-            .collection("transaction")
+            .collection("transactions")
             .doc(transactionID)
             .get();
 
@@ -39,7 +39,7 @@ class TransactionRepository {
   Future<InquiryList> getInquiryList(String inquiryListID) async {
     DocumentSnapshot<Map<String, dynamic>> inquiryListDoc =
         await FirebaseFirestore.instance
-            .collection("inquiryList")
+            .collection("inquiryLists")
             .doc(inquiryListID)
             .get();
 

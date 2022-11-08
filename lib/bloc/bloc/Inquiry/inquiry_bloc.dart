@@ -145,16 +145,16 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
   Future<void> _createNewInquiryList(INTransaction? transaction) async {
     for (Inquiry inquiry in inquiries) {
       await FirebaseFirestore.instance
-          .collection("inquiry")
+          .collection("inquiries")
           .doc(inquiry.uid)
           .delete();
     }
     await FirebaseFirestore.instance
-        .collection("inquiryList")
+        .collection("inquiryLists")
         .doc(inquiryList.id)
         .delete();
     await FirebaseFirestore.instance
-        .collection("transaction")
+        .collection("transactions")
         .doc(transaction!.id)
         .delete();
 
