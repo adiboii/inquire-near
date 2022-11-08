@@ -1,16 +1,13 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
-import 'package:inquire_near/components/cancel_button.dart';
+import 'package:inquire_near/screens/client/available_inquirers/widgets/cancel_button.dart';
 import 'package:inquire_near/data/models/hiring_request.dart';
 import 'package:inquire_near/enums/hiring_request_status.dart';
 import 'package:inquire_near/routes.dart';
@@ -71,7 +68,6 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
-    InquiryBloc inquiryBloc = BlocProvider.of<InquiryBloc>(context);
     TransactionBloc transactionBloc = BlocProvider.of<TransactionBloc>(context);
     return Scaffold(
       body: Padding(
@@ -154,7 +150,11 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
 
   @override
   void dispose() {
-    BlocProvider.of<ClientBloc>(context).add(StopFindAvailableInquirer());
+    try {
+      BlocProvider.of<ClientBloc>(context).add(StopFindAvailableInquirer());
+    // ignore: empty_catches
+    } catch (e) {}
+
     super.dispose();
   }
 }

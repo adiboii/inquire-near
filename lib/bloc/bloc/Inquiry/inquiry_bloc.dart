@@ -3,7 +3,9 @@ import 'dart:developer';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
@@ -98,6 +100,10 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     emit(InquiryLoading());
     String? inquiryID;
     String? imageUrl;
+    if (event.transaction != null) {
+      await _createNewInquiryList();
+    }
+
     try {
       inquiryList.noOfInquiries = inquiries.length;
       for (Inquiry inquiry in inquiries) {
@@ -106,6 +112,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
         }
 
         inquiryID = await inquiryRepository.createInquiry(inquiry: inquiry);
+        inquiry.uid = inquiryID;
 
         if (inquiry.image != null) {
           imageUrl = await inquiry.saveToFirebaseStorage(inquiryID: inquiryID!);
@@ -133,5 +140,27 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       log(e.toString());
       emit(ClientInquiriesRetrieved());
     }
+  }
+
+  Future<void> _createNewInquiryList() async {
+    await FirebaseFirestore.instance
+        .collection("inquiryList")
+        .doc(inquiryList.id)
+        .delete();
+    for (Inquiry inquiry in inquiries) {
+      await FirebaseFirestore.instance
+          .collection("inquiry")
+          .doc(inquiry.uid)
+          .delete();
+    }
+
+    try {
+      inquiryList = (await inquiryRepository.createInquiryList(
+          inquiryList: InquiryList()))!;
+    } catch (e) {
+      //TODO: error handling (ADI)
+      log(e.toString());
+    }
+    
   }
 }

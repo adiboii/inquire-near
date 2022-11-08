@@ -26,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({required this.authRepository, required this.userRepository})
       : super(Unauthenticated()) {
-    Timer.periodic(const Duration(seconds: 5), (_) async {
+    Timer.periodic(const Duration(seconds: 1), (_) async {
       User? u = FirebaseAuth.instance.currentUser;
 
       if (u == null) {
@@ -46,6 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignOutRequested>(_onSignOutRequested);
     on<EmitUnauthenticated>(_onEmitUnauthenticated);
     on<SwitchRole>(_onSwitchRole);
+    on<InitState>(_onInitState);
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
@@ -116,4 +117,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     userRepository.switchRole(id: user!.uid!, roleToSwitch: roleToSwitch);
   }
+
+ _onInitState(event, emit) async {
+  emit(AuthLoading());
+  User? u = FirebaseAuth.instance.currentUser;
+
+  if (u == null) {
+    emit(Unauthenticated());
+  } else {
+    try {
+      user = await userRepository.getUser(u.uid);
+      emit(Authenticated());
+    } catch (e) {
+      add(SignOutRequested());
+    }
+  }
+ }
 }

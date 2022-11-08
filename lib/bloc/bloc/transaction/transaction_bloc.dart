@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-// import 'package:meta/meta.dart'; // TODO: Check if commenting this still works
+// import 'package:meta/meta.dart'; // TODO: Check if commenting this still works (CYMMER)
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';
@@ -49,7 +49,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
       transaction!.setAmount(event.noOfInquiries, event.noOfRequireProof);
 
-      String? id = await transactionRepository.createTransaction(
+      String? id = await transactionRepository.createTransactionAndGetId(
           transaction: transaction!);
 
       transaction?.id = id;

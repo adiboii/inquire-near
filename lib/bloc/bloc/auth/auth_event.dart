@@ -47,4 +47,4 @@ class EmitUnauthenticated extends AuthEvent {}
 
 class SwitchRole extends AuthEvent {}
 
-class EditProfile extends AuthEvent {}
+class InitState extends AuthEvent {}
