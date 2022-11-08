@@ -14,7 +14,8 @@ class UserRepository {
     DocumentSnapshot<Map<String, dynamic>> user =
         await FirebaseFirestore.instance.collection("users").doc(userId).get();
     INUser userData = INUser.fromJson(user.data()!);
-    userData.setUID(userId);
+    userData.setUID(user.id);
+
     return userData;
   }
 
