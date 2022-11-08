@@ -58,7 +58,7 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
 
     await FirebaseFirestore.instance
         .collection("users")
-        .doc(currentUser.uid) // TODO: Change to actual current logged in user
+        .doc(currentUser.uid)
         .update({"isActive": isOnline}).onError(
             (e, _) => log("Error writing document: $e"));
 
@@ -67,7 +67,7 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
           .collection('hiringRequests')
           .where('inquirerId',
               isEqualTo: currentUser
-                  .uid) // TODO: Change actual inquirerId to currentUser
+                  .uid)
           .where('status', isEqualTo: HiringRequestStatus.pending.toValue())
           .orderBy("requestMade", descending: true)
           .snapshots()
