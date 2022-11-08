@@ -27,7 +27,7 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
   void _clickSubmit(context) {
     BlocProvider.of<FeedbackBloc>(context).add(
       SubmitFeedbackRequested(
-          // TODO: change to inquirer uid
+          // TODO: change to inquirer uid (MEL)
           'dummytext@gmail.om',
           rating,
           _reviewTextController.text),

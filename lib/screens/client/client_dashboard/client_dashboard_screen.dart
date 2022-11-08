@@ -68,7 +68,7 @@ class ClientDashboardScreen extends StatelessWidget {
                     ],
                   ),
                   SwitchUserType(
-                      screenHeight: screenHeight, currentRole: Role.Client),
+                      screenHeight: screenHeight, currentRole: Role.client),
                 ],
               ),
               SizedBox(height: screenHeight * 0.02),
@@ -83,7 +83,7 @@ class ClientDashboardScreen extends StatelessWidget {
                 style: theme.headline,
               ),
               SizedBox(height: screenHeight * 0.02),
-              //TODO: convert to widget
+              //TODO: convert to widget (ADI)
               SizedBox(
                 height: screenHeight * 0.04,
                 child: ListView.builder(
@@ -126,7 +126,7 @@ class ClientDashboardScreen extends StatelessWidget {
                     style: theme.headline,
                   ),
                   SizedBox(height: screenHeight * 0.025),
-                  //TODO: convert to widget
+                  //TODO: convert to widget (ADI)
                   Row(
                     children: [
                       const Expanded(

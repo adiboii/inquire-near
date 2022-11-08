@@ -29,7 +29,7 @@ class InquiryTitleBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //TODO: change to icon
+        //TODO: change to icon (ADI)
         Row(
           children: [
             GestureDetector(

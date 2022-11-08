@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:developer';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -28,7 +25,7 @@ class SwitchUserType extends StatelessWidget {
   Widget build(BuildContext context) {
     String route;
 
-    if (currentRole == Role.Client) {
+    if (currentRole == Role.client) {
       route = inquirerDashboardRoute;
     } else {
       route = clientDashboardRoute;

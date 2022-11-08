@@ -8,9 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-//TODO: apply shared preferences
-//import 'package:shared_preferences/shared_preferences.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 

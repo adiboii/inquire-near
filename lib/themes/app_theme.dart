@@ -1,7 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-//Colors
+// Colors
 const Color textColor = Color(0xff201F32);
 const Color buttonText = Color(0xffffffff);
 const Color primary = Color(0xff007AFF);
@@ -14,9 +14,7 @@ const Color primaryGray = Color(0xFFABABB2);
 const Color kPrimaryGreen = Color(0xFF39E75F);
 const Color paypalBlue = Color(0xFF0F1152);
 
-//Text Themes
-//TODO: remove header textstyles
-
+// Text Themes
 const TextStyle largeTitle = TextStyle(
   fontFamily: 'Poppins',
   fontSize: 34,

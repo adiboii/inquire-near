@@ -1,6 +1,5 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/feedback.dart';
@@ -16,7 +15,7 @@ class FeedbackRepository {
         .collection('feedbacks')
         .doc('transaction-id');
     final feedback = Feedback(
-      // TODO: change to client and inquirer uid
+      // TODO: change to client and inquirer uid (MEL)
       clientID: 'test@gmail.com',
       inquirerID: inquirerEmail,
       rating: rating,

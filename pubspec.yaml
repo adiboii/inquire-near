@@ -50,6 +50,7 @@ dependencies:
   google_sign_in: ^5.4.1
   image_picker: ^0.8.5+3
   import_sorter: ^4.6.0
+  intl: ^0.17.0
   lottie: ^1.4.1
   photo_view: ^0.14.0
   meta: ^1.8.0

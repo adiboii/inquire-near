@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 // Project imports:
 import 'package:inquire_near/data/models/base_model.dart';
 
+// ignore: must_be_immutable
 class Inquiry extends BaseModel {
   // misc
   String inquiryListID;
@@ -75,4 +76,7 @@ class Inquiry extends BaseModel {
     }
     return imageUrl;
   }
+  
+  @override
+  List<Object?> get props => throw UnimplementedError();
 }
