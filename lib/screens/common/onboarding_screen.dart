@@ -114,6 +114,7 @@ class _OnboardingState extends State<OnboardingScreen> {
                         await SharedPreferences.getInstance();
                     prefs.setBool("showOnboarding", false);
                     if (mounted) {
+                      // if()
                       Navigator.pushReplacementNamed(context, landingRoute);
                     }
                   } else {

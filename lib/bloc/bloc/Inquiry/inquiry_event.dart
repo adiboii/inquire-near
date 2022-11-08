@@ -37,7 +37,9 @@ class RevisitInquiry extends InquiryEvent {
 }
 
 class FinalizeInquiry extends InquiryEvent {
-  FinalizeInquiry();
+  final INTransaction? transaction;
+
+  FinalizeInquiry({this.transaction});
 }
 
 class GetClientInquiries extends InquiryEvent {

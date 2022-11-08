@@ -98,7 +98,7 @@ class InquireNear extends StatelessWidget {
           BlocProvider<ClientBloc>(
             create: (context) => ClientBloc(),
           ),
-          BlocProvider<InquirerBloc>(
+        BlocProvider<InquirerBloc>(
             create: (context) => InquirerBloc(),
           ),
           BlocProvider<PaymentBloc>(
@@ -109,7 +109,7 @@ class InquireNear extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
-          initialRoute: showOnboarding == true ? onboardingRoute : landingRoute,
+          initialRoute: wrapperRoute,
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
