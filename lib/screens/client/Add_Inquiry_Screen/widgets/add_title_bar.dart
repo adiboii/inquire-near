@@ -17,6 +17,7 @@ class InquiryTitleBar extends StatelessWidget {
     required this.buttonLabel,
     required this.pageLabel,
     required this.onTap,
+    this.showButton = false,
   }) : super(key: key);
 
   final double screenWidth;
@@ -24,6 +25,7 @@ class InquiryTitleBar extends StatelessWidget {
   final String buttonLabel;
   final String pageLabel;
   final void Function() onTap;
+  final bool showButton;
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +47,16 @@ class InquiryTitleBar extends StatelessWidget {
             ),
           ],
         ),
-        ButtonFill(
-          label: buttonLabel,
-          width: screenWidth * 0.25,
-          height: screenHeight * 0.05,
-          style: theme.caption1Bold,
-          borderRadius: 5,
-          onTap: onTap,
-        ),
+        (showButton)
+            ? ButtonFill(
+                label: buttonLabel,
+                width: screenWidth * 0.25,
+                height: screenHeight * 0.05,
+                style: theme.caption1Bold,
+                borderRadius: 5,
+                onTap: onTap,
+              )
+            : const SizedBox(),
       ],
     );
   }
