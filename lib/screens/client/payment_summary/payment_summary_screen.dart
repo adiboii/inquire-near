@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/payment_summary/widgets/location.dart';
 import 'package:inquire_near/screens/client/payment_summary/widgets/order_summary.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -48,8 +49,9 @@ class PaymentSummaryScreen extends StatelessWidget {
           if (state is PaymentSuccessful) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content:
-                    Text("Payment successful. Redirecting to Answer Page.")));
-            // TODO: Redirect to answer screen after payment successful
+                    Text("Payment successful. Redirecting to Answer Page.")));         
+            Navigator.of(context)
+                .pushReplacementNamed(etaScreenRoute);
           }
 
           if (state is PaymentError) {
@@ -84,7 +86,7 @@ class PaymentSummaryScreen extends StatelessWidget {
                 ButtonFill(
                     label: "Continue",
                     style: theme.caption1Bold,
-                    // TODO: Use actual data instead of dummy data
+                    // TODO: Use actual data instead of dummy data (CYMMER)
                     onTap: () => pay(context, 100, 'abc123')),
               ],
             ),

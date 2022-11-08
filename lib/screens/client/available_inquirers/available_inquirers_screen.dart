@@ -88,7 +88,7 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                   builder: (_, state) {
                     if (state is CreateHiringRequestStatus) {
                       if (state.status) {
-                        // TODO: Change to "Waiting for Inquirer to Accept"
+                        // TODO: Change to "Waiting for Inquirer to Accept" (CYMMER)
                         Future.delayed(Duration.zero, () {
                           Navigator.of(context).pushNamed(etaScreenRoute);
                         });

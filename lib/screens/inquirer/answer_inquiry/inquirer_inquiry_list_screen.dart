@@ -31,7 +31,7 @@ class InquirerInquiryListScreen extends StatelessWidget {
                 SizedBox(
                   height: screenHeight * 0.04,
                 ),
-                //TODO: Use new inquiry list
+                //TODO: Use new inquiry list (ADI)
                 // const Expanded(
                 //   child: InquiryList(),
                 // ),

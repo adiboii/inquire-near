@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
+import 'package:intl/intl.dart';
 
 class NameAndDateJoined extends StatelessWidget {
   const NameAndDateJoined({
@@ -15,6 +16,10 @@ class NameAndDateJoined extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateFormat formatter = DateFormat('MMMM y');
+    final String monthAndYearJoined =
+        formatter.format(user.dateTimeCreated.toDate());
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,9 +27,8 @@ class NameAndDateJoined extends StatelessWidget {
           "${user.firstName} ${user.lastName}",
           style: theme.headline,
         ),
-        // TODO: Add actual data. Field 'datetimeCreated' TBD
-        const Text(
-          "Joined March 2022",
+        Text(
+          "Joined $monthAndYearJoined",
           style: theme.caption2,
         ),
       ],

@@ -106,12 +106,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Role currentRole = user!.role;
     Role roleToSwitch;
 
-    if (currentRole == Role.Client) {
-      roleToSwitch = Role.Inquirer;
-      user!.role = Role.Inquirer;
+    if (currentRole == Role.client) {
+      roleToSwitch = Role.inquirer;
+      user!.role = Role.inquirer;
     } else {
-      roleToSwitch = Role.Client;
-      user!.role = Role.Client;
+      roleToSwitch = Role.client;
+      user!.role = Role.client;
     }
 
     userRepository.switchRole(id: user!.uid!, roleToSwitch: roleToSwitch);

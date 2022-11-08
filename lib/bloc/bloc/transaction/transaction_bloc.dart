@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+// import 'package:meta/meta.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';

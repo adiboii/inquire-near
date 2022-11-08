@@ -133,8 +133,7 @@ class ReleasePaymentScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            //TODO: change to order svg
-                            SvgPicture.asset("assets/images/svgs/location.svg"),
+                            SvgPicture.asset("assets/images/svgs/order.svg"),
                             SizedBox(
                               width: screenWidth * 0.02,
                             ),
