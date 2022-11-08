@@ -1,11 +1,11 @@
-// Package imports:
+// Dart imports:
 import 'dart:async';
 import 'dart:developer';
 
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:inquire_near/enums/paypal_status.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
@@ -14,6 +14,7 @@ import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
+import 'package:inquire_near/enums/paypal_status.dart';
 
 part 'transaction_event.dart';
 part 'transaction_state.dart';
@@ -40,7 +41,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
   void _onCreateTransaction(CreateTransaction event, emit) async {
     try {
-      log("Creating transaction");
       transaction = INTransaction(
           clientID: event.clientID,
           inquiryListID: event.inquiryListID,

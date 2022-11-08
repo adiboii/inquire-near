@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
-import 'package:inquire_near/components/recent_transactions.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
+import 'package:inquire_near/components/recent_transactions.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
+import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/screens/client/client_dashboard/category_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/recent_place.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import 'package:inquire_near/constants.dart' as constants;
 
 class ClientDashboardScreen extends StatelessWidget {
   const ClientDashboardScreen({Key? key}) : super(key: key);

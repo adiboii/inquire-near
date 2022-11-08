@@ -1,3 +1,4 @@
+// Project imports:
 import 'constants.dart' as constants;
 
 String getInitials(String name) {
