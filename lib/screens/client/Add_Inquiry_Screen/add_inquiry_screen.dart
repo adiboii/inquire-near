@@ -28,7 +28,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
   File? image;
   late Inquiry inquiry;
   bool requireProof = false;
-  TextEditingController inquiryContoller = TextEditingController();
+  TextEditingController inquiryController = TextEditingController();
   final inputValidator = InputValidator();
   final _formKey = GlobalKey<FormState>();
 
@@ -74,7 +74,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                     children: [
                       Column(
                         children: [
-                          AddInquiryTitleBar(
+                          InquiryTitleBar(
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
                             pageLabel: "Add an Inquiry",
@@ -87,7 +87,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                           BlocProvider.of<InquiryBloc>(context)
                                               .inquiryList
                                               .id!,
-                                      question: inquiryContoller.text,
+                                      question: inquiryController.text,
                                       requireProof: requireProof,
                                       image: image);
                                 });
@@ -104,7 +104,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                             key: _formKey,
                             child: AddInquiryInput(
                               screenWidth: screenWidth,
-                              inquiryContoller: inquiryContoller,
+                              inquiryContoller: inquiryController,
                               validator: (value) {
                                 if (inputValidator.isEmpty(value)) {
                                   return 'This is a required field';

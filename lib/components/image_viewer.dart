@@ -18,12 +18,15 @@ class ImageViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: imageUrl != null
-          ? Stack(
+      body: (imageUrl == null && file == null)
+          ? const SizedBox()
+          : Stack(
               children: [
                 PhotoView(
                   minScale: PhotoViewComputedScale.contained,
-                  imageProvider: NetworkImage(imageUrl!),
+                  imageProvider: ((file != null)
+                      ? FileImage(file!)
+                      : NetworkImage(imageUrl!)) as ImageProvider,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
@@ -38,29 +41,7 @@ class ImageViewer extends StatelessWidget {
                   ),
                 ),
               ],
-            )
-          : file != null
-              ? Stack(
-                  children: [
-                    PhotoView(
-                      minScale: PhotoViewComputedScale.contained,
-                      imageProvider: FileImage(file!),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
-                      child: Container(
-                        padding: const EdgeInsets.all(0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: Colors.white24,
-                        ),
-                        child: const components.INBackButton(
-                            color: Colors.white, size: 25),
-                      ),
-                    ),
-                  ],
-                )
-              : const SizedBox(),
+            ),
     );
   }
 }

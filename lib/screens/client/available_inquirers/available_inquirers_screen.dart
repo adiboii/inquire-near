@@ -12,7 +12,6 @@ import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/cancel_button.dart';
 import 'package:inquire_near/data/models/hiring_request.dart';
-import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/enums/hiring_request_status.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/available_inquirer.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/header.dart';
@@ -117,8 +116,6 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                               });
 
                               if (result is bool && result) {
-                                // finalize inquiry to upload and get InquiryList ID
-
                                 HiringRequest hiringRequest = HiringRequest(
                                     transactionId:
                                         transactionBloc.transaction!.id!,

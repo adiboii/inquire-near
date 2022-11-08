@@ -43,10 +43,8 @@ class _InquiryListWidgetState extends State<InquiryListWidget> {
         return Dismissible(
           key: UniqueKey(),
           onDismissed: (direction) {
-            setState(() {
-              BlocProvider.of<InquiryBloc>(context)
-                  .add(DeleteInquiryRequested(index: index));
-            });
+            BlocProvider.of<InquiryBloc>(context)
+                .add(DeleteInquiryRequested(index: index));
           },
           background: Container(color: theme.red),
           child: InkWell(

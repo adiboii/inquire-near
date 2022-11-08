@@ -7,14 +7,13 @@ import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 
 class TransactionRepository {
-  Future<String?> createTransaction(
+  Future<String?> createTransactionAndGetId(
       {required INTransaction transaction}) async {
-    String? id;
-    await FirebaseFirestore.instance
+    DocumentReference transactionRef = await FirebaseFirestore.instance
         .collection("transaction")
-        .add(transaction.toJSON())
-        .then((DocumentReference docRef) => id = docRef.id);
-    return id;
+        .add(transaction.toJSON());
+
+    return transactionRef.id;
   }
 
   Future<INTransaction> getTransactionDetails(String transactionID) async {

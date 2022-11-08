@@ -94,7 +94,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                     children: [
                       Column(
                         children: [
-                          AddInquiryTitleBar(
+                          InquiryTitleBar(
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
                             pageLabel: "Edit Inquiry",
