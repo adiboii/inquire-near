@@ -1,6 +1,5 @@
 // Dart imports:
 import 'dart:async';
-import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
@@ -27,11 +26,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({required this.authRepository, required this.userRepository})
       : super(Unauthenticated()) {
-    Timer.periodic(const Duration(seconds: 5), (_) async {
+    Timer.periodic(const Duration(seconds: 1), (_) async {
       User? u = FirebaseAuth.instance.currentUser;
 
       if (u == null) {
-        log("User is null");
         user = null;
         add(EmitUnauthenticated());
       } else {
@@ -48,6 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignOutRequested>(_onSignOutRequested);
     on<EmitUnauthenticated>(_onEmitUnauthenticated);
     on<SwitchRole>(_onSwitchRole);
+    on<InitState>(_onInitState);
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
@@ -108,16 +107,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Role currentRole = user!.role;
     Role roleToSwitch;
 
-    if (currentRole == Role.Client) {
-      roleToSwitch = Role.Inquirer;
-      user!.role = Role.Inquirer;
+    if (currentRole == Role.client) {
+      roleToSwitch = Role.inquirer;
+      user!.role = Role.inquirer;
     } else {
-      roleToSwitch = Role.Client;
-      user!.role = Role.Client;
+      roleToSwitch = Role.client;
+      user!.role = Role.client;
     }
 
-    //There is a bug where switching status changes the current role to client
-    //TODO: fix bug
     userRepository.switchRole(id: user!.uid!, roleToSwitch: roleToSwitch);
   }
+
+ _onInitState(event, emit) async {
+  emit(AuthLoading());
+  User? u = FirebaseAuth.instance.currentUser;
+
+  if (u == null) {
+    emit(Unauthenticated());
+  } else {
+    try {
+      user = await userRepository.getUser(u.uid);
+      emit(Authenticated());
+    } catch (e) {
+      add(SignOutRequested());
+    }
+  }
+ }
 }

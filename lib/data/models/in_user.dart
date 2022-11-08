@@ -1,22 +1,22 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:equatable/equatable.dart';
+import 'package:inquire_near/data/models/base_model.dart';
 
 // Project imports:
 import 'package:inquire_near/enums/role.dart';
 
-class INUser extends Equatable {
+// ignore: must_be_immutable
+class INUser extends BaseModel {
   INUser({
     this.uid,
     required this.firstName,
     required this.lastName,
-    this.role = Role.Client,
+    this.role = Role.client,
     this.isActive,
   });
-  late String? uid;
+  String? uid;
   final String? firstName;
   final String? lastName;
-  late Timestamp dateTimeCreated;
   Role role;
   bool? isActive;
 

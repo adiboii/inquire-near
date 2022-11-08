@@ -20,7 +20,7 @@ class PayPalRepository {
   }
 
   Future<String?> getPaymentLink(double amount, String transactionId) async {
-    Response response = await dio.post("${constants.PAYPAL_BASE_URL}/pay",
+    Response response = await dio.post("${constants.PayPalBaseURL}/pay",
         data: {"amount": amount, "transactionId": transactionId});
 
     List<Map<String, dynamic>> links =
@@ -34,7 +34,7 @@ class PayPalRepository {
   Future<bool> executePayment(String payerId, String paymentId) async {
     try {
       Response response = await dio.get(
-          "${constants.PAYPAL_BASE_URL}/success?PayerID=$payerId&paymentId=$paymentId");
+          "${constants.PayPalBaseURL}/success?PayerID=$payerId&paymentId=$paymentId");
       if (response.statusCode == 200) {
         return true;
       }

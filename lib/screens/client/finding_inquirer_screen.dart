@@ -7,7 +7,6 @@ import 'package:lottie/lottie.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
-import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class FindingInquirerScreen extends StatefulWidget {
@@ -54,20 +53,6 @@ class _FindingInquirerScreenState extends State<FindingInquirerScreen> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: ButtonOutline(
-                    label: "Cancel",
-                    style: theme.caption1,
-                    color: theme.red,
-                    textColor: theme.red,
-                    onTap: () {
-                      BlocProvider.of<InquiryBloc>(context)
-                          .add(RevisitInquiry());
-                      Navigator.pop(context);
-                    },
-                  ),
-                )
               ],
             ),
           ),

@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:developer';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -11,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 // Project imports:
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/enums/role.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class SwitchUserType extends StatelessWidget {
@@ -27,10 +25,10 @@ class SwitchUserType extends StatelessWidget {
   Widget build(BuildContext context) {
     String route;
 
-    if (currentRole == Role.Client) {
-      route = '/inquirer_dashboard';
+    if (currentRole == Role.client) {
+      route = inquirerDashboardRoute;
     } else {
-      route = '/client_dashboard';
+      route = clientDashboardRoute;
     }
 
     return GestureDetector(

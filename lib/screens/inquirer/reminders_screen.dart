@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 // Project imports:
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import '../../components/buttons.dart';
 
@@ -96,9 +97,8 @@ class RemindersScreen extends StatelessWidget {
                   style: theme.caption1Bold,
                   height: screenHeight * 0.07,
                   onTap: () {
-                    Navigator.of(context).pushReplacementNamed(
-                      '/inquirer_inquiry_list',
-                    );
+                    Navigator.of(context)
+                        .pushReplacementNamed(inquirerInquiryListRoute);
                   },
                 ),
               ],

@@ -3,7 +3,9 @@ import 'dart:developer';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
@@ -38,7 +40,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
           inquiryList: InquiryList()))!;
       emit(InquiryInProgress());
     } catch (e) {
-      //TODO: error handling
+      //TODO: error handling (ADI)
       log(e.toString());
       emit(InquiryInProgress());
     }
@@ -51,7 +53,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries.add(event.inquiry);
       emit(InquiryInProgress());
     } catch (e) {
-      //TODO: error handling
+      //TODO: error handling (ADI)
       log(e.toString());
       emit(InquiryInProgress());
     }
@@ -64,7 +66,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries[event.index] = event.editedInquiry;
       emit(InquiryInProgress());
     } catch (e) {
-      //TODO: error handling
+      //TODO: error handling (ADI)
       log(e.toString());
       emit(InquiryInProgress());
     }
@@ -77,7 +79,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries.removeAt(event.index);
       emit(InquiryInProgress());
     } catch (e) {
-      //TODO: error handling
+      //TODO: error handling (ADI)
       log(e.toString());
       emit(InquiryInProgress());
     }
@@ -98,6 +100,10 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     emit(InquiryLoading());
     String? inquiryID;
     String? imageUrl;
+    if (event.transaction != null) {
+      await _createNewInquiryList(event.transaction);
+    }
+
     try {
       inquiryList.noOfInquiries = inquiries.length;
       for (Inquiry inquiry in inquiries) {
@@ -106,6 +112,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
         }
 
         inquiryID = await inquiryRepository.createInquiry(inquiry: inquiry);
+        inquiry.uid = inquiryID;
 
         if (inquiry.image != null) {
           imageUrl = await inquiry.saveToFirebaseStorage(inquiryID: inquiryID!);
@@ -117,7 +124,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
 
       emit(InquiryFinished());
     } catch (e) {
-      //TODO: error handling
+      //TODO: error handling (ADI)
       log(e.toString());
       emit(InquiryInProgress());
     }
@@ -129,9 +136,34 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries = await inquiryRepository.getInquiries(event.inquiryListID);
       emit(ClientInquiriesRetrieved());
     } catch (e) {
-      //TODO: error handling
+      //TODO: error handling (ADI)
       log(e.toString());
       emit(ClientInquiriesRetrieved());
+    }
+  }
+
+  Future<void> _createNewInquiryList(INTransaction? transaction) async {
+    for (Inquiry inquiry in inquiries) {
+      await FirebaseFirestore.instance
+          .collection("inquiry")
+          .doc(inquiry.uid)
+          .delete();
+    }
+    await FirebaseFirestore.instance
+        .collection("inquiryList")
+        .doc(inquiryList.id)
+        .delete();
+    await FirebaseFirestore.instance
+        .collection("transaction")
+        .doc(transaction!.id)
+        .delete();
+
+    try {
+      inquiryList = (await inquiryRepository.createInquiryList(
+          inquiryList: InquiryList()))!;
+    } catch (e) {
+      //TODO: error handling (ADI)
+      log(e.toString());
     }
   }
 }

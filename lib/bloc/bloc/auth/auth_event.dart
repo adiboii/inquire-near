@@ -37,3 +37,5 @@ class SignOutRequested extends AuthEvent {}
 class EmitUnauthenticated extends AuthEvent {}
 
 class SwitchRole extends AuthEvent {}
+
+class InitState extends AuthEvent {}

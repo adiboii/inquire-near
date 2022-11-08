@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+// import 'package:meta/meta.dart'; // TODO: Check if commenting this still works (CYMMER)
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';
@@ -20,7 +20,7 @@ part 'transaction_event.dart';
 part 'transaction_state.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
-  //TODO: get hiringRequest data from previous screen
+  //TODO: get hiringRequest data from previous screen (ADI)
   HiringRequest? hiringRequest;
   final TransactionRepository transactionRepository;
   final UserRepository userRepository;
@@ -39,7 +39,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ClickStore>(_onClickStore);
   }
 
-  void _onCreateTransaction(CreateTransaction event, emit) async {
+void _onCreateTransaction(CreateTransaction event, emit) async {
     try {
       transaction = INTransaction(
           clientID: event.clientID,
@@ -49,7 +49,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
       transaction!.setAmount(event.noOfInquiries, event.noOfRequireProof);
 
-      String? id = await transactionRepository.createTransaction(
+      String? id = await transactionRepository.createTransactionAndGetId(
           transaction: transaction!);
 
       transaction?.id = id;

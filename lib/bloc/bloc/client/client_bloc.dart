@@ -44,7 +44,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
   void _onFindAvailableInquirers(event, emit) {
     _findAvailableInquirersSubscription = FirebaseFirestore.instance
         .collection('users')
-        .where('role', isEqualTo: Role.Inquirer.toString())
+        .where('role', isEqualTo: Role.inquirer.toValue())
         .where('isActive', isEqualTo: true)
         .snapshots()
         .listen((ev) async {

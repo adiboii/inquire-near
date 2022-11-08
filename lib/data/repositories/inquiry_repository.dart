@@ -4,7 +4,6 @@ import 'dart:developer';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/inquiry.dart';

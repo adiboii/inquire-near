@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 // Project imports:
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class PaymentReceivedScreen extends StatelessWidget {
@@ -25,7 +26,7 @@ class PaymentReceivedScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).pushReplacementNamed(
-                      '/review_client',
+                      reviewClientRoute,
                     );
                   },
                   child: Image.asset(

@@ -10,6 +10,7 @@ import 'package:inquire_near/components/recent_transactions.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/enums/role.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/client_dashboard/category_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/recent_place.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.dart';
@@ -40,7 +41,7 @@ class ClientDashboardScreen extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/profile');
+                          Navigator.pushNamed(context, profileRoute);
                         },
                         child: CircleAvatar(
                           radius: screenWidth * 0.05,
@@ -67,13 +68,13 @@ class ClientDashboardScreen extends StatelessWidget {
                     ],
                   ),
                   SwitchUserType(
-                      screenHeight: screenHeight, currentRole: Role.Client),
+                      screenHeight: screenHeight, currentRole: Role.client),
                 ],
               ),
               SizedBox(height: screenHeight * 0.02),
               SearchBar(
                 onTap: () {
-                  Navigator.pushNamed(context, '/search');
+                  Navigator.pushNamed(context, searchRoute);
                 },
               ),
               SizedBox(height: screenHeight * 0.02),
@@ -82,7 +83,7 @@ class ClientDashboardScreen extends StatelessWidget {
                 style: theme.headline,
               ),
               SizedBox(height: screenHeight * 0.02),
-              //TODO: convert to widget
+              //TODO: convert to widget (ADI)
               SizedBox(
                 height: screenHeight * 0.04,
                 child: ListView.builder(
@@ -125,7 +126,7 @@ class ClientDashboardScreen extends StatelessWidget {
                     style: theme.headline,
                   ),
                   SizedBox(height: screenHeight * 0.025),
-                  //TODO: convert to widget
+                  //TODO: convert to widget (ADI)
                   Row(
                     children: [
                       const Expanded(

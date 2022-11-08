@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/data/models/store_data.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/store_container.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -74,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           onTap: () {
                             BlocProvider.of<TransactionBloc>(context)
                                 .add(ClickStore(store: stores[index].name));
-                            Navigator.pushNamed(context, '/inquiry_list');
+                            Navigator.pushNamed(context, inquiryListRoute);
                           },
                           child: Row(
                             children: [

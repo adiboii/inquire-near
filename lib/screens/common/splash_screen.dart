@@ -5,10 +5,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-
-//TODO: apply shared preferences
-//import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,7 +20,9 @@ class _SplashState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 4), () {
-      Navigator.pushReplacementNamed(context, '/onboarding');
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, onboardingRoute);
+      }
     });
   }
 

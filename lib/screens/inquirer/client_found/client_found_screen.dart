@@ -10,6 +10,7 @@ import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/location_and_order_details.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/inquirer/client_found/widgets/accept_request_button.dart';
 import 'package:inquire_near/screens/inquirer/client_found/widgets/reject_request_button.dart';
 import 'package:inquire_near/screens/inquirer/client_found/widgets/review_details.dart';
@@ -45,7 +46,7 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
           child: BlocListener<InquirerBloc, InquirerState>(
             listener: (context, state) {
               if (state is AcceptedRequest) {
-                Navigator.of(context).pushNamed('/waiting_for_client_to_pay');
+                Navigator.of(context).pushNamed(waitingForClientToPayRoute);
               }
             },
             child: BlocBuilder<TransactionBloc, TransactionState>(

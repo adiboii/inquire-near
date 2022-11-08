@@ -1,6 +1,5 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/report.dart';
@@ -11,7 +10,7 @@ class ReportRepository {
     required String title,
     required String description,
   }) async {
-    // TODO: change 'transaction-id' to auto generated id
+    // TODO: change 'transaction-id' to auto generated id (MEL)
     final reportDocument =
         FirebaseFirestore.instance.collection('reports').doc('transaction-id');
     final report = Report(

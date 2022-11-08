@@ -10,6 +10,7 @@ import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/google_button.dart';
 import 'package:inquire_near/components/input_field.dart';
 import 'package:inquire_near/components/input_validator.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import '../../bloc/bloc/auth/auth_bloc.dart';
 
@@ -59,7 +60,7 @@ class SignUpScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is Authenticated) {
             Navigator.of(context).pushNamed(
-              '/client_dashboard',
+              clientDashboardRoute,
             );
           }
 

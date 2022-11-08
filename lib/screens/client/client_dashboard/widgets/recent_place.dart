@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class FeaturedPlace extends StatelessWidget {
@@ -24,7 +25,7 @@ class FeaturedPlace extends StatelessWidget {
       onTap: () {
         BlocProvider.of<TransactionBloc>(context)
             .add(ClickStore(store: storeName));
-        Navigator.pushNamed(context, '/inquiry_list');
+        Navigator.pushNamed(context, inquiryListRoute);
       },
       child: Container(
         height: screenHeight * 0.2,
@@ -48,7 +49,7 @@ class FeaturedPlace extends StatelessWidget {
             children: [
               Expanded(
                 flex: 2,
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   child: Image.asset(imageFilePath),
                 ),

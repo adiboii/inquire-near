@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/list.dart';
 import 'package:inquire_near/components/wallet.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class UserWalletScreen extends StatefulWidget {
@@ -23,7 +24,6 @@ class _UserWalletState extends State<UserWalletScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        //TODO:  use fontawesome
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
@@ -53,7 +53,7 @@ class _UserWalletState extends State<UserWalletScreen> {
                     label: "Top-Up",
                     width: 170,
                     onTap: () {
-                      Navigator.pushNamed(context, '/top_up');
+                      Navigator.pushNamed(context, topUpRoute);
                     },
                   ),
                   const SizedBox(width: 12),

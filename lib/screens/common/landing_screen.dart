@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class LandingScreen extends StatelessWidget {
@@ -65,14 +66,14 @@ class LandingScreen extends StatelessWidget {
                     label: "Create an account",
                     style: theme.headline,
                     onTap: () {
-                      Navigator.pushNamed(context, '/sign_up');
+                      Navigator.pushNamed(context, signUpRoute);
                     },
                   ),
                   SizedBox(height: screenHeight * 0.015),
                   ButtonOutline(
                     label: "Sign in",
                     onTap: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, loginRoute);
                     },
                   ),
                 ],
