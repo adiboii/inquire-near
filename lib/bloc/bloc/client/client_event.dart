@@ -34,3 +34,11 @@ class GetInquirerDetails extends ClientEvent {
 
   const GetInquirerDetails(this.inquirerId);
 }
+
+class ListenHiringRequest extends ClientEvent {}
+
+class UpdateHiringRequest extends ClientEvent {
+  final HiringRequestStatus hiringRequestStatus;
+
+  const UpdateHiringRequest(this.hiringRequestStatus);
+}

@@ -15,32 +15,33 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   //Display Deactivate dialog
-  showDeactivateDialog(BuildContext context){
-    showDialog(context: context, builder: (context) {
-      return AlertDialog(
-        title: const Text(
-          "Deactivate account",
-          style: theme.title3,
-        ),
-        content: const Text(
-            "Are you sure you want to deactivate your account?"
-        ),
-        actions: [
-          MaterialButton(
-            onPressed: () {
-              Navigator.pop(context, 'Cancel');
-            },
-            child: Text("Cancel"),
-          ),
-          MaterialButton(
-            onPressed: () {
-              //TO DO: update field of user isDeactivate
-            },
-            child: Text("Confirm"),
-          ),
-        ],
-      );
-    });
+  showDeactivateDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text(
+              "Deactivate account",
+              style: theme.title3,
+            ),
+            content:
+                const Text("Are you sure you want to deactivate your account?"),
+            actions: [
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context, 'Cancel');
+                },
+                child: const Text("Cancel"),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  //TO DO: update field of user isDeactivate
+                },
+                child: const Text("Confirm"),
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -81,8 +82,8 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 25.0),
-               Text(
-                 BlocProvider.of<AuthBloc>(context).user!.firstName! + " " + BlocProvider.of<AuthBloc>(context).user!.lastName!,
+              Text(
+                "${BlocProvider.of<AuthBloc>(context).user!.firstName!} ${BlocProvider.of<AuthBloc>(context).user!.lastName!}",
                 style: theme.headline,
               ),
               const SizedBox(height: 10.0),
@@ -103,8 +104,8 @@ class ProfileScreen extends StatelessWidget {
                 style: theme.caption1,
                 color: theme.red,
                 textColor: theme.red,
-                onTap: (){
-                  showDeactivateDialog(context); 
+                onTap: () {
+                  showDeactivateDialog(context);
                 },
               ),
               SizedBox(height: screenHeight * 0.04),

@@ -10,6 +10,7 @@ const String topUpRoute = '/top_up';
 const String reportRoute = '/report';
 const String editProfileRoute = '/edit_profile';
 const String aboutInquireNearRoute = '/about_inquirenear';
+const String waitingForHiringRequestStatusRoute = '/waiting_for_hiring_request_status';
 
 // Client Routes
 const String clientDashboardRoute = '/client_dashboard';

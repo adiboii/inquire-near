@@ -34,3 +34,6 @@ class RetrievedInquirerDetails extends ClientState {
 
   const RetrievedInquirerDetails(this.data);
 }
+
+class AcceptedHiringRequest extends ClientState {}
+class RejectedHiringRequest extends ClientState {}

@@ -84,9 +84,9 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                   builder: (_, state) {
                     if (state is CreateHiringRequestStatus) {
                       if (state.status) {
-                        // TODO: Change to "Waiting for Inquirer to Accept" (CYMMER)
                         Future.delayed(Duration.zero, () {
-                          Navigator.of(context).pushNamed(etaScreenRoute);
+                          Navigator.of(context)
+                              .pushNamed(waitingForHiringRequestStatusRoute);
                         });
                       } else {
                         showAlertErrorDialog(context);
@@ -152,7 +152,7 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
   void dispose() {
     try {
       BlocProvider.of<ClientBloc>(context).add(StopFindAvailableInquirer());
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
 
     super.dispose();

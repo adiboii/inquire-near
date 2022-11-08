@@ -14,13 +14,16 @@ class ClientRepository {
     db = FirebaseFirestore.instance;
   }
 
-  Future<bool> createHiringRequest(HiringRequest hiringRequest) async {
+  Future<HiringRequest?> createHiringRequest(HiringRequest hiringRequest) async {
     try {
-      await db.collection('hiringRequests').add(hiringRequest.toJson());
-      return true;
+      DocumentReference hiringRequestRef =
+          await db.collection('hiringRequests').add(hiringRequest.toJson());
+
+      hiringRequest.id = hiringRequestRef.id;
+      return hiringRequest;
     } catch (e) {
       log("createHiringRequestError > ${e.toString()}");
-      return false;
+      return null;
     }
   }
 }
