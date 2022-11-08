@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ViewInquiriesButton extends StatelessWidget {
@@ -21,7 +22,7 @@ class ViewInquiriesButton extends StatelessWidget {
     void getClientInquiries(String id) {
       BlocProvider.of<InquiryBloc>(context)
           .add(GetClientInquiries(inquiryListID: id));
-      Navigator.pushNamed(context, '/client_inquiry_list');
+      Navigator.pushNamed(context, clientInquiryListRoute);
     }
 
     return GestureDetector(

@@ -11,6 +11,7 @@ import 'package:inquire_near/components/greeting.dart';
 import 'package:inquire_near/components/status_switch.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/enums/role.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquirerDashboardScreen extends StatefulWidget {
@@ -35,11 +36,11 @@ class _InquirerDashboardScreenState extends State<InquirerDashboardScreen> {
           },
           listener: (context, state) {
             if (state is HiringRequestFound) {
-              Navigator.of(context).pushNamed('/client_found');
+              Navigator.of(context).pushNamed(clientFoundRoute);
             }
 
             if (state is AcceptedRequest) {
-              Navigator.of(context).pushNamed('/waiting_for_client_to_pay');
+              Navigator.of(context).pushNamed(waitingForClientToPayRoute);
             }
           },
           buildWhen: (previous, current) {

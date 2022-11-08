@@ -10,6 +10,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ClientFeedbackScreen extends StatefulWidget {
@@ -135,7 +136,7 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
                     onTap: () {
                       _clickSubmit(context);
                       Navigator.pushReplacementNamed(
-                          context, '/client_dashboard');
+                          context, clientDashboardRoute);
                     },
                   ),
                 ],

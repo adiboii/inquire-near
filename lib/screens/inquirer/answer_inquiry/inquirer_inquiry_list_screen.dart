@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquirerInquiryListScreen extends StatelessWidget {
@@ -43,7 +44,7 @@ class InquirerInquiryListScreen extends StatelessWidget {
                   height: screenHeight * 0.07,
                   onTap: () {
                     Navigator.of(context).pushReplacementNamed(
-                      '/payment_received',
+                      paymentReceivedRoute,
                     );
                   },
                 ),

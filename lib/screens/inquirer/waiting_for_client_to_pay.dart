@@ -7,12 +7,11 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:lottie/lottie.dart';
 
 // Project imports:
-import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
-import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
-import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class WaitingForClientToPay extends StatefulWidget {
@@ -36,14 +35,14 @@ class _WaitingForClientToPayState extends State<WaitingForClientToPay> {
       listener: (context, state) {
         log("STATE: ${state.toString()}");
         if (state is RetrievedTransactionStatus) {
-          Navigator.of(context).pushNamed('/inquirer_inquiry_list');
+          Navigator.of(context).pushNamed(inquirerInquiryListRoute);
         }
 
         if (state is FailedTransactionStatus) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Payment from Client failed.')));
           Navigator.of(context)
-              .pushNamedAndRemoveUntil('/inquirer_dashboard', (route) => false);
+              .pushNamedAndRemoveUntil(inquirerDashboardRoute, (route) => false);
         }
       },
       child: Scaffold(

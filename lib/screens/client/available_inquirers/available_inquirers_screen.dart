@@ -13,6 +13,7 @@ import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/cancel_button.dart';
 import 'package:inquire_near/data/models/hiring_request.dart';
 import 'package:inquire_near/enums/hiring_request_status.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/available_inquirer.dart';
 import 'package:inquire_near/screens/client/available_inquirers/widgets/header.dart';
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
@@ -89,7 +90,7 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                       if (state.status) {
                         // TODO: Change to "Waiting for Inquirer to Accept"
                         Future.delayed(Duration.zero, () {
-                          Navigator.of(context).pushNamed('/eta_screen');
+                          Navigator.of(context).pushNamed(etaScreenRoute);
                         });
                       } else {
                         showAlertErrorDialog(context);
@@ -110,7 +111,7 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                           return GestureDetector(
                             onTap: () async {
                               final result = await Navigator.pushNamed(
-                                  context, '/profile_details', arguments: {
+                                  context, profileDetailsRoute, arguments: {
                                 "userId": state.inquirers[index].uid,
                                 "isHiring": true
                               });
