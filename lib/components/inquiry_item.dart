@@ -13,7 +13,7 @@ class InquiryItem extends StatefulWidget {
       required this.screenHeight,
       required this.screenWidth,
       required this.label,
-      required this.attachedPhotos,
+      required this.withAttachments,
       required this.requireProof,
       required this.index})
       : super(key: key);
@@ -21,7 +21,7 @@ class InquiryItem extends StatefulWidget {
   final double screenHeight;
   final double screenWidth;
   final String? label;
-  final int attachedPhotos;
+  final String withAttachments;
   final bool requireProof;
   final String index;
 
@@ -30,8 +30,6 @@ class InquiryItem extends StatefulWidget {
 }
 
 class _InquiryItemState extends State<InquiryItem> {
-  late String requireProofString;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,14 +53,17 @@ class _InquiryItemState extends State<InquiryItem> {
                 ),
                 SizedBox(height: widget.screenHeight * 0.01),
                 Text(
-                  "Attached photos: ${widget.attachedPhotos}",
-                  style: theme.caption1,
+                  widget.withAttachments,
+                  style: theme.caption2.copyWith(fontStyle: FontStyle.italic),
                 ),
                 SizedBox(height: widget.screenHeight * 0.01),
-                Text(
-                  "Require Proof: ${widget.requireProof.toString()}",
-                  style: theme.caption1,
-                ),
+                widget.requireProof == true
+                    ? Text(
+                        "Requires Proof",
+                        style: theme.caption2
+                            .copyWith(fontStyle: FontStyle.italic),
+                      )
+                    : const SizedBox(),
                 SizedBox(height: widget.screenHeight * 0.01),
               ],
             ),

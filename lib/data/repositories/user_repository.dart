@@ -1,6 +1,7 @@
-// Package imports:
+// Dart imports:
 import 'dart:developer';
 
+// Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
@@ -13,7 +14,7 @@ class UserRepository {
     DocumentSnapshot<Map<String, dynamic>> user =
         await FirebaseFirestore.instance.collection("users").doc(userId).get();
     INUser userData = INUser.fromJson(user.data()!);
-
+    userData.setUID(userId);
     return userData;
   }
 

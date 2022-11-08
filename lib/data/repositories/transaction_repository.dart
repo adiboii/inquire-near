@@ -1,3 +1,4 @@
+// Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
@@ -6,6 +7,15 @@ import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 
 class TransactionRepository {
+  Future<String?> createTransactionAndGetId(
+      {required INTransaction transaction}) async {
+    DocumentReference transactionRef = await FirebaseFirestore.instance
+        .collection("transaction")
+        .add(transaction.toJSON());
+
+    return transactionRef.id;
+  }
+
   Future<INTransaction> getTransactionDetails(String transactionID) async {
     DocumentSnapshot<Map<String, dynamic>> transactionDoc =
         await FirebaseFirestore.instance

@@ -1,10 +1,11 @@
-// Package imports:
+// Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:inquire_near/enums/paypal_status.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
@@ -13,6 +14,7 @@ import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
+import 'package:inquire_near/enums/paypal_status.dart';
 
 part 'transaction_event.dart';
 part 'transaction_state.dart';
@@ -22,12 +24,13 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   HiringRequest? hiringRequest;
   final TransactionRepository transactionRepository;
   final UserRepository userRepository;
-  late INTransaction transaction;
-
+  INTransaction? transaction;
   String? store;
+
   TransactionBloc(
       {required this.transactionRepository, required this.userRepository})
       : super(TransactionInitial()) {
+    on<CreateTransaction>(_onCreateTransaction);
     on<GetHiringRequestDetails>(_onGetHiringDetails);
     on<GetTransactionDetails>(_onGetTransactionDetails);
     on<GetTransactionStatus>(_onGetTransactionStatus);
@@ -36,8 +39,27 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ClickStore>(_onClickStore);
   }
 
+  void _onCreateTransaction(CreateTransaction event, emit) async {
+    try {
+      transaction = INTransaction(
+          clientID: event.clientID,
+          inquiryListID: event.inquiryListID,
+          store: store!,
+          isCompleted: false);
+
+      transaction!.setAmount(event.noOfInquiries, event.noOfRequireProof);
+
+      String? id = await transactionRepository.createTransaction(
+          transaction: transaction!);
+
+      transaction?.id = id;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   void _onGetHiringDetails(GetHiringRequestDetails event, emit) async {
-    emit(Retrieving());
+    emit(TransactionLoading());
     hiringRequest = event.hiringRequest;
     emit(RetreievedHiringRequestDetails());
   }
@@ -47,7 +69,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   }
 
   void _onGetTransactionDetails(GetTransactionDetails event, emit) async {
-    emit(Retrieving());
+    emit(TransactionLoading());
 
     INTransaction transaction = await transactionRepository
         .getTransactionDetails(hiringRequest!.transactionId);
@@ -75,7 +97,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   void _onGetTransactionStatus(event, emit) {
     transactionStatusListener = FirebaseFirestore.instance
         .collection('transaction')
-        .doc(transaction.id)
+        .doc(transaction!.id)
         .snapshots()
         .listen((ev) async {
       INTransaction t = INTransaction.fromJson(ev.data()!);

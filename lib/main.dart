@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
 import 'package:inquire_near/app_router.dart';
@@ -11,19 +12,18 @@ import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
-import 'package:inquire_near/bloc/bloc/report/report_bloc.dart';
 import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
+import 'package:inquire_near/bloc/bloc/report/report_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
+import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/feedback_repository.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
-import 'package:inquire_near/data/repositories/report_repository.dart';
-import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/data/repositories/paypal_repository.dart';
+import 'package:inquire_near/data/repositories/report_repository.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 bool? showOnboarding = true;
 Future<void> main() async {

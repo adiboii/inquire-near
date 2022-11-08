@@ -26,7 +26,7 @@ class CreateHiringRequestStatus extends ClientState {
 }
 
 // Inquirer Profile Details Related States
-class Loading extends ClientState {}
+class ClientLoading extends ClientState {}
 
 class RetrievedInquirerDetails extends ClientState {
   // This data is composed of different statistics, not only `user`

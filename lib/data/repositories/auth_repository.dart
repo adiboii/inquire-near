@@ -155,7 +155,6 @@ class AuthRepository {
           .get();
       INUser userData = INUser.fromJson(userDoc.data()!);
       userData.setUID(userDoc.id);
-
       return userData;
     } on FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);

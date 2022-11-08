@@ -4,18 +4,35 @@ import 'dart:io';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
+import 'package:inquire_near/components/image_viewer.dart';
+
 class InquiryImage extends StatelessWidget {
   final File? image;
-
+  final String? imageUrl;
   final VoidCallback? onCrossIconPressed;
-  const InquiryImage({super.key, this.onCrossIconPressed, this.image});
+  const InquiryImage(
+      {super.key, this.onCrossIconPressed, this.image, this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: image == null
-          ? Container()
-          : Stack(
+    return (image == null && imageUrl == null)
+        ? const SizedBox()
+        : InkWell(
+            onTap: () {
+              if (image != null) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImageViewer(file: image)));
+              } else if (imageUrl != null) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImageViewer(imageUrl: imageUrl)));
+              }
+            },
+            child: Stack(
               children: [
                 InteractiveViewer(
                   child: Container(
@@ -27,7 +44,9 @@ class InquiryImage extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5)),
                         image: DecorationImage(
-                          image: FileImage(image!),
+                          image: image != null
+                              ? FileImage(image!)
+                              : NetworkImage(imageUrl!) as ImageProvider,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -53,36 +72,6 @@ class InquiryImage extends StatelessWidget {
                 )
               ],
             ),
-    );
-  }
-}
-
-class ClientInquiryImage extends StatelessWidget {
-  final String? imageUrl;
-
-  const ClientInquiryImage({super.key, this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: imageUrl == null
-          ? Container()
-          : InteractiveViewer(
-              child: Container(
-                alignment: Alignment.topRight,
-                child: Container(
-                  height: 220,
-                  width: MediaQuery.of(context).size.width * .8,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    image: DecorationImage(
-                      image: NetworkImage(imageUrl!),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-    );
+          );
   }
 }

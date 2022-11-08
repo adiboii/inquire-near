@@ -7,7 +7,7 @@ abstract class TransactionState extends Equatable {
 
 class TransactionInitial extends TransactionState {}
 
-class Retrieving extends TransactionState {}
+class TransactionLoading extends TransactionState {}
 
 class RetreievedHiringRequestDetails extends TransactionState {}
 

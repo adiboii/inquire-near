@@ -1,18 +1,18 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:async';
 import 'dart:developer';
-import 'dart:ffi';
 
-import 'package:firebase_auth/firebase_auth.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:inquire_near/data/models/in_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // Project imports:
+import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
 import 'package:inquire_near/enums/role.dart';
@@ -51,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
-    emit(Loading());
+    emit(AuthLoading());
     try {
       INUser u = await authRepository.signIn(
           email: event.email, password: event.password);
@@ -64,7 +64,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   _onSignUpRequested(SignUpRequested event, Emitter<AuthState> emit) async {
-    emit(Loading());
+    emit(AuthLoading());
     try {
       INUser u = await authRepository.signUp(
           firstName: event.firstName,
@@ -82,7 +82,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   _onGoogleSignInRequested(
       GoogleSignInRequested event, Emitter<AuthState> emit) async {
-    emit(Loading());
+    emit(AuthLoading());
     try {
       INUser u = await authRepository.signInWithGoogle();
       user = u;
@@ -94,7 +94,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   _onSignOutRequested(SignOutRequested event, Emitter<AuthState> emit) async {
-    emit(Loading());
+    emit(AuthLoading());
     user = null;
     await authRepository.signOut();
     emit(Unauthenticated());

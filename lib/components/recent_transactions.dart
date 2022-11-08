@@ -1,5 +1,10 @@
-import 'package:auto_size_text/auto_size_text.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
+
+// Project imports:
 import 'package:inquire_near/components/list.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 

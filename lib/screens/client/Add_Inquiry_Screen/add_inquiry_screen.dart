@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/bottom_bar.dart';
+import 'package:inquire_near/components/input_validator.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/screens/client/Add_Inquiry_Screen/widgets/add_inquiry_input.dart';
@@ -27,7 +28,9 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
   File? image;
   late Inquiry inquiry;
   bool requireProof = false;
-  TextEditingController inquiryContoller = TextEditingController();
+  TextEditingController inquiryController = TextEditingController();
+  final inputValidator = InputValidator();
+  final _formKey = GlobalKey<FormState>();
 
   void _onCrossIconPressed() {
     setState(() {
@@ -71,32 +74,46 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                     children: [
                       Column(
                         children: [
-                          //TODO: change to InquiryTitleBar component
-                          AddInquiryTitleBar(
+                          InquiryTitleBar(
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
+                            pageLabel: "Add an Inquiry",
+                            buttonLabel: "Add",
                             onTap: () {
-                              setState(() {
-                                inquiry = Inquiry(
-                                    inquiryListID:
-                                        BlocProvider.of<InquiryBloc>(context)
-                                            .inquiryList
-                                            .id!,
-                                    question: inquiryContoller.text,
-                                    requireProof: requireProof,
-                                    image: image);
-                              });
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  inquiry = Inquiry(
+                                      inquiryListID:
+                                          BlocProvider.of<InquiryBloc>(context)
+                                              .inquiryList
+                                              .id!,
+                                      question: inquiryController.text,
+                                      requireProof: requireProof,
+                                      image: image);
+                                });
 
-                              BlocProvider.of<InquiryBloc>(context)
-                                  .add(AddInquiryRequested(inquiry: inquiry));
+                                BlocProvider.of<InquiryBloc>(context)
+                                    .add(AddInquiryRequested(inquiry: inquiry));
 
-                              Navigator.pop(context);
+                                Navigator.pop(context);
+                              }
                             },
                           ),
                           SizedBox(height: screenHeight * 0.04),
-                          AddInquiryInput(
+                          Form(
+                            key: _formKey,
+                            child: AddInquiryInput(
                               screenWidth: screenWidth,
-                              inquiryContoller: inquiryContoller),
+                              inquiryContoller: inquiryController,
+                              validator: (value) {
+                                if (inputValidator.isEmpty(value)) {
+                                  return 'This is a required field';
+                                }
+
+                                return null;
+                              },
+                            ),
+                          ),
                         ],
                       ),
                       Padding(

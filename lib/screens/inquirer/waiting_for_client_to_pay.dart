@@ -1,16 +1,17 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:lottie/lottie.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 

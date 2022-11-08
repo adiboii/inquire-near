@@ -1,3 +1,4 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -5,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/cards.dart';
@@ -27,17 +29,15 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<InquiryBloc>(context).add(CreateInquiryList());
+    inquiryList = BlocProvider.of<InquiryBloc>(context).inquiries;
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-
-    setState(() {
-      inquiryList = BlocProvider.of<InquiryBloc>(context).inquiries;
-    });
-
+    AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+    InquiryBloc inquiryBloc = BlocProvider.of<InquiryBloc>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -45,11 +45,18 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
           child: BlocConsumer<InquiryBloc, InquiryState>(
             listener: (context, state) {
               if (state is InquiryFinished) {
+                BlocProvider.of<TransactionBloc>(context).add(CreateTransaction(
+                    clientID: authBloc.user!.uid!,
+                    inquiryListID: inquiryBloc.inquiryList.id!,
+                    noOfInquiries: inquiryBloc.inquiryList.noOfInquiries,
+                    noOfRequireProof:
+                        inquiryBloc.inquiryList.noOfRequireProof));
+
                 Navigator.pushNamed(context, '/available_inquirers');
               }
             },
             builder: (context, state) {
-              if (state is Loading || state is CreatingInquiryList) {
+              if (state is InquiryLoading || state is CreatingInquiryList) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -115,8 +122,10 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                                     width: screenWidth * 0.40,
                                     height: screenHeight * 0.06,
                                     onTap: () {
+                                      inquiryBloc.add(FinalizeInquiry());
+
                                       Navigator.pushNamed(
-                                          context, '/finding_inquirer');
+                                          context, '/available_inquirers');
                                     },
                                   ),
                                 ],

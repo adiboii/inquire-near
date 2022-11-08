@@ -41,7 +41,7 @@ class _InquiryListWidgetState extends State<InquiryListWidget> {
       itemCount: widget.inquiryList.length,
       itemBuilder: ((context, index) {
         return Dismissible(
-          key: Key(index.toString()),
+          key: UniqueKey(),
           onDismissed: (direction) {
             BlocProvider.of<InquiryBloc>(context)
                 .add(DeleteInquiryRequested(index: index));
@@ -56,7 +56,7 @@ class _InquiryListWidgetState extends State<InquiryListWidget> {
               screenWidth: widget.screenWidth,
               index: (index + 1).toString(),
               label: widget.inquiryList[index].question,
-              attachedPhotos: widget.inquiryList[index].numOfAttachedImages,
+              withAttachments: widget.inquiryList[index].withAttachedImages,
               requireProof: widget.inquiryList[index].requireProof,
             ),
           ),
