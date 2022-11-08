@@ -136,7 +136,7 @@ class AppRouter {
 
       case searchRoute:
         return MaterialPageRoute(builder: (_) => const SearchScreen());
-
+        
       // Inquirer Screens
       case inquirerDashboardRoute:
         return MaterialPageRoute(
