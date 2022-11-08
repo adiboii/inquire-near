@@ -1,6 +1,6 @@
 enum Role {
-  Client,
-  Inquirer,
+  client,
+  inquirer
 }
 
 extension ParseToString on Role {
@@ -16,5 +16,5 @@ Role getRoleFromString(String role) {
     }
   }
 
-  return Role.Client;
+  return Role.client;
 }

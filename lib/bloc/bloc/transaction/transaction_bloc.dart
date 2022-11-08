@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-// import 'package:meta/meta.dart';
+// import 'package:meta/meta.dart'; // TODO: Check if commenting this still works
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';
@@ -20,7 +20,7 @@ part 'transaction_event.dart';
 part 'transaction_state.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
-  //TODO: get hiringRequest data from previous screen
+  //TODO: get hiringRequest data from previous screen (ADI)
   HiringRequest? hiringRequest;
   final TransactionRepository transactionRepository;
   final UserRepository userRepository;

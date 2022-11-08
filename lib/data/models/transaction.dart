@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:inquire_near/data/models/base_model.dart';
 import 'package:inquire_near/enums/paypal_status.dart';
 
+// ignore: must_be_immutable
 class INTransaction extends BaseModel {
   String? id;
   final String clientID;
@@ -54,4 +55,8 @@ class INTransaction extends BaseModel {
         'isCompleted': isCompleted,
         'dateTimeCreated': super.dateTimeCreated,
       };
+      
+        @override
+        // TODO: implement props
+        List<Object?> get props => throw UnimplementedError();
 }
