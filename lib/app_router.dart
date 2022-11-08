@@ -17,6 +17,7 @@ import 'package:inquire_near/screens/client/payment_summary/payment_summary_scre
 import 'package:inquire_near/screens/client/release_payment_screen.dart';
 import 'package:inquire_near/screens/client/responses_screen.dart';
 import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
+import 'package:inquire_near/screens/common/edit_profile_screen.dart';
 import 'package:inquire_near/screens/common/error_screen.dart';
 import 'package:inquire_near/screens/common/landing_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
@@ -74,8 +75,10 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => const ReportScreen(reportByClient: false));
 
-      // Client Screens
+      case '/edit_profile':
+        return MaterialPageRoute(builder: (_) => EditProfileScreen());
 
+      // Client Screens
       case '/client_dashboard':
         return MaterialPageRoute(builder: (_) => const ClientDashboardScreen());
 
