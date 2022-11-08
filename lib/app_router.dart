@@ -78,7 +78,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => EditProfileScreen());
 
       case aboutInquireNearRoute:
-        return MaterialPageRoute(builder: (_) => AboutInquireNearScreen());
+        return MaterialPageRoute(builder: (_) => const AboutInquireNearScreen());
 
       // Client Screens
       case clientDashboardRoute:
