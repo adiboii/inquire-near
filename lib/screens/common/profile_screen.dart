@@ -27,15 +27,15 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           MaterialButton(
             onPressed: () {
-              //TO DO: update field of user isDeactivate
-            },
-            child: Text("Confirm"),
-          ),
-          MaterialButton(
-            onPressed: () {
               Navigator.pop(context, 'Cancel');
             },
             child: Text("Cancel"),
+          ),
+          MaterialButton(
+            onPressed: () {
+              //TO DO: update field of user isDeactivate
+            },
+            child: Text("Confirm"),
           ),
         ],
       );
@@ -107,7 +107,13 @@ class ProfileScreen extends StatelessWidget {
                 },
               ),
               SizedBox(height: screenHeight * 0.04),
-              const InLabel(icon: Icons.info_sharp, label: "About InquireNear"),
+              InLabel(
+                icon: Icons.info_sharp,
+                label: "About InquireNear",
+                onTap: () {
+                  Navigator.pushNamed(context, '/about_inquirenear');
+                },
+              ),
               SizedBox(height: screenHeight * 0.04),
               InLabel(
                 icon: Icons.exit_to_app,
