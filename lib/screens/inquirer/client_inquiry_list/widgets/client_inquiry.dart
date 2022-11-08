@@ -68,7 +68,7 @@ class _ClientInquiryScreenState extends State<ClientInquiryScreen> {
                     children: [
                       Column(
                         children: [
-                          AddInquiryTitleBar(
+                          InquiryTitleBar(
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
                             pageLabel: "Inquiry $inquiryIndex",

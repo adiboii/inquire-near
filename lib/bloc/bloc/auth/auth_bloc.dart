@@ -1,7 +1,6 @@
 // Dart imports:
 import 'dart:async';
 import 'dart:developer';
-import 'dart:ffi';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
@@ -38,7 +37,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         try {
           user = await userRepository.getUser(u.uid);
-          user!.setUID(u.uid);
         } catch (e) {
           add(SignOutRequested());
         }
@@ -58,7 +56,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       INUser u = await authRepository.signIn(
           email: event.email, password: event.password);
       user = u;
-      log("User id: ${user!.uid}");
       emit(Authenticated());
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(AuthError(e.message));

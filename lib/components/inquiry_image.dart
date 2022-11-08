@@ -16,65 +16,62 @@ class InquiryImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: image == null && imageUrl == null
-          ? Container()
-          : InkWell(
-              onTap: () {
-                if (image != null) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ImageViewer(file: image)));
-                } else if (imageUrl != null) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ImageViewer(imageUrl: imageUrl)));
-                }
-              },
-              child: Stack(
-                children: [
-                  InteractiveViewer(
+    return (image == null && imageUrl == null)
+        ? const SizedBox()
+        : InkWell(
+            onTap: () {
+              if (image != null) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImageViewer(file: image)));
+              } else if (imageUrl != null) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImageViewer(imageUrl: imageUrl)));
+              }
+            },
+            child: Stack(
+              children: [
+                InteractiveViewer(
+                  child: Container(
+                    alignment: Alignment.topRight,
                     child: Container(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        height: 220,
-                        width: MediaQuery.of(context).size.width * .8,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
-                          image: DecorationImage(
-                            image: image != null
-                                ? FileImage(image!)
-                                : NetworkImage(imageUrl!) as ImageProvider,
-                            fit: BoxFit.cover,
-                          ),
+                      height: 220,
+                      width: MediaQuery.of(context).size.width * .8,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                        image: DecorationImage(
+                          image: image != null
+                              ? FileImage(image!)
+                              : NetworkImage(imageUrl!) as ImageProvider,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    padding: const EdgeInsets.all(0),
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.black54),
+                    child: IconButton(
                       padding: const EdgeInsets.all(0),
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.black54),
-                      child: IconButton(
-                        padding: const EdgeInsets.all(0),
-                        iconSize: 20,
-                        onPressed: onCrossIconPressed,
-                        icon: Icon(
-                          Icons.close,
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
+                      iconSize: 20,
+                      onPressed: onCrossIconPressed,
+                      icon: Icon(
+                        Icons.close,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
-    );
+          );
   }
 }

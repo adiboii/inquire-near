@@ -43,7 +43,6 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
             backgroundColor: theme.primary,
           )),
       body: SafeArea(
-        //top: false,
         child: BlocBuilder<ClientBloc, ClientState>(builder: (context, state) {
           if (state is ClientLoading) {
             return const Center(child: CircularProgressIndicator());

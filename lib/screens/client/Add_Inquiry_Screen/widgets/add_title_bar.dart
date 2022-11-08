@@ -9,8 +9,8 @@ import 'package:inquire_near/components/back_button.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class AddInquiryTitleBar extends StatelessWidget {
-  const AddInquiryTitleBar({
+class InquiryTitleBar extends StatelessWidget {
+  const InquiryTitleBar({
     Key? key,
     required this.screenWidth,
     required this.screenHeight,
