@@ -15,8 +15,8 @@ class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({Key? key}) : super(key: key);
 
   // Text Controllers
-  TextEditingController firstNameTextController = TextEditingController();
-  TextEditingController lastNameTextController = TextEditingController();
+  final TextEditingController firstNameTextController = TextEditingController();
+  final TextEditingController lastNameTextController = TextEditingController();
 
   // Form Key
   final formKey = GlobalKey<FormState>();

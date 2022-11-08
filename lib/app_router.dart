@@ -17,6 +17,7 @@ import 'package:inquire_near/screens/client/payment_summary/payment_summary_scre
 import 'package:inquire_near/screens/client/release_payment_screen.dart';
 import 'package:inquire_near/screens/client/responses_screen.dart';
 import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
+import 'package:inquire_near/screens/client/waiting_for_hiring_request_status.dart';
 import 'package:inquire_near/screens/common/about_inquirenear_screen.dart';
 import 'package:inquire_near/screens/common/edit_profile_screen.dart';
 import 'package:inquire_near/screens/common/error_screen.dart';
@@ -79,6 +80,9 @@ class AppRouter {
 
       case aboutInquireNearRoute:
         return MaterialPageRoute(builder: (_) => const AboutInquireNearScreen());
+
+      case waitingForHiringRequestStatusRoute:
+        return MaterialPageRoute(builder: (_) => const WaitingForHiringRequestStatusScreen());
 
       // Client Screens
       case clientDashboardRoute:

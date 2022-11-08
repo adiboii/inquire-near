@@ -11,6 +11,7 @@ import 'package:inquire_near/data/models/hiring_request.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/repositories/client_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
+import 'package:inquire_near/enums/hiring_request_status.dart';
 import 'package:inquire_near/enums/role.dart';
 
 part 'client_event.dart';
@@ -18,8 +19,10 @@ part 'client_state.dart';
 
 class ClientBloc extends Bloc<ClientEvent, ClientState> {
   late StreamSubscription? _findAvailableInquirersSubscription;
+  late StreamSubscription _hiringRequestSubscription;
   late ClientRepository clientRepository;
   late UserRepository userRepository;
+  HiringRequest? hiringRequest;
 
   ClientBloc() : super(ClientInitial()) {
     clientRepository = ClientRepository();
@@ -39,6 +42,10 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     on<HireInquirer>(_onHireInquirer);
 
     on<GetInquirerDetails>(_onGetInquirerDetails);
+
+    on<ListenHiringRequest>(_onListenHiringRequest);
+
+    on<UpdateHiringRequest>(_onUpdateHiringRequest);
   }
 
   void _onFindAvailableInquirers(event, emit) {
@@ -88,10 +95,10 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
   }
 
   void _onHireInquirer(event, emit) async {
-    bool isCreated =
+    hiringRequest =
         await clientRepository.createHiringRequest(event.hiringRequest);
 
-    emit(CreateHiringRequestStatus(isCreated));
+    emit(CreateHiringRequestStatus(hiringRequest != null));
   }
 
   void _onGetInquirerDetails(event, emit) async {
@@ -101,5 +108,38 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
         await userRepository.getUserData(event.inquirerId);
 
     emit(RetrievedInquirerDetails(data));
+  }
+
+  void _onListenHiringRequest(event, emit) async {
+    if (hiringRequest != null) {
+      _hiringRequestSubscription = FirebaseFirestore.instance
+          .collection("hiringRequests")
+          .doc(hiringRequest!.id)
+          .snapshots()
+          .listen((event) {
+        if (event.exists) {
+          HiringRequest hr = HiringRequest.fromJson(event.data()!);
+          hr.id = hiringRequest!.id;
+
+          if (hr.status != hiringRequest!.status &&
+              hr.status != HiringRequestStatus.pending) {
+            hiringRequest = hr;
+            add(UpdateHiringRequest(hr.status));
+          }
+        }
+      });
+    }
+  }
+
+  void _onUpdateHiringRequest(event, emit) {
+    if (event.hiringRequestStatus == HiringRequestStatus.accepted) {
+      emit(AcceptedHiringRequest());
+    } else {
+      emit(RejectedHiringRequest());
+    }
+    try {
+      _hiringRequestSubscription.cancel();
+      // ignore: empty_catches
+    } catch (e) {}
   }
 }

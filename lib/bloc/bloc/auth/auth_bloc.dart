@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
@@ -104,7 +105,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _onSwitchRole(event, emit) async {
-    Role currentRole = user!.role;
+    Role currentRole = event.currentRole;
     Role roleToSwitch;
 
     if (currentRole == Role.client) {
