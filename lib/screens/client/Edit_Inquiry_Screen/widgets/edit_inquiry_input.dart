@@ -10,11 +10,13 @@ class InquiryInput extends StatefulWidget {
     required this.screenWidth,
     required this.inquiryContoller,
     this.updateMessage,
+    this.readOnly = false,
   }) : super(key: key);
 
   final double screenWidth;
   final TextEditingController inquiryContoller;
   final Function(String)? updateMessage;
+  final bool readOnly;
   @override
   State<InquiryInput> createState() => _InquiryInputState();
 }
@@ -38,6 +40,7 @@ class _InquiryInputState extends State<InquiryInput> {
         SizedBox(
           width: widget.screenWidth * 0.7,
           child: TextField(
+            readOnly: widget.readOnly,
             controller: widget.inquiryContoller,
             onChanged: widget.updateMessage,
             decoration:

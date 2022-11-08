@@ -53,23 +53,25 @@ class InquiryImage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    padding: const EdgeInsets.all(0),
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.black54),
-                    child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                      iconSize: 20,
-                      onPressed: onCrossIconPressed,
-                      icon: Icon(
-                        Icons.close,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                  ),
-                )
+                (imageUrl == null)
+                    ? Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          padding: const EdgeInsets.all(0),
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.black54),
+                          child: IconButton(
+                            padding: const EdgeInsets.all(0),
+                            iconSize: 20,
+                            onPressed: onCrossIconPressed,
+                            icon: Icon(
+                              Icons.close,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                          ),
+                        ),
+                      )
+                    : const SizedBox()
               ],
             ),
           );
