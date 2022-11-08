@@ -3,6 +3,7 @@ import 'dart:async';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -59,7 +60,20 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
                 payerId.toString(), paymentId.toString());
 
             if (executeStatus) {
-              emit(PaymentSuccessful());
+              Map<String, dynamic>? paypalTransactionResults =
+                  await payPalRepository.getPaymentDetails(paymentId!);
+              if (paypalTransactionResults == null) {
+                emit(PaymentError());
+              } else {
+                FirebaseFirestore.instance
+                    .collection("transaction")
+                    .doc(event.transactionId)
+                    .update({
+                  'payPalId': paypalTransactionResults["id"],
+                  'payPalStatus': paypalTransactionResults["state"]
+                });
+                emit(PaymentSuccessful());
+              }
             } else {
               emit(PaymentError());
             }

@@ -1,4 +1,4 @@
-enum PayPalStatus { success, failed }
+enum PayPalStatus { completed, failed }
 
 extension ParseToString on PayPalStatus {
   String toValue() {

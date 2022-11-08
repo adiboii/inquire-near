@@ -65,9 +65,7 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
     if (isOnline) {
       _hiringRequestSubscription = FirebaseFirestore.instance
           .collection('hiringRequests')
-          .where('inquirerId',
-              isEqualTo: currentUser
-                  .uid)
+          .where('inquirerId', isEqualTo: currentUser.uid)
           .where('status', isEqualTo: HiringRequestStatus.pending.toValue())
           .orderBy("requestMade", descending: true)
           .snapshots()
@@ -102,6 +100,11 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
         .collection('hiringRequests')
         .doc(hiringRequest?.id)
         .update({"status": HiringRequestStatus.accepted.toValue()});
+
+    await FirebaseFirestore.instance
+        .collection('transaction')
+        .doc(event.transactionId)
+        .update({"inquirerID": FirebaseAuth.instance.currentUser!.uid});
 
     emit(AcceptedRequest());
   }
