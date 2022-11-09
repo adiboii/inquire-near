@@ -87,6 +87,7 @@ class _ClientInquiryScreenState extends State<ClientInquiryScreen> {
                           const SizedBox(height: 10),
                           RequiresProof(
                             showWidget: requireProof,
+                            showStatus: false,
                             hasProof: false,
                           ),
                         ],

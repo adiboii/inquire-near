@@ -6,9 +6,13 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class RequiresProof extends StatelessWidget {
   const RequiresProof(
-      {Key? key, required this.hasProof, required this.showWidget})
+      {Key? key,
+      required this.hasProof,
+      required this.showWidget,
+      this.showStatus = true})
       : super(key: key);
 
+  final bool showStatus;
   final bool hasProof;
   final bool showWidget;
   @override
@@ -20,7 +24,10 @@ class RequiresProof extends StatelessWidget {
         child: Row(
           children: [
             (!hasProof)
-                ? const Icon(Icons.circle_outlined, size: 15, color: theme.red)
+                ? (showStatus)
+                    ? const Icon(Icons.circle_outlined,
+                        size: 15, color: theme.red)
+                    : const SizedBox()
                 : const Icon(Icons.check_circle, size: 15, color: theme.green),
             const SizedBox(width: 5),
             Text(
