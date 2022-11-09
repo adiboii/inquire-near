@@ -1,7 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
@@ -9,7 +11,6 @@ import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/client_dashboard/client_dashboard_screen.dart';
 import 'package:inquire_near/screens/common/splash_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({super.key});

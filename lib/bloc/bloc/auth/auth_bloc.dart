@@ -47,6 +47,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<EmitUnauthenticated>(_onEmitUnauthenticated);
     on<SwitchRole>(_onSwitchRole);
     on<InitState>(_onInitState);
+    on<EditProfileRequested>(_onEditProfileRequested);
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
@@ -116,6 +117,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
 
     userRepository.switchRole(id: user!.uid!, roleToSwitch: roleToSwitch);
+  }
+
+  _onEditProfileRequested(EditProfileRequested event, Emitter<AuthState> emit) async {
+    try {
+      INUser u = await authRepository.editProfile(
+          firstName: event.firstName,
+          lastName: event.lastName,
+      );
+      user = u;
+    }  catch (e) {
+      rethrow;
+    }
   }
 
  _onInitState(event, emit) async {

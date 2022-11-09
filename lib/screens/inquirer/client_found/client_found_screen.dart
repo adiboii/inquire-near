@@ -40,8 +40,6 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    INTransaction? transaction = BlocProvider.of<TransactionBloc>(context).transaction;
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -61,6 +59,7 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
                 }
 
                 if (state is RetrievedTransactionDetails) {
+                  INTransaction? transaction = BlocProvider.of<TransactionBloc>(context).transaction; 
                   String firstName = state.userData['user'].firstName;
                   String lastName = state.userData['user'].lastName;
                   String clientName = "$firstName $lastName";

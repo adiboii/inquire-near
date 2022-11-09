@@ -109,22 +109,26 @@ class LocationAndOrderDetails extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: screenHeight * 0.01,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const AutoSizeText(
-                'Require Proof',
-                style: theme.caption1,
-              ),
-              AutoSizeText(
-                '${inquiryList.noOfRequireProof} x PHP 5.00',
-                style: theme.caption1,
-              ),
-            ],
-          ),
+          inquiryList.noOfRequireProof != 0
+              ? Column(children: [
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const AutoSizeText(
+                        'Require Proof',
+                        style: theme.caption1,
+                      ),
+                      AutoSizeText(
+                        '${inquiryList.noOfRequireProof} x PHP 5.00',
+                        style: theme.caption1,
+                      ),
+                    ],
+                  ),
+                ])
+              : const SizedBox(),
           SizedBox(
             height: screenHeight * 0.01,
           ),

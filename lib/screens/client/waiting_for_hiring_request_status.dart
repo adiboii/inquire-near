@@ -1,10 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
-import 'package:inquire_near/routes.dart';
 import 'package:jumping_dot/jumping_dot.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/client/client_bloc.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class WaitingForHiringRequestStatusScreen extends StatefulWidget {

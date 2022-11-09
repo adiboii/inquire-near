@@ -1,10 +1,12 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:intl/intl.dart';
+
 // Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import 'package:intl/intl.dart';
 
 class NameAndDateJoined extends StatelessWidget {
   const NameAndDateJoined({
