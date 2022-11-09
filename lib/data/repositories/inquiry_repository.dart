@@ -72,13 +72,12 @@ class InquiryRepository {
     QuerySnapshot<Map<String, dynamic>> inquiriesDoc = await FirebaseFirestore
         .instance
         .collection("inquiries")
-        .where('inquiryListID', isEqualTo: inquiryListID)
+        .where('inquiryListId', isEqualTo: inquiryListID)
         .get();
 
     for (var inquiry in inquiriesDoc.docs) {
       inquiries.add(Inquiry.fromJson(inquiry.data()));
     }
-
     return inquiries;
   }
 }

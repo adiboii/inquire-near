@@ -16,11 +16,11 @@ class TransactionRepository {
     return transactionRef.id;
   }
 
-  Future<INTransaction> getTransactionDetails(String transactionID) async {
+  Future<INTransaction> getTransactionDetails(String transactionId) async {
     DocumentSnapshot<Map<String, dynamic>> transactionDoc =
         await FirebaseFirestore.instance
             .collection("transactions")
-            .doc(transactionID)
+            .doc(transactionId)
             .get();
 
     INTransaction transaction = INTransaction.fromJson(transactionDoc.data()!);
@@ -28,19 +28,19 @@ class TransactionRepository {
     return transaction;
   }
 
-  Future<INUser> getClientData(String userID) async {
+  Future<INUser> getClientData(String userId) async {
     DocumentSnapshot<Map<String, dynamic>> user =
-        await FirebaseFirestore.instance.collection("users").doc(userID).get();
+        await FirebaseFirestore.instance.collection("users").doc(userId).get();
     INUser userData = INUser.fromJson(user.data()!);
 
     return userData;
   }
 
-  Future<InquiryList> getInquiryList(String inquiryListID) async {
+  Future<InquiryList> getInquiryList(String inquiryListId) async {
     DocumentSnapshot<Map<String, dynamic>> inquiryListDoc =
         await FirebaseFirestore.instance
             .collection("inquiryLists")
-            .doc(inquiryListID)
+            .doc(inquiryListId)
             .get();
 
     InquiryList inquiryList = InquiryList.fromJson(inquiryListDoc.data()!);
