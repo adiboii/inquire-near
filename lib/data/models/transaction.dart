@@ -1,8 +1,8 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:inquire_near/constants.dart';
 
 // Project imports:
+import 'package:inquire_near/constants.dart';
 import 'package:inquire_near/data/models/base_model.dart';
 import 'package:inquire_near/enums/paypal_status.dart';
 
@@ -56,6 +56,5 @@ class INTransaction extends BaseModel {
       };
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
