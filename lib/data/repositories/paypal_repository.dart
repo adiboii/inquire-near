@@ -35,6 +35,9 @@ class PayPalRepository {
     try {
       Response response = await dio.get(
           "${constants.PayPalBaseURL}/success?PayerID=$payerId&paymentId=$paymentId");
+
+      log("${constants.PayPalBaseURL}/success?PayerID=$payerId&paymentId=$paymentId");
+      log(response.data);
       if (response.statusCode == 200) {
         return true;
       }
@@ -43,5 +46,18 @@ class PayPalRepository {
     }
 
     return false;
+  }
+
+  Future<Map<String, dynamic>?> getPaymentDetails(String paymentId) async {
+    try {
+      Response response =
+          await dio.get("${constants.PayPalBaseURL}/transaction-details?paymentId=$paymentId");
+
+      return response.data["transactions"][0]["related_resources"][0]["sale"];
+    } catch (e) {
+      log("executePayment Error: $e");
+    }
+
+    return null;
   }
 }

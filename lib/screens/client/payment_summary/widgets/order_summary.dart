@@ -1,21 +1,27 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:inquire_near/data/models/inquiry_list.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 
 // Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
+import 'package:inquire_near/constants.dart' as constants;
 
 class OrderSummary extends StatelessWidget {
   const OrderSummary({
     Key? key,
-    required this.screenWidth,
-    required this.screenHeight,
+    required this.transaction,
+    required this.inquiryList,
   }) : super(key: key);
 
-  final double screenWidth;
-  final double screenHeight;
+  final INTransaction transaction;
+  final InquiryList inquiryList;
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Column(
       children: [
         Row(
@@ -34,33 +40,39 @@ class OrderSummary extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text(
+          children: [
+            const Text(
               'Inquiries',
               style: theme.caption1,
             ),
             Text(
-              '4 x PHP 25.00',
+              '${inquiryList.noOfInquiries} x PHP ${constants.inquiryPrice.toStringAsFixed(2)}',
               style: theme.caption1,
             ),
           ],
         ),
-        SizedBox(
-          height: screenHeight * 0.01,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text(
-              'Require Proof',
-              style: theme.caption1,
-            ),
-            Text(
-              '4 x PHP 5.00',
-              style: theme.caption1,
-            ),
-          ],
-        ),
+        inquiryList.noOfRequireProof != 0
+            ? Column(
+                children: [
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Require Proof',
+                        style: theme.caption1,
+                      ),
+                      Text(
+                        '${inquiryList.noOfRequireProof} x PHP ${constants.requireProofPrice.toStringAsFixed(2)}',
+                        style: theme.caption1,
+                      ),
+                    ],
+                  )
+                ],
+              )
+            : const SizedBox(),
         SizedBox(
           height: screenHeight * 0.01,
         ),
@@ -73,13 +85,13 @@ class OrderSummary extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text(
+          children: [
+            const Text(
               'Total Amount',
               style: theme.caption1,
             ),
             Text(
-              'PHP 100.00',
+              'PHP ${transaction.amount?.toStringAsFixed(2)}',
               style: theme.headline,
             ),
           ],
@@ -88,4 +100,3 @@ class OrderSummary extends StatelessWidget {
     );
   }
 }
-

@@ -153,6 +153,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
         .collection("inquiryLists")
         .doc(inquiryList.id)
         .delete();
+
     await FirebaseFirestore.instance
         .collection("transactions")
         .doc(transaction!.id)

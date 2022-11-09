@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/data/models/inquiry_list.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/payment_summary/widgets/location.dart';
 import 'package:inquire_near/screens/client/payment_summary/widgets/order_summary.dart';
@@ -15,14 +19,24 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 class PaymentSummaryScreen extends StatelessWidget {
   const PaymentSummaryScreen({Key? key}) : super(key: key);
 
-  void pay(BuildContext context, double amount, String transactionId) {
-    BlocProvider.of<PaymentBloc>(context).add(const Pay(100, 'abc123'));
+  void pay(BuildContext context, INTransaction? transaction) {
+    if (transaction == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Something went wrong.")));
+    } else {
+      BlocProvider.of<PaymentBloc>(context)
+          .add(Pay(transaction.amount!, transaction.id!));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+    INTransaction? transaction =
+        BlocProvider.of<TransactionBloc>(context).transaction;
+    InquiryList inquiryList = BlocProvider.of<InquiryBloc>(context).inquiryList;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -49,9 +63,8 @@ class PaymentSummaryScreen extends StatelessWidget {
           if (state is PaymentSuccessful) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content:
-                    Text("Payment successful. Redirecting to Answer Page.")));         
-            Navigator.of(context)
-                .pushReplacementNamed(etaScreenRoute);
+                    Text("Payment successful. Redirecting to Answer Page.")));
+            Navigator.of(context).pushReplacementNamed(etaScreenRoute);
           }
 
           if (state is PaymentError) {
@@ -79,7 +92,7 @@ class PaymentSummaryScreen extends StatelessWidget {
                           screenWidth: screenWidth, screenHeight: screenHeight),
                       SizedBox(height: screenHeight * 0.05),
                       OrderSummary(
-                          screenWidth: screenWidth, screenHeight: screenHeight),
+                          transaction: transaction!, inquiryList: inquiryList),
                     ],
                   ),
                 ),
@@ -87,7 +100,7 @@ class PaymentSummaryScreen extends StatelessWidget {
                     label: "Continue",
                     style: theme.caption1Bold,
                     // TODO: Use actual data instead of dummy data (CYMMER)
-                    onTap: () => pay(context, 100, 'abc123')),
+                    onTap: () => pay(context, transaction)),
               ],
             ),
           );
