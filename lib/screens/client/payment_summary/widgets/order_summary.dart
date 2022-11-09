@@ -1,11 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:inquire_near/data/models/inquiry_list.dart';
-import 'package:inquire_near/data/models/transaction.dart';
 
 // Project imports:
-import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/constants.dart' as constants;
+import 'package:inquire_near/data/models/inquiry_list.dart';
+import 'package:inquire_near/data/models/transaction.dart';
+import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class OrderSummary extends StatelessWidget {
   const OrderSummary({

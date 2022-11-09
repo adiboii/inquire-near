@@ -1,8 +1,8 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:inquire_near/data/models/base_model.dart';
 
 // Project imports:
+import 'package:inquire_near/data/models/base_model.dart';
 import 'package:inquire_near/enums/role.dart';
 
 // ignore: must_be_immutable

@@ -7,7 +7,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:inquire_near/collections.dart';
-// import 'package:meta/meta.dart'; // TODO: Check if commenting this still works (CYMMER)
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';
@@ -16,6 +15,8 @@ import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
 import 'package:inquire_near/enums/paypal_status.dart';
+
+// import 'package:meta/meta.dart'; // TODO: Check if commenting this still works (CYMMER)
 
 part 'transaction_event.dart';
 part 'transaction_state.dart';
