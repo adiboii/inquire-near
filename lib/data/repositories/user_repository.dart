@@ -3,6 +3,7 @@ import 'dart:developer';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/feedback.dart';
@@ -11,8 +12,11 @@ import 'package:inquire_near/enums/role.dart';
 
 class UserRepository {
   Future<INUser> getUser(String userId) async {
-    DocumentSnapshot<Map<String, dynamic>> user =
-        await FirebaseFirestore.instance.collection("users").doc(userId).get();
+    DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
+        .instance
+        .collection(userCollection)
+        .doc(userId)
+        .get();
     INUser userData = INUser.fromJson(user.data()!);
     userData.setUID(user.id);
 
@@ -22,7 +26,7 @@ class UserRepository {
   Future<int> _getUserInquiriesCount(String userId) async {
     QuerySnapshot<Map<String, dynamic>> inquiries = await FirebaseFirestore
         .instance
-        .collection("inquiryLists")
+        .collection(inquiryListCollection)
         .where('clientId', isEqualTo: userId)
         .get();
 
@@ -32,7 +36,7 @@ class UserRepository {
   Future<Map<String, dynamic>> getUserData(String userId) async {
     QuerySnapshot<Map<String, dynamic>> feedbackDocs = await FirebaseFirestore
         .instance
-        .collection("feedbacks")
+        .collection(feedbackCollection)
         .where('inquirerId', isEqualTo: userId)
         .get();
 
@@ -66,7 +70,7 @@ class UserRepository {
       {required String id, required Role roleToSwitch}) async {
     try {
       await FirebaseFirestore.instance
-          .collection('users')
+          .collection(userCollection)
           .doc(id)
           .update({"role": roleToSwitch.toValue()});
     } catch (e) {

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';
@@ -50,7 +51,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
 
   void _onFindAvailableInquirers(event, emit) {
     _findAvailableInquirersSubscription = FirebaseFirestore.instance
-        .collection('users')
+        .collection(userCollection)
         .where('role', isEqualTo: Role.inquirer.toValue())
         .where('isActive', isEqualTo: true)
         .snapshots()
@@ -113,7 +114,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
   void _onListenHiringRequest(event, emit) async {
     if (hiringRequest != null) {
       _hiringRequestSubscription = FirebaseFirestore.instance
-          .collection("hiringRequests")
+          .collection(hiringRequestCollection)
           .doc(hiringRequest!.id)
           .snapshots()
           .listen((event) {

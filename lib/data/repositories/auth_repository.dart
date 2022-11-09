@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/constants.dart' as constants;
@@ -139,7 +140,7 @@ class AuthRepository {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       final userDocument = FirebaseFirestore.instance
-          .collection('users')
+          .collection(userCollection)
           .doc(_firebaseAuth.currentUser!.uid);
       final user = INUser(
         uid: _firebaseAuth.currentUser!.uid,
@@ -150,7 +151,7 @@ class AuthRepository {
 
       DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
           .instance
-          .collection("users")
+          .collection(userCollection)
           .doc(_firebaseAuth.currentUser!.uid)
           .get();
       INUser userData = INUser.fromJson(userDoc.data()!);
@@ -171,7 +172,7 @@ class AuthRepository {
 
       DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
           .instance
-          .collection("users")
+          .collection(userCollection)
           .doc(userCredential.user!.uid)
           .get();
       INUser userData = INUser.fromJson(user.data()!);
@@ -212,7 +213,7 @@ class AuthRepository {
 
       Map<String, dynamic> idMap = parseJwt(googleAuth?.idToken);
       final userDocument = FirebaseFirestore.instance
-          .collection('users')
+          .collection(userCollection)
           .doc(_firebaseAuth.currentUser!.uid);
       final user = INUser(
         uid: _firebaseAuth.currentUser!.uid,
@@ -236,7 +237,7 @@ class AuthRepository {
   }) async {
     try {
       FirebaseFirestore.instance
-          .collection('users')
+          .collection(userCollection)
           .doc(_firebaseAuth.currentUser!.uid)
           .update({
         "firstName": firstName,
@@ -245,7 +246,7 @@ class AuthRepository {
 
       DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
           .instance
-          .collection("users")
+          .collection(userCollection)
           .doc(_firebaseAuth.currentUser!.uid)
           .get();
       INUser userData = INUser.fromJson(userDoc.data()!);

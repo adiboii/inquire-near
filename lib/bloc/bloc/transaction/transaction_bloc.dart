@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/collections.dart';
 // import 'package:meta/meta.dart'; // TODO: Check if commenting this still works (CYMMER)
 
 // Project imports:
@@ -96,7 +97,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   late StreamSubscription transactionStatusListener;
   void _onGetTransactionStatus(event, emit) {
     transactionStatusListener = FirebaseFirestore.instance
-        .collection('transactions')
+        .collection(transactionCollection)
         .doc(transaction!.id)
         .snapshots()
         .listen((ev) async {

@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/repositories/paypal_repository.dart';
@@ -66,7 +67,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
                 emit(PaymentError());
               } else {
                 FirebaseFirestore.instance
-                    .collection("transactions")
+                    .collection(transactionCollection)
                     .doc(event.transactionId)
                     .update({
                   'payPalId': paypalTransactionResults["id"],

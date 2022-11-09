@@ -47,7 +47,6 @@ class _ViewOnlyInquiryListState extends State<ViewOnlyInquiryList> {
         if (state is ClientInquiriesRetrieved) {
           List<Inquiry> inquiryList =
               BlocProvider.of<InquiryBloc>(context).inquiries;
-          log("Is empty: ${inquiryList.isEmpty}");
 
           return ListView.builder(
             itemCount: inquiryList.length,

@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
@@ -12,7 +13,7 @@ class TransactionRepository {
   Future<String?> createTransactionAndGetId(
       {required INTransaction transaction}) async {
     DocumentReference transactionRef = await FirebaseFirestore.instance
-        .collection("transactions")
+        .collection(transactionCollection)
         .add(transaction.toJSON());
 
     return transactionRef.id;
@@ -21,7 +22,7 @@ class TransactionRepository {
   Future<INTransaction> getTransactionDetails(String transactionId) async {
     DocumentSnapshot<Map<String, dynamic>> transactionDoc =
         await FirebaseFirestore.instance
-            .collection("transactions")
+            .collection(transactionCollection)
             .doc(transactionId)
             .get();
 
@@ -32,8 +33,11 @@ class TransactionRepository {
   }
 
   Future<INUser> getClientData(String userId) async {
-    DocumentSnapshot<Map<String, dynamic>> user =
-        await FirebaseFirestore.instance.collection("users").doc(userId).get();
+    DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
+        .instance
+        .collection(userCollection)
+        .doc(userId)
+        .get();
     INUser userData = INUser.fromJson(user.data()!);
 
     return userData;
@@ -42,7 +46,7 @@ class TransactionRepository {
   Future<InquiryList> getInquiryList(String inquiryListId) async {
     DocumentSnapshot<Map<String, dynamic>> inquiryListDoc =
         await FirebaseFirestore.instance
-            .collection("inquiryLists")
+            .collection(inquiryListCollection)
             .doc(inquiryListId)
             .get();
 

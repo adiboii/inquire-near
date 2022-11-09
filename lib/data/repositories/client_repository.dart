@@ -3,6 +3,7 @@ import 'dart:developer';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';
@@ -14,10 +15,12 @@ class ClientRepository {
     db = FirebaseFirestore.instance;
   }
 
-  Future<HiringRequest?> createHiringRequest(HiringRequest hiringRequest) async {
+  Future<HiringRequest?> createHiringRequest(
+      HiringRequest hiringRequest) async {
     try {
-      DocumentReference hiringRequestRef =
-          await db.collection('hiringRequests').add(hiringRequest.toJson());
+      DocumentReference hiringRequestRef = await db
+          .collection(hiringRequestCollection)
+          .add(hiringRequest.toJson());
 
       hiringRequest.id = hiringRequestRef.id;
       return hiringRequest;

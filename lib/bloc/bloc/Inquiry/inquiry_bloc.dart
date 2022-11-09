@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:meta/meta.dart';
 
@@ -145,17 +146,17 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
   Future<void> _createNewInquiryList(INTransaction? transaction) async {
     for (Inquiry inquiry in inquiries) {
       await FirebaseFirestore.instance
-          .collection("inquiries")
+          .collection(inquiryCollection)
           .doc(inquiry.uid)
           .delete();
     }
     await FirebaseFirestore.instance
-        .collection("inquiryLists")
+        .collection(inquiryCollection)
         .doc(inquiryList.id)
         .delete();
 
     await FirebaseFirestore.instance
-        .collection("transactions")
+        .collection(transactionCollection)
         .doc(transaction!.id)
         .delete();
 
