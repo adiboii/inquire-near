@@ -1,4 +1,6 @@
 // Package imports:
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
@@ -23,6 +25,7 @@ class TransactionRepository {
             .doc(transactionId)
             .get();
 
+    log(transactionDoc.toString());
     INTransaction transaction = INTransaction.fromJson(transactionDoc.data()!);
 
     return transaction;

@@ -96,7 +96,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   late StreamSubscription transactionStatusListener;
   void _onGetTransactionStatus(event, emit) {
     transactionStatusListener = FirebaseFirestore.instance
-        .collection('transaction')
+        .collection('transactions')
         .doc(transaction!.id)
         .snapshots()
         .listen((ev) async {
