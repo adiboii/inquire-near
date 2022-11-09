@@ -83,7 +83,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                               if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   inquiry = Inquiry(
-                                      inquiryListID:
+                                      inquiryListId:
                                           BlocProvider.of<InquiryBloc>(context)
                                               .inquiryList
                                               .id!,

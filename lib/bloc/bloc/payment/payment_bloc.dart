@@ -66,7 +66,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
                 emit(PaymentError());
               } else {
                 FirebaseFirestore.instance
-                    .collection("transaction")
+                    .collection("transactions")
                     .doc(event.transactionId)
                     .update({
                   'payPalId': paypalTransactionResults["id"],

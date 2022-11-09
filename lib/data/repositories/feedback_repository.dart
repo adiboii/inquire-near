@@ -15,13 +15,12 @@ class FeedbackRepository {
         .collection('feedbacks')
         .doc('transaction-id');
     final feedback = Feedback(
-      // TODO: change to client and inquirer uid (MEL)
-      clientID: 'test@gmail.com',
-      inquirerID: inquirerEmail,
-      rating: rating,
-      review: review,
-      transactionId: ''
-    );
+        // TODO: change to client and inquirer uid (MEL)
+        clientId: 'test@gmail.com',
+        inquirerId: inquirerEmail,
+        rating: rating,
+        review: review,
+        transactionId: '');
     await feedbackDocument.set(feedback.toJSON());
   }
 }

@@ -104,7 +104,7 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
     await FirebaseFirestore.instance
         .collection('transaction')
         .doc(event.transactionId)
-        .update({"inquirerID": FirebaseAuth.instance.currentUser!.uid});
+        .update({"inquirerId": FirebaseAuth.instance.currentUser!.uid});
 
     emit(AcceptedRequest());
   }

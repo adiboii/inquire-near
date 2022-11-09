@@ -115,7 +115,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
         inquiry.uid = inquiryID;
 
         if (inquiry.image != null) {
-          imageUrl = await inquiry.saveToFirebaseStorage(inquiryID: inquiryID!);
+          imageUrl = await inquiry.saveToFirebaseStorage(inquiryId: inquiryID!);
           await inquiryRepository.setImageURL(
               inquiryID: inquiryID, imageUrl: imageUrl!);
         }

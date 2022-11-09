@@ -3,14 +3,14 @@ import 'package:inquire_near/data/models/enums.dart';
 
 class Report {
   final String? id;
-  final String? transactionID;
+  final String? transactionId;
   final String title;
   final String description;
   final ReportType? reportType;
 
   Report({
     this.id,
-    this.transactionID,
+    this.transactionId,
     required this.title,
     required this.description,
     this.reportType,
@@ -18,7 +18,7 @@ class Report {
 
   Map<String, dynamic> toJSON() => {
         'id': id,
-        'transactionID': transactionID,
+        'transactionId': transactionId,
         'title': title,
         'description': description,
       };

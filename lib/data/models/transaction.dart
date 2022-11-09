@@ -9,31 +9,31 @@ import 'package:inquire_near/enums/paypal_status.dart';
 // ignore: must_be_immutable
 class INTransaction extends BaseModel {
   String? id;
-  final String clientID;
-  String? inquirerID;
-  final String inquiryListID;
+  final String clientId;
+  String? inquirerId;
+  final String inquiryListId;
   final String store; //TODO: update to StoreData (ADI)
   final bool isCompleted;
   double? amount;
-  String? payPalID;
+  String? payPalId;
   PayPalStatus? payPalStatus;
   Timestamp? dateTimeEnded;
 
   INTransaction({
-    required this.clientID,
-    required this.inquiryListID,
+    required this.clientId,
+    required this.inquiryListId,
     required this.store,
     required this.isCompleted,
   }) : super();
 
   INTransaction.fromJson(Map<String, dynamic> json)
-      : clientID = json['clientID'],
-        inquirerID = json['inquirerID'],
-        inquiryListID = json['inquiryListID'],
+      : clientId = json['clientId'],
+        inquirerId = json['inquirerId'],
+        inquiryListId = json['inquiryListId'],
         store = json['store'],
         isCompleted = json['isCompleted'],
         amount = double.parse(json["amount"].toString()),
-        payPalID = json['payPalID'],
+        payPalId = json['payPalId'],
         payPalStatus = getPayPalStatusFromString(json["payPalStatus"]);
 
   set uid(String id) {
@@ -46,9 +46,9 @@ class INTransaction extends BaseModel {
   }
 
   Map<String, dynamic> toJSON() => {
-        'clientID': clientID,
-        'inquirerID': inquirerID,
-        'inquiryListID': inquiryListID,
+        'clientId': clientId,
+        'inquirerId': inquirerId,
+        'inquiryListId': inquiryListId,
         'store': store,
         'amount': amount,
         'isCompleted': isCompleted,
