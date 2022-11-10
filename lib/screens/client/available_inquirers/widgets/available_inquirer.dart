@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
@@ -12,8 +13,7 @@ import 'package:inquire_near/utils.dart' as utils;
 
 class AvailableInquirer extends StatefulWidget {
   final INUser inquirer;
-  const AvailableInquirer({Key? key, required this.inquirer})
-      : super(key: key);
+  const AvailableInquirer({Key? key, required this.inquirer}) : super(key: key);
 
   @override
   State<AvailableInquirer> createState() => _AvailableInquirerState();
@@ -23,7 +23,7 @@ class _AvailableInquirerState extends State<AvailableInquirer> {
   Future<Map<String, dynamic>> _getUserFeedback(String inquirerId) async {
     QuerySnapshot<Map<String, dynamic>> feedbacks = await FirebaseFirestore
         .instance
-        .collection("feedbacks")
+        .collection(feedbackCollection)
         .where('inquirerId', isEqualTo: inquirerId)
         .get();
 
@@ -71,15 +71,20 @@ class _AvailableInquirerState extends State<AvailableInquirer> {
                   style: theme.subheadBold,
                 ),
                 const SizedBox(height: 4),
-                computedFeedbackMap["numberOfFeedbacks"] != 0 ? Row(
-                  children: [
-                    SvgPicture.asset("assets/images/svgs/star.svg"),
-                    Text(
-                      "${computedFeedbackMap['averageRating'].toStringAsFixed(1)} (${computedFeedbackMap['numberOfFeedbacks']} reviews)",
-                      style: theme.caption2,
-                    ),
-                  ],
-                ) : const Text("No reviews yet", style: theme.caption2,),
+                computedFeedbackMap["numberOfFeedbacks"] != 0
+                    ? Row(
+                        children: [
+                          SvgPicture.asset("assets/images/svgs/star.svg"),
+                          Text(
+                            "${computedFeedbackMap['averageRating'].toStringAsFixed(1)} (${computedFeedbackMap['numberOfFeedbacks']} reviews)",
+                            style: theme.caption2,
+                          ),
+                        ],
+                      )
+                    : const Text(
+                        "No reviews yet",
+                        style: theme.caption2,
+                      ),
               ],
             )
           ],

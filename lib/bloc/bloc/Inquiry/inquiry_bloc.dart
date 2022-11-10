@@ -5,12 +5,13 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/collections.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
-import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
 
 part 'inquiry_event.dart';
@@ -115,7 +116,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
         inquiry.uid = inquiryID;
 
         if (inquiry.image != null) {
-          imageUrl = await inquiry.saveToFirebaseStorage(inquiryID: inquiryID!);
+          imageUrl = await inquiry.saveToFirebaseStorage(inquiryId: inquiryID!);
           await inquiryRepository.setImageURL(
               inquiryID: inquiryID, imageUrl: imageUrl!);
         }
@@ -145,17 +146,17 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
   Future<void> _createNewInquiryList(INTransaction? transaction) async {
     for (Inquiry inquiry in inquiries) {
       await FirebaseFirestore.instance
-          .collection("inquiry")
+          .collection(inquiryCollection)
           .doc(inquiry.uid)
           .delete();
     }
     await FirebaseFirestore.instance
-        .collection("inquiryList")
+        .collection(inquiryCollection)
         .doc(inquiryList.id)
         .delete();
 
     await FirebaseFirestore.instance
-        .collection("transaction")
+        .collection(transactionCollection)
         .doc(transaction!.id)
         .delete();
 

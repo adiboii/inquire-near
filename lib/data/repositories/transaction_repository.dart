@@ -1,5 +1,8 @@
 // Package imports:
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/in_user.dart';
@@ -10,37 +13,41 @@ class TransactionRepository {
   Future<String?> createTransactionAndGetId(
       {required INTransaction transaction}) async {
     DocumentReference transactionRef = await FirebaseFirestore.instance
-        .collection("transaction")
+        .collection(transactionCollection)
         .add(transaction.toJSON());
 
     return transactionRef.id;
   }
 
-  Future<INTransaction> getTransactionDetails(String transactionID) async {
+  Future<INTransaction> getTransactionDetails(String transactionId) async {
     DocumentSnapshot<Map<String, dynamic>> transactionDoc =
         await FirebaseFirestore.instance
-            .collection("transaction")
-            .doc(transactionID)
+            .collection(transactionCollection)
+            .doc(transactionId)
             .get();
 
+    log(transactionDoc.toString());
     INTransaction transaction = INTransaction.fromJson(transactionDoc.data()!);
 
     return transaction;
   }
 
-  Future<INUser> getClientData(String userID) async {
-    DocumentSnapshot<Map<String, dynamic>> user =
-        await FirebaseFirestore.instance.collection("users").doc(userID).get();
+  Future<INUser> getClientData(String userId) async {
+    DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
+        .instance
+        .collection(userCollection)
+        .doc(userId)
+        .get();
     INUser userData = INUser.fromJson(user.data()!);
 
     return userData;
   }
 
-  Future<InquiryList> getInquiryList(String inquiryListID) async {
+  Future<InquiryList> getInquiryList(String inquiryListId) async {
     DocumentSnapshot<Map<String, dynamic>> inquiryListDoc =
         await FirebaseFirestore.instance
-            .collection("inquiryList")
-            .doc(inquiryListID)
+            .collection(inquiryListCollection)
+            .doc(inquiryListId)
             .get();
 
     InquiryList inquiryList = InquiryList.fromJson(inquiryListDoc.data()!);

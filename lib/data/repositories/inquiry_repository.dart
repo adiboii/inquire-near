@@ -4,6 +4,7 @@ import 'dart:developer';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/inquiry.dart';
@@ -16,7 +17,7 @@ class InquiryRepository {
       {required InquiryList inquiryList}) async {
     try {
       final DocumentReference doc =
-          await db.collection("inquiryList").add(inquiryList.toJSON());
+          await db.collection(inquiryListCollection).add(inquiryList.toJSON());
       inquiryList.uid = doc.id;
       return inquiryList;
     } catch (e) {
@@ -28,7 +29,7 @@ class InquiryRepository {
 
   Future<void> finalizeInquiryList({required InquiryList inquiryList}) async {
     try {
-      await db.collection("inquiryList").doc(inquiryList.id).update({
+      await db.collection(inquiryListCollection).doc(inquiryList.id).update({
         'noOfInquiries': inquiryList.noOfInquiries,
         'noOfRequireProof': inquiryList.noOfRequireProof,
       });
@@ -41,7 +42,7 @@ class InquiryRepository {
     String? id;
     try {
       await db
-          .collection("inquiry")
+          .collection(inquiryCollection)
           .add(inquiry.toJSON())
           .then((DocumentReference docRef) {
         id = docRef.id;
@@ -58,7 +59,7 @@ class InquiryRepository {
       {required String inquiryID, required String imageUrl}) async {
     try {
       await db
-          .collection("inquiry")
+          .collection(inquiryCollection)
           .doc(inquiryID)
           .update({'imageUrl': imageUrl});
     } catch (e) {
@@ -71,14 +72,13 @@ class InquiryRepository {
 
     QuerySnapshot<Map<String, dynamic>> inquiriesDoc = await FirebaseFirestore
         .instance
-        .collection("inquiry")
-        .where('inquiryListID', isEqualTo: inquiryListID)
+        .collection(inquiryCollection)
+        .where('inquiryListId', isEqualTo: inquiryListID)
         .get();
 
     for (var inquiry in inquiriesDoc.docs) {
       inquiries.add(Inquiry.fromJson(inquiry.data()));
     }
-
     return inquiries;
   }
 }

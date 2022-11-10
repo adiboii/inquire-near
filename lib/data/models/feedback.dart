@@ -1,32 +1,29 @@
 class Feedback {
   // Constructors
   Feedback({
-    required this.clientID,
-    required this.inquirerID,
+    required this.clientId,
+    required this.inquirerId,
     required this.rating,
     required this.transactionId,
     this.review = '',
-    
   });
 
   Feedback.fromJson(Map<String, dynamic> json)
-      : clientID = json["clientId"],
-        inquirerID = json["inquirerId"],
+      : clientId = json["clientId"],
+        inquirerId = json["inquirerId"],
         rating = json["rating"],
         review = json["review"],
         transactionId = json["transactionId"];
 
   final String transactionId;
-  final String clientID;
-  final String inquirerID;
+  final String clientId;
+  final String inquirerId;
   final int rating;
   final String? review;
 
-
-
   Map<String, dynamic> toJSON() => {
-        'clientEmail': clientID,
-        'inquirerEmail': inquirerID,
+        'clientId': clientId,
+        'inquirerId': inquirerId,
         'rating': rating,
         'review': review,
       };

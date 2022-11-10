@@ -102,7 +102,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                             onTap: () {
                               setState(() {
                                 inquiry = Inquiry(
-                                    inquiryListID:
+                                    inquiryListId:
                                         BlocProvider.of<InquiryBloc>(context)
                                             .inquiryList
                                             .id!,

@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';
@@ -16,7 +17,6 @@ import 'package:inquire_near/data/repositories/user_repository.dart';
 import 'package:inquire_near/enums/paypal_status.dart';
 
 // import 'package:meta/meta.dart'; // TODO: Check if commenting this still works (CYMMER)
-
 
 part 'transaction_event.dart';
 part 'transaction_state.dart';
@@ -41,11 +41,11 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ClickStore>(_onClickStore);
   }
 
-void _onCreateTransaction(CreateTransaction event, emit) async {
+  void _onCreateTransaction(CreateTransaction event, emit) async {
     try {
       transaction = INTransaction(
-          clientID: event.clientID,
-          inquiryListID: event.inquiryListID,
+          clientId: event.clientID,
+          inquiryListId: event.inquiryListID,
           store: store!,
           isCompleted: false);
 
@@ -84,9 +84,9 @@ void _onCreateTransaction(CreateTransaction event, emit) async {
         await userRepository.getUserData(hiringRequest!.clientId);
 
     InquiryList inquiryList =
-        await transactionRepository.getInquiryList(transaction.inquiryListID);
+        await transactionRepository.getInquiryList(transaction.inquiryListId);
 
-    inquiryList.uid = transaction.inquiryListID;
+    inquiryList.uid = transaction.inquiryListId;
 
     emit(RetrievedTransactionDetails(
       transaction: transaction,
@@ -98,14 +98,14 @@ void _onCreateTransaction(CreateTransaction event, emit) async {
   late StreamSubscription transactionStatusListener;
   void _onGetTransactionStatus(event, emit) {
     transactionStatusListener = FirebaseFirestore.instance
-        .collection('transaction')
+        .collection(transactionCollection)
         .doc(transaction!.id)
         .snapshots()
         .listen((ev) async {
       INTransaction t = INTransaction.fromJson(ev.data()!);
 
       if (t.payPalStatus == PayPalStatus.completed) {
-        add(EmitSuccessfulTransactionStatus(t.payPalID.toString()));
+        add(EmitSuccessfulTransactionStatus(t.payPalId.toString()));
       } else if (t.payPalStatus == PayPalStatus.failed) {
         add(EmitFailedTransactionStatus());
       }
@@ -114,7 +114,7 @@ void _onCreateTransaction(CreateTransaction event, emit) async {
 
   void _onEmitSuccessfulTransactionStatus(event, emit) {
     transactionStatusListener.cancel();
-    emit(RetrievedTransactionStatus(event.payPalID));
+    emit(RetrievedTransactionStatus(event.payPalId));
   }
 
   void _onEmitFailedTransactionStatus(event, emit) {

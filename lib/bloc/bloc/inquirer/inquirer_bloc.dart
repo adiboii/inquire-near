@@ -7,6 +7,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:inquire_near/collections.dart';
 
 // Project imports:
 import 'package:inquire_near/data/models/hiring_request.dart';
@@ -25,7 +26,7 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
     on<Initial>((event, emit) async {
       DocumentSnapshot<Map<String, dynamic>> userDocument =
           await FirebaseFirestore.instance
-              .collection("users")
+              .collection(userCollection)
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .get();
       INUser inquirer = INUser.fromJson(userDocument.data()!);
@@ -57,14 +58,14 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
     emit(Empty()); // This is to trigger buildWhen()
 
     await FirebaseFirestore.instance
-        .collection("users")
+        .collection(userCollection)
         .doc(currentUser.uid)
         .update({"isActive": isOnline}).onError(
             (e, _) => log("Error writing document: $e"));
 
     if (isOnline) {
       _hiringRequestSubscription = FirebaseFirestore.instance
-          .collection('hiringRequests')
+          .collection(hiringRequestCollection)
           .where('inquirerId', isEqualTo: currentUser.uid)
           .where('status', isEqualTo: HiringRequestStatus.pending.toValue())
           .orderBy("requestMade", descending: true)
@@ -97,14 +98,14 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
   void _onAcceptRequest(event, emit) async {
     if (hiringRequest == null || hiringRequest?.id == null) return;
     await FirebaseFirestore.instance
-        .collection('hiringRequests')
+        .collection(hiringRequestCollection)
         .doc(hiringRequest?.id)
         .update({"status": HiringRequestStatus.accepted.toValue()});
 
     await FirebaseFirestore.instance
-        .collection('transaction')
+        .collection(transactionCollection)
         .doc(event.transactionId)
-        .update({"inquirerID": FirebaseAuth.instance.currentUser!.uid});
+        .update({"inquirerId": FirebaseAuth.instance.currentUser!.uid});
 
     emit(AcceptedRequest());
   }
@@ -112,7 +113,7 @@ class InquirerBloc extends Bloc<InquirerEvent, InquirerState> {
   void _onRejectRequest(event, emit) async {
     if (hiringRequest == null || hiringRequest?.id == null) return;
     await FirebaseFirestore.instance
-        .collection('hiringRequests')
+        .collection(hiringRequestCollection)
         .doc(hiringRequest?.id)
         .update({"status": HiringRequestStatus.rejected.toValue()});
 
