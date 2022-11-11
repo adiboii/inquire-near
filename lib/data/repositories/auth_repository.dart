@@ -258,6 +258,19 @@ class AuthRepository {
     }
   }
 
+  Future deactivateProfile() async {
+    try {
+       await FirebaseFirestore.instance
+          .collection(userCollection)
+          .doc(_firebaseAuth.currentUser!.uid)
+          .delete();
+
+       await _firebaseAuth.currentUser?.delete();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   static Map<String, dynamic> parseJwt(String? token) {
     final List<String> parts = token!.split('.');
     // retrieve token payload

@@ -48,6 +48,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SwitchRole>(_onSwitchRole);
     on<InitState>(_onInitState);
     on<EditProfileRequested>(_onEditProfileRequested);
+    on<DeactivateProfileRequested>(_onDeactivateProfileRequested);
+
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
@@ -129,6 +131,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }  catch (e) {
       rethrow;
     }
+  }
+
+  _onDeactivateProfileRequested(DeactivateProfileRequested event, Emitter<AuthState> emit) async{
+    try{
+      emit(AuthLoading());
+      await authRepository.deactivateProfile();
+      emit(Unauthenticated());
+
+    } catch (e) {
+      print(e.toString());
+    }
+
   }
 
  _onInitState(event, emit) async {
