@@ -21,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
         builder: (context) {
           return AlertDialog(
             title: const Text(
-              "Deactivate account",
+              "Deactivate Profile",
               style: theme.title3,
             ),
             content:
@@ -36,6 +36,9 @@ class ProfileScreen extends StatelessWidget {
               MaterialButton(
                 onPressed: () {
                   //TO DO: update field of user isDeactivate
+                  BlocProvider.of<AuthBloc>(context).add(
+                    DeactivateProfileRequested(),
+                  );
                 },
                 child: const Text("Confirm"),
               ),
@@ -98,7 +101,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 5.0),
               ButtonOutline(
-                label: "Deactivate Account",
+                label: "Deactivate Profile",
                 width: screenWidth * 0.40,
                 height: screenHeight * 0.05,
                 style: theme.caption1,

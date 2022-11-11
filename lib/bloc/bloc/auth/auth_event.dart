@@ -52,3 +52,5 @@ class SwitchRole extends AuthEvent {
 }
 
 class InitState extends AuthEvent {}
+
+class DeactivateProfileRequested extends AuthEvent { }
