@@ -9,6 +9,7 @@ import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/input_field.dart';
 import 'package:inquire_near/components/input_validator.dart';
+import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class EditProfileScreen extends StatelessWidget {
@@ -44,33 +45,25 @@ class EditProfileScreen extends StatelessWidget {
     lastNameTextController.text = BlocProvider.of<AuthBloc>(context).user!.lastName!;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        elevation: 0,
-        title: const Text(
-          "Edit Profile",
-          style: theme.title2,
-        ),
-        centerTitle: true,
-      ),
-      body: BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is Unauthenticated) {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/landing', (route) => false);
-            }
-          },
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: theme.kScreenPadding.copyWith(top: 0),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: theme.kScreenPadding.copyWith(top: 20),
+            child: BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is Unauthenticated) {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/landing', (route) => false);
+                }
+              },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  PageTitle(
+                      title: "Edit Profile",
+                      onTap: () {
+                        Navigator.pop(context);
+                      }),
                   const CircleAvatar(
                     radius: 60.0,
                     backgroundImage: AssetImage(
@@ -126,7 +119,8 @@ class EditProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+        ),
       ),
     );
   }
