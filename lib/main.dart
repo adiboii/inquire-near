@@ -98,7 +98,7 @@ class InquireNear extends StatelessWidget {
           BlocProvider<ClientBloc>(
             create: (context) => ClientBloc(),
           ),
-        BlocProvider<InquirerBloc>(
+          BlocProvider<InquirerBloc>(
             create: (context) => InquirerBloc(),
           ),
           BlocProvider<PaymentBloc>(

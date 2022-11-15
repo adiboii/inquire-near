@@ -7,6 +7,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/routes.dart';
+import 'package:inquire_near/screens/inquirer/answer_inquiry/widgets/inquiry_tile.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquirerInquiryListScreen extends StatelessWidget {
@@ -32,9 +33,7 @@ class InquirerInquiryListScreen extends StatelessWidget {
                   height: screenHeight * 0.04,
                 ),
                 //TODO: Use new inquiry list (ADI)
-                // const Expanded(
-                //   child: InquiryList(),
-                // ),
+                const InquiryTile(),
                 SizedBox(
                   height: screenHeight * 0.04,
                 ),
