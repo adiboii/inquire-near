@@ -99,6 +99,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                             screenHeight: screenHeight,
                             pageLabel: "Edit Inquiry",
                             buttonLabel: "Edit",
+                            showButton: true,
                             onTap: () {
                               setState(() {
                                 inquiry = Inquiry(

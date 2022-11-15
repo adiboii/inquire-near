@@ -1,10 +1,14 @@
 // Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class INBackButton extends StatelessWidget {
   final Color? color;
   final double size;
-  const INBackButton({Key? key, this.color = Colors.black, this.size = 12})
+  final void Function()? onTap;
+  const INBackButton(
+      {Key? key, this.color = Colors.black, this.size = 12, this.onTap})
       : super(key: key);
 
   @override
@@ -15,7 +19,15 @@ class INBackButton extends StatelessWidget {
         color: color,
         size: size,
       ),
-      onPressed: () => Navigator.of(context).pop(),
+      onPressed: () {
+        if (onTap != null) {
+          log("Not nULL!!!");
+          onTap;
+          log("HELLO???");
+        } else {
+          Navigator.of(context).pop();
+        }
+      },
     );
   }
 }

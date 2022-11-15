@@ -52,9 +52,8 @@ class Inquiry extends BaseModel {
       };
 
   // getters
-  String get withAttachedImages => image != null || imageUrl != null
-      ? 'With Attachments'
-      : 'No Attachements';
+  bool get withAttachedImages =>
+      image != null || imageUrl != null ? true : false;
 
   // setters
   set inquiryUID(String uid) {
