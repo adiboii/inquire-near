@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/labels.dart';
-import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/components/page_title.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ProfileScreen extends StatelessWidget {

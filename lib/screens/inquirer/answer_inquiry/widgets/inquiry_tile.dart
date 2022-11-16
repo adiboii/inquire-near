@@ -1,8 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import 'package:inquire_near/routes.dart';
 
 class InquiryTile extends StatefulWidget {
   const InquiryTile({
@@ -12,14 +15,14 @@ class InquiryTile extends StatefulWidget {
     this.question = "Are you okay?",
     this.withAttachments = true,
     this.requiresProof = true,
-    required this.onTap(),
+    required this.onSelectInquiry(),
   });
   final int index;
   final bool isAnswered;
   final String question;
   final bool withAttachments;
   final bool requiresProof;
-  final Function onTap;
+  final void Function()? onSelectInquiry;
 
   @override
   State<InquiryTile> createState() => _InquiryTileState();
@@ -31,9 +34,7 @@ class _InquiryTileState extends State<InquiryTile> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: () {
-        widget.onTap();
-      },
+      onTap: widget.onSelectInquiry,
       child: Column(
         children: [
           Row(

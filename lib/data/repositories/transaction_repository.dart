@@ -1,10 +1,11 @@
-// Package imports:
+// Dart imports:
 import 'dart:developer';
 
+// Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:inquire_near/collections.dart';
 
 // Project imports:
+import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';

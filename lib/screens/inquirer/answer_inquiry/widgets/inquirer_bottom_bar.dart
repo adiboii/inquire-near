@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:image_picker/image_picker.dart';
+
+// Project imports:
 import 'package:inquire_near/screens/inquirer/answer_inquiry/widgets/inquirer_proof.dart';
 
 class InquirerBottomBar extends StatefulWidget {
@@ -32,8 +34,7 @@ class _InquirerBottomBarState extends State<InquirerBottomBar> {
         // _image = file;
         try {
           widget.onIconSelected(File(file!.path));
-          // ignore: empty_catches
-        } catch (e) {}
+        } catch (_) {}
       });
     });
   }

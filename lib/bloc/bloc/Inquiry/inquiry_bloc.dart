@@ -5,13 +5,13 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:inquire_near/collections.dart';
-import 'package:inquire_near/data/models/transaction.dart';
 import 'package:meta/meta.dart';
 
 // Project imports:
+import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';
 
 part 'inquiry_event.dart';

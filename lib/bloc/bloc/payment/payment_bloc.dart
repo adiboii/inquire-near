@@ -6,9 +6,9 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:inquire_near/collections.dart';
 
 // Project imports:
+import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/repositories/paypal_repository.dart';
 import 'package:inquire_near/screens/client/payment_summary/widgets/payment_inapp_browser.dart';
 

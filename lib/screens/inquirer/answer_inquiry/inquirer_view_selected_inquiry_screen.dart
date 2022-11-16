@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
@@ -38,7 +38,7 @@ class _InquirerViewSelectedInquiryScreenState
 
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
     inquiry = BlocProvider.of<InquiryBloc>(context)
         .inquiries[widget.inquiryIndex - 1];
     if (inquiry!.answerMessage != null) {
@@ -47,7 +47,6 @@ class _InquirerViewSelectedInquiryScreenState
         image = inquiry!.answerImage;
       }
     }
-    super.initState();
   }
 
   void _answerInquiry(context) {
@@ -75,7 +74,6 @@ class _InquirerViewSelectedInquiryScreenState
     void onCrossIconPressed() {
       setState(() {
         image = null;
-        log("This is an image ${image.toString()}");
       });
     }
 
@@ -96,7 +94,6 @@ class _InquirerViewSelectedInquiryScreenState
             child: Padding(
               padding: theme.kScreenPadding,
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InquiryTitleBar(
                     screenWidth: screenWidth,
@@ -140,33 +137,10 @@ class _InquirerViewSelectedInquiryScreenState
                                   ),
                                 )
                               : const SizedBox(),
-                          Row(
-                            verticalDirection: VerticalDirection.up,
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  textAlign: TextAlign.end,
-                                  controller: widget.answerTextController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Leave an answer',
-                                    hintStyle: theme.subhead
-                                        .copyWith(color: theme.primaryGray),
-                                    border: InputBorder.none,
-                                  ),
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: null,
-                                ),
-                              ),
-                              SizedBox(
-                                width: screenWidth * 0.02,
-                              ),
-                              CircleAvatar(
-                                radius: screenHeight * 0.02,
-                                backgroundImage: const AssetImage(
-                                  'assets/images/illustrations/profile.png',
-                                ),
-                              ),
-                            ],
+                          AnswerContainer(
+                            widget: widget,
+                            screenWidth: screenWidth,
+                            screenHeight: screenHeight,
                           ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 24, 0, 10),
@@ -195,6 +169,50 @@ class _InquirerViewSelectedInquiryScreenState
           ),
         ],
       ),
+    );
+  }
+}
+
+class AnswerContainer extends StatelessWidget {
+  const AnswerContainer({
+    Key? key,
+    required this.widget,
+    required this.screenWidth,
+    required this.screenHeight,
+  }) : super(key: key);
+
+  final InquirerViewSelectedInquiryScreen widget;
+  final double screenWidth;
+  final double screenHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      verticalDirection: VerticalDirection.up,
+      children: [
+        Expanded(
+          child: TextField(
+            textAlign: TextAlign.end,
+            controller: widget.answerTextController,
+            decoration: InputDecoration(
+              hintText: 'Leave an answer',
+              hintStyle: theme.subhead.copyWith(color: theme.primaryGray),
+              border: InputBorder.none,
+            ),
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+          ),
+        ),
+        SizedBox(
+          width: screenWidth * 0.02,
+        ),
+        CircleAvatar(
+          radius: screenHeight * 0.02,
+          backgroundImage: const AssetImage(
+            'assets/images/illustrations/profile.png',
+          ),
+        ),
+      ],
     );
   }
 }
