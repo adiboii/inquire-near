@@ -21,9 +21,7 @@ class INBackButton extends StatelessWidget {
       ),
       onPressed: () {
         if (onTap != null) {
-          log("Not nULL!!!");
-          onTap;
-          log("HELLO???");
+          onTap!();
         } else {
           Navigator.of(context).pop();
         }

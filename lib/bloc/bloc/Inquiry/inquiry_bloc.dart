@@ -174,8 +174,6 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
   Future<void> _onDiscardInquiry(event, Emitter<InquiryState> emit) async {
     emit(InquiryLoading());
     inquiries = [];
-
-    log(inquiries.toString());
     await FirebaseFirestore.instance
         .collection(inquiryCollection)
         .doc(inquiryList.id)
