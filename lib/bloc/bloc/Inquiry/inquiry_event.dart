@@ -32,6 +32,8 @@ class FinishInquiry extends InquiryEvent {
   FinishInquiry();
 }
 
+class DiscardInquiry extends InquiryEvent {}
+
 class RevisitInquiry extends InquiryEvent {
   RevisitInquiry();
 }

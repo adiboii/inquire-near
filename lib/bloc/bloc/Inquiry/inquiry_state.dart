@@ -17,3 +17,5 @@ class InquiryInProgress extends InquiryState {}
 class InquiryFinished extends InquiryState {}
 
 class ClientInquiriesRetrieved extends InquiryState {}
+
+class InquiryDiscarded extends InquiryState {}
