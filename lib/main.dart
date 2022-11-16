@@ -1,9 +1,15 @@
 // Flutter imports:
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/collections.dart';
+import 'package:inquire_near/data/models/in_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
@@ -34,9 +40,71 @@ Future<void> main() async {
   runApp(InquireNear(appRouter: AppRouter()));
 }
 
-class InquireNear extends StatelessWidget {
+class InquireNear extends StatefulWidget {
   const InquireNear({super.key, required this.appRouter});
   final AppRouter appRouter;
+
+  @override
+  State<InquireNear> createState() => _InquireNearState();
+}
+
+class _InquireNearState extends State<InquireNear> with WidgetsBindingObserver {
+  late bool? lastIsActiveState;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+    
+    bool isBackground = state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached;
+    bool isResumed = state == AppLifecycleState.resumed;
+
+    if (isBackground) {
+      // Since this is the root parent class, we cannot access bloc
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        try {
+          DocumentReference userReference = FirebaseFirestore.instance
+              .collection(userCollection)
+              .doc(user.uid);
+
+          try {
+            DocumentSnapshot userValue = await userReference.get();
+            INUser u =
+                INUser.fromJson(userValue.data() as Map<String, dynamic>);
+            lastIsActiveState = u.isActive;
+
+            userReference.update({"isActive": false});
+          } catch (_) {}
+        } catch (e) {
+          log(e.toString());
+        }
+      }
+    } else if (isResumed) {
+      // Restore last isActive state
+      if (lastIsActiveState != null) {
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          try {
+            FirebaseFirestore.instance
+                .collection(userCollection)
+                .doc(user.uid)
+                .update({"isActive": lastIsActiveState});
+          } catch (e) {
+            log(e.toString());
+          }
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -98,7 +166,7 @@ class InquireNear extends StatelessWidget {
           BlocProvider<ClientBloc>(
             create: (context) => ClientBloc(),
           ),
-        BlocProvider<InquirerBloc>(
+          BlocProvider<InquirerBloc>(
             create: (context) => InquirerBloc(),
           ),
           BlocProvider<PaymentBloc>(
@@ -110,7 +178,7 @@ class InquireNear extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Inquire Near',
           initialRoute: wrapperRoute,
-          onGenerateRoute: appRouter.onGenerateRoute,
+          onGenerateRoute: widget.appRouter.onGenerateRoute,
         ),
       ),
     );
