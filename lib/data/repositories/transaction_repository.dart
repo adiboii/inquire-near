@@ -54,4 +54,14 @@ class TransactionRepository {
 
     return inquiryList;
   }
+
+  Future<QuerySnapshot> getTransactionsFromUser(String userId, bool isCompleted) async {
+    QuerySnapshot q = await FirebaseFirestore.instance
+        .collection(transactionCollection)
+        .where('inquirerId', isEqualTo: userId)
+        .where('isCompleted', isEqualTo: isCompleted)
+        .get();
+
+    return q;
+  }
 }

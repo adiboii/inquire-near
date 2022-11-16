@@ -123,12 +123,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
   static Future<bool> hasOngoingTransaction(String userId) async {
     try {
-      final transactions = await FirebaseFirestore.instance
-          .collection(transactionCollection)
-          .where('inquirerId', isEqualTo: userId)
-          .where('isCompleted', isEqualTo: false)
-          .get();
-        
+      TransactionRepository tr = TransactionRepository();
+      final transactions = await tr.getTransactionsFromUser(userId, false);
       return transactions.docs.isNotEmpty;
     } catch (_) {}
 
