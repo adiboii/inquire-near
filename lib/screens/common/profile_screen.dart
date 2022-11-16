@@ -84,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                     height: screenHeight * 0.05,
                     style: theme.caption1,
                     onTap: () {
-                      Navigator.pushNamed(context, '/edit_profile');
+                      Navigator.pushNamed(context, editProfileRoute);
                     },
                   ),
                   const SizedBox(height: 5.0),
@@ -104,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                     icon: Icons.info_sharp,
                     label: "About InquireNear",
                     onTap: () {
-                      Navigator.pushNamed(context, '/about_inquirenear');
+                      Navigator.pushNamed(context, aboutInquireNearRoute);
                     },
                   ),
                   SizedBox(height: screenHeight * 0.04),
