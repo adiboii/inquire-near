@@ -7,9 +7,12 @@ abstract class FeedbackEvent extends Equatable {
 }
 
 class SubmitFeedbackRequested extends FeedbackEvent {
+  final String clientId;
   final String inquirerEmail;
   final int rating;
   final String review;
+  final String transactionId;
 
-  SubmitFeedbackRequested(this.inquirerEmail, this.rating, this.review);
+  SubmitFeedbackRequested(this.clientId, this.inquirerEmail, this.rating,
+      this.review, this.transactionId);
 }

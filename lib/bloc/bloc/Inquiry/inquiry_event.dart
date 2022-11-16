@@ -13,6 +13,13 @@ class AddInquiryRequested extends InquiryEvent {
   AddInquiryRequested({required this.inquiry});
 }
 
+class AnswerInquiryRequested extends InquiryEvent {
+  final List<Inquiry> inquiryList;
+  AnswerInquiryRequested({
+    required this.inquiryList,
+  });
+}
+
 class EditInquiryRequested extends InquiryEvent {
   final int index;
   final Inquiry editedInquiry;

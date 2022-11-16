@@ -8,9 +8,11 @@ import 'package:inquire_near/data/models/feedback.dart';
 class FeedbackRepository {
   //final _currentUserEmail = FirebaseAuth.instance.currentUser!.email;
   Future submitFeedback({
+    required String clientId,
     required String inquirerEmail,
     required int rating,
     String? review,
+    required String transactionId,
   }) async {
     final feedbackDocument = FirebaseFirestore.instance
         .collection(feedbackCollection)
@@ -21,7 +23,7 @@ class FeedbackRepository {
         inquirerId: inquirerEmail,
         rating: rating,
         review: review,
-        transactionId: '');
+        transactionId: transactionId);
     await feedbackDocument.set(feedback.toJSON());
   }
 }

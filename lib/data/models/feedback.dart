@@ -26,5 +26,6 @@ class Feedback {
         'inquirerId': inquirerId,
         'rating': rating,
         'review': review,
+        'transactionId': transactionId,
       };
 }

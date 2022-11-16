@@ -25,7 +25,6 @@ class TransactionRepository {
             .collection(transactionCollection)
             .doc(transactionId)
             .get();
-
     log(transactionDoc.toString());
     INTransaction transaction = INTransaction.fromJson(transactionDoc.data()!);
 

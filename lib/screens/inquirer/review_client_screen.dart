@@ -8,8 +8,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
@@ -23,19 +25,24 @@ class ClientFeedbackScreen extends StatefulWidget {
 class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
   final _reviewTextController = TextEditingController();
   int rating = 0;
+  INTransaction? transaction;
 
   void _clickSubmit(context) {
     BlocProvider.of<FeedbackBloc>(context).add(
       SubmitFeedbackRequested(
-          // TODO: change to inquirer uid (MEL)
-          'dummytext@gmail.om',
-          rating,
-          _reviewTextController.text),
+        // TODO: change to inquirer uid (MEL)
+        "dummy@gmail.com",
+        'dummytext@gmail.com',
+        rating,
+        _reviewTextController.text,
+        transaction!.id!,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    transaction = BlocProvider.of<TransactionBloc>(context).transaction;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
@@ -67,8 +74,8 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
                       SizedBox(
                         height: screenHeight * 0.02,
                       ),
-                      const AutoSizeText(
-                        'Mel Jefferson Gabutan',
+                      AutoSizeText(
+                        transaction!.clientId,
                         style: theme.subheadBold,
                       ),
                       SizedBox(

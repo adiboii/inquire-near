@@ -79,10 +79,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => EditProfileScreen());
 
       case aboutInquireNearRoute:
-        return MaterialPageRoute(builder: (_) => const AboutInquireNearScreen());
+        return MaterialPageRoute(
+            builder: (_) => const AboutInquireNearScreen());
 
       case waitingForHiringRequestStatusRoute:
-        return MaterialPageRoute(builder: (_) => const WaitingForHiringRequestStatusScreen());
+        return MaterialPageRoute(
+            builder: (_) => const WaitingForHiringRequestStatusScreen());
 
       // Client Screens
       case clientDashboardRoute:
@@ -140,7 +142,7 @@ class AppRouter {
 
       case searchRoute:
         return MaterialPageRoute(builder: (_) => const SearchScreen());
-        
+
       // Inquirer Screens
       case inquirerDashboardRoute:
         return MaterialPageRoute(

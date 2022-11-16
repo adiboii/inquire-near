@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:image_picker/image_picker.dart';
+import 'package:inquire_near/screens/inquirer/answer_inquiry/widgets/inquirer_proof.dart';
 
 class InquirerBottomBar extends StatefulWidget {
   final Function(File) onIconSelected;
-  final ValueChanged<bool> requireProof;
+  final bool requireProof;
   final bool? initialValue;
   const InquirerBottomBar(
       {Key? key,
@@ -29,7 +30,10 @@ class _InquirerBottomBarState extends State<InquirerBottomBar> {
         .then((XFile? file) {
       setState(() {
         // _image = file;
-        widget.onIconSelected(File(file!.path));
+        try {
+          widget.onIconSelected(File(file!.path));
+          // ignore: empty_catches
+        } catch (e) {}
       });
     });
   }
@@ -51,19 +55,30 @@ class _InquirerBottomBarState extends State<InquirerBottomBar> {
           border: Border(top: BorderSide(color: Colors.grey)),
           color: Colors.white),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(
-            onPressed: () {
-              setImage(ImageSource.gallery);
-            },
-            icon: const Icon(Icons.image),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  setImage(ImageSource.gallery);
+                },
+                icon: const Icon(Icons.image),
+              ),
+              IconButton(
+                onPressed: () {
+                  setImage(ImageSource.camera);
+                },
+                icon: const Icon(Icons.camera_alt_sharp),
+              ),
+            ],
           ),
-          IconButton(
-            onPressed: () {
-              setImage(ImageSource.camera);
-            },
-            icon: const Icon(Icons.camera_alt_sharp),
-          ),
+          (widget.requireProof)
+              ? const InquirerProof(
+                  hasProof: false,
+                  showWidget: true,
+                )
+              : const SizedBox(),
         ],
       ),
     );

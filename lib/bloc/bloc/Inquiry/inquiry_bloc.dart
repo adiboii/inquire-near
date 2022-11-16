@@ -32,6 +32,25 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     on<FinalizeInquiry>(_onFinalizeInquiry);
     on<GetClientInquiries>(_onGetClientInquiries);
     on<DiscardInquiry>(_onDiscardInquiry);
+    on<AnswerInquiryRequested>(_onAnswerInquiry);
+  }
+
+  Future<void> _onAnswerInquiry(
+      AnswerInquiryRequested event, Emitter<InquiryState> emit) async {
+    try {
+      inquiries = event.inquiryList;
+      for (Inquiry inquiry in inquiries) {
+        final answerImgUrl =
+            await inquiry.saveAnswerToFirebaseStorage(inquiryId: inquiry.uid!);
+        await inquiryRepository.answerInquiry(
+          inquiryId: inquiry.uid!,
+          answer: inquiry.answerMessage!,
+          imgUrl: answerImgUrl!,
+        );
+      }
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   Future<void> _onCreateInquiryList(
