@@ -55,6 +55,21 @@ class InquiryRepository {
     return null;
   }
 
+  Future<void> answerInquiry({
+    required String inquiryId,
+    required String answer,
+    String? imgUrl,
+  }) async {
+    try {
+      await db.collection(inquiryCollection).doc(inquiryId).update({
+        'answerMessage': answer,
+        'answerImageUrl': imgUrl,
+      });
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   Future<void> setImageURL(
       {required String inquiryID, required String imageUrl}) async {
     try {
@@ -77,7 +92,7 @@ class InquiryRepository {
         .get();
 
     for (var inquiry in inquiriesDoc.docs) {
-      inquiries.add(Inquiry.fromJson(inquiry.data()));
+      inquiries.add(Inquiry.fromJson(inquiry.data(), inquiry.id));
     }
     return inquiries;
   }

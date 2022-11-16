@@ -18,9 +18,11 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
       emit(FeedbackLoading());
       try {
         await feedbackRepository.submitFeedback(
+          clientId: event.clientId,
           inquirerEmail: event.inquirerEmail,
           rating: event.rating,
           review: event.review,
+          transactionId: event.transactionId,
         );
         emit(FeedbackSuccess());
       } catch (e) {

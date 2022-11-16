@@ -1,4 +1,5 @@
 // Dart imports:
+import 'dart:developer';
 import 'dart:io';
 
 // Flutter imports:
@@ -6,15 +7,24 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/inquiry_image.dart';
+import 'package:inquire_near/data/models/inquiry.dart';
+import 'package:inquire_near/data/models/inquiry_list.dart';
+import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_title_bar.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/widgets/inquirer_bottom_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquirerViewSelectedInquiryScreen extends StatefulWidget {
-  InquirerViewSelectedInquiryScreen({Key? key}) : super(key: key);
+  InquirerViewSelectedInquiryScreen({
+    Key? key,
+    this.inquiryIndex = 1,
+  }) : super(key: key);
   final answerTextController = TextEditingController();
+  final int inquiryIndex;
 
   @override
   State<InquirerViewSelectedInquiryScreen> createState() =>
@@ -23,9 +33,37 @@ class InquirerViewSelectedInquiryScreen extends StatefulWidget {
 
 class _InquirerViewSelectedInquiryScreenState
     extends State<InquirerViewSelectedInquiryScreen> {
+  Inquiry? inquiry;
+  File? image;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    inquiry = BlocProvider.of<InquiryBloc>(context)
+        .inquiries[widget.inquiryIndex - 1];
+    if (inquiry!.answerMessage != null) {
+      widget.answerTextController.text = inquiry!.answerMessage!;
+      if (inquiry!.answerImage != null) {
+        image = inquiry!.answerImage;
+      }
+    }
+    super.initState();
+  }
+
+  void _answerInquiry(context) {
+    setState(() {
+      inquiry!.answer = widget.answerTextController.text;
+    });
+    if (image != null) {
+      inquiry!.answerImg = image!;
+    } else {
+      inquiry!.answerImg = null;
+    }
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    File? image;
     // ignore: unused_local_variable
     bool requireProof = false;
     void onIconSelected(File file) {
@@ -37,6 +75,7 @@ class _InquirerViewSelectedInquiryScreenState
     void onCrossIconPressed() {
       setState(() {
         image = null;
+        log("This is an image ${image.toString()}");
       });
     }
 
@@ -51,83 +90,97 @@ class _InquirerViewSelectedInquiryScreenState
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey[50],
-        elevation: 0,
-        leading: const BackButton(
-          color: Colors.black,
-        ),
-        title: const AutoSizeText(
-          'Inquiry 1',
-          style: theme.headline,
-        ),
-        centerTitle: true,
-      ),
       body: Stack(
         children: [
           SafeArea(
             child: Padding(
               padding: theme.kScreenPadding,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    children: [
-                      Row(
+                  InquiryTitleBar(
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
+                    onTap: () {
+                      _answerInquiry(context);
+                    },
+                    label: 'Inquiry ${widget.inquiryIndex}',
+                    buttonLabel: 'Submit',
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.04,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
                         children: [
-                          CircleAvatar(
-                            radius: screenHeight * 0.02,
-                            backgroundImage: const AssetImage(
-                              'assets/images/illustrations/profile.png',
-                            ),
-                          ),
-                          SizedBox(
-                            width: screenWidth * 0.02,
-                          ),
-                          const AutoSizeText(
-                            'Is it open right now?',
-                            style: theme.subhead,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: screenHeight * 0.1,
-                      ),
-                      Row(
-                        verticalDirection: VerticalDirection.up,
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              textAlign: TextAlign.end,
-                              controller: widget.answerTextController,
-                              decoration: const InputDecoration(
-                                hintText: 'Leave an answer',
-                                hintStyle: theme.subhead,
-                                border: InputBorder.none,
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: screenHeight * 0.02,
+                                backgroundImage: const AssetImage(
+                                  'assets/images/illustrations/profile.png',
+                                ),
                               ),
-                              keyboardType: TextInputType.multiline,
-                              maxLines: null,
+                              SizedBox(
+                                width: screenWidth * 0.02,
+                              ),
+                              AutoSizeText(
+                                inquiry!.question,
+                                style: theme.subhead,
+                              ),
+                            ],
+                          ),
+                          (inquiry!.imageUrl != null)
+                              ? Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 24, 0, 10),
+                                  child: InquiryImage(
+                                    imageUrl: inquiry!.imageUrl,
+                                  ),
+                                )
+                              : const SizedBox(),
+                          Row(
+                            verticalDirection: VerticalDirection.up,
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  textAlign: TextAlign.end,
+                                  controller: widget.answerTextController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Leave an answer',
+                                    hintStyle: theme.subhead
+                                        .copyWith(color: theme.primaryGray),
+                                    border: InputBorder.none,
+                                  ),
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: null,
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenWidth * 0.02,
+                              ),
+                              CircleAvatar(
+                                radius: screenHeight * 0.02,
+                                backgroundImage: const AssetImage(
+                                  'assets/images/illustrations/profile.png',
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 24, 0, 10),
+                            child: InquiryImage(
+                              image: image,
+                              onCrossIconPressed: onCrossIconPressed,
                             ),
                           ),
                           SizedBox(
-                            width: screenWidth * 0.02,
-                          ),
-                          CircleAvatar(
-                            radius: screenHeight * 0.02,
-                            backgroundImage: const AssetImage(
-                              'assets/images/illustrations/profile.png',
-                            ),
-                          ),
+                            height: screenHeight * 0.1,
+                          )
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 24, 0, 10),
-                        child: InquiryImage(
-                          image: image,
-                          onCrossIconPressed: onCrossIconPressed,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -137,7 +190,7 @@ class _InquirerViewSelectedInquiryScreenState
             alignment: Alignment.bottomCenter,
             child: InquirerBottomBar(
               onIconSelected: onIconSelected,
-              requireProof: updateBool,
+              requireProof: inquiry!.requireProof,
             ),
           ),
         ],

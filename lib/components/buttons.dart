@@ -48,7 +48,8 @@ class _ButtonOutlineState extends State<ButtonOutline> {
           ),
           child: Text(
             widget.label,
-            style: widget.style.copyWith(color: widget.textColor),
+            style: widget.style
+                .copyWith(color: widget.textColor, fontSize: widget.fontSize),
           ),
         ),
       ),

@@ -35,11 +35,12 @@ class Inquiry extends BaseModel {
   }) : super();
 
   //json manipulations
-  Inquiry.fromJson(Map<String, dynamic> json)
+  Inquiry.fromJson(Map<String, dynamic> json, String inquiryId)
       : inquiryListId = json['inquiryListId'],
         question = json['question'],
         imageUrl = json['imageUrl'],
-        requireProof = json['requireProof'];
+        requireProof = json['requireProof'],
+        uid = inquiryId;
 
   Map<String, dynamic> toJSON() => {
         'inquiryListId': inquiryListId,
@@ -55,9 +56,19 @@ class Inquiry extends BaseModel {
   bool get withAttachedImages =>
       image != null || imageUrl != null ? true : false;
 
+  String getUid() => uid!;
+
   // setters
   set inquiryUID(String uid) {
     this.uid = uid;
+  }
+
+  set answer(String answerMessage) {
+    this.answerMessage = answerMessage;
+  }
+
+  set answerImg(File? answerImage) {
+    this.answerImage = answerImage;
   }
 
   // helper functions
@@ -75,6 +86,23 @@ class Inquiry extends BaseModel {
       }
     }
     return imageUrl;
+  }
+
+  Future<String?> saveAnswerToFirebaseStorage(
+      {required String inquiryId}) async {
+    if (answerImage != null) {
+      try {
+        var ref = FirebaseStorage.instance
+            .ref()
+            .child(inquiryListId)
+            .child("${inquiryId}_answer_image");
+        await ref.putFile(answerImage!);
+        answerImageUrl = await ref.getDownloadURL();
+      } on FirebaseException catch (e) {
+        log(e.toString());
+      }
+    }
+    return answerImageUrl;
   }
 
   @override
