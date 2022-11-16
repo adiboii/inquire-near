@@ -120,4 +120,18 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   void _onEmitFailedTransactionStatus(event, emit) {
     emit(FailedTransactionStatus());
   }
+
+  static Future<bool> hasOngoingTransaction(String userId) async {
+    try {
+      final transactions = await FirebaseFirestore.instance
+          .collection(transactionCollection)
+          .where('inquirerId', isEqualTo: userId)
+          .where('isCompleted', isEqualTo: false)
+          .get();
+        
+      return transactions.docs.isNotEmpty;
+    } catch (_) {}
+
+    return false;
+  }
 }
