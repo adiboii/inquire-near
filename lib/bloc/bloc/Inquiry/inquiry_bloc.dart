@@ -31,6 +31,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     on<RevisitInquiry>(_onRevisitInquiry);
     on<FinalizeInquiry>(_onFinalizeInquiry);
     on<GetClientInquiries>(_onGetClientInquiries);
+    on<DiscardInquiry>(_onDiscardInquiry);
   }
 
   Future<void> _onCreateInquiryList(
@@ -150,6 +151,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
           .doc(inquiry.uid)
           .delete();
     }
+
     await FirebaseFirestore.instance
         .collection(inquiryCollection)
         .doc(inquiryList.id)
@@ -167,5 +169,16 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       //TODO: error handling (ADI)
       log(e.toString());
     }
+  }
+
+  Future<void> _onDiscardInquiry(event, Emitter<InquiryState> emit) async {
+    emit(InquiryLoading());
+    inquiries = [];
+    await FirebaseFirestore.instance
+        .collection(inquiryCollection)
+        .doc(inquiryList.id)
+        .delete();
+
+    emit(InquiryDiscarded());
   }
 }

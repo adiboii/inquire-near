@@ -19,8 +19,12 @@ class PageTitle extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        const Align(
-            alignment: Alignment.centerLeft, child: INBackButton(size: 25)),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: INBackButton(
+              size: 25,
+              onTap: onTap,
+            )),
         Text(
           title,
           style: theme.headline,

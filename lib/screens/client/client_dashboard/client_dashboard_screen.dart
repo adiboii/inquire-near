@@ -83,7 +83,7 @@ class ClientDashboardScreen extends StatelessWidget {
                 style: theme.headline,
               ),
               SizedBox(height: screenHeight * 0.02),
-              //TODO: convert to widget (ADI)
+              //TODO: convert to widget (MEL)
               SizedBox(
                 height: screenHeight * 0.04,
                 child: ListView.builder(
@@ -126,7 +126,7 @@ class ClientDashboardScreen extends StatelessWidget {
                     style: theme.headline,
                   ),
                   SizedBox(height: screenHeight * 0.025),
-                  //TODO: convert to widget (ADI)
+                  //TODO: convert to widget (MEL)
                   Row(
                     children: [
                       const Expanded(

@@ -55,6 +55,10 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                         inquiryBloc.inquiryList.noOfRequireProof));
                 Navigator.pushNamed(context, availableInquirersRoute);
               }
+
+              if (state is InquiryDiscarded) {
+                Navigator.pop(context);
+              }
             },
             builder: (context, state) {
               if (state is InquiryLoading || state is CreatingInquiryList) {
@@ -70,7 +74,8 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                     PageTitle(
                       title: BlocProvider.of<TransactionBloc>(context).store!,
                       onTap: () {
-                        Navigator.pop(context);
+                        BlocProvider.of<InquiryBloc>(context)
+                            .add(DiscardInquiry());
                       },
                     ),
                     SizedBox(height: screenHeight * 0.02),
@@ -78,7 +83,7 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
                       "What do you need from here?",
                       style: theme.headline.copyWith(fontSize: 16),
                     ),
-                    SizedBox(height: screenHeight * 0.02),
+                    SizedBox(height: screenHeight * 0.03),
                     (inquiryList.isEmpty)
                         ? AddInquiryCard(
                             screenHeight: screenHeight,
