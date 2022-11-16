@@ -1,6 +1,3 @@
-// Flutter imports:
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class INBackButton extends StatelessWidget {
