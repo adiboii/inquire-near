@@ -92,7 +92,7 @@ class Inquiry extends BaseModel {
       {required String inquiryId}) async {
     if (answerImage != null) {
       try {
-        var ref = FirebaseStorage.instance
+        Reference ref = FirebaseStorage.instance
             .ref()
             .child(inquiryListId)
             .child("${inquiryId}_answer_image");

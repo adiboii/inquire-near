@@ -49,7 +49,6 @@ class _ViewOnlyInquiryListState extends State<ViewOnlyInquiryList> {
           return ListView.builder(
             itemCount: inquiryList.length,
             itemBuilder: ((context, index) {
-              log("I am here ${inquiryList[index].uid.toString()}");
               return InkWell(
                 onTap: () async {
                   _viewInquiry(context, index);

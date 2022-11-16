@@ -1,15 +1,14 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/collections.dart';
-import 'package:inquire_near/data/models/in_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
@@ -22,6 +21,8 @@ import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 import 'package:inquire_near/bloc/bloc/report/report_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
+import 'package:inquire_near/collections.dart';
+import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/repositories/auth_repository.dart';
 import 'package:inquire_near/data/repositories/feedback_repository.dart';
 import 'package:inquire_near/data/repositories/inquiry_repository.dart';

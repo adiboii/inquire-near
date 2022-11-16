@@ -7,9 +7,9 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:inquire_near/collections.dart';
 
 // Project imports:
+import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/hiring_request.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/enums/hiring_request_status.dart';

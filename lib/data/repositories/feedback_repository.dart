@@ -1,8 +1,8 @@
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:inquire_near/collections.dart';
 
 // Project imports:
+import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/feedback.dart';
 
 class FeedbackRepository {
