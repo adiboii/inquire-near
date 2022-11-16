@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/collections.dart';
 
 // Project imports:
@@ -60,9 +61,19 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
         add(EmitFindNewAvailableInquirers());
         List<INUser> inquirers = [];
         for (var doc in ev.docs) {
-          INUser inquirer = INUser.fromJson(doc.data());
-          inquirer.setUID(doc.id);
-          inquirers.add(inquirer);
+          // Check if inquirer has ongoing transaction
+          try {
+            bool hasOngoingTransaction =
+                await TransactionBloc.hasOngoingTransaction(doc.id);
+            if (hasOngoingTransaction) {
+              // Remove inquirer if has current transaction
+              inquirers.removeWhere((inquirer) => (inquirer.uid == doc.id));
+            } else {
+              INUser inquirer = INUser.fromJson(doc.data());
+              inquirer.setUID(doc.id);
+              inquirers.add(inquirer);
+            }
+          } catch (_) {}
         }
         add(GetAvailableInquirers(inquirers));
       } else if (ev.docs.isEmpty) {

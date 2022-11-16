@@ -113,7 +113,18 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                                 "isHiring": true
                               });
 
-                              if (result is bool && result) {
+                              // Check first if inquirer already has transaction
+                              bool hasOngoingTransaction =
+                                  await TransactionBloc.hasOngoingTransaction(
+                                      state.inquirers[index].uid.toString());
+
+                              if (mounted && hasOngoingTransaction) {
+                                BlocProvider.of<ClientBloc>(context).add(FindAvailableInquirers());
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            "Inquirer already has ongoing transaction. Try again.")));
+                              } else if (result is bool && result) {
                                 HiringRequest hiringRequest = HiringRequest(
                                     transactionId:
                                         transactionBloc.transaction!.id!,

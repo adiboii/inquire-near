@@ -120,4 +120,14 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   void _onEmitFailedTransactionStatus(event, emit) {
     emit(FailedTransactionStatus());
   }
+
+  static Future<bool> hasOngoingTransaction(String userId) async {
+    try {
+      TransactionRepository tr = TransactionRepository();
+      final transactions = await tr.getTransactionsFromUser(userId, false);
+      return transactions.docs.isNotEmpty;
+    } catch (_) {}
+
+    return false;
+  }
 }
