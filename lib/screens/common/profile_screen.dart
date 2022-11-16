@@ -9,6 +9,7 @@ import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/labels.dart';
 import 'package:inquire_near/routes.dart';
+import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ProfileScreen extends StatelessWidget {
@@ -66,6 +67,12 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  PageTitle(
+                      title: "Profile",
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                  ),
                   const CircleAvatar(
                     radius: 60.0,
                     backgroundImage: AssetImage(
