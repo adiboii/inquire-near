@@ -57,9 +57,14 @@ class _InquiryTileState extends State<InquiryTile> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.question,
-                    style: theme.subhead,
+                  SizedBox(
+                    height: screenHeight * 0.025,
+                    width: screenWidth * 0.65,
+                    child: Text(
+                      widget.question,
+                      style: theme.subhead,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   (widget.withAttachments)
                       ? Column(
