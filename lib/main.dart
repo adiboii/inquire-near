@@ -42,18 +42,19 @@ Future<void> main() async {
 }
 
 class InquireNear extends StatefulWidget {
-  const InquireNear({super.key, required this.appRouter});
+  InquireNear({super.key, required this.appRouter});
   final AppRouter appRouter;
+  late bool? lastIsActiveState;
 
   @override
   State<InquireNear> createState() => _InquireNearState();
 }
 
 class _InquireNearState extends State<InquireNear> with WidgetsBindingObserver {
-  late bool? lastIsActiveState;
 
   @override
   void initState() {
+    widget.lastIsActiveState = null;
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);
@@ -80,7 +81,7 @@ class _InquireNearState extends State<InquireNear> with WidgetsBindingObserver {
             DocumentSnapshot userValue = await userReference.get();
             INUser u =
                 INUser.fromJson(userValue.data() as Map<String, dynamic>);
-            lastIsActiveState = u.isActive;
+            widget.lastIsActiveState = u.isActive;
 
             userReference.update({"isActive": false});
           } catch (_) {}
@@ -90,14 +91,14 @@ class _InquireNearState extends State<InquireNear> with WidgetsBindingObserver {
       }
     } else if (isResumed) {
       // Restore last isActive state
-      if (lastIsActiveState != null) {
+      if (widget.lastIsActiveState != null) {
         User? user = FirebaseAuth.instance.currentUser;
         if (user != null) {
           try {
             FirebaseFirestore.instance
                 .collection(userCollection)
                 .doc(user.uid)
-                .update({"isActive": lastIsActiveState});
+                .update({"isActive": widget.lastIsActiveState});
           } catch (e) {
             log(e.toString());
           }
