@@ -39,7 +39,7 @@ class PaymentSummaryScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         leading: Padding(
           padding: const EdgeInsets.only(top: 25),
