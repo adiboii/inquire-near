@@ -66,7 +66,7 @@ class InquiryRepository {
         'answerImageUrl': imgUrl,
       });
     } catch (e) {
-      log(e.toString());
+      log("answerInquiry: ${e.toString()}");
     }
   }
 

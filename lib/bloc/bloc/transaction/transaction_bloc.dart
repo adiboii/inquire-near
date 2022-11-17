@@ -105,7 +105,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       INTransaction t = INTransaction.fromJson(ev.data()!);
 
       if (t.payPalStatus == PayPalStatus.completed) {
-        add(EmitSuccessfulTransactionStatus(t.payPalId.toString()));
+        if (t.payPalId.toString() != "" || t.payPalId != null) {
+          add(EmitSuccessfulTransactionStatus(t.payPalId.toString()));
+        }
       } else if (t.payPalStatus == PayPalStatus.failed) {
         add(EmitFailedTransactionStatus());
       }
@@ -114,7 +116,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
   void _onEmitSuccessfulTransactionStatus(event, emit) {
     transactionStatusListener.cancel();
-    emit(RetrievedTransactionStatus(event.payPalId));
+    emit(RetrievedTransactionStatus(event.payPalID));
   }
 
   void _onEmitFailedTransactionStatus(event, emit) {

@@ -45,11 +45,11 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
         await inquiryRepository.answerInquiry(
           inquiryId: inquiry.uid!,
           answer: inquiry.answerMessage!,
-          imgUrl: answerImgUrl!,
+          imgUrl: answerImgUrl,
         );
       }
     } catch (e) {
-      log(e.toString());
+      log("onAnswerInquiry: ${e.toString()}");
     }
   }
 
