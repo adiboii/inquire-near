@@ -122,9 +122,13 @@ class _InquirerViewSelectedInquiryScreenState
                               SizedBox(
                                 width: screenWidth * 0.02,
                               ),
-                              AutoSizeText(
-                                inquiry!.question,
-                                style: theme.subhead,
+                              Expanded(
+                                //width: screenWidth * 0.80,
+                                child: AutoSizeText(
+                                  inquiry!.question,
+                                  style: theme.subhead,
+                                  wrapWords: true,
+                                ),
                               ),
                             ],
                           ),
