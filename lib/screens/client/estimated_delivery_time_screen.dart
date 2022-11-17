@@ -43,11 +43,6 @@ class _ETAScreenState extends State<ETAScreen> {
                     SizedBox(height: screenHeight * 0.03),
                     Lottie.asset("assets/images/lottie/eta.json",
                         height: screenHeight * 0.30),
-                    SizedBox(height: screenHeight * 0.02),
-                    const Text(
-                      "25 min",
-                      style: theme.headline,
-                    ),
                   ],
                 ),
               
