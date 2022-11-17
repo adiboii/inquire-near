@@ -1,5 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
+import 'package:inquire_near/utils.dart';
 
 // Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -16,26 +19,23 @@ class Location extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String storeName = BlocProvider.of<TransactionBloc>(context).store!;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            SizedBox(width: screenWidth * 0.02),
-            const Text(
-              'Location',
-              style: theme.subheadBold,
-            ),
-          ],
+        const Text(
+          'Location',
+          style: theme.subheadBold,
         ),
         SizedBox(height: screenHeight * 0.015),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
               width: screenWidth * 0.071,
             ),
             Image.asset(
-              'assets/images/logos/BIR.png',
+              getStoreNamePath(storeName),
               width: screenWidth * 0.1,
             ),
             SizedBox(
@@ -43,13 +43,13 @@ class Location extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
-                  'Bureau of Internal Revenue (BIR)',
+                  storeName,
                   style: theme.caption1,
                 ),
-                Text(
-                  'Cebu South Branch',
+                const Text(
+                  'SM Seaside Cebu',
                   style: theme.caption1,
                 ),
               ],

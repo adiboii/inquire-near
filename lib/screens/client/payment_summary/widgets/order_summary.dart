@@ -23,17 +23,11 @@ class OrderSummary extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            SizedBox(
-              width: screenWidth * 0.02,
-            ),
-            const Text(
-              'Order',
-              style: theme.subheadBold,
-            ),
-          ],
+        const Text(
+          'Order',
+          style: theme.subheadBold,
         ),
         SizedBox(
           height: screenHeight * 0.015,

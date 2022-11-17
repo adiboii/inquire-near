@@ -9,6 +9,7 @@ import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/bloc/bloc/payment/payment_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/routes.dart';
@@ -38,26 +39,6 @@ class PaymentSummaryScreen extends StatelessWidget {
     InquiryList inquiryList = BlocProvider.of<InquiryBloc>(context).inquiryList;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 25),
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ),
-        elevation: 0,
-        title: const Padding(
-          padding: EdgeInsets.only(top: 25),
-          child: Text(
-            "Payment Summary",
-            style: theme.headline,
-          ),
-        ),
-        centerTitle: true,
-      ),
       body: BlocConsumer<PaymentBloc, PaymentState>(
         listener: (context, state) {
           if (state is PaymentSuccessful) {
@@ -88,6 +69,10 @@ class PaymentSummaryScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
+                      PageTitle(title: 'Payment Summary', onTap: () {}),
+                      SizedBox(
+                        height: screenHeight * 0.075,
+                      ),
                       Location(
                           screenWidth: screenWidth, screenHeight: screenHeight),
                       SizedBox(height: screenHeight * 0.05),
