@@ -33,7 +33,7 @@ class InquiryTilesContainer extends StatelessWidget {
           index: index + 1,
           isAnswered: inquiryList[index].answerMessage != null,
           question: inquiryList[index].question,
-          withAttachments: true,
+          withAttachments: inquiryList[index].withAttachedImages,
           requiresProof: inquiryList[index].requireProof,
         );
       }),
