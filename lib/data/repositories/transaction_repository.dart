@@ -27,7 +27,6 @@ class TransactionRepository {
             .collection(transactionCollection)
             .doc(transactionId)
             .get();
-    log(transactionDoc.toString());
     INTransaction transaction = INTransaction.fromJson(transactionDoc.data()!);
 
     return transaction;
@@ -76,14 +75,16 @@ class TransactionRepository {
       transactions = await FirebaseFirestore.instance
           .collection(transactionCollection)
           .where('clientId', isEqualTo: userId)
-          .orderBy('dateTimeCreated', descending: true)
+          .where('isCompleted', isEqualTo: true)
+          .orderBy('dateTimeEnded', descending: true)
           .limit(5)
           .get();
     } else {
       transactions = await FirebaseFirestore.instance
           .collection(transactionCollection)
           .where('inquirerId', isEqualTo: userId)
-          .orderBy('dateTimeCreated', descending: true)
+          .where('isCompleted', isEqualTo: true)
+          .orderBy('dateTimeEnded', descending: true)
           .limit(5)
           .get();
     }
