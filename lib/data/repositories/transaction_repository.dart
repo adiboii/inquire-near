@@ -32,7 +32,7 @@ class TransactionRepository {
     return transaction;
   }
 
-  Future<INUser> getClientData(String userId) async {
+  Future<INUser> getUserData(String userId) async {
     DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
         .instance
         .collection(userCollection)
@@ -55,7 +55,8 @@ class TransactionRepository {
     return inquiryList;
   }
 
-  Future<QuerySnapshot> getTransactionsFromUser(String userId, bool isCompleted) async {
+  Future<QuerySnapshot> getTransactionsFromUser(
+      String userId, bool isCompleted) async {
     QuerySnapshot q = await FirebaseFirestore.instance
         .collection(transactionCollection)
         .where('inquirerId', isEqualTo: userId)

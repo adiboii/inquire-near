@@ -10,6 +10,7 @@ import 'package:equatable/equatable.dart';
 // Project imports:
 import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/hiring_request.dart';
+import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
@@ -28,6 +29,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   final UserRepository userRepository;
   INTransaction? transaction;
   String? store;
+  INUser? client;
 
   TransactionBloc(
       {required this.transactionRepository, required this.userRepository})
@@ -75,6 +77,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
     INTransaction transaction = await transactionRepository
         .getTransactionDetails(hiringRequest!.transactionId);
+    // Retrieve Client's Data
+    client = await transactionRepository.getUserData(transaction.clientId);
 
     transaction.uid = hiringRequest!.transactionId;
 
