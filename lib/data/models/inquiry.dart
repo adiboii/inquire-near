@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 // Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 // Project imports:
@@ -19,6 +20,7 @@ class Inquiry extends BaseModel {
   bool requireProof;
   File? image;
   String? imageUrl;
+  Timestamp? timeCreated;
 
   // answer properties
   String? answerMessage;
@@ -40,6 +42,7 @@ class Inquiry extends BaseModel {
         question = json['question'],
         imageUrl = json['imageUrl'],
         requireProof = json['requireProof'],
+        timeCreated = json['dateTimeCreated'],
         uid = inquiryId;
 
   Map<String, dynamic> toJSON() => {

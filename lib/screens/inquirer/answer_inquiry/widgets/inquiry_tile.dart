@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
-import 'package:inquire_near/routes.dart';
-import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryTile extends StatefulWidget {
@@ -43,12 +41,18 @@ class _InquiryTileState extends State<InquiryTile> {
                 backgroundColor:
                     (widget.isAnswered) ? theme.green : theme.primary,
                 radius: screenWidth * 0.05,
-                child: Text(
-                  widget.index.toString(),
-                  style: theme.caption2Bold.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
+                child: (widget.isAnswered)
+                    ? Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: screenWidth * 0.035,
+                      )
+                    : Text(
+                        widget.index.toString(),
+                        style: theme.caption2Bold.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
               ),
               SizedBox(
                 width: screenWidth * 0.04,
@@ -103,7 +107,7 @@ class _InquiryTileState extends State<InquiryTile> {
                     height: screenHeight * 0.05,
                     width: screenWidth * 0.65,
                     fontSize: 11,
-                    label: 'Add Reply',
+                    label: (widget.isAnswered) ? 'Edit Reply' : 'Add Reply',
                   ),
                 ],
               ),

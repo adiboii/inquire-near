@@ -29,7 +29,8 @@ class AcceptRequestButton extends StatelessWidget {
       onTap: () {
         BlocProvider.of<InquirerBloc>(context)
             .add(AcceptRequest(transaction!.id.toString()));
-        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed(inquirerInquiryListRoute);
+        // Navigator.of(context).pop();
       },
     );
   }
