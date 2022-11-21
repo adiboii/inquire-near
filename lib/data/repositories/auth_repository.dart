@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:convert';
+import 'dart:developer';
 
 // Package imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -186,6 +187,19 @@ class AuthRepository {
     }
   }
 
+  Future<void> storePaypalAddress({required String paypalAddress}) async {
+    try {
+      FirebaseFirestore.instance
+          .collection(userCollection)
+          .doc(_firebaseAuth.currentUser!.uid)
+          .update({
+        'paypalAddress': paypalAddress,
+      });
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   Future<void> signOut() async {
     try {
       if (await GoogleSignIn().isSignedIn()) {
@@ -260,12 +274,12 @@ class AuthRepository {
 
   Future deactivateProfile() async {
     try {
-       await FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection(userCollection)
           .doc(_firebaseAuth.currentUser!.uid)
           .delete();
 
-       await _firebaseAuth.currentUser?.delete();
+      await _firebaseAuth.currentUser?.delete();
     } catch (e) {
       throw Exception(e);
     }
