@@ -141,7 +141,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authRepository.deactivateProfile();
       emit(Unauthenticated());
     } catch (e) {
-      log(e.toString());
+      log("Deactivate Profile: ${e.toString()}");
     }
   }
 
