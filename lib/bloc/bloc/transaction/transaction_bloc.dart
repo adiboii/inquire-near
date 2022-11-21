@@ -15,6 +15,7 @@ import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/data/repositories/user_repository.dart';
 import 'package:inquire_near/enums/paypal_status.dart';
+import 'package:inquire_near/enums/role.dart';
 
 // import 'package:meta/meta.dart'; // TODO: Check if commenting this still works (CYMMER)
 
@@ -39,6 +40,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<EmitSuccessfulTransactionStatus>(_onEmitSuccessfulTransactionStatus);
     on<EmitFailedTransactionStatus>(_onEmitFailedTransactionStatus);
     on<ClickStore>(_onClickStore);
+    on<GetRecentTransaction>(_getRecentTransactions);
+    on<ViewRecentTransaction>(_onViewRecentTransaction);
   }
 
   void _onCreateTransaction(CreateTransaction event, emit) async {
@@ -131,5 +134,34 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     } catch (_) {}
 
     return false;
+  }
+
+  void _getRecentTransactions(GetRecentTransaction event, emit) async {
+    emit(TransactionLoading());
+    TransactionRepository tr = TransactionRepository();
+    List<INTransaction> transactions =
+        await tr.getRecentTransactions(event.userId, event.role);
+
+    emit(RetrievedRecentTransactions(recentTransactions: transactions));
+  }
+
+  void _onViewRecentTransaction(ViewRecentTransaction event, emit) async {
+    emit(TransactionLoading());
+
+    INTransaction recentTransaction = event.transaction;
+
+    Map<String, dynamic> userData =
+        await userRepository.getUserData(recentTransaction.clientId);
+
+    InquiryList inquiryList = await transactionRepository
+        .getInquiryList(recentTransaction.inquiryListId);
+
+    inquiryList.uid = recentTransaction.inquiryListId;
+
+    emit(RetrievedTransactionDetails(
+      transaction: recentTransaction,
+      userData: userData,
+      inquiryList: inquiryList,
+    ));
   }
 }
