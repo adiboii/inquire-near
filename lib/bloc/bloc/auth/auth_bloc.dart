@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
@@ -49,7 +50,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<InitState>(_onInitState);
     on<EditProfileRequested>(_onEditProfileRequested);
     on<DeactivateProfileRequested>(_onDeactivateProfileRequested);
-
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
@@ -121,43 +121,43 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     userRepository.switchRole(id: user!.uid!, roleToSwitch: roleToSwitch);
   }
 
-  _onEditProfileRequested(EditProfileRequested event, Emitter<AuthState> emit) async {
+  _onEditProfileRequested(
+      EditProfileRequested event, Emitter<AuthState> emit) async {
     try {
       INUser u = await authRepository.editProfile(
-          firstName: event.firstName,
-          lastName: event.lastName,
+        firstName: event.firstName,
+        lastName: event.lastName,
       );
       user = u;
-    }  catch (e) {
+    } catch (e) {
       rethrow;
     }
   }
 
-  _onDeactivateProfileRequested(DeactivateProfileRequested event, Emitter<AuthState> emit) async{
-    try{
+  _onDeactivateProfileRequested(
+      DeactivateProfileRequested event, Emitter<AuthState> emit) async {
+    try {
       emit(AuthLoading());
       await authRepository.deactivateProfile();
       emit(Unauthenticated());
-
     } catch (e) {
-      print(e.toString());
-    }
-
-  }
-
- _onInitState(event, emit) async {
-  emit(AuthLoading());
-  User? u = FirebaseAuth.instance.currentUser;
-
-  if (u == null) {
-    emit(Unauthenticated());
-  } else {
-    try {
-      user = await userRepository.getUser(u.uid);
-      emit(Authenticated());
-    } catch (e) {
-      add(SignOutRequested());
+      log("Deactivate Profile: ${e.toString()}");
     }
   }
- }
+
+  _onInitState(event, emit) async {
+    emit(AuthLoading());
+    User? u = FirebaseAuth.instance.currentUser;
+
+    if (u == null) {
+      emit(Unauthenticated());
+    } else {
+      try {
+        user = await userRepository.getUser(u.uid);
+        emit(Authenticated());
+      } catch (e) {
+        add(SignOutRequested());
+      }
+    }
+  }
 }

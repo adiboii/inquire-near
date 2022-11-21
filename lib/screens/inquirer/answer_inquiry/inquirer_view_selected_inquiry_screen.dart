@@ -123,7 +123,6 @@ class _InquirerViewSelectedInquiryScreenState
                                 width: screenWidth * 0.02,
                               ),
                               Expanded(
-                                //width: screenWidth * 0.80,
                                 child: AutoSizeText(
                                   inquiry!.question,
                                   style: theme.subhead,

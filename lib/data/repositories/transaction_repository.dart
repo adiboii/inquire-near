@@ -9,6 +9,7 @@ import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
+import 'package:inquire_near/enums/role.dart';
 
 class TransactionRepository {
   Future<String?> createTransactionAndGetId(
@@ -26,7 +27,6 @@ class TransactionRepository {
             .collection(transactionCollection)
             .doc(transactionId)
             .get();
-    log(transactionDoc.toString());
     INTransaction transaction = INTransaction.fromJson(transactionDoc.data()!);
 
     return transaction;
@@ -55,7 +55,8 @@ class TransactionRepository {
     return inquiryList;
   }
 
-  Future<QuerySnapshot> getTransactionsFromUser(String userId, bool isCompleted) async {
+  Future<QuerySnapshot> getTransactionsFromUser(
+      String userId, bool isCompleted) async {
     QuerySnapshot q = await FirebaseFirestore.instance
         .collection(transactionCollection)
         .where('inquirerId', isEqualTo: userId)
@@ -63,5 +64,35 @@ class TransactionRepository {
         .get();
 
     return q;
+  }
+
+  Future<List<INTransaction>> getRecentTransactions(
+      String userId, Role role) async {
+    List<INTransaction> transactionList = [];
+    QuerySnapshot<Map<String, dynamic>> transactions;
+
+    if (role == Role.client) {
+      transactions = await FirebaseFirestore.instance
+          .collection(transactionCollection)
+          .where('clientId', isEqualTo: userId)
+          .where('isCompleted', isEqualTo: true)
+          .orderBy('dateTimeEnded', descending: true)
+          .limit(5)
+          .get();
+    } else {
+      transactions = await FirebaseFirestore.instance
+          .collection(transactionCollection)
+          .where('inquirerId', isEqualTo: userId)
+          .where('isCompleted', isEqualTo: true)
+          .orderBy('dateTimeEnded', descending: true)
+          .limit(5)
+          .get();
+    }
+
+    for (var transaction in transactions.docs) {
+      transactionList.add(INTransaction.fromJson(transaction.data()));
+    }
+
+    return transactionList;
   }
 }

@@ -31,3 +31,8 @@ class RetrievedTransactionStatus extends TransactionState {
 }
 
 class FailedTransactionStatus extends TransactionState {}
+
+class RetrievedRecentTransactions extends TransactionState {
+  final List<INTransaction> recentTransactions;
+  RetrievedRecentTransactions({required this.recentTransactions});
+}
