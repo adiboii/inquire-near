@@ -94,6 +94,11 @@ class InquiryRepository {
     for (var inquiry in inquiriesDoc.docs) {
       inquiries.add(Inquiry.fromJson(inquiry.data(), inquiry.id));
     }
+    inquiries.sort(
+      ((a, b) => a.timeCreated!.toDate().compareTo(
+            b.timeCreated!.toDate(),
+          )),
+    );
     return inquiries;
   }
 }

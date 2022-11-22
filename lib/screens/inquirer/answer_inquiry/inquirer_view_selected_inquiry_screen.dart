@@ -1,5 +1,4 @@
 // Dart imports:
-import 'dart:developer';
 import 'dart:io';
 
 // Flutter imports:
@@ -13,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_title_bar.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/widgets/inquirer_bottom_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -35,6 +33,7 @@ class _InquirerViewSelectedInquiryScreenState
     extends State<InquirerViewSelectedInquiryScreen> {
   Inquiry? inquiry;
   File? image;
+  bool isAnswered = false;
 
   @override
   void initState() {
@@ -58,7 +57,7 @@ class _InquirerViewSelectedInquiryScreenState
     } else {
       inquiry!.answerImg = null;
     }
-    Navigator.pop(context);
+    Navigator.pop(context, true);
   }
 
   @override

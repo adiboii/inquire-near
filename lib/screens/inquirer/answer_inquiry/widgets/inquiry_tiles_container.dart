@@ -1,4 +1,5 @@
 // Flutter imports:
+
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -7,13 +8,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/widgets/inquiry_tile.dart';
 
-class InquiryTilesContainer extends StatelessWidget {
+class InquiryTilesContainer extends StatefulWidget {
   const InquiryTilesContainer({super.key});
 
+  @override
+  State<InquiryTilesContainer> createState() => _InquiryTilesContainerState();
+}
+
+class _InquiryTilesContainerState extends State<InquiryTilesContainer> {
   @override
   Widget build(BuildContext context) {
     List<Inquiry> inquiryList = BlocProvider.of<InquiryBloc>(context).inquiries;
@@ -21,14 +26,15 @@ class InquiryTilesContainer extends StatelessWidget {
       itemCount: inquiryList.length,
       itemBuilder: ((context, index) {
         return InquiryTile(
-          onSelectInquiry: () {
-            Navigator.of(context).push(
+          onSelectInquiry: () async {
+            await Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => InquirerViewSelectedInquiryScreen(
                   inquiryIndex: index + 1,
                 ),
               ),
             );
+            setState(() {});
           },
           index: index + 1,
           isAnswered: inquiryList[index].answerMessage != null,

@@ -34,7 +34,7 @@ class InquiryTitleBar extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pop(context, false);
               },
               child: SvgPicture.asset("assets/images/svgs/cancel.svg"),
             ),
