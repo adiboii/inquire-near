@@ -51,7 +51,6 @@ class InquireNear extends StatefulWidget {
 }
 
 class _InquireNearState extends State<InquireNear> with WidgetsBindingObserver {
-
   @override
   void initState() {
     widget.lastIsActiveState = null;
@@ -63,7 +62,7 @@ class _InquireNearState extends State<InquireNear> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
-    
+
     bool isBackground = state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached;
     bool isResumed = state == AppLifecycleState.resumed;

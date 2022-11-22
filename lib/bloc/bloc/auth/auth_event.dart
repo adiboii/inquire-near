@@ -6,6 +6,11 @@ abstract class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class StorePaypalAddressRequested extends AuthEvent {
+  final String email;
+  StorePaypalAddressRequested(this.email);
+}
+
 // When the user signing in with email and password
 //this event is called and the [AuthRepository] is called to sign in the user
 class SignInRequested extends AuthEvent {
@@ -53,4 +58,4 @@ class SwitchRole extends AuthEvent {
 
 class InitState extends AuthEvent {}
 
-class DeactivateProfileRequested extends AuthEvent { }
+class DeactivateProfileRequested extends AuthEvent {}

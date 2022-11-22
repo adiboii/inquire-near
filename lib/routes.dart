@@ -10,7 +10,9 @@ const String topUpRoute = '/top_up';
 const String reportRoute = '/report';
 const String editProfileRoute = '/edit_profile';
 const String aboutInquireNearRoute = '/about_inquirenear';
-const String waitingForHiringRequestStatusRoute = '/waiting_for_hiring_request_status';
+const String waitingForHiringRequestStatusRoute =
+    '/waiting_for_hiring_request_status';
+const String paypalAccountRoute = '/paypal_account';
 
 // Client Routes
 const String clientDashboardRoute = '/client_dashboard';
@@ -35,7 +37,8 @@ const String clientFoundRoute = '/client_found';
 const String remindersRoute = '/reminders';
 const String inquirerInquiryListRoute = '/inquirer_inquiry_list';
 const String clientInquiryListRoute = '/client_inquiry_list';
-const String inquirerViewSelectedInquiryRoute = '/inquirer_view_selected_inquiry';
+const String inquirerViewSelectedInquiryRoute =
+    '/inquirer_view_selected_inquiry';
 const String paymentReceivedRoute = '/payment_received';
 const String reviewClientRoute = '/review_client';
 const String waitingForClientToPayRoute = '/waiting_for_client_to_pay';

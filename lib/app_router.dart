@@ -23,6 +23,7 @@ import 'package:inquire_near/screens/common/edit_profile_screen.dart';
 import 'package:inquire_near/screens/common/error_screen.dart';
 import 'package:inquire_near/screens/common/landing_screen.dart';
 import 'package:inquire_near/screens/common/onboarding_screen.dart';
+import 'package:inquire_near/screens/common/paypal_account_screen.dart';
 import 'package:inquire_near/screens/common/profile_details/profile_details.dart';
 import 'package:inquire_near/screens/common/profile_screen.dart';
 import 'package:inquire_near/screens/common/report_screen.dart';
@@ -80,6 +81,9 @@ class AppRouter {
       case waitingForHiringRequestStatusRoute:
         return MaterialPageRoute(
             builder: (_) => const WaitingForHiringRequestStatusScreen());
+
+      case paypalAccountRoute:
+        return MaterialPageRoute(builder: (_) => PaypalAccountScreen());
 
       // Client Screens
       case clientDashboardRoute:

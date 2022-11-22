@@ -50,6 +50,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<InitState>(_onInitState);
     on<EditProfileRequested>(_onEditProfileRequested);
     on<DeactivateProfileRequested>(_onDeactivateProfileRequested);
+    on<StorePaypalAddressRequested>(_onStorePaypalAddressRequested);
+  }
+
+  _onStorePaypalAddressRequested(
+      StorePaypalAddressRequested event, Emitter<AuthState> emit) async {
+    try {
+      await authRepository.storePaypalAddress(paypalAddress: event.email);
+    } catch (_) {}
+    emit(AuthLoading());
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
