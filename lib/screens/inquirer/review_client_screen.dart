@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -26,13 +28,17 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
   final _reviewTextController = TextEditingController();
   int rating = 0;
   INTransaction? transaction;
+  INUser? client;
+  String? userId;
 
-  void _clickSubmit(context) {
+  bool hasRated = false;
+
+  void _submitFeedback(context) {
     BlocProvider.of<FeedbackBloc>(context).add(
       SubmitFeedbackRequested(
         // TODO: change to inquirer uid (MEL)
-        "dummy@gmail.com",
-        'dummytext@gmail.com',
+        transaction!.clientId,
+        userId!,
         rating,
         _reviewTextController.text,
         transaction!.id!,
@@ -43,6 +49,8 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
   @override
   Widget build(BuildContext context) {
     transaction = BlocProvider.of<TransactionBloc>(context).transaction;
+    client = BlocProvider.of<TransactionBloc>(context).client;
+    userId = BlocProvider.of<AuthBloc>(context).user!.uid;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
@@ -75,7 +83,7 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
                         height: screenHeight * 0.02,
                       ),
                       AutoSizeText(
-                        transaction!.clientId,
+                        "${client!.firstName} ${client!.lastName}",
                         style: theme.subheadBold,
                       ),
                       SizedBox(
@@ -98,8 +106,10 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
                         ),
                         onRatingUpdate: (rating) {
                           setState(() {
-                            final ratingStrings = rating.toString().split('.');
-                            this.rating = int.parse(ratingStrings[0]);
+                            final newRating =
+                                int.parse(rating.toString().split('.')[0]);
+                            this.rating = newRating;
+                            rating == 0 ? hasRated = false : hasRated = true;
                           });
                         },
                         itemSize: screenHeight * 0.035,
@@ -137,14 +147,25 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
                   ),
                   SizedBox(height: screenHeight * 0.015),
                   ButtonOutline(
+                    color: (hasRated) ? theme.primary : theme.gray,
+                    textColor: (hasRated) ? theme.primary : theme.gray,
                     label: 'Finish',
                     height: screenHeight * 0.07,
                     style: theme.caption1Bold,
-                    onTap: () {
-                      _clickSubmit(context);
-                      Navigator.pushReplacementNamed(
-                          context, clientDashboardRoute);
-                    },
+                    onTap: (hasRated)
+                        ? () {
+                            _submitFeedback(context);
+                            Navigator.pushReplacementNamed(
+                                context, clientDashboardRoute);
+                          }
+                        : () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    "You are required to rate the client."),
+                              ),
+                            );
+                          },
                   ),
                 ],
               ),

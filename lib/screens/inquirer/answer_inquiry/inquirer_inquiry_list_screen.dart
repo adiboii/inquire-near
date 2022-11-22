@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/widgets/inquiry_tiles_container.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -21,8 +22,11 @@ class InquirerInquiryListScreen extends StatefulWidget {
 }
 
 class _InquirerInquiryListScreenState extends State<InquirerInquiryListScreen> {
+  List<Inquiry>? inquiries;
+
   @override
   Widget build(BuildContext context) {
+    inquiries = BlocProvider.of<InquiryBloc>(context).inquiries;
     bool isComplete = true;
     // Screen Dimensions
     double screenHeight = MediaQuery.of(context).size.height;
@@ -61,7 +65,13 @@ class _InquirerInquiryListScreenState extends State<InquirerInquiryListScreen> {
                             paymentReceivedRoute,
                           );
                         }
-                      : null,
+                      : () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please answer all inquiries'),
+                            ),
+                          );
+                        },
                 ),
               ],
             ),

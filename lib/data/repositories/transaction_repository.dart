@@ -32,7 +32,7 @@ class TransactionRepository {
     return transaction;
   }
 
-  Future<INUser> getClientData(String userId) async {
+  Future<INUser> getUserData(String userId) async {
     DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
         .instance
         .collection(userCollection)
