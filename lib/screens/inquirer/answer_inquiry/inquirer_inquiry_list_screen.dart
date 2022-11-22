@@ -24,15 +24,6 @@ class InquirerInquiryListScreen extends StatefulWidget {
 class _InquirerInquiryListScreenState extends State<InquirerInquiryListScreen> {
   List<Inquiry>? inquiries;
 
-  bool _checkIfComplete() {
-    for (Inquiry inquiry in inquiries!) {
-      if (inquiry.answerMessage == null) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     inquiries = BlocProvider.of<InquiryBloc>(context).inquiries;
