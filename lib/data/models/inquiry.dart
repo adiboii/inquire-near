@@ -42,6 +42,8 @@ class Inquiry extends BaseModel {
         question = json['question'],
         imageUrl = json['imageUrl'],
         requireProof = json['requireProof'],
+        answerMessage = json['answerMessage'],
+        answerImageUrl = json['answerImageUrl'],
         timeCreated = json['dateTimeCreated'],
         uid = inquiryId;
 
@@ -51,7 +53,7 @@ class Inquiry extends BaseModel {
         'imageUrl': imageUrl,
         'requireProof': requireProof,
         'answerMessage': answerMessage,
-        'answerImageUrl': answerImage,
+        'answerImageUrl': answerImageUrl,
         'dateTimeCreated': super.dateTimeCreated,
       };
 

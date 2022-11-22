@@ -1,6 +1,4 @@
 // Flutter imports:
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -11,7 +9,7 @@ import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/list.dart';
-import 'package:inquire_near/components/view_recent_transaction.dart';
+import 'package:inquire_near/screens/common/recent_transactions/view_recent_transaction_screen.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
