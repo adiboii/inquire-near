@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/components/greeting.dart';
+import 'package:inquire_near/components/recent_transactions.dart';
 import 'package:inquire_near/components/status_switch.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/enums/role.dart';
@@ -29,6 +30,7 @@ class _InquirerDashboardScreenState extends State<InquirerDashboardScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: BlocConsumer<InquirerBloc, InquirerState>(
           listenWhen: (context, state) {
@@ -90,6 +92,7 @@ class _InquirerDashboardScreenState extends State<InquirerDashboardScreen> {
                     currentStatus: state.isOnline ?? false,
                   ),
                   SizedBox(height: screenHeight * 0.01),
+                  const RecentTransactions(role: Role.inquirer),
                 ],
               ),
             );

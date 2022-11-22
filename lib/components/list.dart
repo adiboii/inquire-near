@@ -1,22 +1,28 @@
 // Flutter imports:
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
+import 'package:intl/intl.dart';
 
-class InListItem extends StatelessWidget {
+class TransactionItem extends StatelessWidget {
   final Color color;
-  final String type;
-  final String amount;
+  final String store;
+  final Timestamp date;
 
-  const InListItem(
+  const TransactionItem(
       {super.key,
       required this.color,
-      required this.type,
-      required this.amount});
+      required this.store,
+      required this.date});
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    String transactionDate = DateFormat("MM/dd/yyyy").format(date.toDate());
+
     return Column(
       children: [
         SizedBox(
@@ -42,10 +48,13 @@ class InListItem extends StatelessWidget {
                     radius: 5,
                   ),
                   const SizedBox(width: 10),
-                  Text(type),
+                  Text(store),
                 ],
               ),
-              Text(amount),
+              Text(
+                transactionDate,
+                style: theme.caption1,
+              ),
             ],
           ),
         ),

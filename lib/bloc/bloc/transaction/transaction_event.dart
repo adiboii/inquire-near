@@ -41,3 +41,14 @@ class ClickStore extends TransactionEvent {
   final String store;
   ClickStore({required this.store});
 }
+
+class GetRecentTransaction extends TransactionEvent {
+  final Role role;
+  final String userId;
+  GetRecentTransaction({required this.role, required this.userId});
+}
+
+class ViewRecentTransaction extends TransactionEvent {
+  final INTransaction transaction;
+  ViewRecentTransaction({required this.transaction});
+}

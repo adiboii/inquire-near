@@ -29,7 +29,6 @@ import 'package:inquire_near/screens/common/profile_screen.dart';
 import 'package:inquire_near/screens/common/report_screen.dart';
 import 'package:inquire_near/screens/common/splash_screen.dart';
 import 'package:inquire_near/screens/common/top_up.dart';
-import 'package:inquire_near/screens/common/user_wallet.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_inquiry_list_screen.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/inquirer_view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/inquirer/client_found/client_found_screen.dart';
@@ -46,7 +45,6 @@ class AppRouter {
     final args = settings.arguments;
 
     switch (settings.name) {
-
       // Common Screens
       case wrapperRoute:
         return MaterialPageRoute(builder: (_) => const Wrapper());
@@ -65,9 +63,6 @@ class AppRouter {
 
       case onboardingRoute:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
-
-      case userWalletRoute:
-        return MaterialPageRoute(builder: (_) => const UserWalletScreen());
 
       case topUpRoute:
         return MaterialPageRoute(builder: (_) => TopUpScreen());

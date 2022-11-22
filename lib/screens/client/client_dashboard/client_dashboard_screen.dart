@@ -27,9 +27,8 @@ class ClientDashboardScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        top: false,
         child: Padding(
-          padding: theme.kScreenPadding,
+          padding: theme.kScreenPadding.copyWith(top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -151,7 +150,7 @@ class ClientDashboardScreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              const RecentTransactions(),
+              const RecentTransactions(role: Role.client),
             ],
           ),
         ),

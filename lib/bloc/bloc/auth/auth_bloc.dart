@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
@@ -149,7 +150,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authRepository.deactivateProfile();
       emit(Unauthenticated());
     } catch (e) {
-      print(e.toString());
+      log("Deactivate Profile: ${e.toString()}");
     }
   }
 

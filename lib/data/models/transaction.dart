@@ -34,7 +34,8 @@ class INTransaction extends BaseModel {
         isCompleted = json['isCompleted'],
         amount = double.parse(json["amount"].toString()),
         payPalId = json['payPalId'],
-        payPalStatus = getPayPalStatusFromString(json["payPalStatus"]);
+        payPalStatus = getPayPalStatusFromString(json["payPalStatus"]),
+        dateTimeEnded = json['dateTimeEnded'];
 
   set uid(String id) {
     this.id = id;
