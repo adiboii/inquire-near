@@ -226,9 +226,26 @@ class AuthRepository {
       await FirebaseAuth.instance.signInWithCredential(credential);
 
       Map<String, dynamic> idMap = parseJwt(googleAuth?.idToken);
+
       final userDocument = FirebaseFirestore.instance
           .collection(userCollection)
           .doc(_firebaseAuth.currentUser!.uid);
+
+      try {
+        var existingUser = await userDocument.get();
+
+        if (existingUser.exists) {
+          Map<String, dynamic>? existingUserData = existingUser.data();
+          INUser eUser = INUser.fromJson(existingUserData!);
+
+          eUser.setPayPalAddress(existingUserData["paypalAddress"]);
+          eUser.setUID(_firebaseAuth.currentUser!.uid);
+          return eUser;
+        }
+      } catch (e) {
+        log("Getting Existing User Error: $e");
+      }
+
       final user = INUser(
         uid: _firebaseAuth.currentUser!.uid,
         firstName: idMap['given_name'],

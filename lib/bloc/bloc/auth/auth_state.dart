@@ -13,6 +13,10 @@ class AuthLoading extends AuthState {
 // When the user is authenticated
 //the state is changed to Authenticated.
 class Authenticated extends AuthState {
+  final bool isFromSignup;
+
+  Authenticated({required this.isFromSignup});
+
   @override
   List<Object?> get props => [];
 }

@@ -60,7 +60,7 @@ class SignUpScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is Authenticated) {
             Navigator.of(context).pushNamed(
-              clientDashboardRoute,
+              state.isFromSignup ? paypalAccountRoute : clientDashboardRoute,
             );
           }
 

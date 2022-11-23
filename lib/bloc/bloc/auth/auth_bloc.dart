@@ -57,6 +57,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       StorePaypalAddressRequested event, Emitter<AuthState> emit) async {
     try {
       await authRepository.storePaypalAddress(paypalAddress: event.email);
+      emit(Authenticated(isFromSignup: false));
     } catch (_) {}
     emit(AuthLoading());
   }
@@ -67,7 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       INUser u = await authRepository.signIn(
           email: event.email, password: event.password);
       user = u;
-      emit(Authenticated());
+      emit(Authenticated(isFromSignup: true));
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(AuthError(e.message));
       emit(Unauthenticated());
@@ -84,7 +85,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           password: event.password);
 
       user = u;
-      emit(Authenticated());
+      emit(Authenticated(isFromSignup: true));
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(AuthError(e.message));
       emit(Unauthenticated());
@@ -97,7 +98,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       INUser u = await authRepository.signInWithGoogle();
       user = u;
-      emit(Authenticated());
+
+      emit(Authenticated(isFromSignup: u.paypalAddress == null));
     } on LogInWithGoogleFailure catch (e) {
       emit(AuthError(e.message));
       emit(Unauthenticated());
@@ -163,7 +165,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else {
       try {
         user = await userRepository.getUser(u.uid);
-        emit(Authenticated());
+        emit(Authenticated(isFromSignup: false));
       } catch (e) {
         add(SignOutRequested());
       }

@@ -41,17 +41,20 @@ class _WrapperState extends State<Wrapper> {
     return BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
       if (state is Unauthenticated) {
         Navigator.of(context).pushNamedAndRemoveUntil(
-            showOnboarding == null || !showOnboarding! ? landingRoute : onboardingRoute, (route) => false);
+            showOnboarding == null || !showOnboarding!
+                ? landingRoute
+                : onboardingRoute,
+            (route) => false);
       }
     }, builder: (context, state) {
       if (state is AuthLoading) {
         return const SplashScreen();
       }
 
-      if (state is Authenticated) {
+      if (state is Authenticated && !state.isFromSignup) {
         return const ClientDashboardScreen();
       }
-      
+
       return const SplashScreen();
     });
   }
