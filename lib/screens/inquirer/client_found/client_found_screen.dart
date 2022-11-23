@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/location_and_order_details.dart';
-import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/inquirer/client_found/widgets/accept_request_button.dart';
 import 'package:inquire_near/screens/inquirer/client_found/widgets/reject_request_button.dart';
@@ -59,7 +59,9 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
                 }
 
                 if (state is RetrievedTransactionDetails) {
-                  INTransaction? transaction = BlocProvider.of<TransactionBloc>(context).transaction; 
+                  BlocProvider.of<InquiryBloc>(context).add(
+                      GetClientInquiries(inquiryListID: state.inquiryList.id!));
+
                   String firstName = state.userData['user'].firstName;
                   String lastName = state.userData['user'].lastName;
                   String clientName = "$firstName $lastName";
@@ -112,7 +114,7 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
                         ),
                         Column(
                           children: [
-                            AcceptRequestButton(transaction: transaction),
+                            AcceptRequestButton(transaction: state.transaction),
                             SizedBox(
                               height: screenHeight * 0.01,
                             ),

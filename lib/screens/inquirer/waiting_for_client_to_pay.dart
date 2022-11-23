@@ -32,7 +32,6 @@ class _WaitingForClientToPayState extends State<WaitingForClientToPay> {
     final double screenHeight = MediaQuery.of(context).size.height;
     return BlocListener<TransactionBloc, TransactionState>(
       listener: (context, state) {
-        log("STATE: ${state.toString()}");
         if (state is RetrievedTransactionStatus) {
           Navigator.of(context).pushNamed(inquirerInquiryListRoute);
         }
@@ -40,8 +39,8 @@ class _WaitingForClientToPayState extends State<WaitingForClientToPay> {
         if (state is FailedTransactionStatus) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Payment from Client failed.')));
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(inquirerDashboardRoute, (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              inquirerDashboardRoute, (route) => false);
         }
       },
       child: Scaffold(
