@@ -20,8 +20,6 @@ class ViewInquiriesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void getClientInquiries(String id) {
-      BlocProvider.of<InquiryBloc>(context)
-          .add(GetClientInquiries(inquiryListID: id));
       Navigator.pushNamed(context, clientInquiryListRoute);
     }
 
