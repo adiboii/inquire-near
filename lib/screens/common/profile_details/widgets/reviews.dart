@@ -22,8 +22,6 @@ class Reviews extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    log(data.toString());
-
     return Padding(
       padding: theme.kScreenPadding.copyWith(top: 0),
       child: Column(
