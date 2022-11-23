@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
@@ -153,5 +154,15 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
       _hiringRequestSubscription.cancel();
       // ignore: empty_catches
     } catch (e) {}
+  }
+
+  Future<INUser?> getClient(String clientId) async {
+    try {
+      return await userRepository.getUser(clientId);
+    } catch (e) {
+      log("Get Client Error: $e");
+    }
+
+    return null;
   }
 }

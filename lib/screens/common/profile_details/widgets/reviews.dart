@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 // Project imports:
@@ -18,6 +20,8 @@ class Reviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+
+    log(data.toString());
 
     return Padding(
       padding: theme.kScreenPadding.copyWith(top: 0),
