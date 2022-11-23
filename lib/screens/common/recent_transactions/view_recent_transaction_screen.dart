@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
+import 'package:intl/intl.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
@@ -19,7 +20,6 @@ import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import 'package:intl/intl.dart';
 
 class ViewTransactionScreen extends StatefulWidget {
   final INTransaction transaction;

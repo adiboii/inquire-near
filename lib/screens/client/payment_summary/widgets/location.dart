@@ -1,11 +1,13 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
-import 'package:inquire_near/utils.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
+import 'package:inquire_near/utils.dart';
 
 class Location extends StatelessWidget {
   const Location({

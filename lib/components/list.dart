@@ -1,12 +1,15 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 // Project imports:
 import 'package:inquire_near/themes/app_theme.dart' as theme;
-import 'package:intl/intl.dart';
 
 class TransactionItem extends StatelessWidget {
   final Color color;

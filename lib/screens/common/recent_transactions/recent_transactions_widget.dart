@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
-import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 
 // Project imports:
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/list.dart';
 import 'package:inquire_near/screens/common/recent_transactions/view_recent_transaction_screen.dart';
 import 'package:inquire_near/data/models/transaction.dart';
