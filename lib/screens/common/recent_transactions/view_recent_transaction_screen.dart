@@ -1,10 +1,10 @@
 // Flutter imports:
-
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 
 // Project imports:
@@ -12,6 +12,7 @@ import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/components/date_details.dart';
 import 'package:inquire_near/components/location_and_order_details.dart';
 import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/data/models/transaction.dart';
@@ -67,12 +68,12 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                 if (state is RetrievedTransactionDetails) {
                   String firstName = state.userData['user'].firstName;
                   String lastName = state.userData['user'].lastName;
-                  String clientName = "$firstName $lastName";
+                  String name = "$firstName $lastName";
 
-                  String title =
+                  String userType =
                       (widget.role == Role.client) ? "Inquirer" : "Client";
 
-                  String dt = DateFormat("MMMM dd, yyyy")
+                  String dateEnded = DateFormat("MMMM dd, yyyy")
                       .format(state.transaction.dateTimeEnded!.toDate());
 
                   return Center(
@@ -82,7 +83,7 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                         Column(
                           children: [
                             PageTitle(
-                                title: title,
+                                title: userType,
                                 onTap: () {
                                   BlocProvider.of<TransactionBloc>(context).add(
                                       GetRecentTransaction(
@@ -91,6 +92,8 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                                               BlocProvider.of<AuthBloc>(context)
                                                   .user!
                                                   .uid!));
+                                  BlocProvider.of<InquiryBloc>(context)
+                                      .add(DiscardInquiry());
                                   Navigator.pop(context);
                                 }),
                             const BorderedProfilePicture(),
@@ -98,7 +101,7 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                               height: screenHeight * 0.02,
                             ),
                             AutoSizeText(
-                              clientName,
+                              name,
                               style: theme.subheadBold,
                             ),
                             SizedBox(
@@ -115,47 +118,7 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                             SizedBox(
                               height: screenHeight * 0.04,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.calendar_month_outlined,
-                                        color: theme.primary,
-                                        size: theme.subheadIcon,
-                                      ),
-                                      SizedBox(
-                                        width: screenWidth * 0.02,
-                                      ),
-                                      const AutoSizeText(
-                                        'Date',
-                                        style: theme.subheadBold,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight * 0.015,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: screenWidth * 0.071,
-                                      ),
-                                      Text(
-                                        dt,
-                                        style: theme.caption1,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
+                            DateDetails(dateEnded: dateEnded),
                             SizedBox(
                               height: screenHeight * 0.04,
                             ),
@@ -167,14 +130,23 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                             ),
                           ],
                         ),
-                        const ButtonOutline(
-                            label: "View Inquiries", style: theme.caption2),
+                        ButtonOutline(
+                            label: "View Inquiries",
+                            style: theme.caption2,
+                            onTap: () {
+                              BlocProvider.of<InquiryBloc>(context).add(
+                                  GetClientInquiries(
+                                      inquiryListID:
+                                          widget.transaction.inquiryListId));
+                              Navigator.pushNamed(
+                                  context, transactionInquiryListRoute);
+                            })
                       ],
                     ),
                   );
                 }
 
-                return Container();
+                return const SizedBox();
               },
             ),
           ),

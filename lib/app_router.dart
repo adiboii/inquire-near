@@ -39,6 +39,7 @@ import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
 import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
 import 'package:inquire_near/screens/inquirer/waiting_for_client_to_pay.dart';
 import 'package:inquire_near/wrapper.dart';
+import 'screens/common/recent_transactions/view_transaction_inquiry_list_screen.dart';
 
 class AppRouter {
   Route onGenerateRoute(RouteSettings settings) {
@@ -81,6 +82,10 @@ class AppRouter {
       case waitingForHiringRequestStatusRoute:
         return MaterialPageRoute(
             builder: (_) => const WaitingForHiringRequestStatusScreen());
+
+      case transactionInquiryListRoute:
+        return MaterialPageRoute(
+            builder: (_) => const TransactionInquiryListScreen());
 
       case paypalAccountRoute:
         return MaterialPageRoute(builder: (_) => PaypalAccountScreen());
