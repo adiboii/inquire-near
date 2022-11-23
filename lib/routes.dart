@@ -13,6 +13,8 @@ const String aboutInquireNearRoute = '/about_inquirenear';
 const String waitingForHiringRequestStatusRoute =
     '/waiting_for_hiring_request_status';
 const String transactionInquiryListRoute = '/transaction_inquiry_list';
+const String paypalAccountRoute = '/paypal_account';
+
 // Client Routes
 const String clientDashboardRoute = '/client_dashboard';
 const String profileRoute = '/profile';

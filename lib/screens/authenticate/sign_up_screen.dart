@@ -225,6 +225,7 @@ class SignUpScreen extends StatelessWidget {
                         label: "Create Account",
                         onTap: () {
                           _authenticateWithEmailAndPassword(context);
+                          Navigator.of(context).pushNamed(paypalAccountRoute);
                         },
                       ),
                     ],
