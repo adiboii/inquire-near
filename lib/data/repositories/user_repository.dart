@@ -12,15 +12,17 @@ import 'package:inquire_near/enums/role.dart';
 
 class UserRepository {
   Future<INUser> getUser(String userId) async {
-    DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
-        .instance
-        .collection(userCollection)
-        .doc(userId)
-        .get();
-    INUser userData = INUser.fromJson(user.data()!);
-    userData.setUID(user.id);
+    DocumentSnapshot<Map<String, dynamic>> userSnapshot =
+        await FirebaseFirestore.instance
+            .collection(userCollection)
+            .doc(userId)
+            .get();
+    Map<String, dynamic> userData = userSnapshot.data()!;
+    INUser user = INUser.fromJson(userData);
+    user.setUID(userSnapshot.id);
+    user.setPayPalAddress(userData["paypalAddress"]);
 
-    return userData;
+    return user;
   }
 
   Future<int> _getUserInquiriesCount(String userId) async {
