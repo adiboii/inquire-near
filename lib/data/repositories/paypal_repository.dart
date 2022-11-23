@@ -50,8 +50,8 @@ class PayPalRepository {
 
   Future<Map<String, dynamic>?> getPaymentDetails(String paymentId) async {
     try {
-      Response response =
-          await dio.get("${constants.PayPalBaseURL}/transaction-details?paymentId=$paymentId");
+      Response response = await dio.get(
+          "${constants.PayPalBaseURL}/transaction-details?paymentId=$paymentId");
 
       return response.data["transactions"][0]["related_resources"][0]["sale"];
     } catch (e) {
@@ -59,5 +59,27 @@ class PayPalRepository {
     }
 
     return null;
+  }
+
+  Future<bool> payout(
+      {required clientName,
+      required transactionId,
+      required inquirerPayPalEmail,
+      required amount}) async {
+    try {
+      Response response =
+          await dio.post("${constants.PayPalBaseURL}/payout", data: {
+        "amount": amount,
+        "transactionId": transactionId,
+        "clientName": clientName,
+        "inquirerEmail": inquirerPayPalEmail
+      });
+
+      return response.statusCode == 200;
+    } catch (e) {
+      log("executePayment Error: $e");
+    }
+
+    return false;
   }
 }

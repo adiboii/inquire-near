@@ -15,3 +15,6 @@ class PaymentError extends PaymentState {}
 
 class PaymentSuccessful extends PaymentState {}
 
+class PayoutSuccessful extends PaymentState {}
+
+class PayoutFailed extends PaymentState {}

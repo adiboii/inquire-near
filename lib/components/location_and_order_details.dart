@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 // Project imports:
+import 'package:inquire_near/constants.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/utils.dart' as utils;
-import 'package:inquire_near/constants.dart';
 
 class LocationAndOrderDetails extends StatelessWidget {
   const LocationAndOrderDetails(

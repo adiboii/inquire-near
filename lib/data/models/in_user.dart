@@ -17,6 +17,7 @@ class INUser extends BaseModel {
   String? uid;
   final String? firstName;
   final String? lastName;
+  String? paypalAddress;
   Role role;
   bool? isActive;
 
@@ -31,6 +32,10 @@ class INUser extends BaseModel {
     this.uid = uid;
   }
 
+  void setPayPalAddress(String paypalAddress) {
+    this.paypalAddress = paypalAddress;
+  }
+
   @override
   List<Object?> get props => [uid, firstName, lastName];
 
@@ -42,6 +47,7 @@ class INUser extends BaseModel {
       'role': role.toValue(),
       'isActive': isActive,
       'dateTimeCreated': dateTimeCreated,
+      'paypalAddress': paypalAddress
     };
   }
 }

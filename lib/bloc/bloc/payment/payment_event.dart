@@ -13,3 +13,13 @@ class Pay extends PaymentEvent {
 
   const Pay(this.amount, this.transactionId);
 }
+
+class Payout extends PaymentEvent {
+  final String clientName;
+  final String transactionId;
+  final String inquirerPayPalEmail;
+  final double amount;
+
+  const Payout(this.clientName, this.transactionId, this.inquirerPayPalEmail,
+      this.amount);
+}

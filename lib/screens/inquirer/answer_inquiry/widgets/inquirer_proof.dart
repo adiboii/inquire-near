@@ -17,7 +17,6 @@ class InquirerProof extends StatelessWidget {
   final bool showWidget;
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 50),

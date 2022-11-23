@@ -24,6 +24,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
   PaymentBloc({required this.payPalRepository}) : super(PaymentInitial()) {
     on<Pay>(_onPay);
+    on<Payout>(_onPayout);
   }
 
   // Event handlers
@@ -87,6 +88,20 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     }
 
     emit(PaymentInitial());
+  }
+
+  void _onPayout(Payout event, emit) async {
+    bool payoutStatus = await payPalRepository.payout(
+        clientName: event.clientName,
+        transactionId: event.transactionId,
+        inquirerPayPalEmail: event.inquirerPayPalEmail,
+        amount: event.amount);
+
+    if (payoutStatus) {
+      emit(PayoutSuccessful());
+    } else {
+      emit(PayoutFailed());
+    }
   }
 
   // Helper functions
