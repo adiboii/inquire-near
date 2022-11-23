@@ -20,6 +20,8 @@ class UserRepository {
     Map<String, dynamic> userData = userSnapshot.data()!;
     INUser user = INUser.fromJson(userData);
     user.setUID(userSnapshot.id);
+
+    // TODO: Add this on `INUser.fromJSON()` after cleaning database
     user.setPayPalAddress(userData["paypalAddress"]);
 
     return user;
