@@ -32,7 +32,7 @@ class _ETAScreenState extends State<ETAScreen> {
     return BlocListener<TransactionBloc, TransactionState>(
       listener: (context, state) {
         if (state is TransactionCompleted) {
-          // TODO: ADI (assigned by Cymmer)
+          // TODO: Redirect to Answer page screen > ADI (assigned by Cymmer)
           Navigator.of(context).pushNamed(clientDashboardRoute);
         }
       },

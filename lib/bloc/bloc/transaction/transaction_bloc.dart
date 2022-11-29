@@ -186,7 +186,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       if (ev.exists) {
         INTransaction t =
             INTransaction.fromJson(ev.data() as Map<String, dynamic>);
-        log(t.toString());
         if (t.isCompleted) {
           add(CompleteTransaction());
         }
