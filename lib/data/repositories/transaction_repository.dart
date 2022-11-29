@@ -1,4 +1,6 @@
 // Package imports:
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
@@ -91,5 +93,16 @@ class TransactionRepository {
     }
 
     return transactionList;
+  }
+
+  Future<void> completeTransaction(String transactionId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(transactionCollection)
+          .doc(transactionId)
+          .update({"isCompleted": true});
+    } catch (e) {
+      log("completeTransaction() error > $e");
+    }
   }
 }
