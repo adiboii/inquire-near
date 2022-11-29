@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
-import 'package:inquire_near/screens/common/recent_transactions/recent_transactions_widget.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/enums/role.dart';
@@ -14,6 +13,7 @@ import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/client_dashboard/category_screen.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/recent_place.dart';
 import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.dart';
+import 'package:inquire_near/screens/common/recent_transactions/recent_transactions_widget.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ClientDashboardScreen extends StatelessWidget {

@@ -36,3 +36,5 @@ class RetrievedRecentTransactions extends TransactionState {
   final List<INTransaction> recentTransactions;
   RetrievedRecentTransactions({required this.recentTransactions});
 }
+
+class TransactionCompleted extends TransactionState {}

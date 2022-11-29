@@ -31,6 +31,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   INTransaction? transaction;
   String? store;
   INUser? client;
+  StreamSubscription? transactionStatusSubscription;
 
   TransactionBloc(
       {required this.transactionRepository, required this.userRepository})
@@ -45,6 +46,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<GetRecentTransaction>(_getRecentTransactions);
     on<ViewRecentTransaction>(_onViewRecentTransaction);
     on<FinishTransaction>(_onFinishTransaction);
+    on<ListenForTransactionStatus>(_onListenForTransactionStatus);
+    on<CompleteTransaction>(_onTransactionCompleted);
   }
 
   void _onCreateTransaction(CreateTransaction event, emit) async {
@@ -172,5 +175,29 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
   void _onFinishTransaction(event, emit) async {
     await transactionRepository.completeTransaction(transaction!.id!);
+  }
+
+  void _onListenForTransactionStatus(event, emit) {
+    transactionStatusSubscription = FirebaseFirestore.instance
+        .collection(transactionCollection)
+        .doc(transaction!.id)
+        .snapshots()
+        .listen((DocumentSnapshot ev) async {
+      if (ev.exists) {
+        INTransaction t =
+            INTransaction.fromJson(ev.data() as Map<String, dynamic>);
+        log(t.toString());
+        if (t.isCompleted) {
+          add(CompleteTransaction());
+        }
+      }
+    });
+  }
+
+  void _onTransactionCompleted(event, emit) {
+    try {
+      transactionStatusSubscription?.cancel();
+    } catch (_) {}
+    emit(TransactionCompleted());
   }
 }
