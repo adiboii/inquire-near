@@ -44,6 +44,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ClickStore>(_onClickStore);
     on<GetRecentTransaction>(_getRecentTransactions);
     on<ViewRecentTransaction>(_onViewRecentTransaction);
+    on<FinishTransaction>(_onFinishTransaction);
   }
 
   void _onCreateTransaction(CreateTransaction event, emit) async {
@@ -167,5 +168,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       userData: userData,
       inquiryList: inquiryList,
     ));
+  }
+
+  void _onFinishTransaction(event, emit) async {
+    await transactionRepository.completeTransaction(transaction!.id!);
   }
 }

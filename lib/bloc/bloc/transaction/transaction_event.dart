@@ -52,3 +52,5 @@ class ViewRecentTransaction extends TransactionEvent {
   final INTransaction transaction;
   ViewRecentTransaction({required this.transaction});
 }
+
+class FinishTransaction extends TransactionEvent {}

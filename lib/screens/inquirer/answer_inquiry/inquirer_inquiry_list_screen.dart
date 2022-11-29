@@ -88,6 +88,10 @@ class _InquirerInquiryListScreenState extends State<InquirerInquiryListScreen> {
                               transaction.amount!));
 
                           // ignore: use_build_context_synchronously
+                          BlocProvider.of<TransactionBloc>(context)
+                              .add(FinishTransaction());
+
+                          // ignore: use_build_context_synchronously
                           Navigator.of(context).pushReplacementNamed(
                             paymentReceivedRoute,
                           );
