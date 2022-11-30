@@ -45,7 +45,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
         await inquiryRepository.answerInquiry(
           inquiryId: inquiry.uid!,
           answer: inquiry.answerMessage!,
-          imgUrl: answerImgUrl,
+          answerImageUrl: answerImgUrl,
         );
       }
     } catch (e) {

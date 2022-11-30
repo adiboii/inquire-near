@@ -28,7 +28,7 @@ class TransactionRepository {
             .doc(transactionId)
             .get();
     INTransaction transaction = INTransaction.fromJson(transactionDoc.data()!);
-
+    transaction.id = transactionDoc.id;
     return transaction;
   }
 
@@ -101,7 +101,7 @@ class TransactionRepository {
       await FirebaseFirestore.instance
           .collection(transactionCollection)
           .doc(transactionId)
-          .update({"isCompleted": true});
+          .update({"isCompleted": true, "dateTimeEnded": Timestamp.now()});
     } catch (e) {
       log("completeTransaction() error > $e");
     }

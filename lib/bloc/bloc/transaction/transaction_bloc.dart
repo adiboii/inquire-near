@@ -31,6 +31,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   INTransaction? transaction;
   String? store;
   INUser? client;
+  INUser? inquirer;
   StreamSubscription? transactionStatusSubscription;
 
   TransactionBloc(
@@ -84,9 +85,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
     INTransaction transaction = await transactionRepository
         .getTransactionDetails(hiringRequest!.transactionId);
-    // Retrieve Client's Data
+    // Retrieve User Data
     client = await transactionRepository.getUserData(transaction.clientId);
-
+    inquirer = await transactionRepository.getUserData(transaction.inquirerId!);
     transaction.uid = hiringRequest!.transactionId;
 
     this.transaction = transaction;
@@ -156,18 +157,21 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   void _onViewRecentTransaction(ViewRecentTransaction event, emit) async {
     emit(TransactionLoading());
 
-    INTransaction recentTransaction = event.transaction;
-
+    transaction = event.transaction;
     Map<String, dynamic> userData =
-        await userRepository.getUserData(recentTransaction.clientId);
+        await userRepository.getUserData(transaction!.clientId);
 
-    InquiryList inquiryList = await transactionRepository
-        .getInquiryList(recentTransaction.inquiryListId);
+    client = await transactionRepository.getUserData(transaction!.clientId);
+    inquirer =
+        await transactionRepository.getUserData(transaction!.inquirerId!);
 
-    inquiryList.uid = recentTransaction.inquiryListId;
+    InquiryList inquiryList =
+        await transactionRepository.getInquiryList(transaction!.inquiryListId);
+
+    inquiryList.uid = transaction!.inquiryListId;
 
     emit(RetrievedTransactionDetails(
-      transaction: recentTransaction,
+      transaction: transaction!,
       userData: userData,
       inquiryList: inquiryList,
     ));
@@ -193,10 +197,12 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     });
   }
 
-  void _onTransactionCompleted(event, emit) {
+  void _onTransactionCompleted(event, emit) async {
     try {
       transactionStatusSubscription?.cancel();
     } catch (_) {}
+    transaction =
+        await transactionRepository.getTransactionDetails(transaction!.id!);
     emit(TransactionCompleted());
   }
 }

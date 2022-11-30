@@ -14,42 +14,62 @@ import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/models/transaction.dart';
+import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class ClientFeedbackScreen extends StatefulWidget {
-  const ClientFeedbackScreen({Key? key}) : super(key: key);
+class FeedbackScreen extends StatefulWidget {
+  final Role roleToReview;
+  const FeedbackScreen({Key? key, required this.roleToReview})
+      : super(key: key);
 
   @override
-  State<ClientFeedbackScreen> createState() => _ClientFeedbackScreenState();
+  State<FeedbackScreen> createState() => _FeedbackScreenState();
 }
 
-class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
+class _FeedbackScreenState extends State<FeedbackScreen> {
   final _reviewTextController = TextEditingController();
   int rating = 0;
   INTransaction? transaction;
-  INUser? client;
+  INUser? user;
   String? userId;
 
   bool hasRated = false;
 
   void _submitFeedback(context) {
-    BlocProvider.of<FeedbackBloc>(context).add(
-      SubmitFeedbackRequested(
-        // TODO: change to inquirer uid (MEL)
-        transaction!.clientId,
-        userId!,
-        rating,
-        _reviewTextController.text,
-        transaction!.id!,
-      ),
-    );
+    if (widget.roleToReview == Role.client) {
+      BlocProvider.of<FeedbackBloc>(context).add(
+        SubmitFeedbackRequested(
+          transaction!.clientId,
+          userId!,
+          rating,
+          _reviewTextController.text,
+          transaction!.id!,
+        ),
+      );
+    } else {
+      BlocProvider.of<FeedbackBloc>(context).add(
+        SubmitFeedbackRequested(
+          userId!,
+          transaction!.inquirerId!,
+          rating,
+          _reviewTextController.text,
+          transaction!.id!,
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     transaction = BlocProvider.of<TransactionBloc>(context).transaction;
-    client = BlocProvider.of<TransactionBloc>(context).client;
+
+    if (widget.roleToReview == Role.client) {
+      user = BlocProvider.of<TransactionBloc>(context).client;
+    } else {
+      user = BlocProvider.of<TransactionBloc>(context).inquirer;
+    }
+
     userId = BlocProvider.of<AuthBloc>(context).user!.uid;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -83,7 +103,7 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
                         height: screenHeight * 0.02,
                       ),
                       AutoSizeText(
-                        "${client!.firstName} ${client!.lastName}",
+                        "${user!.firstName} ${user!.lastName}",
                         style: theme.subheadBold,
                       ),
                       SizedBox(

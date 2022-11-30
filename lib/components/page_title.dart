@@ -7,11 +7,13 @@ import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class PageTitle extends StatelessWidget {
   final String title;
+  final bool showButton;
   final void Function()? onTap;
   const PageTitle({
     Key? key,
     required this.title,
     required this.onTap,
+    this.showButton = true,
   }) : super(key: key);
 
   @override
@@ -19,12 +21,14 @@ class PageTitle extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Align(
-            alignment: Alignment.centerLeft,
-            child: INBackButton(
-              size: 25,
-              onTap: onTap,
-            )),
+        (showButton)
+            ? Align(
+                alignment: Alignment.centerLeft,
+                child: INBackButton(
+                  size: 25,
+                  onTap: onTap,
+                ))
+            : const SizedBox(),
         Text(
           title,
           style: theme.headline,
