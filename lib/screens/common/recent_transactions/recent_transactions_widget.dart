@@ -9,9 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/list.dart';
-import 'package:inquire_near/screens/common/recent_transactions/view_recent_transaction_screen.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/enums/role.dart';
+import 'package:inquire_near/screens/common/recent_transactions/view_recent_transaction_screen.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class RecentTransactions extends StatefulWidget {

@@ -54,3 +54,8 @@ class ViewRecentTransaction extends TransactionEvent {
 }
 
 class FinishTransaction extends TransactionEvent {}
+
+class ListenForTransactionStatus extends TransactionEvent {}
+
+// This event is for the StreamSubscription `transactionStatusSubscription`
+class CompleteTransaction extends TransactionEvent {}
