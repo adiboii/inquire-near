@@ -24,6 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
   final UserRepository userRepository;
   INUser? user;
+  INUser? tempUser;
 
   AuthBloc({required this.authRepository, required this.userRepository})
       : super(Unauthenticated()) {
@@ -56,6 +57,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onStorePaypalAddressRequested(
       StorePaypalAddressRequested event, Emitter<AuthState> emit) async {
     try {
+      INUser u = await authRepository.signUp(
+          firstName: tempUser!.firstName!,
+          lastName: tempUser!.lastName!,
+          email: tempUser!.email!,
+          password: tempUser!.password!);
+
+      user = u;
       await authRepository.storePaypalAddress(paypalAddress: event.email);
       emit(Authenticated(isFromSignup: false));
     } catch (_) {}
@@ -78,13 +86,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onSignUpRequested(SignUpRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      INUser u = await authRepository.signUp(
-          firstName: event.firstName,
-          lastName: event.lastName,
-          email: event.email,
-          password: event.password);
+      tempUser = INUser(
+        firstName: event.firstName,
+        lastName: event.lastName,
+        email: event.email,
+        password: event.password,
+      );
 
-      user = u;
       emit(Authenticated(isFromSignup: true));
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(AuthError(e.message));
