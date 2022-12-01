@@ -32,7 +32,7 @@ class INUser extends BaseModel {
     this.uid = uid;
   }
 
-  void setPayPalAddress(String paypalAddress) {
+  void setPayPalAddress(String? paypalAddress) {
     this.paypalAddress = paypalAddress;
   }
 

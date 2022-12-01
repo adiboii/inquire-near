@@ -29,7 +29,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       : super(Unauthenticated()) {
     Timer.periodic(const Duration(seconds: 1), (_) async {
       User? u = FirebaseAuth.instance.currentUser;
-
       if (u == null) {
         user = null;
         add(EmitUnauthenticated());
@@ -37,6 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         try {
           user = await userRepository.getUser(u.uid);
         } catch (e) {
+          log("Timer Auth Bloc Get User Error > $e");
           add(SignOutRequested());
         }
       }
