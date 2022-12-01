@@ -96,7 +96,7 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                                                   .user!
                                                   .uid!));
                                   BlocProvider.of<InquiryBloc>(context)
-                                      .add(DiscardInquiry());
+                                      .add(ClearInquiry());
                                   Navigator.pop(context);
                                 }),
                             const BorderedProfilePicture(),

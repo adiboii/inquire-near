@@ -33,6 +33,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     on<GetClientInquiries>(_onGetClientInquiries);
     on<DiscardInquiry>(_onDiscardInquiry);
     on<AnswerInquiryRequested>(_onAnswerInquiry);
+    on<ClearInquiry>(_onClearInquiry);
   }
 
   Future<void> _onAnswerInquiry(
@@ -198,6 +199,11 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
         .doc(inquiryList.id)
         .delete();
 
+    emit(InquiryDiscarded());
+  }
+
+  void _onClearInquiry(event, emit) {
+    inquiries = [];
     emit(InquiryDiscarded());
   }
 }
