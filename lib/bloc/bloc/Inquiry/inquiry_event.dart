@@ -55,3 +55,5 @@ class GetClientInquiries extends InquiryEvent {
   final String inquiryListID;
   GetClientInquiries({required this.inquiryListID});
 }
+
+class ClearInquiry extends InquiryEvent {}
