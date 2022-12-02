@@ -6,7 +6,6 @@ import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/feedback.dart';
 
 class FeedbackRepository {
-  //final _currentUserEmail = FirebaseAuth.instance.currentUser!.email;
   Future submitFeedback({
     required String clientId,
     required String inquirerId,

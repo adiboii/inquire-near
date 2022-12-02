@@ -1,5 +1,8 @@
 // Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:inquire_near/enums/role.dart';
 
 // Project imports:
 import 'package:inquire_near/routes.dart';
@@ -14,7 +17,7 @@ import 'package:inquire_near/screens/client/estimated_delivery_time_screen.dart'
 import 'package:inquire_near/screens/client/finding_inquirer_screen.dart';
 import 'package:inquire_near/screens/client/payment_success_screen.dart';
 import 'package:inquire_near/screens/client/payment_summary/payment_summary_screen.dart';
-import 'package:inquire_near/screens/client/release_payment_screen.dart';
+import 'package:inquire_near/screens/client/release_payment/release_payment_screen.dart';
 import 'package:inquire_near/screens/client/responses_screen.dart';
 import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/client/waiting_for_hiring_request_status.dart';
@@ -36,7 +39,7 @@ import 'package:inquire_near/screens/inquirer/client_inquiry_list/client_inquiry
 import 'package:inquire_near/screens/inquirer/inquirer_dashboard_screen.dart';
 import 'package:inquire_near/screens/inquirer/payment_received_screen.dart';
 import 'package:inquire_near/screens/inquirer/reminders_screen.dart';
-import 'package:inquire_near/screens/inquirer/review_client_screen.dart';
+import 'package:inquire_near/screens/common/review_screen.dart';
 import 'package:inquire_near/screens/inquirer/waiting_for_client_to_pay.dart';
 import 'package:inquire_near/wrapper.dart';
 import 'screens/common/recent_transactions/view_transaction_inquiry_list_screen.dart';
@@ -84,8 +87,13 @@ class AppRouter {
             builder: (_) => const WaitingForHiringRequestStatusScreen());
 
       case transactionInquiryListRoute:
-        return MaterialPageRoute(
-            builder: (_) => const TransactionInquiryListScreen());
+        if (args is bool) {
+          return MaterialPageRoute(
+              builder: (_) => TransactionInquiryListScreen(
+                    isOngoing: args,
+                  ));
+        }
+        break;
 
       case paypalAccountRoute:
         return MaterialPageRoute(builder: (_) => PaypalAccountScreen());
@@ -174,7 +182,14 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const PaymentReceivedScreen());
 
       case reviewClientRoute:
-        return MaterialPageRoute(builder: (_) => const ClientFeedbackScreen());
+        if (args is Map) {
+          return MaterialPageRoute(
+              builder: (_) => FeedbackScreen(
+                    toFeedbackId: args["toFeedbackId"],
+                    feedbackerId: args['feedbacker'],
+                  ));
+        }
+        break;
 
       case waitingForClientToPayRoute:
         return MaterialPageRoute(builder: (_) => const WaitingForClientToPay());

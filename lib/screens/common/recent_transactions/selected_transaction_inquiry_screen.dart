@@ -104,7 +104,7 @@ class _SelectedTransactionInquiryScreenState
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 24, 0, 10),
                                   child: InquiryImage(
-                                    imageUrl: inquiry!.imageUrl,
+                                    imageUrl: inquiry!.answerImageUrl,
                                   ),
                                 )
                               : const SizedBox(),

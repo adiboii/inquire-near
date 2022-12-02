@@ -58,12 +58,12 @@ class InquiryRepository {
   Future<void> answerInquiry({
     required String inquiryId,
     required String answer,
-    String? imgUrl,
+    String? answerImageUrl,
   }) async {
     try {
       await db.collection(inquiryCollection).doc(inquiryId).update({
         'answerMessage': answer,
-        'answerImageUrl': imgUrl,
+        'answerImageUrl': answerImageUrl,
       });
     } catch (e) {
       log("answerInquiry: ${e.toString()}");

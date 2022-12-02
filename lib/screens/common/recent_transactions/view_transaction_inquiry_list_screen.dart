@@ -1,18 +1,29 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/page_title.dart';
+import 'package:inquire_near/enums/role.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/common/recent_transactions/completed_inquiry_list.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class TransactionInquiryListScreen extends StatelessWidget {
-  const TransactionInquiryListScreen({Key? key}) : super(key: key);
+  final bool isOngoing;
+  const TransactionInquiryListScreen({Key? key, required this.isOngoing})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Screen Dimensions
+
+    var transactionBloc = BlocProvider.of<TransactionBloc>(context);
+    String clientId = transactionBloc.client!.uid!;
+    String inquirerId = transactionBloc.inquirer!.uid!;
+
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -44,7 +55,15 @@ class TransactionInquiryListScreen extends StatelessWidget {
                   style: theme.caption1Bold,
                   height: screenHeight * 0.07,
                   onTap: () {
-                    Navigator.of(context).pop();
+                    if (isOngoing) {
+                      Navigator.of(context).pushNamed(reviewClientRoute,
+                          arguments: {
+                            'toFeedbackId': inquirerId,
+                            'feedbacker': clientId
+                          });
+                    } else {
+                      Navigator.of(context).pop();
+                    }
                   },
                 ),
               ],

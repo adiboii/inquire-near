@@ -11,7 +11,6 @@ import 'package:intl/intl.dart';
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
-import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
@@ -142,7 +141,8 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                                       inquiryListID:
                                           widget.transaction.inquiryListId));
                               Navigator.pushNamed(
-                                  context, transactionInquiryListRoute);
+                                  context, transactionInquiryListRoute,
+                                  arguments: false);
                             })
                       ],
                     ),

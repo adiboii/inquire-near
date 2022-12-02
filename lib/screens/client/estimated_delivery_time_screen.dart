@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:lottie/lottie.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
-import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ETAScreen extends StatefulWidget {
@@ -28,12 +28,10 @@ class _ETAScreenState extends State<ETAScreen> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-
     return BlocListener<TransactionBloc, TransactionState>(
       listener: (context, state) {
         if (state is TransactionCompleted) {
-          // TODO: Redirect to Answer page screen > ADI (assigned by Cymmer)
-          Navigator.of(context).pushNamed(clientDashboardRoute);
+          Navigator.of(context).pushNamed(releasePaymentRoute);
         }
       },
       child: Scaffold(

@@ -119,7 +119,8 @@ class _AvailableInquirersScreenState extends State<AvailableInquirersScreen> {
                                       state.inquirers[index].uid.toString());
 
                               if (mounted && hasOngoingTransaction) {
-                                BlocProvider.of<ClientBloc>(context).add(FindAvailableInquirers());
+                                BlocProvider.of<ClientBloc>(context)
+                                    .add(FindAvailableInquirers());
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text(

@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 // Project imports:
-import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
@@ -17,18 +16,22 @@ import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class ClientFeedbackScreen extends StatefulWidget {
-  const ClientFeedbackScreen({Key? key}) : super(key: key);
+class FeedbackScreen extends StatefulWidget {
+  final String toFeedbackId;
+  final String feedbackerId;
+  const FeedbackScreen(
+      {Key? key, required this.toFeedbackId, required this.feedbackerId})
+      : super(key: key);
 
   @override
-  State<ClientFeedbackScreen> createState() => _ClientFeedbackScreenState();
+  State<FeedbackScreen> createState() => _FeedbackScreenState();
 }
 
-class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
+class _FeedbackScreenState extends State<FeedbackScreen> {
   final _reviewTextController = TextEditingController();
   int rating = 0;
   INTransaction? transaction;
-  INUser? client;
+  INUser? user;
   String? userId;
 
   bool hasRated = false;
@@ -36,9 +39,8 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
   void _submitFeedback(context) {
     BlocProvider.of<FeedbackBloc>(context).add(
       SubmitFeedbackRequested(
-        // TODO: change to inquirer uid (MEL)
-        transaction!.clientId,
-        userId!,
+        widget.feedbackerId,
+        widget.toFeedbackId,
         rating,
         _reviewTextController.text,
         transaction!.id!,
@@ -48,9 +50,16 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
 
   @override
   Widget build(BuildContext context) {
-    transaction = BlocProvider.of<TransactionBloc>(context).transaction;
-    client = BlocProvider.of<TransactionBloc>(context).client;
-    userId = BlocProvider.of<AuthBloc>(context).user!.uid;
+    var transactionBloc = BlocProvider.of<TransactionBloc>(context);
+
+    transaction = transactionBloc.transaction;
+
+    if (widget.toFeedbackId == transactionBloc.client!.uid) {
+      user = BlocProvider.of<TransactionBloc>(context).client;
+    } else {
+      user = BlocProvider.of<TransactionBloc>(context).inquirer;
+    }
+
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
@@ -83,7 +92,7 @@ class _ClientFeedbackScreenState extends State<ClientFeedbackScreen> {
                         height: screenHeight * 0.02,
                       ),
                       AutoSizeText(
-                        "${client!.firstName} ${client!.lastName}",
+                        "${user!.firstName} ${user!.lastName}",
                         style: theme.subheadBold,
                       ),
                       SizedBox(

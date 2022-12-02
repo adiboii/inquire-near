@@ -1,4 +1,7 @@
 // Project imports:
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
 import 'constants.dart' as constants;
 
 String getInitials(String name) {
@@ -18,4 +21,8 @@ String censorizeName(String name) {
 
 String getStoreNamePath(String storeName) {
   return "${constants.logoPath}/${storeName.replaceAll(" ", '_').toLowerCase()}.png";
+}
+
+String formatDate(Timestamp date) {
+  return DateFormat("MMMM dd, yyyy").format(date.toDate());
 }
