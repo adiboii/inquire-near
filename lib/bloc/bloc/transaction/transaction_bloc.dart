@@ -98,6 +98,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         await transactionRepository.getInquiryList(transaction.inquiryListId);
 
     client = await userRepository.getUser(transaction.clientId);
+    inquirer = await userRepository.getUser(transaction.inquirerId!);
 
     inquiryList.uid = transaction.inquiryListId;
 
@@ -162,9 +163,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     Map<String, dynamic> userData =
         await userRepository.getUserData(transaction!.clientId);
 
-    client = await transactionRepository.getUserData(transaction!.clientId);
-    inquirer =
-        await transactionRepository.getUserData(transaction!.inquirerId!);
+    client = await userRepository.getUser(transaction!.clientId);
+    inquirer = await userRepository.getUser(transaction!.inquirerId!);
+
     InquiryList inquiryList =
         await transactionRepository.getInquiryList(transaction!.inquiryListId);
 

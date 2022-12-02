@@ -6,6 +6,7 @@ import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/page_title.dart';
+import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/common/recent_transactions/completed_inquiry_list.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -18,9 +19,8 @@ class TransactionInquiryListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TransactionBloc transactionBloc = BlocProvider.of<TransactionBloc>(context);
-
-    String clientId = transactionBloc.transaction!.clientId;
-    String inquirerId = transactionBloc.transaction!.inquirerId!;
+    String clientId = transactionBloc.client!.uid!;
+    String inquirerId = transactionBloc.inquirer!.uid!;
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;

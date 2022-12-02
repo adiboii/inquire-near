@@ -47,6 +47,8 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
     // Screen Dimensions
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    String userType;
+    String name;
 
     return Scaffold(
       body: SafeArea(
@@ -68,12 +70,15 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                 }
 
                 if (state is RetrievedTransactionDetails) {
-                  String firstName = state.userData['user'].firstName;
-                  String lastName = state.userData['user'].lastName;
-                  String name = "$firstName $lastName";
-
-                  String userType =
-                      (widget.role == Role.client) ? "Inquirer" : "Client";
+                  if (widget.role == Role.client) {
+                    userType = "Inquirer";
+                    name =
+                        "${BlocProvider.of<TransactionBloc>(context).inquirer!.firstName!} ${BlocProvider.of<TransactionBloc>(context).inquirer!.lastName!}";
+                  } else {
+                    userType = "Client";
+                    name =
+                        "${BlocProvider.of<TransactionBloc>(context).client!.firstName!} ${BlocProvider.of<TransactionBloc>(context).client!.lastName!}";
+                  }
 
                   String dateEnded = DateFormat("MMMM dd, yyyy")
                       .format(state.transaction.dateTimeEnded!.toDate());
