@@ -97,6 +97,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     InquiryList inquiryList =
         await transactionRepository.getInquiryList(transaction.inquiryListId);
 
+    client = await userRepository.getUser(transaction.clientId);
+
     inquiryList.uid = transaction.inquiryListId;
 
     emit(RetrievedTransactionDetails(
@@ -163,7 +165,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     client = await transactionRepository.getUserData(transaction!.clientId);
     inquirer =
         await transactionRepository.getUserData(transaction!.inquirerId!);
-
     InquiryList inquiryList =
         await transactionRepository.getInquiryList(transaction!.inquiryListId);
 
