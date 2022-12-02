@@ -18,11 +18,10 @@ class TransactionInquiryListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Screen Dimensions
+    TransactionBloc transactionBloc = BlocProvider.of<TransactionBloc>(context);
 
-    var transactionBloc = BlocProvider.of<TransactionBloc>(context);
-    String clientId = transactionBloc.client!.uid!;
-    String inquirerId = transactionBloc.inquirer!.uid!;
+    String clientId = transactionBloc.transaction!.clientId;
+    String inquirerId = transactionBloc.transaction!.inquirerId!;
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
