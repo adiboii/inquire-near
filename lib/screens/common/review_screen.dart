@@ -7,20 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 // Project imports:
-import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/models/transaction.dart';
-import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class FeedbackScreen extends StatefulWidget {
-  final Role roleToReview;
-  const FeedbackScreen({Key? key, required this.roleToReview})
+  final String toFeedbackId;
+  final String feedbackerId;
+  const FeedbackScreen(
+      {Key? key, required this.toFeedbackId, required this.feedbackerId})
       : super(key: key);
 
   @override
@@ -37,40 +37,29 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   bool hasRated = false;
 
   void _submitFeedback(context) {
-    if (widget.roleToReview == Role.client) {
-      BlocProvider.of<FeedbackBloc>(context).add(
-        SubmitFeedbackRequested(
-          transaction!.clientId,
-          userId!,
-          rating,
-          _reviewTextController.text,
-          transaction!.id!,
-        ),
-      );
-    } else {
-      BlocProvider.of<FeedbackBloc>(context).add(
-        SubmitFeedbackRequested(
-          userId!,
-          transaction!.inquirerId!,
-          rating,
-          _reviewTextController.text,
-          transaction!.id!,
-        ),
-      );
-    }
+    BlocProvider.of<FeedbackBloc>(context).add(
+      SubmitFeedbackRequested(
+        widget.feedbackerId,
+        widget.toFeedbackId,
+        rating,
+        _reviewTextController.text,
+        transaction!.id!,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    transaction = BlocProvider.of<TransactionBloc>(context).transaction;
+    var transactionBloc = BlocProvider.of<TransactionBloc>(context);
 
-    if (widget.roleToReview == Role.client) {
+    transaction = transactionBloc.transaction;
+
+    if (widget.toFeedbackId == transactionBloc.client!.uid) {
       user = BlocProvider.of<TransactionBloc>(context).client;
     } else {
       user = BlocProvider.of<TransactionBloc>(context).inquirer;
     }
 
-    userId = BlocProvider.of<AuthBloc>(context).user!.uid;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(

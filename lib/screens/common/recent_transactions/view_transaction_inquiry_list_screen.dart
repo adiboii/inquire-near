@@ -1,5 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
@@ -17,6 +19,11 @@ class TransactionInquiryListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Screen Dimensions
+
+    var transactionBloc = BlocProvider.of<TransactionBloc>(context);
+    String clientId = transactionBloc.client!.uid!;
+    String inquirerId = transactionBloc.inquirer!.uid!;
+
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -50,7 +57,10 @@ class TransactionInquiryListScreen extends StatelessWidget {
                   onTap: () {
                     if (isOngoing) {
                       Navigator.of(context).pushNamed(reviewClientRoute,
-                          arguments: Role.inquirer);
+                          arguments: {
+                            'toFeedbackId': inquirerId,
+                            'feedbacker': clientId
+                          });
                     } else {
                       Navigator.of(context).pop();
                     }

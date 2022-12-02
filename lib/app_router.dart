@@ -182,10 +182,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const PaymentReceivedScreen());
 
       case reviewClientRoute:
-        if (args is Role) {
+        if (args is Map) {
           return MaterialPageRoute(
               builder: (_) => FeedbackScreen(
-                    roleToReview: args,
+                    toFeedbackId: args["toFeedbackId"],
+                    feedbackerId: args['feedbacker'],
                   ));
         }
         break;
