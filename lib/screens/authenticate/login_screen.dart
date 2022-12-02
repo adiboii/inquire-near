@@ -9,6 +9,7 @@ import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/input_field.dart';
 import 'package:inquire_near/components/input_validator.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class LoginScreen extends StatefulWidget {
@@ -52,7 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
-            Navigator.of(context).pushNamed('/client_dashboard');
+            Navigator.of(context).pushNamed(
+                state.isFromSignup ? paypalAccountRoute : clientDashboardRoute);
           }
 
           if (state is AuthError) {

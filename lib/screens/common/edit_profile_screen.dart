@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -35,15 +37,20 @@ class EditProfileScreen extends StatelessWidget {
           lastNameTextController.text,
         ),
       );
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Successfully Edited Profile!')));
+
+      Timer(const Duration(seconds: 1), () => Navigator.of(context).pop());
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    firstNameTextController.text = BlocProvider.of<AuthBloc>(context).user!.firstName!;
-    lastNameTextController.text = BlocProvider.of<AuthBloc>(context).user!.lastName!;
+    firstNameTextController.text =
+        BlocProvider.of<AuthBloc>(context).user!.firstName!;
+    lastNameTextController.text =
+        BlocProvider.of<AuthBloc>(context).user!.lastName!;
 
     return Scaffold(
       body: SafeArea(

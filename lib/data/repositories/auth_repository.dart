@@ -291,12 +291,13 @@ class AuthRepository {
 
   Future deactivateProfile() async {
     try {
+      User? u = _firebaseAuth.currentUser;
       await FirebaseFirestore.instance
           .collection(userCollection)
-          .doc(_firebaseAuth.currentUser!.uid)
+          .doc(u!.uid)
           .delete();
 
-      await _firebaseAuth.currentUser?.delete();
+      // await _firebaseAuth.currentUser?.delete();
     } catch (e) {
       throw Exception(e);
     }

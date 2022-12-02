@@ -37,7 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           user = await userRepository.getUser(u.uid);
         } catch (e) {
           log("Timer Auth Bloc Get User Error > $e");
-          add(SignOutRequested());
+          // add(SignOutRequested());
         }
       }
     });

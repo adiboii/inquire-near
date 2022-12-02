@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 
 // Project imports:
 import 'package:inquire_near/routes.dart';
@@ -18,9 +20,14 @@ class PaymentReceivedScreen extends StatelessWidget {
     // Screen Dimensions
     double screenHeight = MediaQuery.of(context).size.height;
 
-    var transactionBloc = BlocProvider.of<TransactionBloc>(context);
-    String clientId = transactionBloc.client!.uid!;
-    String inquirerId = transactionBloc.inquirer!.uid!;
+    TransactionBloc transactionBloc = BlocProvider.of<TransactionBloc>(context);
+    INTransaction? transaction = transactionBloc.transaction;
+    AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+
+    transaction?.inquirerId = authBloc.user!.uid;
+
+    String clientId = transaction!.clientId;
+    String inquirerId = transaction.inquirerId!;
     return Scaffold(
       body: SafeArea(
         child: Padding(
