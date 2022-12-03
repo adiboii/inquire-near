@@ -32,19 +32,19 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
 
   void _onCrossIconPressed() {
     setState(() {
-      inquiry.image = null;
+      image = null;
     });
   }
 
   void _onIconSelected(File file) {
     setState(() {
-      inquiry.image = file;
+      image = file;
     });
   }
 
   void updateBool(bool value) {
     setState(() {
-      inquiry.requireProof = value;
+      requireProof = value;
     });
   }
 
@@ -62,7 +62,7 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
           .inquiries
           .elementAt(widget.index);
     });
-
+    image = inquiry.image;
     requireProof = inquiry.requireProof;
     inquiryController.text = inquiry.question;
   }
@@ -72,9 +72,6 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    inquiryController.text = inquiry.question.toString();
-    requireProof = inquiry.requireProof;
-    image = inquiry.image;
     //Inquiry inquiry;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -124,7 +121,6 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                           InquiryInput(
                             screenWidth: screenWidth,
                             inquiryContoller: inquiryController,
-                            updateMessage: updateMessage,
                           ),
                         ],
                       ),
