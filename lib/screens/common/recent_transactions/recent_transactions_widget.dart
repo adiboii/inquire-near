@@ -71,7 +71,21 @@ class _RecentTransactionsState extends State<RecentTransactions> {
                 style: theme.headline,
               ),
               (state.recentTransactions.isEmpty)
-                  ? const Center(child: Text("No Recent Transactions"))
+                  ? SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: screenHeight * 0.05),
+                          Image.asset(
+                            "assets/images/illustrations/no_recent_transactions.png",
+                            height: screenHeight * 0.20,
+                          ),
+                          SizedBox(height: screenHeight * 0.01),
+                          const Text("No Recent Transactions"),
+                        ],
+                      ),
+                    )
                   : SizedBox(
                       height: (widget.role == Role.client)
                           ? screenHeight * 0.30
