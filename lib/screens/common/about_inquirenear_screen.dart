@@ -14,6 +14,7 @@ class AboutInquireNearScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
@@ -30,16 +31,76 @@ class AboutInquireNearScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 PageTitle(
-                    title: "About InquireNear",
-                    onTap: () {
-                      Navigator.pop(context);
-                    }),
-                const SizedBox(height: 25.0),
+                  title: "About InquireNear",
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(height: screenHeight * 0.01),
+                Image.asset(
+                  'assets/images/illustrations/about_inquirenear.png',
+                  height: screenHeight * 0.35,
+                ),
+                SizedBox(height: screenHeight * 0.02),
                 const Text(
-                  "InquireNear is an online platform providing real-time information to users who have inquiries about certain establishments and to provide job opportunities for other users.  The primary function of the application is to connect clients with inquirers. When a user has questions about specific places or physical establishments, they are called a client and they will hire an inquirer, a user within the vicinity will then travel to those locations and physically checks, asks, and/or verifies the answers to the client's questions, in exchange for a fee.",
-                  style: theme.caption1,
+                  'InquireNear is an advocate for freedom of information',
+                  style: theme.title3,
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                Text(
+                  "InquireNear is an online platform providing an avenue for people to acquire real-time information regarding certain establishments and providing job opportunities for other users.",
+                  style: theme.caption1.copyWith(
+                    height: 2,
+                  ),
                   textAlign: TextAlign.justify,
                 ),
+                SizedBox(height: screenHeight * 0.02),
+                Text(
+                  "InquireNear does this by connecting a client to an inquirer. When a user has questions, they are called a client. They will create their inquiries and then hire an inquirer, users who are tasked to visit those locations physically checks, asks, and/or verifies the answers to the client’s questions, in exchange for a fee.",
+                  style: theme.caption1.copyWith(
+                    height: 2,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
+                SizedBox(height: screenHeight * 0.04),
+                const Divider(
+                  color: Colors.black,
+                  thickness: 1.5,
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                const Text(
+                  '"We believe in a world where information is truly at your fingertips."',
+                  style: theme.bodyBold,
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: screenHeight * 0.04,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.asset(
+                          'assets/images/illustrations/cymmer.png',
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: screenHeight * 0.015),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Cymmer John Maranga',
+                          style: theme.caption1Bold,
+                        ),
+                        Text(
+                          'Founder',
+                          style: theme.caption1,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: screenHeight * 0.02),
               ],
             ),
           ),
