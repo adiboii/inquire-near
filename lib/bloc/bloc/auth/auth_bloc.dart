@@ -68,7 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       INUser u = await authRepository.signIn(
           email: event.email, password: event.password);
       user = u;
-      emit(Authenticated(isFromSignup: true));
+      emit(Authenticated(isFromSignup: user!.paypalAddress == null));
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(AuthError(e.message));
       emit(Unauthenticated());

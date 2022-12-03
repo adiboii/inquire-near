@@ -26,7 +26,8 @@ class INUser extends BaseModel {
         firstName = json["firstName"],
         lastName = json["lastName"],
         role = getRoleFromString(json["role"]),
-        isActive = json["isActive"];
+        isActive = json["isActive"],
+        paypalAddress = json['paypalAddress'];
 
   void setUID(String uid) {
     this.uid = uid;
