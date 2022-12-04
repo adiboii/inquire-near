@@ -42,9 +42,8 @@ class PaymentSummaryScreen extends StatelessWidget {
       body: BlocConsumer<PaymentBloc, PaymentState>(
         listener: (context, state) {
           if (state is PaymentSuccessful) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content:
-                    Text("Payment successful. Redirecting to Answer Page.")));
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Payment successful.")));
             Navigator.of(context).pushReplacementNamed(etaScreenRoute);
           }
 
