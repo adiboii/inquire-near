@@ -1,4 +1,7 @@
 // Flutter imports:
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -29,86 +32,104 @@ class InquirerInquiryListScreen extends StatefulWidget {
 
 class _InquirerInquiryListScreenState extends State<InquirerInquiryListScreen> {
   List<Inquiry>? inquiries;
+  bool isComplete = false;
 
   @override
   Widget build(BuildContext context) {
     inquiries = BlocProvider.of<InquiryBloc>(context).inquiries;
-    bool isComplete = true;
     // Screen Dimensions
     double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: theme.kScreenPadding,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const AutoSizeText(
-                  'Client\'s Inquiries',
-                  style: theme.headline,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.04,
-                ),
-                const Expanded(child: InquiryTilesContainer()),
-                SizedBox(
-                  height: screenHeight * 0.04,
-                ),
-                ButtonFill(
-                  label: 'Finish',
-                  style: theme.caption1Bold,
-                  height: screenHeight * 0.07,
-                  color: (isComplete) ? theme.primary : theme.primaryGray,
-                  onTap: (isComplete)
-                      ? () async {
-                          BlocProvider.of<InquiryBloc>(context)
-                              .add(AnswerInquiryRequested(
-                            inquiryList:
-                                BlocProvider.of<InquiryBloc>(context).inquiries,
-                          ));
+    return BlocConsumer<InquiryBloc, InquiryState>(
+      listener: (context, state) {
+        if (state is AnsweredInquiry) {
+          for (Inquiry inquiry in inquiries!) {
+            if (inquiry.answerMessage == null) {
+              return;
+            }
+          }
+          isComplete = true;
+          setState(() {});
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: theme.kScreenPadding,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const AutoSizeText(
+                      'Client\'s Inquiries',
+                      style: theme.headline,
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.04,
+                    ),
+                    const Expanded(child: InquiryTilesContainer()),
+                    SizedBox(
+                      height: screenHeight * 0.04,
+                    ),
+                    ButtonFill(
+                      label: 'Finish',
+                      style: theme.caption1Bold,
+                      height: screenHeight * 0.07,
+                      color: (isComplete) ? theme.primary : theme.primaryGray,
+                      onTap: (isComplete)
+                          ? () async {
+                              BlocProvider.of<InquiryBloc>(context)
+                                  .add(AnswerInquiryRequested(
+                                inquiryList:
+                                    BlocProvider.of<InquiryBloc>(context)
+                                        .inquiries,
+                              ));
 
-                          INTransaction? transaction =
+                              INTransaction? transaction =
+                                  BlocProvider.of<TransactionBloc>(context)
+                                      .transaction;
+
+                              INUser? user =
+                                  BlocProvider.of<AuthBloc>(context).user;
+
+                              // Get client from transaction
+                              INUser? client =
+                                  await BlocProvider.of<ClientBloc>(context)
+                                      .getClient(transaction!.clientId);
+
+                              // ignore: use_build_context_synchronously
+                              BlocProvider.of<PaymentBloc>(context).add(
+                                Payout(
+                                    client!.paypalAddress.toString(),
+                                    transaction.id!,
+                                    user!.paypalAddress!,
+                                    transaction.amount!),
+                              );
+
+                              // ignore: use_build_context_synchronously
                               BlocProvider.of<TransactionBloc>(context)
-                                  .transaction;
+                                  .add(FinishTransaction());
 
-                          INUser? user =
-                              BlocProvider.of<AuthBloc>(context).user;
-
-                          // Get client from transaction
-                          INUser? client =
-                              await BlocProvider.of<ClientBloc>(context)
-                                  .getClient(transaction!.clientId);
-
-                          // ignore: use_build_context_synchronously
-                          BlocProvider.of<PaymentBloc>(context).add(Payout(
-                              client!.paypalAddress.toString(),
-                              transaction.id!,
-                              user!.paypalAddress!,
-                              transaction.amount!));
-
-                          // ignore: use_build_context_synchronously
-                          BlocProvider.of<TransactionBloc>(context)
-                              .add(FinishTransaction());
-
-                          // ignore: use_build_context_synchronously
-                          Navigator.of(context).pushReplacementNamed(
-                            paymentReceivedRoute,
-                          );
-                        }
-                      : () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Please answer all inquiries'),
-                            ),
-                          );
-                        },
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).pushReplacementNamed(
+                                paymentReceivedRoute,
+                              );
+                            }
+                          : () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Please answer all inquiries'),
+                                ),
+                              );
+                            },
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

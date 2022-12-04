@@ -57,3 +57,7 @@ class GetClientInquiries extends InquiryEvent {
 }
 
 class ClearInquiry extends InquiryEvent {}
+
+class AnswerInquiry extends InquiryEvent {}
+
+class AnsweringInquiry extends InquiryEvent {}

@@ -28,6 +28,7 @@ class _InquiryTilesContainerState extends State<InquiryTilesContainer> {
       itemBuilder: ((context, index) {
         return InquiryTile(
           onSelectInquiry: () async {
+            BlocProvider.of<InquiryBloc>(context).add(AnsweringInquiry());
             await Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => InquirerViewSelectedInquiryScreen(

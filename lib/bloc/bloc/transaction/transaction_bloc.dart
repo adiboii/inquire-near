@@ -98,7 +98,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         await transactionRepository.getInquiryList(transaction.inquiryListId);
 
     client = await userRepository.getUser(transaction.clientId);
-    inquirer = await userRepository.getUser(transaction.inquirerId!);
 
     inquiryList.uid = transaction.inquiryListId;
 
