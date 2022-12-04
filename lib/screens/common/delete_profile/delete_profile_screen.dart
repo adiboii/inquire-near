@@ -63,7 +63,9 @@ class _DeleteProfileScreenState extends State<DeleteProfileScreen> {
     }, builder: (context, state) {
       if (state is AuthLoading) {
         return const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.white,
+          ),
         );
       }
 
