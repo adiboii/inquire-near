@@ -19,3 +19,7 @@ class InquiryFinished extends InquiryState {}
 class ClientInquiriesRetrieved extends InquiryState {}
 
 class InquiryDiscarded extends InquiryState {}
+
+class AnsweredInquiry extends InquiryState {}
+
+class AnsweringInquiryState extends InquiryState {}

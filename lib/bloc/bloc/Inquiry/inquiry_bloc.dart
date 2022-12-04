@@ -34,6 +34,18 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     on<DiscardInquiry>(_onDiscardInquiry);
     on<AnswerInquiryRequested>(_onAnswerInquiry);
     on<ClearInquiry>(_onClearInquiry);
+    on<AnswerInquiry>(_onAnswerOneInquiry);
+    on<AnsweringInquiry>(_onAnsweringInquiry);
+  }
+
+  void _onAnswerOneInquiry(
+      AnswerInquiry event, Emitter<InquiryState> emit) async {
+    emit(AnsweredInquiry());
+  }
+
+  void _onAnsweringInquiry(
+      AnsweringInquiry event, Emitter<InquiryState> emit) async {
+    emit(AnsweringInquiryState());
   }
 
   Future<void> _onAnswerInquiry(

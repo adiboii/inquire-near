@@ -49,6 +49,27 @@ class _InquirerViewSelectedInquiryScreenState
   }
 
   void _answerInquiry(context) {
+    BlocProvider.of<InquiryBloc>(context).add(AnswerInquiry());
+    if (widget.answerTextController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Please leave an answer',
+          ),
+        ),
+      );
+      return;
+    }
+    if (inquiry!.requireProof && image == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Proof is required. Please attach an image.',
+          ),
+        ),
+      );
+      return;
+    }
     setState(() {
       inquiry!.answer = widget.answerTextController.text;
     });
