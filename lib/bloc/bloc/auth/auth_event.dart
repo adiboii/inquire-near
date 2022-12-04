@@ -58,4 +58,8 @@ class SwitchRole extends AuthEvent {
 
 class InitState extends AuthEvent {}
 
-class DeactivateProfileRequested extends AuthEvent {}
+class DeleteProfileRequested extends AuthEvent {
+  final String email;
+  final String password;
+  DeleteProfileRequested({required this.email, required this.password});
+}

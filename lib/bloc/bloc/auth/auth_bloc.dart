@@ -28,16 +28,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository, required this.userRepository})
       : super(Unauthenticated()) {
     Timer.periodic(const Duration(seconds: 1), (_) async {
-      User? u = FirebaseAuth.instance.currentUser;
-      if (u == null) {
-        user = null;
-        add(EmitUnauthenticated());
-      } else {
-        try {
-          user = await userRepository.getUser(u.uid);
-        } catch (e) {
-          log("Timer Auth Bloc Get User Error > $e");
-          // add(SignOutRequested());
+      if (state is! AuthLoading && state is! AuthError) {
+        User? u = FirebaseAuth.instance.currentUser;
+        if (u == null) {
+          user = null;
+          add(EmitUnauthenticated());
+        } else {
+          try {
+            user = await userRepository.getUser(u.uid);
+          } catch (e) {
+            log("Timer Auth Bloc Get User Error > $e");
+            // add(SignOutRequested());
+          }
         }
       }
     });
@@ -49,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SwitchRole>(_onSwitchRole);
     on<InitState>(_onInitState);
     on<EditProfileRequested>(_onEditProfileRequested);
-    on<DeactivateProfileRequested>(_onDeactivateProfileRequested);
+    on<DeleteProfileRequested>(_onDeleteProfileRequested);
     on<StorePaypalAddressRequested>(_onStorePaypalAddressRequested);
   }
 
@@ -59,7 +61,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authRepository.storePaypalAddress(paypalAddress: event.email);
       emit(Authenticated(isFromSignup: false));
     } catch (_) {}
-    emit(AuthLoading());
   }
 
   _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
@@ -145,14 +146,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onDeactivateProfileRequested(
-      DeactivateProfileRequested event, Emitter<AuthState> emit) async {
+  _onDeleteProfileRequested(
+      DeleteProfileRequested event, Emitter<AuthState> emit) async {
     try {
       emit(AuthLoading());
-      await authRepository.deactivateProfile();
+      await authRepository.deleteProfile(event.email, event.password);
       emit(Unauthenticated());
+    } on ReauthenticateUserFailure catch (e) {
+      emit(AuthError(e.message));
     } catch (e) {
-      log("Deactivate Profile: ${e.toString()}");
+      log("Auth Bloc > Delete Profile: $e");
     }
   }
 

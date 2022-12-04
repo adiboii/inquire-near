@@ -129,6 +129,52 @@ class LogInWithGoogleFailure implements Exception {
   final String message;
 }
 
+class ReauthenticateUserFailure implements Exception {
+  /// The associated error message.
+  final String message;
+
+  const ReauthenticateUserFailure([
+    this.message = 'An unknown exception occurred.',
+  ]);
+
+  /// Create an authentication message
+  /// from a firebase authentication exception code.
+  factory ReauthenticateUserFailure.fromCode(String code) {
+    switch (code) {
+      case 'user-mismatch':
+        return const ReauthenticateUserFailure(
+          'Email provided does not match with current user.',
+        );
+      case constants.userNotFound:
+        return const ReauthenticateUserFailure(
+          'Email is not found, please try again.',
+        );
+      case 'invalid-credential':
+        return const ReauthenticateUserFailure(
+          'The credential received is malformed or has expired.',
+        );
+      case constants.invalidEmail:
+        return const ReauthenticateUserFailure(
+          'Email provided is invalid, please try again.',
+        );
+      case constants.wrongPassword:
+        return const ReauthenticateUserFailure(
+          'Incorrect password, please try again.',
+        );
+      case 'invalid-verification-code':
+        return const ReauthenticateUserFailure(
+          'The credential verification code received is invalid.',
+        );
+      case 'invalid-verification-id':
+        return const ReauthenticateUserFailure(
+          'The credential verification ID received is invalid.',
+        );
+      default:
+        return const ReauthenticateUserFailure();
+    }
+  }
+}
+
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
 
@@ -289,20 +335,6 @@ class AuthRepository {
     }
   }
 
-  Future deactivateProfile() async {
-    try {
-      User? u = _firebaseAuth.currentUser;
-      await FirebaseFirestore.instance
-          .collection(userCollection)
-          .doc(u!.uid)
-          .delete();
-
-      // await _firebaseAuth.currentUser?.delete();
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
   static Map<String, dynamic> parseJwt(String? token) {
     final List<String> parts = token!.split('.');
     // retrieve token payload
@@ -312,5 +344,24 @@ class AuthRepository {
     // convert to Map
     final payloadMap = json.decode(resp);
     return payloadMap;
+  }
+
+  Future<void> deleteProfile(String email, String password) async {
+    try {
+      User? u = _firebaseAuth.currentUser;
+
+      await u!.reauthenticateWithCredential(
+          EmailAuthProvider.credential(email: email, password: password));
+
+      await u.delete();
+      await FirebaseFirestore.instance
+          .collection(userCollection)
+          .doc(u.uid)
+          .delete();
+    } on FirebaseAuthException catch (e) {
+      throw ReauthenticateUserFailure.fromCode(e.code);
+    } catch (_) {
+      throw const ReauthenticateUserFailure();
+    }
   }
 }

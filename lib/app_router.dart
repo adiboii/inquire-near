@@ -1,8 +1,5 @@
 // Flutter imports:
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:inquire_near/enums/role.dart';
 
 // Project imports:
 import 'package:inquire_near/routes.dart';
@@ -22,6 +19,7 @@ import 'package:inquire_near/screens/client/responses_screen.dart';
 import 'package:inquire_near/screens/client/view_selected_inquiry_screen.dart';
 import 'package:inquire_near/screens/client/waiting_for_hiring_request_status.dart';
 import 'package:inquire_near/screens/common/about_inquirenear_screen.dart';
+import 'package:inquire_near/screens/common/delete_profile/delete_profile_screen.dart';
 import 'package:inquire_near/screens/common/edit_profile_screen.dart';
 import 'package:inquire_near/screens/common/error_screen.dart';
 import 'package:inquire_near/screens/common/landing_screen.dart';
@@ -97,6 +95,9 @@ class AppRouter {
 
       case paypalAccountRoute:
         return MaterialPageRoute(builder: (_) => PaypalAccountScreen());
+
+      case deleteProfileRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteProfileScreen());
 
       // Client Screens
       case clientDashboardRoute:
