@@ -69,7 +69,7 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
                   double averageRating = state.userData['averageRating'];
                   int numberOfFeedbacks = state.userData['numberOfFeedbacks'];
                   String reviewDetails =
-                      "$averageRating ($numberOfFeedbacks reviews)";
+                      "${averageRating.toStringAsFixed(1)} ($numberOfFeedbacks reviews)";
 
                   return Center(
                     child: Column(
