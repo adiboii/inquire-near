@@ -217,6 +217,5 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
 
   void _onClearInquiry(event, emit) {
     inquiries = [];
-    emit(InquiryDiscarded());
   }
 }
