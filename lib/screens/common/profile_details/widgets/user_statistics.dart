@@ -36,7 +36,7 @@ class UserStatistics extends StatelessWidget {
                     style: theme.caption2,
                   )
                 : Text(
-                    "${data['averageRating']} (${data['numberOfFeedbacks']} reviews)",
+                    "${data['averageRating'].toStringAsFixed(1)} (${data['numberOfFeedbacks']} reviews)",
                     style: theme.caption2,
                   ),
           ],
