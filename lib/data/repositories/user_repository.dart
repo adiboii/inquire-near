@@ -41,7 +41,7 @@ class UserRepository {
     QuerySnapshot<Map<String, dynamic>> feedbackDocs = await FirebaseFirestore
         .instance
         .collection(feedbackCollection)
-        .where('inquirerId', isEqualTo: userId)
+        .where('recepientId', isEqualTo: userId)
         .get();
 
     List<Map<String, Feedback>> feedbacks = [];

@@ -18,10 +18,10 @@ import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class FeedbackScreen extends StatefulWidget {
-  final String toFeedbackId;
+  final String recepientId;
   final String feedbackerId;
   const FeedbackScreen(
-      {Key? key, required this.toFeedbackId, required this.feedbackerId})
+      {Key? key, required this.recepientId, required this.feedbackerId})
       : super(key: key);
 
   @override
@@ -42,7 +42,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     BlocProvider.of<FeedbackBloc>(context).add(
       SubmitFeedbackRequested(
         widget.feedbackerId,
-        widget.toFeedbackId,
+        widget.recepientId,
         rating,
         _reviewTextController.text,
         transaction!.id!,
@@ -56,7 +56,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
     transaction = transactionBloc.transaction;
 
-    if (widget.toFeedbackId == transactionBloc.client!.uid) {
+    if (widget.recepientId == transactionBloc.client!.uid) {
       user = BlocProvider.of<TransactionBloc>(context).client;
     } else {
       user = BlocProvider.of<TransactionBloc>(context).inquirer;

@@ -56,7 +56,7 @@ class TransactionInquiryListScreen extends StatelessWidget {
                     if (isOngoing) {
                       Navigator.of(context).pushNamed(reviewClientRoute,
                           arguments: {
-                            'toFeedbackId': inquirerId,
+                            'recepient': inquirerId,
                             'feedbacker': clientId
                           });
                     } else {

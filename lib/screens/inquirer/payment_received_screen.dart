@@ -40,7 +40,7 @@ class PaymentReceivedScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context)
                         .pushReplacementNamed(reviewClientRoute, arguments: {
-                      'toFeedbackId': clientId,
+                      'recepient': clientId,
                       'feedbacker': inquirerId
                     });
                   },
