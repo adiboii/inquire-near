@@ -51,7 +51,7 @@ class UserRepository {
       Feedback feedback = Feedback.fromJson(element.data());
 
       // Get User to get first name of client
-      INUser client = await getUser(element["clientId"]);
+      INUser client = await getUser(element["feedbackerId"]);
 
       feedbacks.add({client.firstName!: feedback});
 
