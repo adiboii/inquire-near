@@ -166,8 +166,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     onTap: (hasRated)
                         ? () {
                             _submitFeedback(context);
-                            Navigator.pushReplacementNamed(
-                                context, clientDashboardRoute);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                clientDashboardRoute, (route) => false);
                           }
                         : () {
                             ScaffoldMessenger.of(context).showSnackBar(
