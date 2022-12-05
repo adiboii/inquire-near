@@ -1,8 +1,9 @@
 // Project imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:inquire_near/data/models/base_model.dart';
 import 'package:inquire_near/data/models/enums.dart';
 
-class Report {
+//ignore: must_be_immutable
+class Report extends BaseModel {
   final String? transactionId;
   final String title;
   final String description;
@@ -17,17 +18,19 @@ class Report {
     this.reportType,
     this.recepientId,
     this.reporterId,
-  });
+  }) : super();
 
   Map<String, dynamic> toJSON() {
-    var dateTimeCreated = Timestamp.now();
     return {
       'transactionId': transactionId,
       'title': title,
       'description': description,
       'reporterId': reporterId,
       'recepientId': recepientId,
-      'dateTimeCreated': dateTimeCreated,
+      'dateTimeCreated': super.dateTimeCreated,
     };
   }
+
+  @override
+  List<Object?> get props => [];
 }
