@@ -32,30 +32,33 @@ class Reviews extends StatelessWidget {
             "Recent Reviews",
             style: theme.calloutBold,
           ),
-          SizedBox(height: screenHeight * 0.04),
+          SizedBox(height: screenHeight * 0.02),
           data["feedbacks"].length == 0
               ? const Center(
                   child: Text("No reviews yet"),
                 )
-              : ListView.separated(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: data["feedbacks"].length,
-                  itemBuilder: (context, index) {
-                    String firstName =
-                        data["feedbacks"][index].keys.toList().first;
-                    f_model.Feedback feedback =
-                        data["feedbacks"][index][firstName];
+              : SizedBox(
+                  height: screenHeight * 0.30,
+                  child: ListView.separated(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: data["feedbacks"].length,
+                    itemBuilder: (context, index) {
+                      String firstName =
+                          data["feedbacks"][index].keys.toList().first;
+                      f_model.Feedback feedback =
+                          data["feedbacks"][index][firstName];
 
-                    return RecentReviewItem(
-                      censoredNamed: utils.censorizeName(firstName),
-                      review: feedback.review,
-                      rating: feedback.rating,
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const Divider();
-                  },
+                      return RecentReviewItem(
+                        censoredNamed: utils.censorizeName(firstName),
+                        review: feedback.review,
+                        rating: feedback.rating,
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Divider();
+                    },
+                  ),
                 )
         ],
       ),
