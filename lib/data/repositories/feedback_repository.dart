@@ -16,9 +16,8 @@ class FeedbackRepository {
     final feedbackDocument =
         FirebaseFirestore.instance.collection(feedbackCollection);
     final feedback = Feedback(
-        // TODO: change to client and inquirer uid (MEL)
-        clientId: clientId,
-        inquirerId: inquirerId,
+        feedbacker: clientId,
+        recepient: inquirerId,
         rating: rating,
         review: review,
         transactionId: transactionId);

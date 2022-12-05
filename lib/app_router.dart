@@ -185,7 +185,7 @@ class AppRouter {
         if (args is Map) {
           return MaterialPageRoute(
               builder: (_) => FeedbackScreen(
-                    toFeedbackId: args["toFeedbackId"],
+                    recepientId: args["recepient"],
                     feedbackerId: args['feedbacker'],
                   ));
         }
