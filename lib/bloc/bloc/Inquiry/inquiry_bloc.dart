@@ -138,9 +138,12 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       await _createNewInquiryList(event.transaction);
     }
 
+    log("InquiryList: ${inquiryList.id}");
+    log("Inquiry Lenght: ${inquiries.length}");
     try {
       inquiryList.noOfInquiries = inquiries.length;
       for (Inquiry inquiry in inquiries) {
+        inquiry.inquiryListId = inquiryList.id;
         if (inquiry.requireProof == true) {
           inquiryList.noOfRequireProof++;
         }

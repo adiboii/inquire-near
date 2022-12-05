@@ -84,10 +84,6 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                               if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   inquiry = Inquiry(
-                                      inquiryListId:
-                                          BlocProvider.of<InquiryBloc>(context)
-                                              .inquiryList
-                                              .id!,
                                       question: inquiryController.text,
                                       requireProof: requireProof,
                                       image: image);
