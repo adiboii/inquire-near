@@ -141,6 +141,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
     try {
       inquiryList.noOfInquiries = inquiries.length;
       for (Inquiry inquiry in inquiries) {
+        inquiry.inquiryListId = inquiryList.id;
         if (inquiry.requireProof == true) {
           inquiryList.noOfRequireProof++;
         }

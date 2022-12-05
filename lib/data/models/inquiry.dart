@@ -12,10 +12,10 @@ import 'package:inquire_near/data/models/base_model.dart';
 // ignore: must_be_immutable
 class Inquiry extends BaseModel {
   // misc
-  String inquiryListId;
   String? uid;
 
   // inquiry properties
+  String? inquiryListId;
   String question;
   bool requireProof;
   File? image;
@@ -30,7 +30,6 @@ class Inquiry extends BaseModel {
   //constructor
   Inquiry({
     this.uid,
-    required this.inquiryListId,
     required this.question,
     required this.requireProof,
     this.image,
@@ -82,7 +81,7 @@ class Inquiry extends BaseModel {
       try {
         var ref = FirebaseStorage.instance
             .ref()
-            .child(inquiryListId)
+            .child(inquiryListId!)
             .child("${inquiryId}_inquiry_image");
         await ref.putFile(image!);
         imageUrl = await ref.getDownloadURL();
@@ -99,7 +98,7 @@ class Inquiry extends BaseModel {
       try {
         Reference ref = FirebaseStorage.instance
             .ref()
-            .child(inquiryListId)
+            .child(inquiryListId!)
             .child("${inquiryId}_answer_image");
         await ref.putFile(answerImage!);
         answerImageUrl = await ref.getDownloadURL();

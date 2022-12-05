@@ -100,10 +100,6 @@ class _EditInquiryScreenState extends State<EditInquiryScreen> {
                             onTap: () {
                               setState(() {
                                 inquiry = Inquiry(
-                                    inquiryListId:
-                                        BlocProvider.of<InquiryBloc>(context)
-                                            .inquiryList
-                                            .id!,
                                     question: inquiryController.text,
                                     requireProof: requireProof,
                                     image: image);
