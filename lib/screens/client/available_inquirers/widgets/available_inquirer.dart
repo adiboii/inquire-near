@@ -20,11 +20,12 @@ class AvailableInquirer extends StatefulWidget {
 }
 
 class _AvailableInquirerState extends State<AvailableInquirer> {
+  //TODO: put to repo (Cymmer)
   Future<Map<String, dynamic>> _getUserFeedback(String inquirerId) async {
     QuerySnapshot<Map<String, dynamic>> feedbacks = await FirebaseFirestore
         .instance
         .collection(feedbackCollection)
-        .where('inquirerId', isEqualTo: inquirerId)
+        .where('recepientId', isEqualTo: inquirerId)
         .get();
 
     // Compute average rating
