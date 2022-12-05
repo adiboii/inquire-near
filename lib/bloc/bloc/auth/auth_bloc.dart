@@ -150,7 +150,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       DeleteProfileRequested event, Emitter<AuthState> emit) async {
     try {
       emit(AuthLoading());
-      await authRepository.deleteProfile(event.email, event.password);
+      await authRepository.deleteAccount(event.email, event.password);
       emit(Unauthenticated());
     } on ReauthenticateUserFailure catch (e) {
       emit(AuthError(e.message));

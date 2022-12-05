@@ -70,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                   color: theme.red,
                   textColor: theme.red,
                   onTap: () {
-                    Navigator.pushNamed(context, deleteProfileRoute);
+                    Navigator.pushNamed(context, deleteAccountRoute);
                   },
                 ),
                 SizedBox(height: screenHeight * 0.04),

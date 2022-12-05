@@ -96,7 +96,7 @@ class AppRouter {
       case paypalAccountRoute:
         return MaterialPageRoute(builder: (_) => PaypalAccountScreen());
 
-      case deleteProfileRoute:
+      case deleteAccountRoute:
         return MaterialPageRoute(builder: (_) => const DeleteProfileScreen());
 
       // Client Screens

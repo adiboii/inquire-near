@@ -346,11 +346,11 @@ class AuthRepository {
     return payloadMap;
   }
 
-  Future<void> deleteProfile(String email, String password) async {
+  Future<void> deleteAccount(String email, String password) async {
     try {
-      User? u = _firebaseAuth.currentUser;
+      User u = _firebaseAuth.currentUser!;
 
-      await u!.reauthenticateWithCredential(
+      await u.reauthenticateWithCredential(
           EmailAuthProvider.credential(email: email, password: password));
 
       await u.delete();
