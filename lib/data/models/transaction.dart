@@ -41,6 +41,12 @@ class INTransaction extends BaseModel {
     this.id = id;
   }
 
+  static INTransaction setDataAndId(Map<String, dynamic> json, String id) {
+    INTransaction transaction = INTransaction.fromJson(json);
+    transaction.uid = id;
+    return transaction;
+  }
+
   void setAmount(int noOfInquiries, int noOfRequireProof) {
     amount =
         (noOfInquiries * inquiryPrice) + (noOfRequireProof * requireProofPrice);

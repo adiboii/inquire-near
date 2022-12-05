@@ -10,15 +10,20 @@ class ReportRepository {
   Future submitReport({
     required String title,
     required String description,
+    required String transactionId,
+    required String reporterId,
+    required String recepientId,
   }) async {
     // TODO: change 'transaction-id' to auto generated id (MEL)
-    final reportDocument = FirebaseFirestore.instance
-        .collection(reportCollection)
-        .doc('transaction-id');
+    final reportDocument =
+        FirebaseFirestore.instance.collection(reportCollection);
     final report = Report(
       title: title,
       description: description,
+      recepientId: recepientId,
+      reporterId: reporterId,
+      transactionId: transactionId,
     );
-    await reportDocument.set(report.toJSON());
+    await reportDocument.add(report.toJSON());
   }
 }

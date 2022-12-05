@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/screens/common/report_screen.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
@@ -121,6 +122,17 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
                               color: theme.red,
                               width: screenWidth * 0.35,
                               height: screenHeight * 0.045,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ReportScreen(
+                                      role: widget.role,
+                                      reportByClient: false,
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                             SizedBox(
                               height: screenHeight * 0.04,

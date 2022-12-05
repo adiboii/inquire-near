@@ -17,6 +17,9 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         await reportRepository.submitReport(
           title: event.title,
           description: event.description,
+          transactionId: event.transactionId,
+          reporterId: event.reporterId,
+          recepientId: event.recepientId,
         );
         emit(ReportSuccess());
       } catch (e) {

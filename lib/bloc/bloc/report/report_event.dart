@@ -8,6 +8,15 @@ abstract class ReportEvent extends Equatable {
 class SubmitReportRequested extends ReportEvent {
   final String title;
   final String description;
+  final String reporterId;
+  final String recepientId;
+  final String transactionId;
 
-  SubmitReportRequested(this.title, this.description);
+  SubmitReportRequested({
+    required this.title,
+    required this.description,
+    required this.reporterId,
+    required this.recepientId,
+    required this.transactionId,
+  });
 }

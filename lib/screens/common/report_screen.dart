@@ -6,15 +6,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/report/report_bloc.dart';
+import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/choose_report_type.dart';
 import 'package:inquire_near/components/input_report.dart';
 import 'package:inquire_near/components/page_title.dart';
+import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class ReportScreen extends StatefulWidget {
   final bool reportByClient;
-  const ReportScreen({super.key, required this.reportByClient});
+  final Role? role;
+  const ReportScreen({
+    super.key,
+    required this.reportByClient,
+    this.role,
+  });
 
   @override
   State<ReportScreen> createState() => _ReportScreenState();
@@ -23,20 +30,43 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreenState extends State<ReportScreen> {
   TextEditingController titleTextController = TextEditingController();
   TextEditingController descriptionTextController = TextEditingController();
+  String? recepient;
+  String? reporter;
+  String? transactionId;
 
-  void _clickSubmit(context) {
+  void _submitReport(context) {
+    if (titleTextController.text.isEmpty ||
+        descriptionTextController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all the details'),
+        ),
+      );
+      return;
+    }
     BlocProvider.of<ReportBloc>(context).add(
       SubmitReportRequested(
-        titleTextController.text,
-        descriptionTextController.text,
+        title: titleTextController.text,
+        description: descriptionTextController.text,
+        recepientId: recepient!,
+        reporterId: reporter!,
+        transactionId: transactionId!,
       ),
     );
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-
+    transactionId = BlocProvider.of<TransactionBloc>(context).transaction!.id;
+    if (widget.role == Role.client) {
+      recepient = BlocProvider.of<TransactionBloc>(context).inquirer!.uid;
+      reporter = BlocProvider.of<TransactionBloc>(context).client!.uid;
+    } else {
+      recepient = BlocProvider.of<TransactionBloc>(context).client!.uid;
+      reporter = BlocProvider.of<TransactionBloc>(context).inquirer!.uid;
+    }
     bool monetary = false;
     bool rating = false;
     return Scaffold(
@@ -54,7 +84,6 @@ class _ReportScreenState extends State<ReportScreen> {
                     Navigator.pop(context);
                   },
                 ),
-                SizedBox(height: screenHeight * 0.025),
                 if (widget.reportByClient)
                   ChooseReportType(
                     screenHeight: screenHeight,
@@ -73,7 +102,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   label: "Submit Report",
                   style: theme.caption1Bold,
                   onTap: () {
-                    _clickSubmit(context);
+                    _submitReport(context);
                   },
                 ),
               ],

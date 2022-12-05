@@ -90,7 +90,8 @@ class TransactionRepository {
     }
 
     for (var transaction in transactions.docs) {
-      transactionList.add(INTransaction.fromJson(transaction.data()));
+      transactionList
+          .add(INTransaction.setDataAndId(transaction.data(), transaction.id));
     }
 
     return transactionList;
