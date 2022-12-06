@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -28,6 +29,15 @@ class PaymentReceivedScreen extends StatelessWidget {
 
     String clientId = transaction!.clientId;
     String inquirerId = transaction.inquirerId!;
+    Timer(
+        const Duration(seconds: 3),
+        () => Navigator.of(context).pushReplacementNamed(
+              reviewClientRoute,
+              arguments: {
+                'recepient': clientId,
+                'feedbacker': inquirerId,
+              },
+            ));
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -36,18 +46,9 @@ class PaymentReceivedScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(reviewClientRoute, arguments: {
-                      'recepient': clientId,
-                      'feedbacker': inquirerId
-                    });
-                  },
-                  child: Image.asset(
-                    'assets/images/illustrations/payment_received.png',
-                    height: screenHeight * 0.25,
-                  ),
+                Image.asset(
+                  'assets/images/illustrations/payment_received.png',
+                  height: screenHeight * 0.25,
                 ),
                 SizedBox(
                   height: screenHeight * 0.05,
