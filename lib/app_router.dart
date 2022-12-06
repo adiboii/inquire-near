@@ -74,7 +74,7 @@ class AppRouter {
             builder: (_) => const ReportScreen(reportByClient: false));
 
       case editProfileRoute:
-        return MaterialPageRoute(builder: (_) => EditProfileScreen());
+        return MaterialPageRoute(builder: (_) => const EditProfileScreen());
 
       case aboutInquireNearRoute:
         return MaterialPageRoute(

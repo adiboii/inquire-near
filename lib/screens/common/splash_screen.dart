@@ -19,11 +19,6 @@ class _SplashState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 4), () {
-      if (mounted) {
-        Navigator.pushReplacementNamed(context, onboardingRoute);
-      }
-    });
   }
 
   @override
