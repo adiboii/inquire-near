@@ -43,6 +43,13 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
         .add((ViewRecentTransaction(transaction: widget.transaction)));
   }
 
+  void rebuildWidgetAndClearInquiry() {
+    BlocProvider.of<TransactionBloc>(context).add(GetRecentTransaction(
+        role: widget.role,
+        userId: BlocProvider.of<AuthBloc>(context).user!.uid!));
+    BlocProvider.of<InquiryBloc>(context).add(ClearInquiry());
+  }
+
   @override
   Widget build(BuildContext context) {
     // Screen Dimensions
@@ -52,122 +59,120 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
     String name;
 
     return Scaffold(
-      body: SafeArea(
-        top: false,
-        child: Padding(
-          padding: theme.kScreenPadding.copyWith(top: 20),
-          child: BlocListener<InquirerBloc, InquirerState>(
-            listener: (context, state) {
-              if (state is AcceptedRequest) {
-                Navigator.of(context).pushNamed(waitingForClientToPayRoute);
-              }
-            },
-            child: BlocBuilder<TransactionBloc, TransactionState>(
-              builder: (context, state) {
-                if (state is TransactionLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+      body: WillPopScope(
+        onWillPop: () async {
+          rebuildWidgetAndClearInquiry();
+          return true;
+        },
+        child: SafeArea(
+          top: false,
+          child: Padding(
+            padding: theme.kScreenPadding.copyWith(top: 20),
+            child: BlocListener<InquirerBloc, InquirerState>(
+              listener: (context, state) {
+                if (state is AcceptedRequest) {
+                  Navigator.of(context).pushNamed(waitingForClientToPayRoute);
                 }
-
-                if (state is RetrievedTransactionDetails) {
-                  if (widget.role == Role.client) {
-                    userType = "Inquirer";
-                    name =
-                        "${BlocProvider.of<TransactionBloc>(context).inquirer!.firstName!} ${BlocProvider.of<TransactionBloc>(context).inquirer!.lastName!}";
-                  } else {
-                    userType = "Client";
-                    name =
-                        "${BlocProvider.of<TransactionBloc>(context).client!.firstName!} ${BlocProvider.of<TransactionBloc>(context).client!.lastName!}";
+              },
+              child: BlocBuilder<TransactionBloc, TransactionState>(
+                builder: (context, state) {
+                  if (state is TransactionLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
 
-                  String dateEnded = DateFormat("MMMM dd, yyyy")
-                      .format(state.transaction.dateTimeEnded!.toDate());
+                  if (state is RetrievedTransactionDetails) {
+                    if (widget.role == Role.client) {
+                      userType = "Inquirer";
+                      name =
+                          "${BlocProvider.of<TransactionBloc>(context).inquirer!.firstName!} ${BlocProvider.of<TransactionBloc>(context).inquirer!.lastName!}";
+                    } else {
+                      userType = "Client";
+                      name =
+                          "${BlocProvider.of<TransactionBloc>(context).client!.firstName!} ${BlocProvider.of<TransactionBloc>(context).client!.lastName!}";
+                    }
 
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          children: [
-                            PageTitle(
-                                title: userType,
+                    String dateEnded = DateFormat("MMMM dd, yyyy")
+                        .format(state.transaction.dateTimeEnded!.toDate());
+
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            children: [
+                              PageTitle(
+                                  title: userType,
+                                  onTap: () {
+                                    rebuildWidgetAndClearInquiry();
+                                    Navigator.pop(context);
+                                  }),
+                              const BorderedProfilePicture(),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              AutoSizeText(
+                                name,
+                                style: theme.subheadBold,
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.01,
+                              ),
+                              ButtonOutline(
+                                label: "Report",
+                                style: theme.caption2Bold,
+                                textColor: theme.red,
+                                color: theme.red,
+                                width: screenWidth * 0.35,
+                                height: screenHeight * 0.045,
                                 onTap: () {
-                                  BlocProvider.of<TransactionBloc>(context).add(
-                                      GetRecentTransaction(
-                                          role: widget.role,
-                                          userId:
-                                              BlocProvider.of<AuthBloc>(context)
-                                                  .user!
-                                                  .uid!));
-                                  BlocProvider.of<InquiryBloc>(context)
-                                      .add(ClearInquiry());
-                                  Navigator.pop(context);
-                                }),
-                            const BorderedProfilePicture(),
-                            SizedBox(
-                              height: screenHeight * 0.02,
-                            ),
-                            AutoSizeText(
-                              name,
-                              style: theme.subheadBold,
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.01,
-                            ),
-                            ButtonOutline(
-                              label: "Report",
-                              style: theme.caption2Bold,
-                              textColor: theme.red,
-                              color: theme.red,
-                              width: screenWidth * 0.35,
-                              height: screenHeight * 0.045,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ReportScreen(
-                                      role: widget.role,
-                                      reportByClient: false,
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ReportScreen(
+                                        role: widget.role,
+                                        reportByClient: false,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.04,
-                            ),
-                            DateDetails(dateEnded: dateEnded),
-                            SizedBox(
-                              height: screenHeight * 0.04,
-                            ),
-                            LocationAndOrderDetails(
-                                transaction: state.transaction,
-                                inquiryList: state.inquiryList),
-                            SizedBox(
-                              height: screenHeight * 0.02,
-                            ),
-                          ],
-                        ),
-                        ButtonOutline(
-                            label: "View Inquiries",
-                            style: theme.caption2,
-                            onTap: () {
-                              BlocProvider.of<InquiryBloc>(context).add(
-                                  GetClientInquiries(
-                                      inquiryListID:
-                                          widget.transaction.inquiryListId));
-                              Navigator.pushNamed(
-                                  context, transactionInquiryListRoute,
-                                  arguments: false);
-                            })
-                      ],
-                    ),
-                  );
-                }
+                                  );
+                                },
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.04,
+                              ),
+                              DateDetails(dateEnded: dateEnded),
+                              SizedBox(
+                                height: screenHeight * 0.04,
+                              ),
+                              LocationAndOrderDetails(
+                                  transaction: state.transaction,
+                                  inquiryList: state.inquiryList),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                            ],
+                          ),
+                          ButtonOutline(
+                              label: "View Inquiries",
+                              style: theme.caption2,
+                              onTap: () {
+                                BlocProvider.of<InquiryBloc>(context).add(
+                                    GetClientInquiries(
+                                        inquiryListID:
+                                            widget.transaction.inquiryListId));
+                                Navigator.pushNamed(
+                                    context, transactionInquiryListRoute,
+                                    arguments: false);
+                              })
+                        ],
+                      ),
+                    );
+                  }
 
-                return const SizedBox();
-              },
+                  return const SizedBox();
+                },
+              ),
             ),
           ),
         ),
