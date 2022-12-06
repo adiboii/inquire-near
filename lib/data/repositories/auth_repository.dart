@@ -362,7 +362,6 @@ class AuthRepository {
           .doc(u.uid)
           .delete();
     } on FirebaseAuthException catch (e) {
-//      log("User: ${_firebaseAuth.currentUser}");
       throw ReauthenticateUserFailure.fromCode(e.code);
     } catch (e) {
       throw const ReauthenticateUserFailure();
