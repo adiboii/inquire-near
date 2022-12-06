@@ -1,8 +1,12 @@
 // Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:lottie/lottie.dart';
 
@@ -21,17 +25,28 @@ class _ETAScreenState extends State<ETAScreen> {
   @override
   void initState() {
     super.initState();
-
     BlocProvider.of<TransactionBloc>(context).add(ListenForTransactionStatus());
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    INTransaction? transaction;
     return BlocListener<TransactionBloc, TransactionState>(
       listener: (context, state) {
         if (state is TransactionCompleted) {
-          Navigator.of(context).pushNamed(releasePaymentRoute);
+          transaction = BlocProvider.of<TransactionBloc>(context).transaction!;
+
+          BlocProvider.of<TransactionBloc>(context)
+              .add((ViewRecentTransaction(transaction: transaction!)));
+        }
+
+        if (state is RetrievedTransactionDetails) {
+          BlocProvider.of<InquiryBloc>(context).add(
+              GetClientInquiries(inquiryListID: transaction!.inquiryListId));
+
+          Navigator.pushNamed(context, transactionInquiryListRoute,
+              arguments: true);
         }
       },
       child: Scaffold(
