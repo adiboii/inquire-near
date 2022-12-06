@@ -17,27 +17,30 @@ class RequiresProof extends StatelessWidget {
   final bool showWidget;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 50),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Row(
-          children: [
-            (!hasProof)
-                ? (showStatus)
-                    ? const Icon(Icons.error, size: 15, color: theme.red)
-                    : const SizedBox()
-                : const Icon(Icons.check_circle, size: 15, color: theme.green),
-            const SizedBox(width: 5),
-            Text(
-              "Requires proof",
-              style: theme.caption2.copyWith(
-                color: (!hasProof) ? theme.red : theme.green,
+    return showWidget
+        ? Padding(
+            padding: const EdgeInsets.only(left: 50),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Row(
+                children: [
+                  (!hasProof)
+                      ? (showStatus)
+                          ? const Icon(Icons.error, size: 15, color: theme.red)
+                          : const SizedBox()
+                      : const Icon(Icons.check_circle,
+                          size: 15, color: theme.green),
+                  const SizedBox(width: 5),
+                  Text(
+                    "Requires proof",
+                    style: theme.caption2.copyWith(
+                      color: (!hasProof) ? theme.red : theme.green,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          )
+        : const SizedBox();
   }
 }
