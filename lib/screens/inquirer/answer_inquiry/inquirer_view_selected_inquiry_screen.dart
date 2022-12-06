@@ -112,12 +112,17 @@ class _InquirerViewSelectedInquiryScreenState
                   InquiryTitleBar(
                     screenWidth: screenWidth,
                     screenHeight: screenHeight,
-                    onTap: () {
-                      _answerInquiry(context);
-                    },
+                    onTap: (inquiry!.requireProof && image == null) ||
+                            widget.answerTextController.text.isEmpty
+                        ? () {}
+                        : () {
+                            _answerInquiry(context);
+                          },
                     pageLabel: 'Inquiry ${widget.inquiryIndex}',
                     buttonLabel: 'Submit',
                     showButton: true,
+                    isDisabled: (inquiry!.requireProof && image == null) ||
+                        widget.answerTextController.text.isEmpty,
                   ),
                   SizedBox(
                     height: screenHeight * 0.04,
@@ -156,6 +161,9 @@ class _InquirerViewSelectedInquiryScreenState
                                 )
                               : const SizedBox(),
                           AnswerContainer(
+                            onChanged: (value) {
+                              setState(() {});
+                            },
                             widget: widget,
                             screenWidth: screenWidth,
                             screenHeight: screenHeight,
@@ -197,11 +205,13 @@ class AnswerContainer extends StatelessWidget {
     required this.widget,
     required this.screenWidth,
     required this.screenHeight,
+    this.onChanged,
   }) : super(key: key);
 
   final InquirerViewSelectedInquiryScreen widget;
   final double screenWidth;
   final double screenHeight;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -210,6 +220,7 @@ class AnswerContainer extends StatelessWidget {
       children: [
         Expanded(
           child: TextField(
+            onChanged: onChanged,
             textAlign: TextAlign.end,
             controller: widget.answerTextController,
             decoration: InputDecoration(
