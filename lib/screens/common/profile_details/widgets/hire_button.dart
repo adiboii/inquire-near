@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/screens/common/custom_alert_dialog.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class HireButton extends StatelessWidget {
@@ -11,33 +12,22 @@ class HireButton extends StatelessWidget {
   }) : super(key: key);
 
   showAlertDialog(BuildContext context) async {
-    // set up the button
-    Widget okButton = TextButton(
-      child: const Text("Yes"),
-      onPressed: () {
-        Navigator.pop(context, true);
-      },
-    );
-
-    Widget cancelButton = TextButton(
-      child: const Text("Cancel"),
-      onPressed: () {
-        Navigator.pop(context, false);
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: const Text("Hire Inquirer"),
-      content: const Text("Do you want to hire this inquirer?"),
-      actions: [cancelButton, okButton],
-    );
-
     // show the dialog
     bool result = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return alert;
+        return CustomAlertDialog(
+          title: 'Hire Inquirer',
+          content: 'Do you want to hire this inquirer?',
+          successText: 'Yes',
+          onSuccess: () {
+            Navigator.pop(context, true);
+          },
+          failText: 'Cancel',
+          onFail: () {
+            Navigator.pop(context, false);
+          },
+        );
       },
     );
 
