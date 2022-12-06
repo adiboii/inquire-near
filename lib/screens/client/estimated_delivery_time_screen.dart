@@ -46,12 +46,12 @@ class _ETAScreenState extends State<ETAScreen> {
                   Column(
                     children: [
                       const Text(
-                        "Estimated Delivery Time",
+                        'Waiting for Inquirer',
                         style: theme.headline,
                       ),
                       SizedBox(height: screenHeight * 0.02),
                       const Text(
-                        "Sit back and relax while our\ninquirer handles things for you,",
+                        "Sit back and relax while our\ninquirer handles things for you.",
                         style: theme.subhead,
                         textAlign: TextAlign.center,
                       ),
