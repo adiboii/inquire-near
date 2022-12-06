@@ -40,112 +40,119 @@ class _InquiryListScreenState extends State<InquiryListScreen> {
     final double screenHeight = MediaQuery.of(context).size.height;
     AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
     InquiryBloc inquiryBloc = BlocProvider.of<InquiryBloc>(context);
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: theme.kScreenPadding.copyWith(top: 20),
-          child: BlocConsumer<InquiryBloc, InquiryState>(
-            listener: (c, state) {
-              if (state is InquiryFinished) {
-                BlocProvider.of<TransactionBloc>(context).add(CreateTransaction(
-                    clientID: authBloc.user!.uid!,
-                    inquiryListID: inquiryBloc.inquiryList.id!,
-                    noOfInquiries: inquiryBloc.inquiryList.noOfInquiries,
-                    noOfRequireProof:
-                        inquiryBloc.inquiryList.noOfRequireProof));
-                Navigator.pushNamed(context, availableInquirersRoute);
-              }
+    return WillPopScope(
+      onWillPop: () async {
+        inquiryBloc.add(ClearInquiry());
+        return true;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: theme.kScreenPadding.copyWith(top: 20),
+            child: BlocConsumer<InquiryBloc, InquiryState>(
+              listener: (c, state) {
+                if (state is InquiryFinished) {
+                  BlocProvider.of<TransactionBloc>(context).add(
+                      CreateTransaction(
+                          clientID: authBloc.user!.uid!,
+                          inquiryListID: inquiryBloc.inquiryList.id!,
+                          noOfInquiries: inquiryBloc.inquiryList.noOfInquiries,
+                          noOfRequireProof:
+                              inquiryBloc.inquiryList.noOfRequireProof));
+                  Navigator.pushNamed(context, availableInquirersRoute);
+                }
 
-              if (state is InquiryDiscarded) {
-                Navigator.pop(context);
-              }
-            },
-            builder: (context, state) {
-              if (state is InquiryLoading || state is CreatingInquiryList) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
+                if (state is InquiryDiscarded) {
+                  Navigator.pop(context);
+                }
+              },
+              builder: (context, state) {
+                if (state is InquiryLoading || state is CreatingInquiryList) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-              if (state is InquiryInProgress) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    PageTitle(
-                      title: BlocProvider.of<TransactionBloc>(context).store!,
-                      onTap: () {
-                        BlocProvider.of<InquiryBloc>(context)
-                            .add(DiscardInquiry());
-                      },
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    Text(
-                      "What do you need from here?",
-                      style: theme.headline.copyWith(fontSize: 16),
-                    ),
-                    SizedBox(height: screenHeight * 0.03),
-                    (inquiryList.isEmpty)
-                        ? AddInquiryCard(
-                            screenHeight: screenHeight,
-                            screenWidth: screenWidth,
-                            onTap: () {
-                              Navigator.pushNamed(context, addInquiryRoute);
-                            },
-                          )
-                        : Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: InquiryListWidget(
-                                inquiryList: inquiryList,
-                                screenHeight: screenHeight,
-                                screenWidth: screenWidth,
+                if (state is InquiryInProgress) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      PageTitle(
+                        title: BlocProvider.of<TransactionBloc>(context).store!,
+                        onTap: () {
+                          BlocProvider.of<InquiryBloc>(context)
+                              .add(DiscardInquiry());
+                        },
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      Text(
+                        "What do you need from here?",
+                        style: theme.headline.copyWith(fontSize: 16),
+                      ),
+                      SizedBox(height: screenHeight * 0.03),
+                      (inquiryList.isEmpty)
+                          ? AddInquiryCard(
+                              screenHeight: screenHeight,
+                              screenWidth: screenWidth,
+                              onTap: () {
+                                Navigator.pushNamed(context, addInquiryRoute);
+                              },
+                            )
+                          : Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: InquiryListWidget(
+                                  inquiryList: inquiryList,
+                                  screenHeight: screenHeight,
+                                  screenWidth: screenWidth,
+                                ),
                               ),
                             ),
-                          ),
-                    (inquiryList.isNotEmpty)
-                        ? Column(
-                            children: [
-                              SizedBox(height: screenHeight * 0.04),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  ButtonOutline(
-                                    label: "Add an inquiry",
-                                    style: theme.caption1Bold,
-                                    width: screenWidth * 0.40,
-                                    height: screenHeight * 0.06,
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, addInquiryRoute);
-                                    },
-                                  ),
-                                  ButtonFill(
-                                    label: "Finish",
-                                    style: theme.caption1Bold,
-                                    width: screenWidth * 0.40,
-                                    height: screenHeight * 0.06,
-                                    onTap: () {
-                                      INTransaction? transaction =
-                                          BlocProvider.of<TransactionBloc>(
-                                                  context)
-                                              .transaction;
-                                      inquiryBloc.add(FinalizeInquiry(
-                                          transaction: transaction));
-                                    },
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        : const SizedBox(),
-                  ],
-                );
-              }
-              return const SizedBox();
-            },
+                      (inquiryList.isNotEmpty)
+                          ? Column(
+                              children: [
+                                SizedBox(height: screenHeight * 0.04),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    ButtonOutline(
+                                      label: "Add an inquiry",
+                                      style: theme.caption1Bold,
+                                      width: screenWidth * 0.40,
+                                      height: screenHeight * 0.06,
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, addInquiryRoute);
+                                      },
+                                    ),
+                                    ButtonFill(
+                                      label: "Finish",
+                                      style: theme.caption1Bold,
+                                      width: screenWidth * 0.40,
+                                      height: screenHeight * 0.06,
+                                      onTap: () {
+                                        INTransaction? transaction =
+                                            BlocProvider.of<TransactionBloc>(
+                                                    context)
+                                                .transaction;
+                                        inquiryBloc.add(FinalizeInquiry(
+                                            transaction: transaction));
+                                      },
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          : const SizedBox(),
+                    ],
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
           ),
         ),
       ),
