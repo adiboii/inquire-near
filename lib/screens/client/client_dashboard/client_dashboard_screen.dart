@@ -9,6 +9,7 @@ import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/greeting.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/constants.dart' as constants;
+import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/client/client_dashboard/category_screen.dart';
@@ -17,8 +18,26 @@ import 'package:inquire_near/screens/client/client_dashboard/widgets/search_bar.
 import 'package:inquire_near/screens/common/recent_transactions/recent_transactions_widget.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class ClientDashboardScreen extends StatelessWidget {
+class ClientDashboardScreen extends StatefulWidget {
   const ClientDashboardScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ClientDashboardScreen> createState() => _ClientDashboardScreenState();
+}
+
+class _ClientDashboardScreenState extends State<ClientDashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 1), () {
+      INUser? user = BlocProvider.of<AuthBloc>(context).user;
+      if (user != null &&
+          (user.paypalAddress == null || user.paypalAddress == "")) {
+        Navigator.of(context).pushNamed(paypalAccountRoute);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
