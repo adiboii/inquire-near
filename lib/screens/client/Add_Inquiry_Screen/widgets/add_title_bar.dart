@@ -18,6 +18,7 @@ class InquiryTitleBar extends StatelessWidget {
     required this.pageLabel,
     required this.onTap,
     this.showButton = false,
+    this.isDisabled = false,
   }) : super(key: key);
 
   final double screenWidth;
@@ -26,6 +27,7 @@ class InquiryTitleBar extends StatelessWidget {
   final String pageLabel;
   final void Function() onTap;
   final bool showButton;
+  final bool isDisabled;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class InquiryTitleBar extends StatelessWidget {
         ),
         (showButton)
             ? ButtonFill(
+                color: (isDisabled) ? Colors.grey : theme.primary,
                 label: buttonLabel,
                 width: screenWidth * 0.25,
                 height: screenHeight * 0.05,
