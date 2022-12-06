@@ -7,10 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/bloc/bloc/inquirer/inquirer_bloc.dart';
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/location_and_order_details.dart';
+import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/common/custom_alert_dialog.dart';
 import 'package:inquire_near/screens/inquirer/client_found/widgets/accept_request_button.dart';
@@ -71,6 +73,9 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
     return WillPopScope(
       onWillPop: () async {
         showAlertDialog(context);
+        BlocProvider.of<TransactionBloc>(context).add(GetRecentTransaction(
+            role: Role.inquirer,
+            userId: BlocProvider.of<AuthBloc>(context).user!.uid!));
         return true;
       },
       child: Scaffold(

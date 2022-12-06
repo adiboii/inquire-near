@@ -53,7 +53,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   }
 
   void _onCreateTransaction(CreateTransaction event, emit) async {
-    //bdo->add inquiry-> finish -> create new transaction ->
     try {
       transaction = INTransaction(
           clientId: event.clientID,
