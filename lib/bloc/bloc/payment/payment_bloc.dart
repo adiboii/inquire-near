@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
 // Package imports:
 import 'package:bloc/bloc.dart';
@@ -34,6 +35,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     emit(Loading());
     String? approvalLink = await payPalRepository.getPaymentLink(
         event.amount, event.transactionId);
+    emit(PaymentInitial());
 
     if (approvalLink != null) {
       browser = PaymentInAppBrowser(setPaymentResponse: __setPaymentResponse);
@@ -52,6 +54,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
       final completer = Completer();
       Timer.periodic(const Duration(seconds: 2), (timer) async {
         if (state.retries >= 5) {
+          emit(PaymentInitial());
           timer.cancel();
         }
         if (!isPaying!) {
@@ -59,8 +62,10 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
               paymentId == null ||
               payerId == "" ||
               paymentId == "") {
+            emit(Loading());
             emit(PaymentError());
           } else {
+            emit(Loading());
             bool executeStatus = await payPalRepository.executePayment(
                 payerId.toString(), paymentId.toString());
 
@@ -68,6 +73,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
               Map<String, dynamic>? paypalTransactionResults =
                   await payPalRepository.getPaymentDetails(paymentId!);
               if (paypalTransactionResults == null) {
+                emit(Loading());
                 emit(PaymentError());
               } else {
                 FirebaseFirestore.instance
@@ -77,9 +83,11 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
                   'payPalId': paypalTransactionResults["id"],
                   'payPalStatus': paypalTransactionResults["state"]
                 });
+                emit(Loading());
                 emit(PaymentSuccessful());
               }
             } else {
+              emit(Loading());
               emit(PaymentError());
             }
           }
