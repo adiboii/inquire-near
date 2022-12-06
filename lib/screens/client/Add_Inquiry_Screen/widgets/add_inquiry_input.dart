@@ -9,12 +9,14 @@ class AddInquiryInput extends StatefulWidget {
     Key? key,
     required this.screenWidth,
     required this.inquiryContoller,
-    required this.validator,
+    this.validator,
+    this.readOnly = false,
   }) : super(key: key);
 
   final double screenWidth;
   final TextEditingController inquiryContoller;
   final String? Function(String?)? validator;
+  final bool readOnly;
 
   @override
   State<AddInquiryInput> createState() => _AddInquiryInputState();
@@ -46,6 +48,7 @@ class _AddInquiryInputState extends State<AddInquiryInput> {
             maxLength: 150,
             maxLines: null,
             validator: widget.validator,
+            readOnly: widget.readOnly,
           ),
         ),
       ],

@@ -18,8 +18,8 @@ import 'package:inquire_near/screens/client/Add_Inquiry_Screen/widgets/add_title
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class AddInquiryScreen extends StatefulWidget {
-  const AddInquiryScreen({super.key});
-
+  const AddInquiryScreen({super.key, this.index});
+  final int? index;
   @override
   State<AddInquiryScreen> createState() => _AddInquiryScreenState();
 }
@@ -31,6 +31,8 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
   TextEditingController inquiryController = TextEditingController();
   final inputValidator = InputValidator();
   final _formKey = GlobalKey<FormState>();
+  String pageLabel = "Add an Inquiry";
+  String buttonLabel = "Add";
 
   void _onCrossIconPressed() {
     setState(() {
@@ -51,6 +53,23 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.index != null) {
+      setState(() {
+        inquiry = BlocProvider.of<InquiryBloc>(context)
+            .inquiries
+            .elementAt(widget.index!);
+      });
+      image = inquiry.image;
+      requireProof = inquiry.requireProof;
+      inquiryController.text = inquiry.question;
+      pageLabel = "Edit Inquiry";
+      buttonLabel = "Edit";
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -67,8 +86,8 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                   InquiryTitleBar(
                     screenWidth: screenWidth,
                     screenHeight: screenHeight,
-                    pageLabel: "Add an Inquiry",
-                    buttonLabel: "Add",
+                    pageLabel: pageLabel,
+                    buttonLabel: buttonLabel,
                     showButton: true,
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
@@ -79,8 +98,15 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                               image: image);
                         });
 
-                        BlocProvider.of<InquiryBloc>(context)
-                            .add(AddInquiryRequested(inquiry: inquiry));
+                        if (widget.index != null) {
+                          BlocProvider.of<InquiryBloc>(context).add(
+                              EditInquiryRequested(
+                                  index: widget.index!,
+                                  editedInquiry: inquiry));
+                        } else {
+                          BlocProvider.of<InquiryBloc>(context)
+                              .add(AddInquiryRequested(inquiry: inquiry));
+                        }
 
                         Navigator.pop(context);
                       }

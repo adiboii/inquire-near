@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/widgets/edit_title_bar.dart';
+import 'package:inquire_near/screens/client/Add_Inquiry_Screen/widgets/add_title_bar.dart';
 import 'package:inquire_near/screens/inquirer/answer_inquiry/widgets/inquirer_bottom_bar.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
@@ -121,7 +121,7 @@ class _InquirerViewSelectedInquiryScreenState
                     onTap: () {
                       _answerInquiry(context);
                     },
-                    label: 'Inquiry ${widget.inquiryIndex}',
+                    pageLabel: 'Inquiry ${widget.inquiryIndex}',
                     buttonLabel: 'Submit',
                   ),
                   SizedBox(
