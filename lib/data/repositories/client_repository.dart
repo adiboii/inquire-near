@@ -29,4 +29,10 @@ class ClientRepository {
       return null;
     }
   }
+
+  Future<void> cancelHiringRequest(String hiringRequestId) async {
+    await db.collection(hiringRequestCollection).doc(hiringRequestId).update(
+      {'status': 'cancelled'},
+    );
+  }
 }
