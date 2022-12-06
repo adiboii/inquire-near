@@ -10,6 +10,7 @@ import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/choose_report_type.dart';
 import 'package:inquire_near/components/input_report.dart';
+import 'package:inquire_near/components/input_validator.dart';
 import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
@@ -33,26 +34,42 @@ class _ReportScreenState extends State<ReportScreen> {
   String? recepient;
   String? reporter;
   String? transactionId;
+  InputValidator inputValidator = InputValidator();
 
   void _submitReport(context) {
     if (titleTextController.text.isEmpty ||
         descriptionTextController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please fill in all the details'),
+          content: Text('Please fill in all the details.'),
+        ),
+      );
+      return;
+    } else if (inputValidator.isWhiteSpaceOnly(titleTextController.text) ||
+        inputValidator.isWhiteSpaceOnly(descriptionTextController.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please input a valid message.'),
         ),
       );
       return;
     }
     BlocProvider.of<ReportBloc>(context).add(
       SubmitReportRequested(
-        title: titleTextController.text,
-        description: descriptionTextController.text,
+        title: titleTextController.text.trim(),
+        description: descriptionTextController.text.trim(),
         recepientId: recepient!,
         reporterId: reporter!,
         transactionId: transactionId!,
       ),
     );
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Report successfully submitted.'),
+      ),
+    );
+
     Navigator.pop(context);
   }
 
