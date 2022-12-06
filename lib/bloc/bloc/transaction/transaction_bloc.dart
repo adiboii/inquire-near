@@ -49,9 +49,11 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<FinishTransaction>(_onFinishTransaction);
     on<ListenForTransactionStatus>(_onListenForTransactionStatus);
     on<CompleteTransaction>(_onTransactionCompleted);
+    on<ClearTransaction>(_onClearTransaction);
   }
 
   void _onCreateTransaction(CreateTransaction event, emit) async {
+    //bdo->add inquiry-> finish -> create new transaction ->
     try {
       transaction = INTransaction(
           clientId: event.clientID,
@@ -204,5 +206,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     transaction =
         await transactionRepository.getTransactionDetails(transaction!.id!);
     emit(TransactionCompleted());
+  }
+
+  void _onClearTransaction(event, emit) async {
+    transaction = null;
   }
 }

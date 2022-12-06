@@ -39,6 +39,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   void _submitFeedback(context) {
     BlocProvider.of<InquiryBloc>(context).add(ClearInquiry());
+    BlocProvider.of<TransactionBloc>(context).add(ClearTransaction());
+
     BlocProvider.of<FeedbackBloc>(context).add(
       SubmitFeedbackRequested(
         widget.feedbackerId,

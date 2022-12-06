@@ -117,6 +117,7 @@ class _InquirerViewSelectedInquiryScreenState
                     },
                     pageLabel: 'Inquiry ${widget.inquiryIndex}',
                     buttonLabel: 'Submit',
+                    showButton: true,
                   ),
                   SizedBox(
                     height: screenHeight * 0.04,
