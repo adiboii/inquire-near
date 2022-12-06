@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
+import 'package:inquire_near/components/google_button.dart';
 import 'package:inquire_near/components/input_field.dart';
 import 'package:inquire_near/components/input_validator.dart';
 import 'package:inquire_near/routes.dart';
@@ -95,14 +96,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: screenHeight * 0.05),
                       Center(
-                        child: GestureDetector(
+                        child: GoogleButton(
+                          logoSource: "assets/images/logos/Google.png",
                           onTap: () {
                             _authenticateWithGoogle(context);
                           },
-                          child: const Image(
-                              width: 50,
-                              image:
-                                  AssetImage("assets/images/logos/Google.png")),
                         ),
                       ),
                       Form(
