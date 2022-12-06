@@ -1,8 +1,12 @@
 // Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inquire_near/enums/role.dart';
+import 'package:inquire_near/screens/inquirer/inquirer_dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
@@ -48,6 +52,10 @@ class _WrapperState extends State<Wrapper> {
       }
     }, builder: (context, state) {
       if (state is Authenticated && !state.isFromSignup) {
+        INUser? user = BlocProvider.of<AuthBloc>(context).user;
+        if (user!.role == Role.inquirer) {
+          return const InquirerDashboardScreen();
+        }
         return const ClientDashboardScreen();
       }
 

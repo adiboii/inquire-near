@@ -25,6 +25,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
   late StreamSubscription _hiringRequestSubscription;
   late ClientRepository clientRepository;
   late UserRepository userRepository;
+  late List<INUser> inquirers = [];
   HiringRequest? hiringRequest;
 
   ClientBloc() : super(ClientInitial()) {
@@ -66,7 +67,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
         .listen((ev) async {
       if (ev.docs.isNotEmpty || ev.docChanges.isNotEmpty) {
         add(EmitFindNewAvailableInquirers());
-        List<INUser> inquirers = [];
+        List<INUser> inqs = [];
         for (var doc in ev.docs) {
           // Check if inquirer has ongoing transaction
           try {
@@ -74,15 +75,16 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
                 await TransactionBloc.hasOngoingTransaction(doc.id);
             if (hasOngoingTransaction) {
               // Remove inquirer if has current transaction
-              inquirers.removeWhere((inquirer) => (inquirer.uid == doc.id));
+              inqs.removeWhere((inquirer) => (inquirer.uid == doc.id));
             } else {
               INUser inquirer = INUser.fromJson(doc.data());
               inquirer.setUID(doc.id);
-              inquirers.add(inquirer);
+              inqs.add(inquirer);
             }
           } catch (_) {}
         }
-        add(GetAvailableInquirers(inquirers));
+        inquirers = inqs;
+        add(GetAvailableInquirers(inqs));
       } else if (ev.docs.isEmpty) {
         add(EmitNoAvailableInquirers());
       }

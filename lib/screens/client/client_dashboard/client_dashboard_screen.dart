@@ -1,4 +1,7 @@
 // Flutter imports:
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -31,7 +34,7 @@ class _ClientDashboardScreenState extends State<ClientDashboardScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 0), () {
       INUser? user = BlocProvider.of<AuthBloc>(context).user;
       if (user != null &&
           (user.paypalAddress == null || user.paypalAddress == "")) {
@@ -45,6 +48,13 @@ class _ClientDashboardScreenState extends State<ClientDashboardScreen> {
     final categories = constants.categories;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Role currentRole = BlocProvider.of<AuthBloc>(context).user!.role;
+      if (currentRole == Role.inquirer) {
+        Navigator.of(context).pushReplacementNamed(inquirerDashboardRoute);
+      }
+    });
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
