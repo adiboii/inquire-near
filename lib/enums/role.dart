@@ -1,7 +1,4 @@
-enum Role {
-  client,
-  inquirer
-}
+enum Role { client, inquirer }
 
 extension ParseToString on Role {
   String toValue() {
@@ -11,7 +8,7 @@ extension ParseToString on Role {
 
 Role getRoleFromString(String role) {
   for (Role element in Role.values) {
-    if (element.toString() == role) {
+    if (element.toValue() == role) {
       return element;
     }
   }
