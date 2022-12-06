@@ -47,10 +47,6 @@ class _WrapperState extends State<Wrapper> {
             (route) => false);
       }
     }, builder: (context, state) {
-      if (state is AuthLoading) {
-        return const SplashScreen();
-      }
-
       if (state is Authenticated && !state.isFromSignup) {
         return const ClientDashboardScreen();
       }

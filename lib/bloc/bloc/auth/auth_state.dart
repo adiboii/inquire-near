@@ -38,8 +38,12 @@ class AuthError extends AuthState {
   List<Object?> get props => [];
 }
 
+class AuthDeleted extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
 class EditedProfile extends AuthState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }

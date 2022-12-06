@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -23,8 +24,8 @@ class _DeleteProfileScreenState extends State<DeleteProfileScreen> {
   TextEditingController emailAddressTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
   final inputValidator = InputValidator();
-
   final _formKey = GlobalKey<FormState>();
+  final String currentUserEmail = FirebaseAuth.instance.currentUser!.email!;
 
   void _deleteProfile(context) {
     if (_formKey.currentState!.validate()) {
@@ -45,12 +46,12 @@ class _DeleteProfileScreenState extends State<DeleteProfileScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-      if (state is Unauthenticated) {
+      if (state is AuthDeleted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Account successfully deleted."),
         ));
         Navigator.pushNamedAndRemoveUntil(
-            context, wrapperRoute, (route) => false);
+            context, landingRoute, (route) => false);
       }
 
       if (state is AuthError) {
@@ -65,9 +66,7 @@ class _DeleteProfileScreenState extends State<DeleteProfileScreen> {
           width: double.infinity,
           color: Colors.white,
           child: const Center(
-            child: CircularProgressIndicator(
-                //backgroundColor: Colors.white,
-                ),
+            child: CircularProgressIndicator(),
           ),
         );
       }
@@ -106,6 +105,9 @@ class _DeleteProfileScreenState extends State<DeleteProfileScreen> {
                                   if (!inputValidator
                                       .isValidEmailAddress(value)) {
                                     return 'Invalid Email Address format';
+                                  } else if (emailAddressTextController.text !=
+                                      currentUserEmail) {
+                                    return 'Email does not correspond with current user';
                                   }
                                 } else {
                                   return 'Please enter your email address';
