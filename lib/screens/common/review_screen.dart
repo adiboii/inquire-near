@@ -37,7 +37,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   bool hasRated = false;
 
-  void _submitFeedback(context) {
+  void _submitFeedback(context, String userToReview) {
     BlocProvider.of<InquiryBloc>(context).add(ClearInquiry());
     BlocProvider.of<TransactionBloc>(context).add(ClearTransaction());
 
@@ -50,18 +50,23 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         transaction!.id!,
       ),
     );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Successfully reviewed.")));
   }
 
   @override
   Widget build(BuildContext context) {
+    String? userToReview;
     var transactionBloc = BlocProvider.of<TransactionBloc>(context);
 
     transaction = transactionBloc.transaction;
 
     if (widget.recepientId == transactionBloc.client!.uid) {
       user = BlocProvider.of<TransactionBloc>(context).client;
+      userToReview = "client";
     } else {
       user = BlocProvider.of<TransactionBloc>(context).inquirer;
+      userToReview = "inquirer";
     }
 
     double screenHeight = MediaQuery.of(context).size.height;
@@ -167,15 +172,15 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     style: theme.caption1Bold,
                     onTap: (hasRated)
                         ? () {
-                            _submitFeedback(context);
+                            _submitFeedback(context, userToReview!);
                             Navigator.pushNamedAndRemoveUntil(context,
                                 clientDashboardRoute, (route) => false);
                           }
                         : () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
+                              SnackBar(
                                 content: Text(
-                                    "You are required to rate the client."),
+                                    "You are required to rate the $userToReview."),
                               ),
                             );
                           },
