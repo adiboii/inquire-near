@@ -76,7 +76,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                       if (_formKey.currentState!.validate()) {
                         setState(() {
                           inquiry = Inquiry(
-                              question: inquiryController.text,
+                              question: inquiryController.text.trim(),
                               requireProof: requireProof,
                               image: image);
                         });
@@ -92,7 +92,7 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                   Expanded(
                     child: SingleChildScrollView(
                       child: Container(
-                        margin: const EdgeInsets.only(bottom: 50),
+                        margin: const EdgeInsets.only(bottom: 100),
                         child: Column(
                           children: [
                             Form(
@@ -103,6 +103,9 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                 validator: (value) {
                                   if (inputValidator.isEmpty(value)) {
                                     return 'This is a required field';
+                                  } else if (inputValidator
+                                      .isWhiteSpaceOnly(value)) {
+                                    return 'Not a valid inquiry';
                                   }
                                   return null;
                                 },

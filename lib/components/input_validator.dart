@@ -14,4 +14,6 @@ class InputValidator {
   bool isValidPassword(String? password) => _validPassword.hasMatch(password!);
 
   bool isEmpty(String? input) => input!.isEmpty;
+
+  bool isWhiteSpaceOnly(String? input) => RegExp(r"^\s*$").hasMatch(input!);
 }
