@@ -6,7 +6,6 @@ import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 // Project imports:
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/page_title.dart';
-import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/screens/common/recent_transactions/completed_inquiry_list.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;

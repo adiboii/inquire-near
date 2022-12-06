@@ -1,7 +1,3 @@
-// Flutter imports:
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 // Package imports:

@@ -33,9 +33,8 @@ class SwitchUserType extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        BlocProvider.of<AuthBloc>(context)
-            .add(SwitchRole(currentRole));
-        Navigator.pushReplacementNamed(context, route);
+        BlocProvider.of<AuthBloc>(context).add(SwitchRole(currentRole));
+        Navigator.of(context).pushNamedAndRemoveUntil(route, (route) => false);
       },
       child: SizedBox(
         height: screenHeight * 0.05,

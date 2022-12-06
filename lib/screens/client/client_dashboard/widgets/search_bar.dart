@@ -10,10 +10,12 @@ class SearchBar extends StatelessWidget {
     this.controller,
     required this.onTap,
     this.onChanged,
+    this.readOnly = false,
   });
   final TextEditingController? controller;
   final Function onTap;
   final Function(String)? onChanged;
+  final bool readOnly;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,6 +30,8 @@ class SearchBar extends StatelessWidget {
         onTap: () {
           onTap();
         },
+        autofocus: !readOnly,
+        readOnly: readOnly,
         controller: controller,
         decoration: const InputDecoration(
           prefixIcon: Icon(Icons.search),

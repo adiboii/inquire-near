@@ -25,7 +25,8 @@ class PaypalAccountScreen extends StatelessWidget {
         BlocProvider.of<AuthBloc>(context).add(
           StorePaypalAddressRequested(emailAddressTextController.text),
         );
-        Navigator.pushNamed(context, clientDashboardRoute);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(clientDashboardRoute, (route) => false);
       }
     }
 
