@@ -9,6 +9,7 @@ import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/components/input_field.dart';
 import 'package:inquire_near/components/input_validator.dart';
+import 'package:inquire_near/components/labels.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
@@ -85,6 +86,14 @@ class PaypalAccountScreen extends StatelessWidget {
                 ButtonFill(
                   label: 'Connect',
                   onTap: storePaypalAddress,
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
+                    Navigator.of(context).pushNamed(landingRoute);
+                  },
+                  child: const Text("Sign Out"),
                 ),
               ],
             ),

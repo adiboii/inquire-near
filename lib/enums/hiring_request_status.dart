@@ -1,4 +1,4 @@
-enum HiringRequestStatus { pending, accepted, rejected }
+enum HiringRequestStatus { pending, accepted, rejected, cancelled }
 
 extension ParseToString on HiringRequestStatus {
   String toValue() {
