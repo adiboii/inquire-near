@@ -28,7 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository, required this.userRepository})
       : super(Unauthenticated()) {
     Timer.periodic(const Duration(seconds: 1), (_) async {
-      if (state is! AuthLoading && state is! AuthError) {
+      if (state is! AuthLoading || state is! AuthError) {
         User? u = FirebaseAuth.instance.currentUser;
         if (u == null) {
           user = null;
@@ -149,11 +149,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onDeleteProfileRequested(
       DeleteProfileRequested event, Emitter<AuthState> emit) async {
     try {
-      emit(AuthLoading());
-      await authRepository.deleteAccount(event.email, event.password);
-      emit(Unauthenticated());
+      emit(AuthLoading()); //stop timer
+      await authRepository.deleteAccount(
+          event.email, event.password); // delete account
+      emit(AuthDeleted()); // sign out
+      add(SignOutRequested());
     } on ReauthenticateUserFailure catch (e) {
-      emit(AuthError(e.message));
+      if (e.message == 'too-many-requests') {
+        emit(AuthError("Too many failed attemps. Please sign in again."));
+        add(SignOutRequested());
+      } else {
+        emit(AuthError(e.message));
+        emit(Authenticated(isFromSignup: false));
+      }
     } catch (e) {
       log("Auth Bloc > Delete Profile: $e");
     }

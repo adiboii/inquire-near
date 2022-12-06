@@ -47,9 +47,11 @@ class _WrapperState extends State<Wrapper> {
             (route) => false);
       }
     }, builder: (context, state) {
-      if (state is AuthLoading) {
-        return const SplashScreen();
-      }
+      // TODO: delete if dili na need jd (Cymmer)
+      // if (state is AuthLoading) {
+      //   log("Wrapper Push here");
+      //   return const SplashScreen();
+      // }
 
       if (state is Authenticated && !state.isFromSignup) {
         return const ClientDashboardScreen();

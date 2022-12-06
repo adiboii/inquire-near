@@ -147,7 +147,7 @@ class ReauthenticateUserFailure implements Exception {
         );
       case constants.userNotFound:
         return const ReauthenticateUserFailure(
-          'Email is not found, please try again.',
+          'Email provided does not match with current user.',
         );
       case 'invalid-credential':
         return const ReauthenticateUserFailure(
@@ -169,8 +169,11 @@ class ReauthenticateUserFailure implements Exception {
         return const ReauthenticateUserFailure(
           'The credential verification ID received is invalid.',
         );
+      case 'too-many-requests':
+        return ReauthenticateUserFailure(code);
       default:
-        return const ReauthenticateUserFailure();
+        return ReauthenticateUserFailure(
+            'An unknown exception occurred. Error: $code');
     }
   }
 }
@@ -348,9 +351,9 @@ class AuthRepository {
 
   Future<void> deleteAccount(String email, String password) async {
     try {
-      User u = _firebaseAuth.currentUser!;
+      User? u = _firebaseAuth.currentUser;
 
-      await u.reauthenticateWithCredential(
+      await u!.reauthenticateWithCredential(
           EmailAuthProvider.credential(email: email, password: password));
 
       await u.delete();
@@ -359,8 +362,9 @@ class AuthRepository {
           .doc(u.uid)
           .delete();
     } on FirebaseAuthException catch (e) {
+//      log("User: ${_firebaseAuth.currentUser}");
       throw ReauthenticateUserFailure.fromCode(e.code);
-    } catch (_) {
+    } catch (e) {
       throw const ReauthenticateUserFailure();
     }
   }
