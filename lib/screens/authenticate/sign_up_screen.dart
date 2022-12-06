@@ -59,9 +59,10 @@ class SignUpScreen extends StatelessWidget {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
-            Navigator.of(context).pushReplacementNamed(
-              state.isFromSignup ? paypalAccountRoute : clientDashboardRoute,
-            );
+            String route =
+                state.isFromSignup ? paypalAccountRoute : clientDashboardRoute;
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(route, (route) => false);
           }
 
           if (state is AuthError) {
