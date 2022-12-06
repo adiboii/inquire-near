@@ -36,8 +36,6 @@ class PayPalRepository {
       Response response = await dio.get(
           "${constants.PayPalBaseURL}/success?PayerID=$payerId&paymentId=$paymentId");
 
-      log("${constants.PayPalBaseURL}/success?PayerID=$payerId&paymentId=$paymentId");
-      log(response.data);
       if (response.statusCode == 200) {
         return true;
       }

@@ -44,12 +44,16 @@ class PaymentSummaryScreen extends StatelessWidget {
           if (state is PaymentSuccessful) {
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Payment successful.")));
+            state.retries = 0;
             Navigator.of(context).pushReplacementNamed(etaScreenRoute);
           }
 
           if (state is PaymentError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Payment failed. Try again.")));
+            if (state.retries >= 5) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Payment failed. Try again.")));
+              state.retries = 0;
+            }
           }
         },
         builder: (context, state) {

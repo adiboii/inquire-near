@@ -50,7 +50,10 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
       // Wait for payment details to be set
       final completer = Completer();
-      Timer.periodic(const Duration(seconds: 1), (timer) async {
+      Timer.periodic(const Duration(seconds: 2), (timer) async {
+        if (state.retries >= 5) {
+          timer.cancel();
+        }
         if (!isPaying!) {
           if (payerId == null ||
               paymentId == null ||
