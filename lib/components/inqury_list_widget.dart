@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
 import 'package:inquire_near/components/inquiry_item.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
-import 'package:inquire_near/screens/client/Edit_Inquiry_Screen/edit_inquiry_screen.dart';
+import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class InquiryListWidget extends StatefulWidget {
@@ -29,10 +29,7 @@ class InquiryListWidget extends StatefulWidget {
 
 class _InquiryListWidgetState extends State<InquiryListWidget> {
   Future<void> _editInquiry(BuildContext context, int index) async {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: ((context) => EditInquiryScreen(index: index))));
+    Navigator.pushNamed(context, addInquiryRoute, arguments: index);
   }
 
   @override

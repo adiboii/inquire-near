@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
+import 'package:inquire_near/components/greeting.dart';
 import 'package:inquire_near/components/switch_user_type.dart';
 import 'package:inquire_near/constants.dart' as constants;
 import 'package:inquire_near/enums/role.dart';
@@ -24,6 +25,7 @@ class ClientDashboardScreen extends StatelessWidget {
     final categories = constants.categories;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -54,14 +56,11 @@ class ClientDashboardScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Welcome back,",
-                            style: theme.subhead,
+                          Greeting(
+                            name: BlocProvider.of<AuthBloc>(context)
+                                .user!
+                                .firstName!,
                           ),
-                          Text(
-                            BlocProvider.of<AuthBloc>(context).user!.firstName!,
-                            style: theme.title3,
-                          )
                         ],
                       ),
                     ],
@@ -72,6 +71,7 @@ class ClientDashboardScreen extends StatelessWidget {
               ),
               SizedBox(height: screenHeight * 0.02),
               SearchBar(
+                readOnly: true,
                 onTap: () {
                   Navigator.pushNamed(context, searchRoute);
                 },

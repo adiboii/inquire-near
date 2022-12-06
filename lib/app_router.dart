@@ -74,7 +74,7 @@ class AppRouter {
             builder: (_) => const ReportScreen(reportByClient: false));
 
       case editProfileRoute:
-        return MaterialPageRoute(builder: (_) => EditProfileScreen());
+        return MaterialPageRoute(builder: (_) => const EditProfileScreen());
 
       case aboutInquireNearRoute:
         return MaterialPageRoute(
@@ -110,7 +110,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const InquiryListScreen());
 
       case addInquiryRoute:
-        return MaterialPageRoute(builder: (_) => const AddInquiryScreen());
+        if (args is int) {
+          return MaterialPageRoute(
+              builder: (_) => AddInquiryScreen(index: args));
+        } else {
+          return MaterialPageRoute(builder: (_) => const AddInquiryScreen());
+        }
 
       case findingInquirerRoute:
         return MaterialPageRoute(builder: (_) => const FindingInquirerScreen());

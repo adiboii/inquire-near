@@ -141,6 +141,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         lastName: event.lastName,
       );
       user = u;
+      emit(EditedProfile());
     } catch (e) {
       rethrow;
     }
