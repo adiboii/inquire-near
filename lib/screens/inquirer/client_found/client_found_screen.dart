@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -70,6 +72,18 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
+    Timer timer;
+    timer = Timer(
+      const Duration(seconds: 30),
+      () {
+        BlocProvider.of<InquirerBloc>(context).add(RejectRequest());
+        BlocProvider.of<TransactionBloc>(context).add(GetRecentTransaction(
+            role: Role.inquirer,
+            userId: BlocProvider.of<AuthBloc>(context).user!.uid!));
+        Navigator.of(context).pop();
+      },
+    );
+
     return WillPopScope(
       onWillPop: () async {
         showAlertDialog(context);
@@ -85,6 +99,7 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
             child: BlocListener<InquirerBloc, InquirerState>(
               listener: (context, state) {
                 if (state is AcceptedRequest) {
+                  timer.cancel();
                   Navigator.of(context).pushNamed(waitingForClientToPayRoute);
                 }
               },
