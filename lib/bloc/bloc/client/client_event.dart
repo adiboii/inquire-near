@@ -42,3 +42,5 @@ class UpdateHiringRequest extends ClientEvent {
 
   const UpdateHiringRequest(this.hiringRequestStatus);
 }
+
+class CancelHiringRequest extends ClientEvent {}

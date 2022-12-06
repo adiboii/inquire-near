@@ -49,6 +49,12 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     on<ListenHiringRequest>(_onListenHiringRequest);
 
     on<UpdateHiringRequest>(_onUpdateHiringRequest);
+
+    on<CancelHiringRequest>(_onCancelHiringRequest);
+  }
+
+  void _onCancelHiringRequest(event, emit) {
+    clientRepository.cancelHiringRequest(hiringRequest!.id!);
   }
 
   void _onFindAvailableInquirers(event, emit) {
@@ -147,6 +153,11 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
   void _onUpdateHiringRequest(event, emit) {
     if (event.hiringRequestStatus == HiringRequestStatus.accepted) {
       emit(AcceptedHiringRequest());
+    } else if (event.hiringRequestStatus == HiringRequestStatus.cancelled) {
+      add(FindAvailableInquirers());
+      try {
+        _hiringRequestSubscription.cancel();
+      } catch (_) {}
     } else {
       emit(RejectedHiringRequest());
     }
