@@ -15,11 +15,17 @@ import 'package:inquire_near/components/page_title.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
-class EditProfileScreen extends StatelessWidget {
-  EditProfileScreen({Key? key}) : super(key: key);
+class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
   // Text Controllers
   final TextEditingController firstNameTextController = TextEditingController();
+
   final TextEditingController lastNameTextController = TextEditingController();
 
   // Form Key
@@ -27,6 +33,15 @@ class EditProfileScreen extends StatelessWidget {
 
   // Input Validator
   final inputValidator = InputValidator();
+
+  @override
+  void initState() {
+    super.initState();
+    firstNameTextController.text =
+        BlocProvider.of<AuthBloc>(context).user!.firstName!;
+    lastNameTextController.text =
+        BlocProvider.of<AuthBloc>(context).user!.lastName!;
+  }
 
   void _editProfile(context) {
     //TO DO: To change
@@ -47,11 +62,6 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    firstNameTextController.text =
-        BlocProvider.of<AuthBloc>(context).user!.firstName!;
-    lastNameTextController.text =
-        BlocProvider.of<AuthBloc>(context).user!.lastName!;
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
