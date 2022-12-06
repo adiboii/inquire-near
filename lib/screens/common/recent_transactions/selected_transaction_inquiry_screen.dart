@@ -143,10 +143,11 @@ class AnswerContainer extends StatelessWidget {
       verticalDirection: VerticalDirection.up,
       children: [
         Expanded(
-          child: Text(
+          child: AutoSizeText(
             answer,
             textAlign: TextAlign.end,
             maxLines: null,
+            style: theme.subhead,
           ),
         ),
         SizedBox(
