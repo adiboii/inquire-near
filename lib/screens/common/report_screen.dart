@@ -37,19 +37,11 @@ class _ReportScreenState extends State<ReportScreen> {
   InputValidator inputValidator = InputValidator();
 
   void _submitReport(context) {
-    if (titleTextController.text.isEmpty ||
-        descriptionTextController.text.isEmpty) {
+    if (inputValidator.isEmpty(titleTextController.text) ||
+        inputValidator.isEmpty(descriptionTextController.text)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please fill in all the details.'),
-        ),
-      );
-      return;
-    } else if (inputValidator.isWhiteSpaceOnly(titleTextController.text) ||
-        inputValidator.isWhiteSpaceOnly(descriptionTextController.text)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please input a valid message.'),
         ),
       );
       return;

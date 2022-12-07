@@ -127,9 +127,6 @@ class _AddInquiryScreenState extends State<AddInquiryScreen> {
                                 validator: (value) {
                                   if (inputValidator.isEmpty(value)) {
                                     return 'This is a required field';
-                                  } else if (inputValidator
-                                      .isWhiteSpaceOnly(value)) {
-                                    return 'Not a valid inquiry';
                                   }
                                   return null;
                                 },
