@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -31,6 +30,8 @@ class ClientFoundScreen extends StatefulWidget {
 }
 
 class _ClientFoundScreenState extends State<ClientFoundScreen> {
+  late Timer timer;
+
   @override
   void initState() {
     super.initState();
@@ -67,12 +68,17 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
   }
 
   @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Screen Dimensions
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    Timer timer;
     timer = Timer(
       const Duration(seconds: 30),
       () {
