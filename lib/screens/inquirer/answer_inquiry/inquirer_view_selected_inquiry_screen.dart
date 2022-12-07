@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/components/input_validator.dart';
 import 'package:inquire_near/components/inquiry_image.dart';
 import 'package:inquire_near/data/models/inquiry.dart';
 import 'package:inquire_near/screens/client/Add_Inquiry_Screen/widgets/add_title_bar.dart';
@@ -34,6 +35,7 @@ class _InquirerViewSelectedInquiryScreenState
   Inquiry? inquiry;
   File? image;
   bool isAnswered = false;
+  InputValidator inputValidator = InputValidator();
 
   @override
   void initState() {
@@ -113,7 +115,9 @@ class _InquirerViewSelectedInquiryScreenState
                     screenWidth: screenWidth,
                     screenHeight: screenHeight,
                     onTap: (inquiry!.requireProof && image == null) ||
-                            widget.answerTextController.text.isEmpty
+                            widget.answerTextController.text.isEmpty ||
+                            inputValidator
+                                .isEmpty(widget.answerTextController.text)
                         ? () {}
                         : () {
                             _answerInquiry(context);
@@ -122,7 +126,9 @@ class _InquirerViewSelectedInquiryScreenState
                     buttonLabel: 'Submit',
                     showButton: true,
                     isDisabled: (inquiry!.requireProof && image == null) ||
-                        widget.answerTextController.text.isEmpty,
+                        widget.answerTextController.text.isEmpty ||
+                        inputValidator
+                            .isEmpty(widget.answerTextController.text),
                   ),
                   SizedBox(
                     height: screenHeight * 0.04,
