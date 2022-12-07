@@ -74,8 +74,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
           inquiryList: InquiryList()))!;
       emit(InquiryInProgress());
     } catch (e) {
-      //TODO: error handling (ADI)
-      log(e.toString());
+      log("Error on _onCreateInquiryList: $e");
       emit(InquiryInProgress());
     }
   }
@@ -87,8 +86,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries.add(event.inquiry);
       emit(InquiryInProgress());
     } catch (e) {
-      //TODO: error handling (ADI)
-      log(e.toString());
+      log("Error on _onAddInquiryRequested: $e");
       emit(InquiryInProgress());
     }
   }
@@ -100,8 +98,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries[event.index] = event.editedInquiry;
       emit(InquiryInProgress());
     } catch (e) {
-      //TODO: error handling (ADI)
-      log(e.toString());
+      log("Error on _onEditInquiryRequested: $e");
       emit(InquiryInProgress());
     }
   }
@@ -113,8 +110,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries.removeAt(event.index);
       emit(InquiryInProgress());
     } catch (e) {
-      //TODO: error handling (ADI)
-      log(e.toString());
+      log("Error on _onDeleteInquiryRequested: $e");
       emit(InquiryInProgress());
     }
   }
@@ -159,8 +155,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
 
       emit(InquiryFinished());
     } catch (e) {
-      //TODO: error handling (ADI)
-      log(e.toString());
+      log("Error on _onAddInquiryRequestd: $e");
       emit(InquiryInProgress());
     }
   }
@@ -171,8 +166,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiries = await inquiryRepository.getInquiries(event.inquiryListID);
       emit(ClientInquiriesRetrieved());
     } catch (e) {
-      //TODO: error handling (ADI)
-      log(e.toString());
+      log("Error on _onGetClientInquiries: $e");
       emit(ClientInquiriesRetrieved());
     }
   }
@@ -199,7 +193,6 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
       inquiryList = (await inquiryRepository.createInquiryList(
           inquiryList: InquiryList()))!;
     } catch (e) {
-      //TODO: error handling (ADI)
       log(e.toString());
     }
   }

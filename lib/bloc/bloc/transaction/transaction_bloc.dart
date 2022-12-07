@@ -24,7 +24,6 @@ part 'transaction_event.dart';
 part 'transaction_state.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
-  //TODO: get hiringRequest data from previous screen (ADI)
   HiringRequest? hiringRequest;
   final TransactionRepository transactionRepository;
   final UserRepository userRepository;
