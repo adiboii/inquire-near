@@ -61,3 +61,5 @@ class ListenForTransactionStatus extends TransactionEvent {}
 class CompleteTransaction extends TransactionEvent {}
 
 class ClearTransaction extends TransactionEvent {}
+
+class DeleteTransaction extends TransactionEvent {}

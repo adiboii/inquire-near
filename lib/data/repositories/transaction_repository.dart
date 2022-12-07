@@ -27,6 +27,8 @@ class TransactionRepository {
             .collection(transactionCollection)
             .doc(transactionId)
             .get();
+
+    log("TRNASACTION ID: > $transactionId");
     INTransaction transaction = INTransaction.fromJson(transactionDoc.data()!);
     transaction.id = transactionDoc.id;
     return transaction;
@@ -106,5 +108,20 @@ class TransactionRepository {
     } catch (e) {
       log("completeTransaction() error > $e");
     }
+  }
+
+  Future<bool> deleteTransaction(String transactionId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(transactionCollection)
+          .doc(transactionId)
+          .delete();
+
+      return true;
+    } catch (e) {
+      log("deleteTransaction() error > $e");
+    }
+
+    return false;
   }
 }

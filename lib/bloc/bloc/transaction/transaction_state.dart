@@ -38,3 +38,5 @@ class RetrievedRecentTransactions extends TransactionState {
 }
 
 class TransactionCompleted extends TransactionState {}
+
+class TransactionDeleted extends TransactionState {}

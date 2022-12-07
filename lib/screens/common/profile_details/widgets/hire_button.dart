@@ -15,6 +15,7 @@ class HireButton extends StatelessWidget {
     // show the dialog
     bool result = await showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomAlertDialog(
           title: 'Hire Inquirer',
