@@ -241,9 +241,11 @@ class AuthRepository {
       FirebaseFirestore.instance
           .collection(userCollection)
           .doc(_firebaseAuth.currentUser!.uid)
-          .update({
-        'paypalAddress': paypalAddress,
-      });
+          .update(
+        {
+          'paypalAddress': paypalAddress,
+        },
+      );
     } catch (e) {
       log(e.toString());
     }
@@ -254,6 +256,14 @@ class AuthRepository {
       if (await GoogleSignIn().isSignedIn()) {
         GoogleSignIn().signOut();
       }
+      FirebaseFirestore.instance
+          .collection(userCollection)
+          .doc(_firebaseAuth.currentUser!.uid)
+          .update(
+        {
+          'isActive': false,
+        },
+      );
       await _firebaseAuth.signOut();
     } catch (e) {
       throw Exception(e);
