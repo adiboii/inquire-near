@@ -13,6 +13,7 @@ import 'package:lottie/lottie.dart';
 // Project imports:
 import 'package:inquire_near/bloc/bloc/transaction/transaction_bloc.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
+import 'package:move_to_background/move_to_background.dart';
 
 class ETAScreen extends StatefulWidget {
   const ETAScreen({Key? key}) : super(key: key);
@@ -49,33 +50,39 @@ class _ETAScreenState extends State<ETAScreen> {
               arguments: true);
         }
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: SizedBox(
-            width: double.infinity,
-            child: Padding(
-              padding: theme.kScreenPadding,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      const Text(
-                        'Waiting for Inquirer',
-                        style: theme.headline,
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      const Text(
-                        "Sit back and relax while our\ninquirer handles things for you.",
-                        style: theme.subhead,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: screenHeight * 0.03),
-                      Lottie.asset("assets/images/lottie/eta.json",
-                          height: screenHeight * 0.30),
-                    ],
-                  ),
-                ],
+      child: WillPopScope(
+        onWillPop: () async {
+          MoveToBackground.moveTaskToBack();
+          return false;
+        },
+        child: Scaffold(
+          body: SafeArea(
+            child: SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: theme.kScreenPadding,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        const Text(
+                          'Waiting for Inquirer',
+                          style: theme.headline,
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        const Text(
+                          "Sit back and relax while our\ninquirer handles things for you.",
+                          style: theme.subhead,
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: screenHeight * 0.03),
+                        Lottie.asset("assets/images/lottie/eta.json",
+                            height: screenHeight * 0.30),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
