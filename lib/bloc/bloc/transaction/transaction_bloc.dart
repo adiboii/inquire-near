@@ -50,6 +50,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<ListenForTransactionStatus>(_onListenForTransactionStatus);
     on<CompleteTransaction>(_onTransactionCompleted);
     on<ClearTransaction>(_onClearTransaction);
+    on<DeleteTransaction>(_onDeleteTransaction);
   }
 
   void _onCreateTransaction(CreateTransaction event, emit) async {
@@ -116,14 +117,18 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         .doc(transaction!.id)
         .snapshots()
         .listen((ev) async {
-      INTransaction t = INTransaction.fromJson(ev.data()!);
+      try {
+        INTransaction t = INTransaction.fromJson(ev.data()!);
 
-      if (t.payPalStatus == PayPalStatus.completed) {
-        if (t.payPalId.toString() != "" || t.payPalId != null) {
-          add(EmitSuccessfulTransactionStatus(t.payPalId.toString()));
+        if (t.payPalStatus == PayPalStatus.completed) {
+          if (t.payPalId.toString() != "" || t.payPalId != null) {
+            add(EmitSuccessfulTransactionStatus(t.payPalId.toString()));
+          }
+        } else if (t.payPalStatus == PayPalStatus.failed) {
+          add(EmitFailedTransactionStatus());
         }
-      } else if (t.payPalStatus == PayPalStatus.failed) {
-        add(EmitFailedTransactionStatus());
+      } catch (e) {
+        log("_onGetTransactionStatus Subscription error > $e");
       }
     });
   }
@@ -209,5 +214,19 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
   void _onClearTransaction(event, emit) async {
     transaction = null;
+  }
+
+  void _onDeleteTransaction(event, emit) async {
+    bool deleteStatus =
+        await transactionRepository.deleteTransaction(transaction!.id!);
+    try {
+      transaction = null;
+      transactionStatusSubscription!.cancel();
+    } catch (_) {}
+    if (deleteStatus) {
+      emit(TransactionDeleted());
+    } else {
+      log("Something went wrong in _onDeleteTransaction.");
+    }
   }
 }

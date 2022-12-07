@@ -64,6 +64,7 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
         listener: (context, state) {
           if (state is RejectedHiringRequest) {
             rebuildWidgetAndClearInquiry();
+            BlocProvider.of<TransactionBloc>(context).add(ClearTransaction());
             Navigator.pop(context);
           }
         },

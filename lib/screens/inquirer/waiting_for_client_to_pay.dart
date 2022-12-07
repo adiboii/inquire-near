@@ -53,6 +53,9 @@ class _WaitingForClientToPayState extends State<WaitingForClientToPay> {
             successText: 'Yes',
             onSuccess: () {
               BlocProvider.of<InquirerBloc>(context).add(RejectRequest());
+              BlocProvider.of<TransactionBloc>(context)
+                  .add(DeleteTransaction());
+
               rebuildWidgetAndClearInquiry();
               Navigator.pop(context, true);
             },
@@ -72,6 +75,11 @@ class _WaitingForClientToPayState extends State<WaitingForClientToPay> {
 
     return BlocListener<TransactionBloc, TransactionState>(
       listener: (context, state) {
+        if (state is TransactionDeleted) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              inquirerDashboardRoute, (route) => false);
+        }
+
         if (state is RetrievedTransactionStatus) {
           Navigator.of(context).pushNamed(inquirerInquiryListRoute);
         }
