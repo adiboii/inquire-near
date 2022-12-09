@@ -3,7 +3,6 @@ import 'package:inquire_near/data/models/base_model.dart';
 
 // ignore: must_be_immutable
 class InquiryList extends BaseModel {
-  //TODO: add remaining properties to add inquiry module (ADI)
   late String? id;
   int noOfInquiries = 0;
   int noOfRequireProof = 0;
@@ -25,7 +24,7 @@ class InquiryList extends BaseModel {
       "dateTimeCreated": super.dateTimeCreated,
     };
   }
-  
+
   @override
   List<Object?> get props => throw UnimplementedError();
 }

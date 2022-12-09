@@ -1,11 +1,7 @@
-// Dart imports:
-import 'dart:async';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
 class SplashScreen extends StatefulWidget {

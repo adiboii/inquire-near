@@ -12,7 +12,7 @@ class INTransaction extends BaseModel {
   final String clientId;
   String? inquirerId;
   final String inquiryListId;
-  final String store; //TODO: update to StoreData (ADI)
+  final String store;
   final bool isCompleted;
   double? amount;
   String? payPalId;
