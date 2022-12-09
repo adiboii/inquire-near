@@ -32,26 +32,24 @@ class _FindingInquirerScreenState extends State<FindingInquirerScreen> {
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: theme.kScreenPadding,
+            padding: theme.kScreenPadding.copyWith(top: 0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    const Text(
-                      "Finding an inquirer\nnear the area",
-                      style: theme.title3,
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: screenHeight * 0.01),
-                    Lottie.asset("assets/images/lottie/finding_inquirer.json",
-                        height: screenHeight * 0.4),
-                    SizedBox(height: screenHeight * 0.01),
-                    const Text(
-                      "Hold on...",
-                      style: theme.headline,
-                    ),
-                  ],
+                const Text(
+                  "Finding an inquirer\nnear the area",
+                  style: theme.title3,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: screenHeight * 0.01),
+                Lottie.asset("assets/images/lottie/finding_inquirer.json",
+                    height: screenHeight * 0.4),
+                SizedBox(height: screenHeight * 0.01),
+                const Text(
+                  "Hold on...",
+                  style: theme.headline,
+                ),
+                const SizedBox(
+                  width: double.infinity,
                 ),
               ],
             ),
