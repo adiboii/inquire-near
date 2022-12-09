@@ -11,6 +11,7 @@ class INUser extends BaseModel {
     this.uid,
     required this.firstName,
     required this.lastName,
+    this.emailAddress,
     this.role = Role.client,
     this.isActive,
   });
@@ -20,6 +21,7 @@ class INUser extends BaseModel {
   String? paypalAddress;
   Role role;
   bool? isActive;
+  final String? emailAddress;
 
   INUser.fromJson(Map<String, dynamic> json)
       : uid = json["uid"],
@@ -27,7 +29,8 @@ class INUser extends BaseModel {
         lastName = json["lastName"],
         role = getRoleFromString(json["role"]),
         isActive = json["isActive"],
-        paypalAddress = json['paypalAddress'];
+        paypalAddress = json['paypalAddress'],
+        emailAddress = json['emailAddress'];
 
   void setUID(String uid) {
     this.uid = uid;
@@ -48,7 +51,8 @@ class INUser extends BaseModel {
       'role': role.toValue(),
       'isActive': isActive,
       'dateTimeCreated': dateTimeCreated,
-      'paypalAddress': paypalAddress
+      'paypalAddress': paypalAddress,
+      'emailAddress': emailAddress,
     };
   }
 }

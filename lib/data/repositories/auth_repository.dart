@@ -181,11 +181,12 @@ class ReauthenticateUserFailure implements Exception {
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
 
-  Future<INUser> signUp(
-      {required String firstName,
-      required String lastName,
-      required String email,
-      required String password}) async {
+  Future<INUser> signUp({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -196,6 +197,7 @@ class AuthRepository {
         uid: _firebaseAuth.currentUser!.uid,
         firstName: firstName,
         lastName: lastName,
+        emailAddress: email,
       );
       await userDocument.set(user.toJSON());
 
@@ -299,6 +301,7 @@ class AuthRepository {
         uid: _firebaseAuth.currentUser!.uid,
         firstName: idMap['given_name'],
         lastName: idMap['family_name'],
+        emailAddress: _firebaseAuth.currentUser!.email,
         isActive: null,
       );
       await userDocument.set(user.toJSON());
