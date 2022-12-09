@@ -46,6 +46,10 @@ class _InquirerInquiryListScreenState extends State<InquirerInquiryListScreen> {
           isComplete = true;
           setState(() {});
         }
+
+        if (state is SavedInquiryAnswer) {
+          BlocProvider.of<TransactionBloc>(context).add(FinishTransaction());
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -101,10 +105,6 @@ class _InquirerInquiryListScreenState extends State<InquirerInquiryListScreen> {
                                     user!.paypalAddress!,
                                     transaction.amount!),
                               );
-
-                              // ignore: use_build_context_synchronously
-                              BlocProvider.of<TransactionBloc>(context)
-                                  .add(FinishTransaction());
 
                               // ignore: use_build_context_synchronously
                               Navigator.of(context).pushReplacementNamed(

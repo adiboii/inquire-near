@@ -31,55 +31,61 @@ class _ETAScreenState extends State<ETAScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     INTransaction? transaction;
-    return BlocListener<TransactionBloc, TransactionState>(
+    return BlocListener<InquiryBloc, InquiryState>(
       listener: (context, state) {
-        if (state is TransactionCompleted) {
-          transaction = BlocProvider.of<TransactionBloc>(context).transaction!;
-
-          BlocProvider.of<TransactionBloc>(context)
-              .add((ViewRecentTransaction(transaction: transaction!)));
-        }
-
-        if (state is RetrievedTransactionDetails) {
-          BlocProvider.of<InquiryBloc>(context).add(
-              GetClientInquiries(inquiryListID: transaction!.inquiryListId));
-
+        if (state is ClientInquiriesRetrieved) {
           Navigator.pushNamed(context, transactionInquiryListRoute,
               arguments: true);
         }
       },
-      child: WillPopScope(
-        onWillPop: () async {
-          MoveToBackground.moveTaskToBack();
-          return false;
+      child: BlocListener<TransactionBloc, TransactionState>(
+        listener: (context, state) {
+          if (state is TransactionCompleted) {
+            transaction =
+                BlocProvider.of<TransactionBloc>(context).transaction!;
+
+            BlocProvider.of<TransactionBloc>(context)
+                .add((ViewRecentTransaction(transaction: transaction!)));
+          }
+
+          if (state is RetrievedTransactionDetails) {
+            BlocProvider.of<InquiryBloc>(context).add(
+                GetClientInquiries(inquiryListID: transaction!.inquiryListId));
+          }
         },
-        child: Scaffold(
-          body: SafeArea(
-            child: SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: theme.kScreenPadding,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        const Text(
-                          'Waiting for Inquirer',
-                          style: theme.headline,
-                        ),
-                        SizedBox(height: screenHeight * 0.02),
-                        const Text(
-                          "Sit back and relax while our\ninquirer handles things for you.",
-                          style: theme.subhead,
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: screenHeight * 0.03),
-                        Lottie.asset("assets/images/lottie/eta.json",
-                            height: screenHeight * 0.30),
-                      ],
-                    ),
-                  ],
+        child: WillPopScope(
+          onWillPop: () async {
+            MoveToBackground.moveTaskToBack();
+            return false;
+          },
+          child: Scaffold(
+            body: SafeArea(
+              child: SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: theme.kScreenPadding,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          const Text(
+                            'Waiting for Inquirer',
+                            style: theme.headline,
+                          ),
+                          SizedBox(height: screenHeight * 0.02),
+                          const Text(
+                            "Sit back and relax while our\ninquirer handles things for you.",
+                            style: theme.subhead,
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: screenHeight * 0.03),
+                          Lottie.asset("assets/images/lottie/eta.json",
+                              height: screenHeight * 0.30),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
