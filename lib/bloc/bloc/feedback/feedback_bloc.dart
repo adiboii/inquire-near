@@ -14,21 +14,23 @@ part 'feedback_state.dart';
 class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
   final FeedbackRepository feedbackRepository;
   FeedbackBloc({required this.feedbackRepository}) : super(FeedbackEmpty()) {
-    on<SubmitFeedbackRequested>((event, emit) async {
-      emit(FeedbackLoading());
-      try {
-        await feedbackRepository.submitFeedback(
-          feedbackerId: event.feedbackerId,
-          recepientId: event.recepientId,
-          rating: event.rating,
-          review: event.review,
-          transactionId: event.transactionId,
-        );
-        emit(FeedbackSuccess());
-      } catch (e) {
-        emit(FeedbackError(e.toString()));
-        emit(FeedbackEmpty());
-      }
-    });
+    on<SubmitFeedbackRequested>(_onSubmitFeedback);
+  }
+
+  Future<void> _onSubmitFeedback(event, emit) async {
+    emit(FeedbackLoading());
+    try {
+      await feedbackRepository.submitFeedback(
+        feedbackerId: event.feedbackerId,
+        recepientId: event.recepientId,
+        rating: event.rating,
+        review: event.review,
+        transactionId: event.transactionId,
+      );
+      emit(FeedbackSuccess());
+    } catch (e) {
+      emit(FeedbackError(e.toString()));
+      emit(FeedbackEmpty());
+    }
   }
 }
