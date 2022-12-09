@@ -87,7 +87,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     INTransaction transaction = await transactionRepository
         .getTransactionDetails(hiringRequest!.transactionId);
     // Retrieve User Data
-    client = await transactionRepository.getUserData(transaction.clientId);
     transaction.uid = hiringRequest!.transactionId;
 
     this.transaction = transaction;

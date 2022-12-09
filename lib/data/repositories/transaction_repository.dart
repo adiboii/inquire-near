@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Project imports:
 import 'package:inquire_near/collections.dart';
-import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/models/inquiry_list.dart';
 import 'package:inquire_near/data/models/transaction.dart';
 import 'package:inquire_near/enums/role.dart';
@@ -28,21 +27,9 @@ class TransactionRepository {
             .doc(transactionId)
             .get();
 
-    log("TRNASACTION ID: > $transactionId");
     INTransaction transaction = INTransaction.fromJson(transactionDoc.data()!);
     transaction.id = transactionDoc.id;
     return transaction;
-  }
-
-  Future<INUser> getUserData(String userId) async {
-    DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
-        .instance
-        .collection(userCollection)
-        .doc(userId)
-        .get();
-    INUser userData = INUser.fromJson(user.data()!);
-
-    return userData;
   }
 
   Future<InquiryList> getInquiryList(String inquiryListId) async {

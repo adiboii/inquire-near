@@ -8,6 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/feedback.dart';
 import 'package:inquire_near/data/models/in_user.dart';
+import 'package:inquire_near/data/models/transaction.dart';
+import 'package:inquire_near/data/repositories/transaction_repository.dart';
 import 'package:inquire_near/enums/role.dart';
 
 class UserRepository {
@@ -49,6 +51,13 @@ class UserRepository {
     double ratingSum = 0;
     for (var element in feedbackDocs.docs) {
       Feedback feedback = Feedback.fromJson(element.data());
+
+      // Get transaction of feedback
+      INTransaction t = await TransactionRepository()
+          .getTransactionDetails(feedback.transactionId);
+      if (userId != t.inquirerId) {
+        continue;
+      }
 
       // Get User to get first name of client
       INUser client = await getUser(element["feedbackerId"]);
