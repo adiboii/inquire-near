@@ -69,7 +69,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               }
 
               if (state is EditedProfile) {
-                Navigator.of(context).pushReplacementNamed(profileRoute);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    clientDashboardRoute, (route) => false);
                 BlocProvider.of<AuthBloc>(context).add(InitState());
               }
             },
