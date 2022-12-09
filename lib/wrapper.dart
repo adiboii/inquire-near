@@ -58,9 +58,7 @@ class _WrapperState extends State<Wrapper> {
 
         if (user != null &&
             (user.paypalAddress == null || user.paypalAddress == "")) {
-          // log("HERE!!");
           return PaypalAccountScreen();
-          // Navigator.of(context).pushNamed(paypalAccountRoute);
         }
 
         if (user!.role == Role.inquirer) {
