@@ -7,7 +7,6 @@ class Report extends BaseModel {
   final String? transactionId;
   final String title;
   final String description;
-  final ReportType? reportType;
   final String? reporterId;
   final String? recepientId;
 
@@ -15,7 +14,6 @@ class Report extends BaseModel {
     this.transactionId,
     required this.title,
     required this.description,
-    this.reportType,
     this.recepientId,
     this.reporterId,
   }) : super();

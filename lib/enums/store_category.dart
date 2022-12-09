@@ -2,7 +2,7 @@ enum StoreCategory {
   dining,
   entertainment,
   cinema,
-  hadgets,
+  gadgets,
   services,
   shopping,
 }
