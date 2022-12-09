@@ -61,6 +61,7 @@ class InquiryBloc extends Bloc<InquiryEvent, InquiryState> {
           answerImageUrl: answerImgUrl,
         );
       }
+      emit(SavedInquiryAnswer());
     } catch (e) {
       log("onAnswerInquiry: ${e.toString()}");
     }

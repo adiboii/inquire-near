@@ -57,6 +57,7 @@ class _InputReportState extends State<InputReport> {
             ),
             child: TextField(
               controller: widget.description,
+              maxLines: null,
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 isDense: true,
