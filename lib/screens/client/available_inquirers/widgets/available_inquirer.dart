@@ -19,7 +19,6 @@ class AvailableInquirer extends StatefulWidget {
 }
 
 class _AvailableInquirerState extends State<AvailableInquirer> {
-  //TODO: put to repo (Cymmer)
   Future<Map<String, dynamic>> _getUserFeedback(String inquirerId) async {
     Map<String, dynamic> userData =
         await UserRepository().getUserData(inquirerId);
@@ -27,7 +26,9 @@ class _AvailableInquirerState extends State<AvailableInquirer> {
     // Compute average rating
     double ratingSum = 0;
     for (var element in userData['feedbacks']) {
-      ratingSum += element["rating"];
+      element.forEach((k, v) {
+        ratingSum += v.rating;
+      });
     }
     double ratingAverage = ratingSum / userData['feedbacks'].length;
 
