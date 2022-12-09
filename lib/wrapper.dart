@@ -1,9 +1,12 @@
 // Flutter imports:
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inquire_near/enums/role.dart';
+import 'package:inquire_near/screens/common/paypal_account_screen.dart';
 import 'package:inquire_near/screens/inquirer/inquirer_dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,6 +38,7 @@ class _WrapperState extends State<Wrapper> {
         showOnboarding = preferences!.getBool('showOnboarding');
       }
     });
+
     BlocProvider.of<AuthBloc>(context).add(InitState());
   }
 
@@ -51,6 +55,14 @@ class _WrapperState extends State<Wrapper> {
     }, builder: (context, state) {
       if (state is Authenticated && !state.isFromSignup) {
         INUser? user = BlocProvider.of<AuthBloc>(context).user;
+
+        if (user != null &&
+            (user.paypalAddress == null || user.paypalAddress == "")) {
+          // log("HERE!!");
+          return PaypalAccountScreen();
+          // Navigator.of(context).pushNamed(paypalAccountRoute);
+        }
+
         if (user!.role == Role.inquirer) {
           return const InquirerDashboardScreen();
         }
