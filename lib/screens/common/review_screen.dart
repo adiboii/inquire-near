@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:inquire_near/bloc/bloc/Inquiry/inquiry_bloc.dart';
+import 'package:inquire_near/bloc/bloc/auth/auth_bloc.dart';
 
 // Project imports:
 import 'package:inquire_near/bloc/bloc/feedback/feedback_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:inquire_near/components/bordered_profile_picture.dart';
 import 'package:inquire_near/components/buttons.dart';
 import 'package:inquire_near/data/models/in_user.dart';
 import 'package:inquire_near/data/models/transaction.dart';
+import 'package:inquire_near/enums/role.dart';
 import 'package:inquire_near/routes.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 
@@ -34,12 +36,14 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   INTransaction? transaction;
   INUser? user;
   String? userId;
-
+  late Role role;
   bool hasRated = false;
 
-  void _submitFeedback(context) {
+  void _submitFeedback(context, Role role) {
     BlocProvider.of<InquiryBloc>(context).add(ClearInquiry());
     BlocProvider.of<TransactionBloc>(context).add(ClearTransaction());
+    BlocProvider.of<TransactionBloc>(context).add(GetRecentTransaction(
+        role: role, userId: BlocProvider.of<AuthBloc>(context).user!.uid!));
     BlocProvider.of<FeedbackBloc>(context).add(
       SubmitFeedbackRequested(
         widget.feedbackerId,
@@ -59,8 +63,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
     if (widget.recepientId == transactionBloc.client!.uid) {
       user = BlocProvider.of<TransactionBloc>(context).client;
+      role = Role.inquirer;
     } else {
       user = BlocProvider.of<TransactionBloc>(context).inquirer;
+      role = Role.client;
     }
 
     double screenHeight = MediaQuery.of(context).size.height;
@@ -166,7 +172,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     style: theme.caption1Bold,
                     onTap: (hasRated)
                         ? () {
-                            _submitFeedback(context);
+                            _submitFeedback(context, role);
                             Navigator.pushNamedAndRemoveUntil(context,
                                 clientDashboardRoute, (route) => false);
                           }
