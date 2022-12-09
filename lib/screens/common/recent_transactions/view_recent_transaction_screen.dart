@@ -48,6 +48,7 @@ class _ViewTransactionScreenState extends State<ViewTransactionScreen> {
         role: widget.role,
         userId: BlocProvider.of<AuthBloc>(context).user!.uid!));
     BlocProvider.of<InquiryBloc>(context).add(ClearInquiry());
+    BlocProvider.of<TransactionBloc>(context).add(ClearTransaction());
   }
 
   @override
