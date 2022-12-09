@@ -66,12 +66,52 @@ class UserRepository {
 
       ratingSum += element["rating"];
     }
-    double ratingAverage = ratingSum / feedbackDocs.docs.length;
+    double ratingAverage = ratingSum / feedbacks.length;
 
     Map<String, dynamic> computedFeedbackMap = {
       "user": await getUser(userId),
       "feedbacks": feedbacks,
-      "numberOfFeedbacks": feedbackDocs.docs.length,
+      "numberOfFeedbacks": feedbacks.length,
+      "averageRating": ratingAverage,
+      "numberOfInquiries": await _getUserInquiriesCount(userId)
+    };
+
+    return computedFeedbackMap;
+  }
+
+  Future<Map<String, dynamic>> getClientData(String userId) async {
+    QuerySnapshot<Map<String, dynamic>> feedbackDocs = await FirebaseFirestore
+        .instance
+        .collection(feedbackCollection)
+        .where('recepientId', isEqualTo: userId)
+        .get();
+
+    List<Map<String, Feedback>> feedbacks = [];
+
+    double ratingSum = 0;
+    for (var element in feedbackDocs.docs) {
+      Feedback feedback = Feedback.fromJson(element.data());
+
+      // Get transaction of feedback
+      INTransaction t = await TransactionRepository()
+          .getTransactionDetails(feedback.transactionId);
+      if (userId != t.clientId) {
+        continue;
+      }
+
+      // Get User to get first name of client
+      INUser client = await getUser(element["feedbackerId"]);
+
+      feedbacks.add({client.firstName!: feedback});
+
+      ratingSum += element["rating"];
+    }
+    double ratingAverage = ratingSum / feedbacks.length;
+
+    Map<String, dynamic> computedFeedbackMap = {
+      "user": await getUser(userId),
+      "feedbacks": feedbacks,
+      "numberOfFeedbacks": feedbacks.length,
       "averageRating": ratingAverage,
       "numberOfInquiries": await _getUserInquiriesCount(userId)
     };

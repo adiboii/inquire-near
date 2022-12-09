@@ -92,7 +92,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     this.transaction = transaction;
 
     Map<String, dynamic> userData =
-        await userRepository.getUserData(hiringRequest!.clientId);
+        await userRepository.getClientData(hiringRequest!.clientId);
 
     InquiryList inquiryList =
         await transactionRepository.getInquiryList(transaction.inquiryListId);

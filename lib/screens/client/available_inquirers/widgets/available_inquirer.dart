@@ -2,12 +2,11 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 // Project imports:
-import 'package:inquire_near/collections.dart';
 import 'package:inquire_near/data/models/in_user.dart';
+import 'package:inquire_near/data/repositories/user_repository.dart';
 import 'package:inquire_near/themes/app_theme.dart' as theme;
 import 'package:inquire_near/utils.dart' as utils;
 
@@ -22,22 +21,19 @@ class AvailableInquirer extends StatefulWidget {
 class _AvailableInquirerState extends State<AvailableInquirer> {
   //TODO: put to repo (Cymmer)
   Future<Map<String, dynamic>> _getUserFeedback(String inquirerId) async {
-    QuerySnapshot<Map<String, dynamic>> feedbacks = await FirebaseFirestore
-        .instance
-        .collection(feedbackCollection)
-        .where('recepientId', isEqualTo: inquirerId)
-        .get();
+    Map<String, dynamic> userData =
+        await UserRepository().getUserData(inquirerId);
 
     // Compute average rating
     double ratingSum = 0;
-    for (var element in feedbacks.docs) {
+    for (var element in userData['feedbacks']) {
       ratingSum += element["rating"];
     }
-    double ratingAverage = ratingSum / feedbacks.docs.length;
+    double ratingAverage = ratingSum / userData['feedbacks'].length;
 
     Map<String, dynamic> computedFeedbackMap = {
       "averageRating": ratingAverage,
-      "numberOfFeedbacks": feedbacks.docs.length
+      "numberOfFeedbacks": userData['feedbacks'].length
     };
 
     return computedFeedbackMap;
