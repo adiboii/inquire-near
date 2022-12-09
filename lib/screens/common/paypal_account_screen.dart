@@ -25,76 +25,87 @@ class PaypalAccountScreen extends StatelessWidget {
         BlocProvider.of<AuthBloc>(context).add(
           StorePaypalAddressRequested(emailAddressTextController.text),
         );
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(clientDashboardRoute, (route) => false);
       }
     }
 
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: theme.kScreenPadding,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset(
-                  'assets/images/logos/paypal.png',
-                  height: screenHeight * 0.18,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.03,
-                ),
-                const Text(
-                  'Connect your\n PayPal Account',
-                  style: theme.title3,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.03,
-                ),
-                const Text(
-                  'Please enter your PayPal email address',
-                  style: theme.caption2,
-                ),
-                SizedBox(
-                  height: screenHeight * 0.03,
-                ),
-                Form(
-                  key: _globalKey,
-                  child: InputField(
-                    label: 'Email Address',
-                    controller: emailAddressTextController,
-                    icon: Icons.email,
-                    validator: (string) {
-                      if (!inputValidator.isEmpty(string)) {
-                        if (!inputValidator.isValidEmailAddress(string)) {
-                          return 'Invalid Email Address format';
-                        }
-                      } else {
-                        return 'Please enter your email address';
-                      }
-                      return null;
-                    },
+        child: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is PaypalAddressStored) {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(wrapperRoute, (route) => false);
+            }
+
+            if (state is Unauthenticated) {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(landingRoute, (route) => false);
+            }
+          },
+          child: Padding(
+            padding: theme.kScreenPadding,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'assets/images/logos/paypal.png',
+                    height: screenHeight * 0.18,
                   ),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.04,
-                ),
-                ButtonFill(
-                  label: 'Connect',
-                  onTap: storePaypalAddress,
-                ),
-                SizedBox(height: screenHeight * 0.02),
-                GestureDetector(
-                  onTap: () {
-                    BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
-                    Navigator.of(context).pushNamed(landingRoute);
-                  },
-                  child: const Text("Sign Out"),
-                ),
-              ],
+                  SizedBox(
+                    height: screenHeight * 0.03,
+                  ),
+                  const Text(
+                    'Connect your\n PayPal Account',
+                    style: theme.title3,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.03,
+                  ),
+                  const Text(
+                    'Please enter your PayPal email address',
+                    style: theme.caption2,
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.03,
+                  ),
+                  Form(
+                    key: _globalKey,
+                    child: InputField(
+                      label: 'Email Address',
+                      controller: emailAddressTextController,
+                      icon: Icons.email,
+                      validator: (string) {
+                        if (!inputValidator.isEmpty(string)) {
+                          if (!inputValidator.isValidEmailAddress(string)) {
+                            return 'Invalid Email Address format';
+                          }
+                        } else {
+                          return 'Please enter your email address';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.04,
+                  ),
+                  ButtonFill(
+                    label: 'Connect',
+                    onTap: storePaypalAddress,
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  GestureDetector(
+                    onTap: () {
+                      BlocProvider.of<AuthBloc>(context)
+                          .add(SignOutRequested());
+                    },
+                    child: const Text("Sign Out"),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

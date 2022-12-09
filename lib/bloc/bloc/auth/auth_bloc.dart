@@ -59,7 +59,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       StorePaypalAddressRequested event, Emitter<AuthState> emit) async {
     try {
       await authRepository.storePaypalAddress(paypalAddress: event.email);
-      emit(Authenticated(isFromSignup: false));
+      emit(PaypalAddressStored());
     } catch (_) {}
   }
 
