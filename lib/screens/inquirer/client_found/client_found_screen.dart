@@ -30,8 +30,6 @@ class ClientFoundScreen extends StatefulWidget {
 }
 
 class _ClientFoundScreenState extends State<ClientFoundScreen> {
-  late Timer timer;
-
   @override
   void initState() {
     super.initState();
@@ -68,27 +66,10 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
   }
 
   @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     // Screen Dimensions
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
-    timer = Timer(
-      const Duration(seconds: 30),
-      () {
-        BlocProvider.of<InquirerBloc>(context).add(RejectRequest());
-        BlocProvider.of<TransactionBloc>(context).add(GetRecentTransaction(
-            role: Role.inquirer,
-            userId: BlocProvider.of<AuthBloc>(context).user!.uid!));
-        Navigator.of(context).pop();
-      },
-    );
 
     return WillPopScope(
       onWillPop: () async {
@@ -105,7 +86,6 @@ class _ClientFoundScreenState extends State<ClientFoundScreen> {
             child: BlocListener<InquirerBloc, InquirerState>(
               listener: (context, state) {
                 if (state is AcceptedRequest) {
-                  timer.cancel();
                   Navigator.of(context).pushNamed(waitingForClientToPayRoute);
                 }
               },
