@@ -1,6 +1,5 @@
 // Project imports:
 import 'package:inquire_near/data/models/base_model.dart';
-import 'package:inquire_near/data/models/enums.dart';
 
 //ignore: must_be_immutable
 class Report extends BaseModel {

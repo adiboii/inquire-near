@@ -14,7 +14,6 @@ class ReportRepository {
     required String reporterId,
     required String recepientId,
   }) async {
-    // TODO: change 'transaction-id' to auto generated id (MEL)
     final reportDocument =
         FirebaseFirestore.instance.collection(reportCollection);
     final report = Report(

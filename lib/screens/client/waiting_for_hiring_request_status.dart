@@ -61,7 +61,6 @@ class _WaitingForHiringRequestStatus
     return BlocListener<ClientBloc, ClientState>(
       listener: (context, state) {
         if (state is AcceptedHiringRequest) {
-          // TODO: pass data to payment summary route (CYMMER)
           Navigator.of(context).pushNamed(paymentSummaryRoute);
         }
 

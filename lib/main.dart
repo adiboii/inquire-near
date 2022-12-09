@@ -41,6 +41,7 @@ Future<void> main() async {
   runApp(InquireNear(appRouter: AppRouter()));
 }
 
+// ignore: must_be_immutable
 class InquireNear extends StatefulWidget {
   InquireNear({super.key, required this.appRouter});
   final AppRouter appRouter;

@@ -118,7 +118,6 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
                   ButtonFill(
                       label: "Continue",
                       style: theme.caption1Bold,
-                      // TODO: Use actual data instead of dummy data (CYMMER)
                       onTap: () => pay(context, transaction)),
                 ],
               ),

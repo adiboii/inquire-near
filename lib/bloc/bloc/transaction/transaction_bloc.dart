@@ -18,8 +18,6 @@ import 'package:inquire_near/data/repositories/user_repository.dart';
 import 'package:inquire_near/enums/paypal_status.dart';
 import 'package:inquire_near/enums/role.dart';
 
-// import 'package:meta/meta.dart'; // TODO: Check if commenting this still works (CYMMER)
-
 part 'transaction_event.dart';
 part 'transaction_state.dart';
 

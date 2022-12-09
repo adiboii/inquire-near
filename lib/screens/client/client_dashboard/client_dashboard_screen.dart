@@ -116,7 +116,6 @@ class _ClientDashboardScreenState extends State<ClientDashboardScreen> {
                   style: theme.headline,
                 ),
                 SizedBox(height: screenHeight * 0.02),
-                //TODO: convert to widget (MEL)
                 SizedBox(
                   height: screenHeight * 0.04,
                   child: ListView.builder(
@@ -159,7 +158,6 @@ class _ClientDashboardScreenState extends State<ClientDashboardScreen> {
                       style: theme.headline,
                     ),
                     SizedBox(height: screenHeight * 0.025),
-                    //TODO: convert to widget (MEL)
                     Row(
                       children: [
                         const Expanded(
